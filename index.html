@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ElevatIA | Automatización e Inteligencia Artificial de Alto Impacto</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ee2bee",
+                        "accent-blue": "#2b9eee",
+                        "background-dark": "#020202",
+                        "glass": "rgba(10, 10, 15, 0.6)",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "sans": ["Space Grotesk", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-background-dark text-white font-sans overflow-x-hidden;
+                background-image:
+                    linear-gradient(rgba(238, 43, 238, 0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(43, 158, 238, 0.04) 1px, transparent 1px);
+                background-size: 60px 60px;
+                background-attachment: fixed;
+            }
+        }
+        .glass-card {
+            background: rgba(10, 10, 15, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-border-magenta {
+            border: 1px solid rgba(238, 43, 238, 0.3);
+            box-shadow: 0 0 15px rgba(238, 43, 238, 0.1);
+        }
+        .glow-border-blue {
+            border: 1px solid rgba(43, 158, 238, 0.3);
+            box-shadow: 0 0 15px rgba(43, 158, 238, 0.1);
+        }
+        .glow-button {
+            box-shadow: 0 0 25px rgba(238, 43, 238, 0.35);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 40px rgba(238, 43, 238, 0.6);
+            transform: translateY(-3px) scale(1.02);
+        }
+        .text-gradient-hero {
+            background: linear-gradient(90deg, #ee2bee, #2b9eee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .ambient-glow-pink {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(238, 43, 238, 0.15) 0%, transparent 70%);
+            filter: blur(80px);
+            z-index: -1;
+        }
+        .ambient-glow-blue {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(43, 158, 238, 0.15) 0%, transparent 70%);
+            filter: blur(80px);
+            z-index: -1;
+        }
+        .logo-gradient-text {
+            background: linear-gradient(90deg, #2b9eee 0%, #ee2bee 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+<header class="fixed top-0 w-full z-50 border-b border-white/5 bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="flex items-center text-3xl font-bold tracking-tight">
+<span class="logo-gradient-text">ElevatIA</span>
+</div>
+</div>
+<nav class="hidden lg:flex items-center gap-10">
+<a class="text-xs font-bold hover:text-primary transition-colors uppercase tracking-[0.2em]" href="#que-es">¿Qué es?</a>
+<a class="text-xs font-bold hover:text-primary transition-colors uppercase tracking-[0.2em]" href="#solucion">Solución</a>
+<a class="text-xs font-bold hover:text-primary transition-colors uppercase tracking-[0.2em]" href="#servicios">Servicios</a>
+<a class="text-xs font-bold hover:text-primary transition-colors uppercase tracking-[0.2em]" href="#beneficios">Beneficios</a>
+</nav>
+<div class="flex items-center gap-6">
+<a class="hidden sm:block text-xs font-bold tracking-widest hover:text-primary transition-colors" href="https://wa.me/18492207283?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20ElevatIA">CONTACTO</a>
+<a class="px-8 py-2.5 bg-primary text-white text-xs font-bold rounded-full glow-button uppercase tracking-widest" href="https://wa.me/18492207283?text=Hola%2C%20quiero%20empezar%20con%20ElevatIA" target="_blank" rel="noopener">Empezar</a>
+</div>
+</div>
+</header>
+<main>
+<section class="relative min-h-screen flex items-center px-6 pt-20 overflow-hidden">
+<div class="ambient-glow-pink -top-20 -left-40"></div>
+<div class="ambient-glow-blue bottom-0 -right-40"></div>
+<div class="max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-7 z-10">
+<div class="mb-8 inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">Vanguardia Tecnológica</span>
+</div>
+<h1 class="text-7xl md:text-9xl font-black tracking-tighter mb-10 leading-[0.9] uppercase">
+                    Automatiza<br/>
+<span class="text-gradient-hero">Escala</span><br/>
+                    Evoluciona
+                </h1>
+<p class="text-xl text-slate-400 max-w-xl mb-12 font-light leading-relaxed">
+                    Impulsamos tu negocio al siguiente nivel mediante la integración estratégica de inteligencia artificial y procesos autónomos de alto rendimiento.
+                </p>
+<div class="flex flex-col sm:flex-row gap-6">
+<a class="inline-block px-10 py-5 bg-primary text-white font-black rounded-xl text-sm glow-button uppercase tracking-[0.2em] text-center" href="https://wa.me/18492207283?text=Hola%2C%20quiero%20agendar%20una%20reuni%C3%B3n%20con%20ElevatIA" target="_blank" rel="noopener">
+                        Agenda una reunión
+                    </a>
+<a class="inline-block px-10 py-5 border border-white/10 glass-card rounded-xl font-black text-sm hover:bg-white/5 transition-all uppercase tracking-[0.2em] text-center" href="#que-es">
+                        Saber más
+                    </a>
+</div>
+</div>
+<div class="lg:col-span-5 relative">
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-accent-blue rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-white/10 glass-card">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDYkKpJFmOgh6ohra4c7CSBPVsYmmQaWmmceiFrd1Lk0voTfQxkG_JlGSazrrvNvvgAQUTBgZtEoafB6gpd-HrkftEv2RxNjb2CNYSeAUnbGs2nra94Niid1XLBUCUqmjp-rj-Hb-QlvHWIhL7ECQfNbT5DZyAcqsSQmUwHJnyD-FKgO6C_0eix-bsY1uuwy3g1jamLpVykLHCHltvblqrnj_92PNCrNwfme2Sj8N42MIJk358CHV2dbO1elRLzfwn-Ird1UwPyA1I')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent opacity-80"></div>
+<div class="absolute bottom-10 left-10 right-10 p-8 glass-card rounded-2xl glow-border-magenta">
+<div class="flex items-center gap-2 mb-2">
+<span class="size-1.5 rounded-full bg-primary animate-pulse"></span>
+<p class="text-[10px] font-mono text-primary tracking-widest uppercase">Data_Stream: Active</p>
+</div>
+<p class="text-xl font-bold tracking-tight">Protocolo de Inteligencia Híbrida v4.0</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-32 px-6 relative" id="que-es">
+<div class="max-w-7xl mx-auto">
+<div class="grid lg:grid-cols-2 gap-24 items-center">
+<div class="relative">
+<div class="aspect-square rounded-[3rem] overflow-hidden glass-card glow-border-blue p-2">
+<div class="w-full h-full rounded-[2.5rem] bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDbKIqoDfOliWGea4upu11sQqo8ik1FCUOHUXkWLmNRh7GI80UoDaJlVp6EVvyt1UfoaBjGAsicQ6ROjeNe1x3dwpmJMea9LHOwAarAIOGLb0nypfu6lWT-NY5mlgNksiczVM6qepeyEmJZAo-JZ_qJIsGMYfCgunLgXr6FKsjvGuDEsfjWNY7LFun838McE88S-9cw6eVxDqoR8dwcRGwrpFify_gi1gYfEASwNy0dQ1EV3l92DUivLvvWNIHwoBXJNLG3qQieC_Q')"></div>
+</div>
+<div class="absolute -bottom-10 -right-10 size-48 bg-primary/10 blur-3xl rounded-full"></div>
+</div>
+<div>
+<h3 class="text-primary font-bold uppercase tracking-[0.3em] text-xs mb-6">Misión y Visión</h3>
+<h2 class="text-5xl md:text-6xl font-black mb-10 uppercase italic tracking-tighter">¿QUÉ ES ELEVATIA?</h2>
+<p class="text-slate-400 text-lg leading-relaxed mb-12 font-light">
+                        Somos una consultora boutique especializada en la transformación digital profunda. ElevatIA nace de la intersección entre la ingeniería de datos y la visión estratégica de negocio, permitiendo que empresas tradicionales se conviertan en potencias impulsadas por IA.
+                    </p>
+<div class="grid grid-cols-2 gap-8">
+<div class="p-8 glass-card rounded-3xl glow-border-magenta">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">memory</span>
+<h4 class="font-bold text-lg mb-2 uppercase tracking-tight">Innovación</h4>
+<p class="text-xs text-slate-500 leading-relaxed">Tecnología de punta aplicada a casos reales.</p>
+</div>
+<div class="p-8 glass-card rounded-3xl glow-border-blue">
+<span class="material-symbols-outlined text-accent-blue text-3xl mb-4">query_stats</span>
+<h4 class="font-bold text-lg mb-2 uppercase tracking-tight">Escalabilidad</h4>
+<p class="text-xs text-slate-500 leading-relaxed">Sistemas que crecen con tu demanda sin fricción.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-32 px-6" id="solucion">
+<div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-10">
+<div class="p-16 glass-card rounded-[3rem] glow-border-magenta relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-8 opacity-10">
+<span class="material-symbols-outlined text-8xl">warning</span>
+</div>
+<h2 class="text-4xl font-black mb-10 flex items-center gap-4 italic uppercase">
+<span class="material-symbols-outlined text-primary">error_outline</span>
+                    EL PROBLEMA
+                </h2>
+<ul class="space-y-8">
+<li class="flex gap-6 group/item">
+<span class="text-primary font-black text-2xl italic">01.</span>
+<p class="text-slate-400 text-lg leading-snug">Procesos manuales obsoletos que consumen el 70% del tiempo operativo del equipo.</p>
+</li>
+<li class="flex gap-6 group/item">
+<span class="text-primary font-black text-2xl italic">02.</span>
+<p class="text-slate-400 text-lg leading-snug">Falta de visibilidad sobre los datos críticos, dificultando la toma de decisiones.</p>
+</li>
+<li class="flex gap-6 group/item">
+<span class="text-primary font-black text-2xl italic">03.</span>
+<p class="text-slate-400 text-lg leading-snug">Incapacidad para escalar ante una competencia que ya está integrando IA.</p>
+</li>
+</ul>
+</div>
+<div class="p-16 glass-card rounded-[3rem] glow-border-blue relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-8 opacity-10">
+<span class="material-symbols-outlined text-8xl">verified</span>
+</div>
+<h2 class="text-4xl font-black mb-10 flex items-center gap-4 italic uppercase">
+<span class="material-symbols-outlined text-accent-blue">task_alt</span>
+                    LA SOLUCIÓN
+                </h2>
+<ul class="space-y-8">
+<li class="flex gap-6">
+<span class="text-accent-blue font-black text-2xl italic">01.</span>
+<p class="text-slate-400 text-lg leading-snug">Implementación de agentes de IA personalizados que trabajan 24/7 sin errores.</p>
+</li>
+<li class="flex gap-6">
+<span class="text-accent-blue font-black text-2xl italic">02.</span>
+<p class="text-slate-400 text-lg leading-snug">Paneles de control inteligentes con predicción y análisis en tiempo real.</p>
+</li>
+<li class="flex gap-6">
+<span class="text-accent-blue font-black text-2xl italic">03.</span>
+<p class="text-slate-400 text-lg leading-snug">Estructura de costos optimizada y capacidad de crecimiento exponencial.</p>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="py-32 px-6">
+<div class="max-w-7xl mx-auto text-center mb-24">
+<h2 class="text-5xl font-black uppercase tracking-tighter italic mb-8">CÓMO TRABAJAMOS</h2>
+<div class="w-32 h-1.5 bg-gradient-to-r from-primary to-accent-blue mx-auto rounded-full"></div>
+</div>
+<div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+<div class="relative group text-center">
+<div class="size-24 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-8 border border-white/10 group-hover:glow-border-magenta transition-all">
+<span class="material-symbols-outlined text-4xl text-primary">search</span>
+</div>
+<h4 class="font-black text-xl mb-3 uppercase tracking-tight italic">1. Auditoría</h4>
+<p class="text-slate-500 text-sm font-light px-4">Identificamos cuellos de botella y oportunidades de automatización.</p>
+<div class="hidden lg:block absolute top-12 left-[70%] w-full h-[1px] bg-gradient-to-r from-white/10 to-transparent"></div>
+</div>
+<div class="relative group text-center">
+<div class="size-24 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-8 border border-white/10 group-hover:glow-border-blue transition-all">
+<span class="material-symbols-outlined text-4xl text-accent-blue">architecture</span>
+</div>
+<h4 class="font-black text-xl mb-3 uppercase tracking-tight italic">2. Diseño</h4>
+<p class="text-slate-500 text-sm font-light px-4">Creamos tu arquitectura de IA a medida según tus objetivos.</p>
+<div class="hidden lg:block absolute top-12 left-[70%] w-full h-[1px] bg-gradient-to-r from-white/10 to-transparent"></div>
+</div>
+<div class="relative group text-center">
+<div class="size-24 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-8 border border-white/10 group-hover:glow-border-magenta transition-all">
+<span class="material-symbols-outlined text-4xl text-primary">rocket_launch</span>
+</div>
+<h4 class="font-black text-xl mb-3 uppercase tracking-tight italic">3. Despliegue</h4>
+<p class="text-slate-500 text-sm font-light px-4">Integración ágil y segura en tus sistemas actuales.</p>
+<div class="hidden lg:block absolute top-12 left-[70%] w-full h-[1px] bg-gradient-to-r from-white/10 to-transparent"></div>
+</div>
+<div class="group text-center">
+<div class="size-24 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-8 border border-white/10 group-hover:glow-border-blue transition-all">
+<span class="material-symbols-outlined text-4xl text-accent-blue">sync</span>
+</div>
+<h4 class="font-black text-xl mb-3 uppercase tracking-tight italic">4. Optimización</h4>
+<p class="text-slate-500 text-sm font-light px-4">Mejora continua basada en el análisis de datos reales.</p>
+</div>
+</div>
+</section>
+<section class="py-32 px-6" id="servicios">
+<div class="max-w-7xl mx-auto">
+<div class="mb-24">
+<h2 class="text-5xl md:text-6xl font-black mb-8 italic uppercase tracking-tighter">NUESTROS SERVICIOS</h2>
+<p class="text-slate-400 text-xl font-light">Soluciones personalizadas de alto impacto para la era de la inteligencia artificial.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+<div class="glass-card p-12 rounded-[3rem] glow-border-magenta group hover:-translate-y-2 transition-transform">
+<div class="size-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-10">
+<span class="material-symbols-outlined text-3xl">smart_toy</span>
+</div>
+<h3 class="text-2xl font-black mb-6 uppercase italic tracking-tight">IA Generativa</h3>
+<p class="text-slate-400 mb-10 leading-relaxed font-light">Implementamos modelos de lenguaje personalizados para atención al cliente, ventas y creación estratégica de contenido.</p>
+<div class="aspect-video rounded-2xl overflow-hidden border border-white/5">
+<div class="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBvcML0vmlZrE-KjArqv9LAI0RLFWrLsyoxbmAgAYxu8tGMiA0vx2LRrWJFfiJ0pZxSbiqCT_hI26HlzYJygA0tO5hzglJa2HpFa343R7pY2B1i0pwLoVbXUkbsovzgzpqHzwRGDqACy1gXMRayiYRAoC5xm8CTIvGnhVFAgxuH3OUZlKRHg7_8DrQdDODJ_bAOO06dCpxx6hsjNbKD3JubBGVZTJv5Ft2JG110xQeZU3uxkjszuCzs2OKx87lg7UmrPydxaLsz5Ow')"></div>
+</div>
+</div>
+<div class="glass-card p-12 rounded-[3rem] glow-border-blue group hover:-translate-y-2 transition-transform">
+<div class="size-16 bg-accent-blue/10 rounded-2xl flex items-center justify-center text-accent-blue mb-10">
+<span class="material-symbols-outlined text-3xl">settings_suggest</span>
+</div>
+<h3 class="text-2xl font-black mb-6 uppercase italic tracking-tight">Automatización RPA</h3>
+<p class="text-slate-400 mb-10 leading-relaxed font-light">Robots de software que ejecutan tareas repetitivas en tus herramientas actuales con precisión quirúrgica y sin errores.</p>
+<div class="aspect-video rounded-2xl overflow-hidden border border-white/5">
+<div class="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC5114VsUabZGpzTGv7yXVccHUjaznMfdPEMIoiqFlwZpYBPGH_JdXl-qHhQ6RIWEeeNJkWh3lNgpWVB7Px97QgTBteQDopkMUV_n9ev9SfdBh04dhD_3OCTFCKJG9w2zDlnuLd2EuwO69xyz-l3vSe95GVLUmYVutO1bHQ9Hn7vVTiLN_bCYKVv61zZK5wu-qvr77al_-58gtsUzwhrp5tQoR2bMu_a8v3g7tKefffiGrU3tOtEOJ_lqM4iE-TIng1pWMIF_4h3-M')"></div>
+</div>
+</div>
+<div class="glass-card p-12 rounded-[3rem] glow-border-magenta group hover:-translate-y-2 transition-transform">
+<div class="size-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-10">
+<span class="material-symbols-outlined text-3xl">analytics</span>
+</div>
+<h3 class="text-2xl font-black mb-6 uppercase italic tracking-tight">Análisis Predictivo</h3>
+<p class="text-slate-400 mb-10 leading-relaxed font-light">Anticipa tendencias y comportamientos del mercado utilizando algoritmos avanzados de machine learning y big data.</p>
+<div class="aspect-video rounded-2xl overflow-hidden border border-white/5">
+<div class="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCpYKxWaWCnXTSandfcuTHan-4Od_IsAzIkMJJ1uJ7uSS7uBpOjDTzmem7thObrlPjONixJJzQ8rbKYxp2I1j_SaK-gc6mM72UBfR1MXa_oM7CMJIM_rJPFKTooCWh7_GmHWRxWWUHhEdwtDKcCj6UvCNMRVB441Iqzp7Li76eIXygH6lrgy02JVbPybQ5n6sqOErkpgE0UKm946HCkW8QX9kt8ruPA01NLvP8Ri3-8KnYfj7QitRPsD9RYcIFMEu4VCAjvyw-33rI')"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-32 px-6">
+<div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-20">
+<div class="lg:col-span-7">
+<h2 class="text-4xl font-black mb-16 uppercase italic tracking-tighter">¿POR QUÉ ELEGIR ELEVATIA?</h2>
+<div class="space-y-12">
+<div class="flex gap-8 group">
+<div class="shrink-0 size-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary font-black text-xl border border-primary/20 group-hover:bg-primary group-hover:text-white transition-all">01</div>
+<div>
+<h4 class="font-black text-xl mb-3 uppercase italic tracking-tight">Expertise Técnica Real</h4>
+<p class="text-slate-400 text-lg leading-relaxed font-light">No solo vendemos software; construimos soluciones de ingeniería robustas y personalizadas para cada desafío.</p>
+</div>
+</div>
+<div class="flex gap-8 group">
+<div class="shrink-0 size-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary font-black text-xl border border-primary/20 group-hover:bg-primary group-hover:text-white transition-all">02</div>
+<div>
+<h4 class="font-black text-xl mb-3 uppercase italic tracking-tight">Enfoque Total en ROI</h4>
+<p class="text-slate-400 text-lg leading-relaxed font-light">Nuestras implementaciones están diseñadas estratégicamente para pagarse solas en menos de 6 meses.</p>
+</div>
+</div>
+<div class="flex gap-8 group">
+<div class="shrink-0 size-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary font-black text-xl border border-primary/20 group-hover:bg-primary group-hover:text-white transition-all">03</div>
+<div>
+<h4 class="font-black text-xl mb-3 uppercase italic tracking-tight">Soporte y Adopción</h4>
+<p class="text-slate-400 text-lg leading-relaxed font-light">Acompañamos a tu equipo durante todo el proceso para asegurar una adopción cultural exitosa de la IA.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-5">
+<div class="glass-card p-12 md:p-16 rounded-[4rem] glow-border-blue relative overflow-hidden h-full flex flex-col justify-center">
+<div class="ambient-glow-blue -bottom-40 -right-40 opacity-30"></div>
+<h2 class="text-3xl font-black mb-12 uppercase italic tracking-tighter">¿PARA QUIÉN ES ELEVATIA?</h2>
+<div class="grid gap-6">
+<div class="p-6 border border-white/5 rounded-2xl hover:bg-white/5 hover:border-accent-blue/30 transition-all flex items-center gap-5 group">
+<span class="material-symbols-outlined text-accent-blue text-3xl group-hover:scale-110 transition-transform">corporate_fare</span>
+<span class="font-bold tracking-tight text-lg">Empresas Medianas en Escalado</span>
+</div>
+<div class="p-6 border border-white/5 rounded-2xl hover:bg-white/5 hover:border-accent-blue/30 transition-all flex items-center gap-5 group">
+<span class="material-symbols-outlined text-accent-blue text-3xl group-hover:scale-110 transition-transform">account_balance</span>
+<span class="font-bold tracking-tight text-lg">Instituciones Financieras &amp; Fintech</span>
+</div>
+<div class="p-6 border border-white/5 rounded-2xl hover:bg-white/5 hover:border-accent-blue/30 transition-all flex items-center gap-5 group">
+<span class="material-symbols-outlined text-accent-blue text-3xl group-hover:scale-110 transition-transform">shopping_cart</span>
+<span class="font-bold tracking-tight text-lg">E-commerce de Alto Volumen</span>
+</div>
+<div class="p-6 border border-white/5 rounded-2xl hover:bg-white/5 hover:border-accent-blue/30 transition-all flex items-center gap-5 group">
+<span class="material-symbols-outlined text-accent-blue text-3xl group-hover:scale-110 transition-transform">precision_manufacturing</span>
+<span class="font-bold tracking-tight text-lg">Industria 4.0 y Logística</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-32 px-6" id="beneficios">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-24">
+<h2 class="text-5xl font-black uppercase italic mb-8 tracking-tighter">BENEFICIOS TANGIBLES</h2>
+<p class="text-slate-400 max-w-2xl mx-auto text-xl font-light">Resultados reales medidos en nuestros clientes tras la integración de sistemas inteligentes.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="p-12 glass-card rounded-[3rem] glow-border-magenta text-center group hover:-translate-y-2 transition-all">
+<div class="text-6xl font-black text-primary mb-4 italic group-hover:scale-110 transition-transform">+45%</div>
+<div class="text-[10px] uppercase tracking-[0.4em] font-bold text-slate-500">Eficiencia Operativa</div>
+</div>
+<div class="p-12 glass-card rounded-[3rem] glow-border-blue text-center group hover:-translate-y-2 transition-all">
+<div class="text-6xl font-black text-accent-blue mb-4 italic group-hover:scale-110 transition-transform">-60%</div>
+<div class="text-[10px] uppercase tracking-[0.4em] font-bold text-slate-500">Costos de Gestión</div>
+</div>
+<div class="p-12 glass-card rounded-[3rem] glow-border-magenta text-center group hover:-translate-y-2 transition-all">
+<div class="text-6xl font-black text-primary mb-4 italic group-hover:scale-110 transition-transform">24/7</div>
+<div class="text-[10px] uppercase tracking-[0.4em] font-bold text-slate-500">Disponibilidad Total</div>
+</div>
+<div class="p-12 glass-card rounded-[3rem] glow-border-blue text-center group hover:-translate-y-2 transition-all">
+<div class="text-6xl font-black text-accent-blue mb-4 italic group-hover:scale-110 transition-transform">100%</div>
+<div class="text-[10px] uppercase tracking-[0.4em] font-bold text-slate-500">Escalabilidad</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-40 px-6">
+<div class="max-w-6xl mx-auto rounded-[4rem] overflow-hidden relative glass-card p-16 md:p-32 text-center border-primary/20">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent-blue/10 -z-10"></div>
+<div class="ambient-glow-pink -top-20 -left-20 opacity-20"></div>
+<div class="ambient-glow-blue -bottom-20 -right-20 opacity-20"></div>
+<h2 class="text-5xl md:text-7xl font-black mb-12 leading-[1] uppercase italic tracking-tighter">¿LISTO PARA DAR EL SALTO HACIA LA INTELIGENCIA ARTIFICIAL?</h2>
+<p class="text-slate-300 text-2xl mb-16 max-w-3xl mx-auto font-light leading-relaxed">Agenda una reunión con nuestro equipo de expertos y descubre el potencial oculto en tus datos.</p>
+<div class="flex flex-col sm:flex-row justify-center items-center gap-8"><a class="inline-block px-14 py-6 bg-primary text-white font-black rounded-2xl text-lg glow-button uppercase tracking-[0.2em]" href="https://wa.me/18492207283?text=Hola%2C%20quiero%20agendar%20una%20sesi%C3%B3n%20con%20ElevatIA" target="_blank" rel="noopener">Agenda tu sesión</a>
+<a class="inline-block px-14 py-6 border border-white/10 glass-card rounded-2xl font-black text-lg hover:bg-white/10 transition-all uppercase tracking-[0.2em]" href="https://wa.me/18492207283?text=Hola%2C%20quiero%20ver%20casos%20de%20%C3%A9xito%20de%20ElevatIA" target="_blank" rel="noopener">Ver casos de éxito</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="py-24 px-6 border-t border-white/5 bg-background-dark">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 mb-24">
+<div class="md:col-span-6">
+<div class="text-3xl font-bold tracking-tight mb-10">
+<span class="logo-gradient-text">ElevatIA</span>
+</div>
+<p class="text-slate-400 max-w-md mb-12 text-lg font-light leading-relaxed">
+                ElevatIA — Automatización e inteligencia artificial aplicada a negocios que quieren crecer mejor. Lideramos la transición hacia un futuro donde el potencial humano es amplificado por sistemas autónomos.
+            </p>
+<div class="flex gap-6">
+<a class="size-14 rounded-full border border-white/10 flex items-center justify-center hover:glow-border-magenta hover:text-primary transition-all group" href="https://wa.me/18492207283?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20ElevatIA" target="_blank" rel="noopener" aria-label="WhatsApp">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">chat</span>
+</a>
+<a class="size-14 rounded-full border border-white/10 flex items-center justify-center hover:glow-border-blue hover:text-accent-blue transition-all group" href="mailto:contacto@elevatia.com" aria-label="Email">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">mail</span>
+</a>
+</div>
+</div>
+<div class="md:col-span-3">
+<h4 class="font-black mb-10 uppercase text-xs tracking-[0.4em] text-white">Servicios</h4>
+<ul class="space-y-5 text-slate-500 text-sm font-medium">
+<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#servicios"><span class="w-2 h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span> Consultoría IA</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#servicios"><span class="w-2 h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span> Agentes Autónomos</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#servicios"><span class="w-2 h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span> Machine Learning</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#servicios"><span class="w-2 h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span> Integraciones API</a></li>
+</ul>
+</div>
+<div class="md:col-span-3">
+<h4 class="font-black mb-10 uppercase text-xs tracking-[0.4em] text-white">Empresa</h4>
+<ul class="space-y-5 text-slate-500 text-sm font-medium">
+<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#que-es"><span class="w-2 h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span> Nosotros</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#beneficios"><span class="w-2 h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span> Casos de Éxito</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="https://wa.me/18492207283?text=Hola%2C%20quiero%20contactar%20a%20ElevatIA" target="_blank" rel="noopener"><span class="w-2 h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span> Contacto</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-7xl mx-auto pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-10">
+<p class="text-slate-600 text-[10px] tracking-[0.4em] uppercase font-bold">© 2026 ElevatIA Neural Systems. Todos los derechos reservados.</p>
+<div class="flex items-center gap-4 px-6 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+</span>
+<span class="text-[10px] font-mono uppercase tracking-[0.3em] text-emerald-500 font-bold">Estado del sistema: Operativo</span>
+</div>
+</div>
+</footer>
+<a href="https://wa.me/18492207283?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20ElevatIA" target="_blank" rel="noopener" aria-label="Chatear por WhatsApp" class="fixed bottom-6 right-6 z-50 size-16 rounded-full bg-emerald-500 flex items-center justify-center shadow-2xl hover:scale-110 transition-transform" style="box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);">
+<span class="material-symbols-outlined text-white text-3xl">chat</span>
+</a>
+</body></html>
