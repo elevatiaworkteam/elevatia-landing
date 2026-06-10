@@ -101,6 +101,7 @@
 <a class="text-xs font-bold hover:text-primary transition-colors uppercase tracking-[0.2em]" href="#quienes-somos">¿Quiénes Somos?</a>
 <a class="text-xs font-bold hover:text-primary transition-colors uppercase tracking-[0.2em]" href="#solucion">Solución</a>
 <a class="text-xs font-bold hover:text-primary transition-colors uppercase tracking-[0.2em]" href="#servicios">Servicios</a>
+<a class="text-xs font-bold hover:text-primary transition-colors uppercase tracking-[0.2em]" href="#planes">Planes</a>
 <a class="text-xs font-bold hover:text-primary transition-colors uppercase tracking-[0.2em]" href="#beneficios">Beneficios</a>
 </nav>
 <div class="flex items-center gap-3 sm:gap-6">
@@ -118,6 +119,7 @@
 <a onclick="mobileMenuToggle()" class="w-full max-w-sm px-6 py-4 text-center text-base font-black hover:bg-primary/10 border border-white/10 rounded-2xl transition-colors uppercase tracking-widest" href="#demos">Probar Bots</a>
 <a onclick="mobileMenuToggle()" class="w-full max-w-sm px-6 py-4 text-center text-base font-black hover:bg-primary/10 border border-white/10 rounded-2xl transition-colors uppercase tracking-widest" href="#solucion">Solución</a>
 <a onclick="mobileMenuToggle()" class="w-full max-w-sm px-6 py-4 text-center text-base font-black hover:bg-primary/10 border border-white/10 rounded-2xl transition-colors uppercase tracking-widest" href="#servicios">Servicios</a>
+<a onclick="mobileMenuToggle()" class="w-full max-w-sm px-6 py-4 text-center text-base font-black hover:bg-primary/10 border border-white/10 rounded-2xl transition-colors uppercase tracking-widest" href="#planes">Planes</a>
 <a onclick="mobileMenuToggle()" class="w-full max-w-sm px-6 py-4 text-center text-base font-black hover:bg-primary/10 border border-white/10 rounded-2xl transition-colors uppercase tracking-widest" href="#beneficios">Beneficios</a>
 <a onclick="mobileMenuToggle()" class="w-full max-w-sm px-6 py-4 text-center text-base font-black hover:bg-primary/10 border border-white/10 rounded-2xl transition-colors uppercase tracking-widest" href="#casos">Casos de Éxito</a>
 <a onclick="mobileMenuToggle()" class="w-full max-w-sm px-6 py-4 text-center text-base font-black hover:bg-primary/10 border border-white/10 rounded-2xl transition-colors uppercase tracking-widest" href="#contacto">Contacto</a>
@@ -178,12 +180,70 @@ window.mobileMenuToggle = function(){
 <div class="ambient-glow-blue top-20 -left-40 opacity-20"></div>
 <div class="ambient-glow-pink bottom-20 -right-40 opacity-20"></div>
 <div class="max-w-7xl mx-auto relative">
-<div class="text-center mb-14 md:mb-20">
+<div class="text-center mb-10 md:mb-14">
 <h2 class="text-3xl sm:text-4xl md:text-6xl font-black mb-6 md:mb-8 uppercase italic tracking-tighter">¿QUIÉNES SOMOS?</h2>
 <p class="text-slate-300 text-base md:text-lg lg:text-xl leading-relaxed max-w-4xl mx-auto font-light">
                 ElevatIA nace de la intersección entre la ingeniería de datos y la visión estratégica de negocio. Somos un equipo apasionado por construir el futuro del trabajo: diseñamos soluciones a medida que automatizan procesos, optimizan operaciones y multiplican resultados — sin que tu equipo tenga que aprender a programar. Trabajamos con empresas que entienden que la IA no es el futuro, es el presente.
             </p>
 </div>
+<div class="max-w-3xl mx-auto mb-14 md:mb-20">
+<div class="relative rounded-2xl md:rounded-3xl overflow-hidden glow-border-blue group" style="background: #020202;">
+<div class="relative aspect-[4/3]">
+<img id="quienesSlide1" src="./team-1.jpg" class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700" alt="Equipo ElevatIA"/>
+<img id="quienesSlide2" src="./team-2.jpg" class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 opacity-0" alt="Equipo ElevatIA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/70 via-transparent to-background-dark/20 pointer-events-none"></div>
+<div class="absolute bottom-5 left-6 right-6 z-10 text-center pointer-events-none">
+<p class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-white/90 font-bold">El equipo detrás de ElevatIA</p>
+</div>
+</div>
+<button onclick="quienesCarouselPrev()" aria-label="Anterior" class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 size-10 sm:size-12 rounded-full bg-background-dark/70 backdrop-blur border border-white/20 flex items-center justify-center hover:bg-background-dark/90 hover:scale-110 transition-all">
+<span class="material-symbols-outlined text-white">chevron_left</span>
+</button>
+<button onclick="quienesCarouselNext()" aria-label="Siguiente" class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 size-10 sm:size-12 rounded-full bg-background-dark/70 backdrop-blur border border-white/20 flex items-center justify-center hover:bg-background-dark/90 hover:scale-110 transition-all">
+<span class="material-symbols-outlined text-white">chevron_right</span>
+</button>
+<div class="absolute top-4 right-4 z-20 flex gap-2">
+<button onclick="quienesCarouselGoTo(0)" id="quienesDot0" aria-label="Foto 1" class="w-8 h-1 rounded-full bg-white transition-all"></button>
+<button onclick="quienesCarouselGoTo(1)" id="quienesDot1" aria-label="Foto 2" class="w-8 h-1 rounded-full bg-white/30 transition-all"></button>
+</div>
+</div>
+</div>
+<script>
+(function(){
+  let currentSlide = 0;
+  const totalSlides = 2;
+  let autoInterval = null;
+
+  function show(idx) {
+    currentSlide = ((idx % totalSlides) + totalSlides) % totalSlides;
+    for (let i = 0; i < totalSlides; i++) {
+      const slide = document.getElementById('quienesSlide' + (i + 1));
+      const dot = document.getElementById('quienesDot' + i);
+      if (!slide || !dot) continue;
+      if (i === currentSlide) {
+        slide.style.opacity = '1';
+        dot.classList.remove('bg-white/30');
+        dot.classList.add('bg-white');
+      } else {
+        slide.style.opacity = '0';
+        dot.classList.remove('bg-white');
+        dot.classList.add('bg-white/30');
+      }
+    }
+  }
+
+  function resetAuto() {
+    if (autoInterval) clearInterval(autoInterval);
+    autoInterval = setInterval(() => { show(currentSlide + 1); }, 5000);
+  }
+
+  window.quienesCarouselNext = function(){ show(currentSlide + 1); resetAuto(); };
+  window.quienesCarouselPrev = function(){ show(currentSlide - 1); resetAuto(); };
+  window.quienesCarouselGoTo = function(i){ show(i); resetAuto(); };
+
+  resetAuto();
+})();
+</script>
 <div class="text-center mb-10 md:mb-14">
 <h3 class="text-primary font-bold uppercase tracking-[0.3em] text-xs mb-2">Lo que nos define</h3>
 <div class="w-20 h-0.5 bg-gradient-to-r from-primary to-accent-blue mx-auto rounded-full"></div>
@@ -365,6 +425,159 @@ window.mobileMenuToggle = function(){
 <span class="material-symbols-outlined text-emerald-400">check_circle</span>
 <span class="text-sm text-slate-300 font-light">Tiempo total estimado: <strong class="text-white">4 - 8 semanas</strong></span>
 </div>
+</div>
+</div>
+</section>
+<section class="py-20 md:py-32 px-6 relative" id="planes">
+<div class="ambient-glow-pink top-0 -right-40 opacity-20"></div>
+<div class="ambient-glow-blue bottom-0 -left-40 opacity-20"></div>
+<div class="max-w-7xl mx-auto relative">
+<div class="text-center mb-12 md:mb-16">
+<h3 class="text-primary font-bold uppercase tracking-[0.3em] text-xs mb-4 md:mb-6">Soluciones Listas para Usar</h3>
+<h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-6 uppercase italic tracking-tighter">PLANES DE BOTS PREHECHOS</h2>
+<div class="w-24 h-1 bg-gradient-to-r from-primary to-accent-blue mx-auto rounded-full mb-6 md:mb-8"></div>
+<p class="text-slate-400 max-w-3xl mx-auto text-base md:text-lg font-light leading-relaxed">3 bots pre-configurados con resultados probados. Pago único de implementación + mantenimiento mensual. Listos para trabajar por ti en días.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-6 md:gap-8">
+<!-- BOT 1: VENTAS -->
+<div class="glass-card glow-border-white p-6 md:p-8 rounded-2xl md:rounded-3xl relative hover:-translate-y-2 transition-all flex flex-col" style="background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(40,40,55,0.7) 100%);">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg whitespace-nowrap z-10">⭐ Más Popular</div>
+<div class="size-14 md:size-16 rounded-2xl bg-white/15 border border-white/30 flex items-center justify-center text-white mb-4 mt-2">
+<span class="material-symbols-outlined text-2xl md:text-3xl">trending_up</span>
+</div>
+<h3 class="text-xl md:text-2xl font-black mb-2 uppercase italic tracking-tight">Bot de Ventas</h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-5 font-light">Convierte conversaciones en ventas trabajando tus leads 24/7, sin que tu equipo esté pendiente del celular.</p>
+<div class="mb-5">
+<h4 class="text-[10px] uppercase tracking-[0.3em] text-white/60 font-bold mb-3">Cómo Funciona</h4>
+<ul class="space-y-2 text-xs text-slate-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold shrink-0">1.</span><span><strong class="text-white">Recibe leads</strong> de WhatsApp, web o formularios</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold shrink-0">2.</span><span><strong class="text-white">Identifica</strong> al contacto y recupera su historial del CRM</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold shrink-0">3.</span><span><strong class="text-white">Comprende</strong> qué quiere (precio, dudas, comparación)</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold shrink-0">4.</span><span><strong class="text-white">Asesora</strong> mostrando catálogo y resolviendo objeciones</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold shrink-0">5.</span><span><strong class="text-white">Califica</strong> el lead como frío, tibio o caliente</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold shrink-0">6.</span><span><strong class="text-white">Agenda cita</strong> o envía cotización por Gmail</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold shrink-0">7.</span><span><strong class="text-white">Da seguimiento</strong> automático a las 24h y 72h</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold shrink-0">8.</span><span><strong class="text-white">Notifica</strong> al vendedor humano los leads calientes y guarda todo en CRM</span></li>
+</ul>
+</div>
+<div class="mb-5">
+<h4 class="text-[10px] uppercase tracking-[0.3em] text-white/60 font-bold mb-3">Conecta Con</h4>
+<div class="flex flex-wrap gap-1.5">
+<span class="text-[10px] px-2 py-1 rounded-md bg-white/10 border border-white/20 text-slate-200">WhatsApp</span>
+<span class="text-[10px] px-2 py-1 rounded-md bg-white/10 border border-white/20 text-slate-200">Web</span>
+<span class="text-[10px] px-2 py-1 rounded-md bg-white/10 border border-white/20 text-slate-200">Gmail</span>
+<span class="text-[10px] px-2 py-1 rounded-md bg-white/10 border border-white/20 text-slate-200">OpenAI</span>
+<span class="text-[10px] px-2 py-1 rounded-md bg-white/10 border border-white/20 text-slate-200">Calendario</span>
+<span class="text-[10px] px-2 py-1 rounded-md bg-white/10 border border-white/20 text-slate-200">CRM</span>
+</div>
+</div>
+<div class="border-t border-white/15 pt-5 mb-5 mt-auto">
+<div class="flex items-baseline gap-2 mb-1">
+<span class="text-3xl font-black text-white italic">$550</span>
+<span class="text-[10px] text-slate-400 uppercase tracking-widest">Estructura</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-lg font-black text-slate-300">+ $99</span>
+<span class="text-xs text-slate-500">/ mes mantenimiento</span>
+</div>
+</div>
+<button onclick="openLead()" class="w-full py-3 sm:py-4 bg-white text-background-dark font-black rounded-xl text-xs uppercase tracking-widest hover:bg-white/90 transition-all cursor-pointer">
+                        Quiero este bot
+                    </button>
+</div>
+<!-- BOT 2: ASISTENTE PERSONAL -->
+<div class="glass-card glow-border-blue p-6 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden hover:-translate-y-2 transition-all flex flex-col" style="background: linear-gradient(135deg, rgba(43,158,238,0.12) 0%, rgba(40,40,55,0.7) 100%);">
+<div class="size-14 md:size-16 rounded-2xl bg-accent-blue/20 border border-accent-blue/40 flex items-center justify-center text-accent-blue mb-4">
+<span class="material-symbols-outlined text-2xl md:text-3xl">assistant</span>
+</div>
+<h3 class="text-xl md:text-2xl font-black mb-2 uppercase italic tracking-tight">Asistente Virtual Personal</h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-5 font-light">Tu asistente con IA que organiza tu día, tu correo y tus pendientes — como un secretario de confianza.</p>
+<div class="mb-5">
+<h4 class="text-[10px] uppercase tracking-[0.3em] text-accent-blue/70 font-bold mb-3">Cómo Funciona</h4>
+<ul class="space-y-2 text-xs text-slate-300">
+<li class="flex items-start gap-2"><span class="text-accent-blue font-bold shrink-0">1.</span><span><strong class="text-white">Le hablas por WhatsApp</strong> como a una persona</span></li>
+<li class="flex items-start gap-2"><span class="text-accent-blue font-bold shrink-0">2.</span><span><strong class="text-white">La IA entiende</strong> tu instrucción y decide qué hacer</span></li>
+<li class="flex items-start gap-2"><span class="text-accent-blue font-bold shrink-0">3.</span><span><strong class="text-white">Gestiona Gmail</strong>: resume correos y redacta borradores</span></li>
+<li class="flex items-start gap-2"><span class="text-accent-blue font-bold shrink-0">4.</span><span><strong class="text-white">Agenda</strong> citas, mueve reuniones y te recuerda tareas</span></li>
+<li class="flex items-start gap-2"><span class="text-accent-blue font-bold shrink-0">5.</span><span><strong class="text-white">Busca</strong> e investiga cualquier consulta que tengas</span></li>
+<li class="flex items-start gap-2"><span class="text-accent-blue font-bold shrink-0">6.</span><span><strong class="text-white">Guarda</strong> tus notas, ideas y pendientes</span></li>
+<li class="flex items-start gap-2"><span class="text-accent-blue font-bold shrink-0">7.</span><span><strong class="text-white">Te manda briefing diario</strong> cada mañana</span></li>
+<li class="flex items-start gap-2"><span class="text-accent-blue font-bold shrink-0">8.</span><span><strong class="text-white">100% privado</strong>: aprende tu estilo y solo te responde a ti</span></li>
+</ul>
+</div>
+<div class="mb-5">
+<h4 class="text-[10px] uppercase tracking-[0.3em] text-accent-blue/70 font-bold mb-3">Conecta Con</h4>
+<div class="flex flex-wrap gap-1.5">
+<span class="text-[10px] px-2 py-1 rounded-md bg-accent-blue/10 border border-accent-blue/30 text-accent-blue">WhatsApp</span>
+<span class="text-[10px] px-2 py-1 rounded-md bg-accent-blue/10 border border-accent-blue/30 text-accent-blue">Gmail</span>
+<span class="text-[10px] px-2 py-1 rounded-md bg-accent-blue/10 border border-accent-blue/30 text-accent-blue">OpenAI</span>
+<span class="text-[10px] px-2 py-1 rounded-md bg-accent-blue/10 border border-accent-blue/30 text-accent-blue">Calendario</span>
+</div>
+</div>
+<div class="border-t border-accent-blue/20 pt-5 mb-5 mt-auto">
+<div class="flex items-baseline gap-2 mb-1">
+<span class="text-3xl font-black text-white italic">$600</span>
+<span class="text-[10px] text-slate-400 uppercase tracking-widest">Estructura</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-lg font-black text-slate-300">+ $99</span>
+<span class="text-xs text-slate-500">/ mes mantenimiento</span>
+</div>
+</div>
+<button onclick="openLead()" class="w-full py-3 sm:py-4 bg-accent-blue text-white font-black rounded-xl text-xs uppercase tracking-widest hover:opacity-90 transition-all cursor-pointer" style="box-shadow: 0 0 20px rgba(43,158,238,0.3);">
+                        Quiero este bot
+                    </button>
+</div>
+<!-- BOT 3: COBRANZA -->
+<div class="glass-card p-6 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden hover:-translate-y-2 transition-all flex flex-col" style="background: linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(40,40,55,0.7) 100%); border: 1px solid rgba(139,92,246,0.3); box-shadow: 0 0 20px rgba(139,92,246,0.1);">
+<div class="size-14 md:size-16 rounded-2xl bg-violet-500/20 border border-violet-500/40 flex items-center justify-center text-violet-300 mb-4">
+<span class="material-symbols-outlined text-2xl md:text-3xl">payments</span>
+</div>
+<h3 class="text-xl md:text-2xl font-black mb-2 uppercase italic tracking-tight">Bot de Cobranza</h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-5 font-light">Tu cobrador automático que recupera cartera por WhatsApp y correo, con el tono justo para cada deudor.</p>
+<div class="mb-5">
+<h4 class="text-[10px] uppercase tracking-[0.3em] text-violet-300/70 font-bold mb-3">Cómo Funciona</h4>
+<ul class="space-y-2 text-xs text-slate-300">
+<li class="flex items-start gap-2"><span class="text-violet-300 font-bold shrink-0">1.</span><span><strong class="text-white">Lee tu cartera</strong> de cuentas por cobrar cada día</span></li>
+<li class="flex items-start gap-2"><span class="text-violet-300 font-bold shrink-0">2.</span><span><strong class="text-white">Segmenta</strong> deudores por días de mora (1-7, 8-30, +30)</span></li>
+<li class="flex items-start gap-2"><span class="text-violet-300 font-bold shrink-0">3.</span><span><strong class="text-white">Adapta el tono</strong>: amable → firme → aviso de gestión</span></li>
+<li class="flex items-start gap-2"><span class="text-violet-300 font-bold shrink-0">4.</span><span><strong class="text-white">Envía mensajes</strong> personalizados por WhatsApp y Gmail</span></li>
+<li class="flex items-start gap-2"><span class="text-violet-300 font-bold shrink-0">5.</span><span><strong class="text-white">Dialoga</strong>: explica saldo, opciones y registra promesa de pago</span></li>
+<li class="flex items-start gap-2"><span class="text-violet-300 font-bold shrink-0">6.</span><span><strong class="text-white">Verifica pagos</strong>: marca "pago por confirmar" y notifica para verificación humana</span></li>
+<li class="flex items-start gap-2"><span class="text-violet-300 font-bold shrink-0">7.</span><span><strong class="text-white">Escala a humano</strong> los casos difíciles automáticamente</span></li>
+<li class="flex items-start gap-2"><span class="text-violet-300 font-bold shrink-0">8.</span><span><strong class="text-white">Reporta</strong>: contactados, promesas, pagos confirmados</span></li>
+</ul>
+</div>
+<div class="mb-5">
+<h4 class="text-[10px] uppercase tracking-[0.3em] text-violet-300/70 font-bold mb-3">Conecta Con</h4>
+<div class="flex flex-wrap gap-1.5">
+<span class="text-[10px] px-2 py-1 rounded-md bg-violet-500/10 border border-violet-500/30 text-violet-100">WhatsApp Business</span>
+<span class="text-[10px] px-2 py-1 rounded-md bg-violet-500/10 border border-violet-500/30 text-violet-100">Gmail</span>
+<span class="text-[10px] px-2 py-1 rounded-md bg-violet-500/10 border border-violet-500/30 text-violet-100">OpenAI</span>
+<span class="text-[10px] px-2 py-1 rounded-md bg-violet-500/10 border border-violet-500/30 text-violet-100">CRM Cartera</span>
+</div>
+</div>
+<div class="border-t border-violet-500/20 pt-5 mb-5 mt-auto">
+<div class="flex items-baseline gap-2 mb-1">
+<span class="text-3xl font-black text-white italic">$750</span>
+<span class="text-[10px] text-slate-400 uppercase tracking-widest">Estructura</span>
+</div>
+<div class="flex items-baseline gap-2 mb-1">
+<span class="text-lg font-black text-slate-300">+ $150</span>
+<span class="text-xs text-slate-500">/ mes mantenimiento</span>
+</div>
+<p class="text-[10px] text-violet-300/70 mt-2">+ envíos de WhatsApp a consumo según volumen</p>
+</div>
+<button onclick="openLead()" class="w-full py-3 sm:py-4 bg-gradient-to-r from-violet-600 to-purple-700 text-white font-black rounded-xl text-xs uppercase tracking-widest hover:opacity-90 transition-all cursor-pointer" style="box-shadow: 0 0 20px rgba(139,92,246,0.3);">
+                        Quiero este bot
+                    </button>
+</div>
+</div>
+<div class="text-center mt-10 md:mt-12">
+<p class="text-sm text-slate-400 mb-4">¿Necesitas algo a la medida? También hacemos bots 100% personalizados.</p>
+<button onclick="openLead()" class="inline-block px-8 sm:px-12 py-4 sm:py-5 border border-white/15 hover:bg-white/5 text-white font-black rounded-xl text-xs sm:text-sm uppercase tracking-[0.2em] cursor-pointer transition-all">
+            Cotizar Bot Personalizado
+        </button>
 </div>
 </div>
 </section>
