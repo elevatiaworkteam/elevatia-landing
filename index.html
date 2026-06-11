@@ -188,12 +188,15 @@ window.mobileMenuToggle = function(){
 </div>
 <div class="max-w-3xl mx-auto mb-14 md:mb-20">
 <div class="relative rounded-2xl md:rounded-3xl overflow-hidden glow-border-blue group" style="background: #020202;">
-<div class="relative aspect-[4/3]">
-<img id="quienesSlide1" src="./team-1.jpg" class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700" alt="Equipo ElevatIA"/>
-<img id="quienesSlide2" src="./team-2.jpg" class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 opacity-0" alt="Equipo ElevatIA"/>
-<div class="absolute inset-0 bg-gradient-to-t from-background-dark/70 via-transparent to-background-dark/20 pointer-events-none"></div>
-<div class="absolute bottom-5 left-6 right-6 z-10 text-center pointer-events-none">
-<p class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-white/90 font-bold">El equipo detrás de ElevatIA</p>
+<div class="relative aspect-[3/2]">
+<img id="quienesSlide1" src="./team-1.jpg" class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700" alt="Maria Claudia y Melvin Sanchez - Fundadores de ElevatIA"/>
+<img id="quienesSlide2" src="./team-2.jpg" class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 opacity-0" alt="Maria Claudia - CEO ElevatIA"/>
+<img id="quienesSlide3" src="./team-3.jpg" class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 opacity-0" alt="Melvin Sanchez - CEO ElevatIA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent pointer-events-none"></div>
+<div id="quienesCaption" class="absolute bottom-5 sm:bottom-7 left-6 right-6 z-10 text-center pointer-events-none transition-opacity duration-500">
+<p class="text-[9px] sm:text-[10px] uppercase tracking-[0.4em] text-primary font-bold mb-1.5 sm:mb-2">El equipo detrás de ElevatIA</p>
+<h4 id="quienesName" class="font-black text-base sm:text-xl md:text-2xl uppercase italic tracking-tight text-white">Maria Claudia &amp; Melvin Sanchez</h4>
+<p id="quienesRole" class="text-[10px] sm:text-xs text-slate-300 uppercase tracking-widest mt-1">Fundadores &amp; Co-CEOs</p>
 </div>
 </div>
 <button onclick="quienesCarouselPrev()" aria-label="Anterior" class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 size-10 sm:size-12 rounded-full bg-background-dark/70 backdrop-blur border border-white/20 flex items-center justify-center hover:bg-background-dark/90 hover:scale-110 transition-all">
@@ -205,14 +208,20 @@ window.mobileMenuToggle = function(){
 <div class="absolute top-4 right-4 z-20 flex gap-2">
 <button onclick="quienesCarouselGoTo(0)" id="quienesDot0" aria-label="Foto 1" class="w-8 h-1 rounded-full bg-white transition-all"></button>
 <button onclick="quienesCarouselGoTo(1)" id="quienesDot1" aria-label="Foto 2" class="w-8 h-1 rounded-full bg-white/30 transition-all"></button>
+<button onclick="quienesCarouselGoTo(2)" id="quienesDot2" aria-label="Foto 3" class="w-8 h-1 rounded-full bg-white/30 transition-all"></button>
 </div>
 </div>
 </div>
 <script>
 (function(){
   let currentSlide = 0;
-  const totalSlides = 2;
+  const totalSlides = 3;
   let autoInterval = null;
+  const captions = [
+    { name: 'Maria Claudia &amp; Melvin Sanchez', role: 'Fundadores &amp; Co-CEOs' },
+    { name: 'Maria Claudia', role: 'CEO &amp; Co-Fundadora' },
+    { name: 'Melvin Sanchez', role: 'CEO &amp; Co-Fundador' }
+  ];
 
   function show(idx) {
     currentSlide = ((idx % totalSlides) + totalSlides) % totalSlides;
@@ -229,6 +238,18 @@ window.mobileMenuToggle = function(){
         dot.classList.remove('bg-white');
         dot.classList.add('bg-white/30');
       }
+    }
+    const cap = captions[currentSlide];
+    const nameEl = document.getElementById('quienesName');
+    const roleEl = document.getElementById('quienesRole');
+    const capEl = document.getElementById('quienesCaption');
+    if (nameEl && roleEl && capEl) {
+      capEl.style.opacity = '0';
+      setTimeout(() => {
+        nameEl.innerHTML = cap.name;
+        roleEl.innerHTML = cap.role;
+        capEl.style.opacity = '1';
+      }, 250);
     }
   }
 
