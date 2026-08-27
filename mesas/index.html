@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Mesas Promo 2029</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Alfa+Slab+One&family=Barlow:wght@400;500;600;700&display=swap">
+<style id="css">
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+:root{
+  --vip:#29abe2; --vip-dk:#0b7aab;
+  --gen:#00a651; --gen-dk:#00743a;
+  --taken:#9aa3b2; --taken-dk:#5c6675;
+  --paper:#ffffff; --ink:#12151d; --ink-2:#5f6878; --line:#e2e6ee;
+  --sky:#7fd2f5; --dim:#9aa6c2; --panel:#101733; --edge:rgba(150,190,255,.20);
+}
+body{
+  min-height:100vh;
+  color:#e9eefb;
+  font-family:"Barlow","Helvetica Neue",Arial,sans-serif;
+  font-size:16px; line-height:1.5;
+  background:
+    radial-gradient(1200px 760px at 10% -10%, rgba(41,171,226,.30), transparent 60%),
+    radial-gradient(980px 640px at 94% 2%, rgba(41,171,226,.20), transparent 62%),
+    radial-gradient(1000px 820px at 82% 96%, rgba(126,40,124,.32), transparent 65%),
+    radial-gradient(760px 640px at 4% 86%, rgba(30,54,146,.34), transparent 66%),
+    linear-gradient(180deg,#05070f 0%,#0a0e1e 45%,#0d0a18 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:clamp(22px,4vw,46px) 16px 60px}
+
+.eyebrow{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--sky);font-weight:600;margin:0 0 10px}
+h1{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;
+   font-size:clamp(34px,7vw,58px);line-height:.96;letter-spacing:.01em;margin:0;text-wrap:balance}
+.sub{color:var(--dim);margin:12px 0 0;max-width:56ch}
+
+.hero{text-align:center}
+.hero .sub{margin:16px auto 0}
+.bill{font-family:"Anton",Impact,sans-serif;text-transform:uppercase;letter-spacing:.05em;
+  font-size:clamp(17px,3.4vw,25px);margin:10px 0 0;line-height:1.15}
+.bill:first-of-type{margin-top:22px}
+.bill .v{color:var(--vip);font-weight:400} .bill .g{color:#2fd07d;font-weight:400}
+
+.stats{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 14px;justify-content:center}
+.stat{padding:8px 14px;border-radius:2px;background:rgba(12,20,44,.6);border:1px solid var(--edge);
+  display:flex;align-items:baseline;gap:8px}
+.stat b{font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:19px;font-variant-numeric:tabular-nums}
+.stat span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:600}
+.stat.ok b{color:#2fd07d} .stat.no b{color:var(--taken)}
+
+.board{background:var(--paper);color:var(--ink);border-radius:4px;
+  padding:clamp(16px,3vw,30px);box-shadow:0 26px 70px rgba(0,0,0,.5)}
+.boardgrid{display:flex;gap:26px;align-items:flex-start}
+.mapscroll{overflow-x:auto;flex:1;padding-bottom:6px}
+.map{min-width:480px}
+
+.stagerow{display:flex;align-items:flex-start;gap:16px;margin:6px 0 26px}
+.clusters{display:flex;gap:14px}
+.col{display:flex;flex-direction:column;gap:13px}
+.stage{flex:1;min-height:112px;border:4px solid var(--ink);border-radius:8px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:7px;padding:12px}
+.hrmark{text-align:center;line-height:1}
+.hrmark b{display:block;font-family:"Alfa Slab One","Anton",serif;font-weight:400;
+  font-size:clamp(17px,3vw,25px);letter-spacing:.01em}
+.hrmark i{display:block;font-style:normal;font-size:9px;letter-spacing:.5em;font-weight:700;
+  margin-top:4px;text-indent:.5em}
+.esc{font-size:11px;letter-spacing:.42em;text-transform:uppercase;color:var(--ink);font-weight:700;
+  border-top:2px solid var(--ink);padding-top:7px;text-indent:.42em}
+
+.grid{display:grid;grid-template-columns:repeat(7,58px);column-gap:10px;row-gap:15px;justify-content:center}
+.divider{grid-column:1/-1;border-top:3px solid var(--ink);margin:5px 0}
+
+.mesa{position:relative;appearance:none;border:0;padding:4px;border-radius:3px;background:var(--fill);
+  display:flex;gap:4px;cursor:pointer;font-family:inherit;
+  transition:transform .12s ease, box-shadow .12s ease, background-color .2s ease}
+.mesa--vip{--fill:var(--vip);--fill-dk:var(--vip-dk)}
+.mesa--gen{--fill:var(--gen);--fill-dk:var(--gen-dk)}
+.mesa.is-taken{--fill:var(--taken);--fill-dk:var(--taken-dk);cursor:default}
+.mesa:hover{transform:translateY(-2px);box-shadow:0 7px 18px rgba(10,22,48,.3)}
+.mesa:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.mesa--big{align-self:stretch}
+.side{display:flex;flex-direction:column;gap:2.5px;justify-content:space-between}
+.seat{width:11px;height:11px;background:#fff;border-radius:1.5px;font-size:6.5px;line-height:11px;
+  text-align:center;color:#7a8291;font-weight:600;font-variant-numeric:tabular-nums}
+.hub{flex:1;display:grid;place-items:center;min-width:22px}
+.hub i{font-style:normal;background:#fff;color:var(--fill-dk);width:23px;height:23px;border-radius:50%;
+  display:grid;place-items:center;font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
+.mesa--h{flex-direction:column}
+.mesa--h .side{flex-direction:row}
+.mesa--h .hub{width:100%;min-height:16px}
+.mesa--h .hub i{width:26px;height:16px;border-radius:9px;font-size:10px}
+.mesa.is-taken::after{content:"";position:absolute;inset:0;border-radius:3px;
+  background:repeating-linear-gradient(45deg,rgba(255,255,255,.28) 0 3px,transparent 3px 7px);pointer-events:none}
+.mesa.is-taken .hub i{color:#4c5563}
+
+.legend{width:172px;flex:none;padding-top:44px}
+.legend h3{font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:13px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-2);margin:0 0 14px}
+.leg{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+.swatch{width:38px;height:20px;border-radius:2px;background:var(--c);display:flex;align-items:center;
+  justify-content:space-between;padding:3px;flex:none}
+.swatch em{display:block;width:7px;height:100%;background:#fff;border-radius:1px}
+.swatch b{width:11px;height:11px;background:#fff;border-radius:50%}
+.leg span{font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:15px;letter-spacing:.06em;text-transform:uppercase}
+.leg small{display:block;font-family:"Barlow";font-size:11px;letter-spacing:0;color:var(--ink-2);text-transform:none}
+.hint{margin:22px 0 0;font-size:12px;color:var(--ink-2);border-top:1px solid var(--line);padding-top:14px}
+
+.listwrap{margin:22px 0 0}
+details.list{border:1px solid var(--edge);border-radius:3px;background:rgba(12,20,44,.55)}
+details.list summary{cursor:pointer;padding:13px 16px;font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;font-weight:600;color:var(--sky);list-style:none}
+details.list summary::-webkit-details-marker{display:none}
+details.list summary::before{content:"+ ";font-weight:700}
+details.list[open] summary::before{content:"– "}
+.chips{display:flex;flex-wrap:wrap;gap:7px;padding:0 16px 16px}
+.chip{font-size:12px;padding:5px 10px;border-radius:2px;background:rgba(255,255,255,.06);
+  border:1px solid var(--edge);color:#dbe4f7}
+.chip b{font-variant-numeric:tabular-nums;color:var(--sky)}
+.empty{padding:0 16px 16px;color:var(--dim);font-size:13px}
+
+footer{margin:34px 0 0;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--edge);padding-top:22px}
+.brand{display:flex;gap:11px;align-items:center;text-align:left}
+.brand .lg{flex:none}
+.brand b{display:block;font-family:"Anton",Impact,sans-serif;font-weight:400;letter-spacing:.1em;
+  text-transform:uppercase;color:#dbe4f7;font-size:13px}
+.brand small{display:block;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+.promomark{text-align:center;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--dim);line-height:1.7}
+.promomark b{display:block;font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:20px;
+  letter-spacing:.14em;color:#fff}
+.adminrow{text-align:center;margin:18px 0 0}
+.linkbtn{appearance:none;background:none;border:0;color:var(--sky);font:inherit;font-size:12px;
+  cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:0}
+
+.veil{position:fixed;inset:0;background:rgba(3,5,12,.78);backdrop-filter:blur(5px);
+  display:grid;place-items:center;padding:18px;z-index:50}
+.veil[hidden]{display:none}
+.modal{width:min(430px,100%);background:var(--panel);border:1px solid var(--edge);border-radius:5px;
+  padding:26px;box-shadow:0 30px 80px rgba(0,0,0,.6);max-height:90vh;overflow:auto}
+.modal .tag{display:inline-block;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;
+  padding:4px 9px;border-radius:2px;color:#04121c}
+.tag.vip{background:var(--vip)} .tag.gen{background:#2fd07d}
+.modal h2{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;
+  font-size:38px;line-height:1;margin:12px 0 6px;letter-spacing:.01em}
+.meta{color:var(--dim);font-size:13px;margin:0 0 20px;font-variant-numeric:tabular-nums}
+label{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+  color:var(--dim);margin:0 0 6px}
+input[type=text],input[type=tel],input[type=password]{width:100%;padding:11px 13px;border-radius:3px;
+  background:rgba(255,255,255,.05);border:1px solid var(--edge);color:#fff;font:inherit;font-size:15px}
+input:focus{outline:2px solid var(--sky);outline-offset:1px;background:rgba(255,255,255,.09)}
+.field{margin:0 0 16px}
+.err{color:#ff9a8a;font-size:13px;margin:0 0 14px;min-height:1px}
+.actions{display:flex;gap:10px;margin-top:6px}
+.btn{appearance:none;border:0;border-radius:3px;padding:13px 18px;font:inherit;font-weight:600;
+  font-size:13px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;flex:1}
+.btn.primary{background:var(--sky);color:#04121c}
+.btn.primary:hover{background:#a5e2fb}
+.btn.ghost{background:rgba(255,255,255,.07);color:#dbe4f7;border:1px solid var(--edge);flex:0 0 auto}
+.btn:disabled{opacity:.55;cursor:default}
+.btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.who{background:rgba(255,255,255,.05);border:1px solid var(--edge);border-radius:3px;padding:14px 16px;margin:0 0 18px}
+.who dt{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);font-weight:600;margin:0 0 3px}
+.who dd{margin:0 0 12px;font-size:16px}
+.who dd:last-child{margin:0}
+table.admin{width:100%;border-collapse:collapse;font-size:13px;margin:0 0 18px}
+table.admin th{text-align:left;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);
+  padding:0 8px 7px 0;font-weight:600}
+table.admin td{padding:7px 8px 7px 0;border-top:1px solid var(--edge);font-variant-numeric:tabular-nums}
+.scroller{max-height:44vh;overflow:auto;margin:0 0 6px}
+@media (max-width:880px){
+  .boardgrid{flex-direction:column-reverse}
+  .legend{width:100%;padding-top:0;display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+  .legend h3{width:100%;margin:0}
+  .leg{margin:0}
+  .hint{width:100%;margin:0;border-top:0;padding-top:0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+
+</head>
+<body>
+<div id="root"></div>
+
+<script id="app">
+(function(){
+  var API = "https://n8n.elevatia.do/webhook/mesas-api";
+  var ADMIN_PIN = null, LAST_LISTA = [];
+  var BIG = [33,34,35,48,49,50];
+  var HORIZ = [1,2,9,10,11,12,13];
+  var SIDE_A = [11,12,13], SIDE_B = [1,2];
+  var PLACE = [
+    [3,1,1],[4,2,1],[5,3,1],[6,4,1],[7,5,1],[8,6,1],[9,7,1],
+    [14,1,2],[15,2,2],[16,3,2],[17,4,2],[18,5,2],[19,6,2],[10,7,2],
+    [20,1,3],[21,2,3],[22,3,3],[23,4,3],[24,5,3],[25,6,3],[26,7,3],
+    [27,1,4],[28,2,4],[29,3,4],[30,5,4],[31,6,4],[32,7,4],
+    [33,1,5,2],[34,2,5,2],[35,3,5,2],[36,4,5],[37,5,5],[38,6,5],[39,7,5],
+    [40,4,6],[41,5,6],[42,6,6],[43,7,6],
+    [48,1,8,2],[49,2,8,2],[50,3,8,2],[44,4,8],[45,5,8],[46,6,8],[47,7,8],
+    [51,4,9],[52,5,9],[53,6,9],
+    [54,1,10],[55,2,10],[56,3,10],[62,4,10],[63,5,10],[64,6,10],[65,7,10],
+    [57,1,11],[58,2,11],[59,3,11],[66,4,11],[67,5,11],[68,6,11],[69,7,11],
+    [60,2,12],[61,3,12],[70,4,12],[71,5,12],[72,6,12],[73,7,12]
+  ];
+  var TOTAL = PLACE.length + SIDE_A.length + SIDE_B.length;
+
+  function zone(n){ return (n <= 2 || (n >= 11 && n <= 13) || n >= 44) ? "gen" : "vip"; }
+  function seats(n){ return BIG.indexOf(n) > -1 ? 14 : 8; }
+  function price(n){ return zone(n) === "vip" ? 3000 : 2500; }
+  function zoneName(n){ return zone(n) === "vip" ? "VIP" : "General"; }
+  function money(v){ return "RD$" + v.toLocaleString("es-DO") + ".00"; }
+  function esc(s){
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+  }
+
+  var STATE = { v: 1, r: {} };
+  function api(payload){
+    return fetch(API, { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload) }).then(function(r){ return r.json(); });
+  }
+
+  var root = document.getElementById("root");
+  var busy = false;
+
+  /* ---------- table markup ---------- */
+  function mesaHTML(n, style){
+    var res = STATE.r[String(n)];
+    var s = seats(n), half = s / 2, i;
+    var horiz = HORIZ.indexOf(n) > -1;
+    var big = BIG.indexOf(n) > -1;
+    var a = "", b = "";
+    for (i = 1; i <= half; i++) a += '<span class="seat">' + i + '</span>';
+    for (i = s; i > half; i--) b += '<span class="seat">' + i + '</span>';
+    if (horiz) { var tmp = a; a = b; b = tmp; }
+    var cls = "mesa mesa--" + zone(n) + (horiz ? " mesa--h" : "") + (big ? " mesa--big" : "") + (res ? " is-taken" : "");
+    var label = "Mesa " + n + ", " + zoneName(n) + ", " + s + " puestos, " +
+                (res ? "reservada por " + res.nombre : "disponible");
+    return '<button type="button" class="' + cls + '" data-n="' + n + '"' +
+      (style ? ' style="' + style + '"' : "") +
+      ' aria-label="' + esc(label) + '" title="' + esc(label) + '">' +
+      '<span class="side">' + a + '</span>' +
+      '<span class="hub"><i>' + n + '</i></span>' +
+      '<span class="side">' + b + '</span></button>';
+  }
+
+  function layout(){
+    var i, h = "";
+    var taken = Object.keys(STATE.r).length;
+    var free = TOTAL - taken;
+
+    h += '<div class="wrap">';
+    h += '<header class="hero">';
+    h += '<p class="eyebrow">Los padres de la Promo 2029 &middot; Saint George School</p>';
+    h += '<h1>Reserva tu mesa</h1>';
+    h += '<p class="bill">Boletas VIP : <b class="v">RD$3,000.00</b></p>';
+    h += '<p class="bill">Boletas General : <b class="g">RD$2,500.00</b></p>';
+    h += '<p class="sub">Toca la mesa que quieres en el plano del Hard Rock Cafe, escribe tu nombre y tu tel&eacute;fono. La mesa queda apartada a tu nombre al instante y todos ven el plano actualizado.</p>';
+    h += '</header>';
+
+    h += '<div class="stats">' +
+      '<div class="stat ok"><b>' + free + '</b><span>Disponibles</span></div>' +
+      '<div class="stat no"><b>' + taken + '</b><span>Reservadas</span></div>' +
+      '<div class="stat"><b>' + TOTAL + '</b><span>Mesas en total</span></div></div>';
+
+    h += '<div class="board"><div class="boardgrid"><div class="mapscroll"><div class="map">';
+
+    h += '<div class="stagerow"><div class="clusters"><div class="col">';
+    for (i = 0; i < SIDE_A.length; i++) h += mesaHTML(SIDE_A[i]);
+    h += '</div><div class="col">';
+    for (i = 0; i < SIDE_B.length; i++) h += mesaHTML(SIDE_B[i]);
+    h += '</div></div><div class="stage"><span class="hrmark"><b>Hard Rock</b><i>CAFE</i></span><span class="esc">Escenario</span></div></div>';
+
+    h += '<div class="grid">';
+    for (i = 0; i < PLACE.length; i++){
+      var p = PLACE[i];
+      var st = "grid-column:" + p[1] + ";grid-row:" + p[2] + (p[3] ? " / span " + p[3] : "");
+      h += mesaHTML(p[0], st);
+    }
+    h += '<div class="divider" style="grid-row:7"></div>';
+    h += '</div>';
+
+    h += '</div></div>';
+
+    h += '<aside class="legend"><h3>Leyenda</h3>' +
+      '<div class="leg"><span class="swatch" style="--c:var(--vip)"><em></em><b></b><em></em></span>' +
+      '<span>VIP<small>RD$3,000 por boleta</small></span></div>' +
+      '<div class="leg"><span class="swatch" style="--c:var(--gen)"><em></em><b></b><em></em></span>' +
+      '<span>General<small>RD$2,500 por boleta</small></span></div>' +
+      '<div class="leg"><span class="swatch is-taken" style="--c:var(--taken)"><em></em><b></b><em></em></span>' +
+      '<span>Reservada<small>Ya tiene due&ntilde;o</small></span></div>' +
+      '<p class="hint">Los n&uacute;meros peque&ntilde;os son los puestos: van del 1 al 8 alrededor de cada mesa (del 1 al 14 en las mesas grandes 33, 34, 35, 48, 49 y 50).</p>' +
+      '</aside></div></div>';
+
+    h += '<div class="listwrap"><details class="list"><summary>Mesas reservadas (' + taken + ')</summary>';
+    if (taken === 0) {
+      h += '<p class="empty">Todav&iacute;a no hay mesas reservadas. S&eacute; el primero.</p>';
+    } else {
+      h += '<div class="chips">';
+      var nums = Object.keys(STATE.r).map(Number).sort(function(x,y){return x-y;});
+      for (i = 0; i < nums.length; i++){
+        h += '<span class="chip"><b>#' + nums[i] + '</b> &middot; ' + esc(STATE.r[String(nums[i])].nombre) + '</span>';
+      }
+      h += '</div>';
+    }
+    h += '</details></div>';
+
+    h += '<footer>' +
+      '<div class="brand"><svg class="lg" viewBox="0 0 44 40" width="36" height="33" aria-hidden="true">' +
+      '<defs><linearGradient id="g4d" x1="0" y1="0" x2="1" y2="1">' +
+      '<stop offset="0" stop-color="#ff3d9a"/><stop offset=".55" stop-color="#8a2be2"/>' +
+      '<stop offset="1" stop-color="#29abe2"/></linearGradient></defs>' +
+      '<path d="M22 3 41 37H3Z" fill="none" stroke="url(#g4d)" stroke-width="3" stroke-linejoin="round"/>' +
+      '<path d="M22 13 31.5 30h-19Z" fill="none" stroke="url(#g4d)" stroke-width="2" stroke-linejoin="round"/></svg>' +
+      '<span><b>4ta Dimensi&oacute;n</b><small>Producci&oacute;n</small></span></div>' +
+      '<div class="promomark">Los padres de la<br><b>Promo 2029</b></div>' +
+      '<div class="brand"><svg class="lg" viewBox="0 0 44 40" width="36" height="33" aria-hidden="true">' +
+      '<g fill="none" stroke="#c7d3ee" stroke-width="2" stroke-linecap="round">' +
+      '<circle cx="22" cy="19" r="8"/><path d="M22 15v8M18 19h8"/>' +
+      '<path d="M10 11c-2.5 6-2.5 12 2 17M34 11c2.5 6 2.5 12-2 17"/>' +
+      '<path d="M8 14l-3-1.5M8.5 20H5M10 26l-3 1.5M36 14l3-1.5M35.5 20H39M34 26l3 1.5"/></g></svg>' +
+      '<span><b>Saint George School</b><small>APMSGS</small></span></div>' +
+      '</footer>' +
+      '<p class="adminrow"><button type="button" class="linkbtn" id="adminbtn">Acceso organizadores</button></p>';
+    h += '</div>';
+
+    h += '<div class="veil" id="veil" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle" id="modal"></div></div>';
+    return h;
+  }
+
+  var bound = false;
+  function render(){
+    root.innerHTML = layout();
+    if (!bound) {
+      bound = true;
+      root.addEventListener("click", onClick);
+      document.addEventListener("keydown", onKey);
+    }
+  }
+
+  function onClick(e){
+    var mesa = e.target.closest ? e.target.closest(".mesa") : null;
+    if (mesa) { openMesa(Number(mesa.dataset.n)); return; }
+    if (e.target.id === "adminbtn") { openAdmin(); return; }
+    if (e.target.id === "veil") closeModal();
+    if (e.target.dataset && e.target.dataset.close !== undefined) closeModal();
+  }
+  function onKey(e){ if (e.key === "Escape" && !busy) closeModal(); }
+
+  function veil(){ return document.getElementById("veil"); }
+  function closeModal(){ var v = veil(); if (v) { v.hidden = true; v.querySelector(".modal").innerHTML = ""; } }
+  function showModal(html){
+    var v = veil();
+    v.querySelector(".modal").innerHTML = html;
+    v.hidden = false;
+    var f = v.querySelector("input, button");
+    if (f) f.focus();
+  }
+
+  function fmtTel(t){
+    var d = String(t).replace(/\D/g, "");
+    if (d.length === 10) return "(" + d.slice(0,3) + ") " + d.slice(3,6) + "-" + d.slice(6);
+    return t;
+  }
+  function maskTel(t){
+    var d = String(t).replace(/\D/g, "");
+    if (d.length < 4) return "••••";
+    return "••• ••• " + d.slice(-4);
+  }
+
+  /* ---------- reserve / release ---------- */
+  function openMesa(n){
+    var key = String(n), res = STATE.r[key], z = zone(n), s = seats(n);
+    var head = '<span class="tag ' + z + '">' + zoneName(n) + '</span>' +
+      '<h2 id="mtitle">Mesa ' + n + '</h2>' +
+      '<p class="meta">' + s + ' puestos &middot; ' + money(price(n)) + ' por boleta</p>';
+
+    if (res) {
+      showModal(head +
+        '<dl class="who"><dt>Reservada por</dt><dd>' + esc(res.nombre) + '</dd>' +
+        '<dt>Tel&eacute;fono</dt><dd>' + maskTel(res.tel) + '</dd></dl>' +
+        '<p class="err" id="err"></p>' +
+        '<div class="actions"><button type="button" class="btn primary" data-close>Volver al plano</button></div>' +
+        '<p class="meta" style="margin:16px 0 0">&iquest;Necesitas cambiar o liberar esta mesa? Contacta a los organizadores.</p>');
+      return;
+    }
+
+    showModal(head +
+      '<form id="f" novalidate>' +
+      '<div class="field"><label for="nombre">Nombre y apellido</label>' +
+      '<input type="text" id="nombre" autocomplete="name" placeholder="Ej. Mar&iacute;a P&eacute;rez" required></div>' +
+      '<div class="field"><label for="tel">Tel&eacute;fono (WhatsApp)</label>' +
+      '<input type="tel" id="tel" autocomplete="tel" inputmode="tel" placeholder="Ej. 809 555 1234" required></div>' +
+      '<p class="err" id="err"></p>' +
+      '<div class="actions"><button type="submit" class="btn primary" id="ok">Reservar mesa ' + n + '</button>' +
+      '<button type="button" class="btn ghost" data-close>Cancelar</button></div></form>');
+
+    document.getElementById("f").addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var nombre = document.getElementById("nombre").value.trim();
+      var tel = document.getElementById("tel").value.trim();
+      var digits = tel.replace(/\D/g, "");
+      var err = document.getElementById("err");
+      if (nombre.length < 3) { err.textContent = "Escribe tu nombre completo."; document.getElementById("nombre").focus(); return; }
+      if (digits.length < 10) { err.textContent = "El teléfono debe tener al menos 10 dígitos."; document.getElementById("tel").focus(); return; }
+      if (STATE.r[key]) { err.textContent = "Esa mesa acaba de ser reservada. Actualizando el plano…"; return; }
+      commit({ action: "reservar", mesa: n, nombre: nombre, tel: digits }, function(){
+        STATE.r[key] = { nombre: nombre, tel: maskTel(digits) };
+        closeModal();
+        render();
+      }, document.getElementById("ok"), "Reservando…");
+    });
+  }
+
+  /* ---------- persistence ---------- */
+  function commit(payload, apply, btn, msg){
+    if (busy) return;
+    var err = document.getElementById("err");
+    busy = true;
+    if (btn) {
+      if (btn.dataset.orig === undefined) btn.dataset.orig = btn.textContent;
+      btn.disabled = true;
+      if (msg) btn.textContent = msg;
+    }
+    if (err) err.textContent = "";
+    api(payload).then(function(res){
+      busy = false;
+      if (btn) { btn.disabled = false; if (btn.dataset.orig) btn.textContent = btn.dataset.orig; }
+      if (res && res.ok) { if (apply) apply(res); return; }
+      var code = (res && res.code) || "error";
+      var m;
+      if (code === "ocupada") { m = "Esa mesa acaba de ser reservada por otra persona."; loadEstado(); }
+      else if (code === "pin") m = "C\u00f3digo incorrecto.";
+      else if (code === "telefono") m = "El tel\u00e9fono debe tener al menos 10 d\u00edgitos.";
+      else if (code === "nombre") m = "Escribe tu nombre completo.";
+      else m = "No se pudo guardar. Int\u00e9ntalo otra vez.";
+      var e2 = document.getElementById("err");
+      if (e2) e2.textContent = m;
+    }).catch(function(){
+      busy = false;
+      if (btn) { btn.disabled = false; if (btn.dataset.orig) btn.textContent = btn.dataset.orig; }
+      var e2 = document.getElementById("err");
+      if (e2) e2.textContent = "Sin conexi\u00f3n. Revisa tu internet e int\u00e9ntalo otra vez.";
+    });
+  }
+
+  /* ---------- organizers ---------- */
+  function openAdmin(){
+    showModal('<span class="tag vip">Organizadores</span><h2 id="mtitle">Lista completa</h2>' +
+      '<p class="meta">Incluye los tel&eacute;fonos de contacto de cada mesa.</p>' +
+      '<form id="pf"><div class="field"><label for="pin">C&oacute;digo</label>' +
+      '<input type="password" id="pin" autocomplete="off"></div>' +
+      '<p class="err" id="err"></p>' +
+      '<div class="actions"><button type="submit" class="btn primary" id="entrar">Entrar</button>' +
+      '<button type="button" class="btn ghost" data-close>Cerrar</button></div></form>');
+    document.getElementById("pf").addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var pin = document.getElementById("pin").value.trim();
+      commit({ action: "admin", pin: pin }, function(res){
+        ADMIN_PIN = pin;
+        adminList(res.lista || []);
+      }, document.getElementById("entrar"), "Verificando…");
+    });
+  }
+
+  function adminList(data){
+    LAST_LISTA = data;
+    var i, body = "";
+    for (i = 0; i < data.length; i++){
+      body += '<tr><td>' + data[i].mesa + '</td><td>' + esc(data[i].nombre) + '</td><td>' +
+        esc(data[i].tel) + '</td><td>' + zoneName(data[i].mesa) +
+        '</td><td><button type="button" class="linkbtn" data-rel="' + data[i].mesa + '">Liberar</button></td></tr>';
+    }
+    showModal('<span class="tag vip">Organizadores</span><h2 id="mtitle">' + data.length + ' mesas</h2>' +
+      '<p class="meta">Reservas registradas hasta ahora.</p>' +
+      (data.length ? '<div class="scroller" id="rows"><table class="admin"><thead><tr><th>Mesa</th><th>Nombre</th><th>Tel&eacute;fono</th><th>Zona</th><th></th></tr></thead><tbody>' + body + '</tbody></table></div>'
+                   : '<p class="meta">Sin reservas todav&iacute;a.</p>') +
+      '<p class="err" id="err"></p>' +
+      '<div class="actions"><button type="button" class="btn primary" id="csv">Copiar lista</button>' +
+      '<button type="button" class="btn ghost" data-close>Cerrar</button></div>');
+    var sc = document.getElementById("rows");
+    if (sc) sc.addEventListener("click", function(ev){
+      var t = ev.target;
+      if (!t || !t.dataset || t.dataset.rel === undefined) return;
+      var n = t.dataset.rel;
+      if (t.dataset.arm === undefined) { t.dataset.arm = "1"; t.textContent = "\u00bfSeguro? Liberar mesa " + n; return; }
+      commit({ action: "liberar", pin: ADMIN_PIN, mesa: n }, function(){
+        delete STATE.r[String(n)];
+        LAST_LISTA = LAST_LISTA.filter(function(r){ return String(r.mesa) !== String(n); });
+        render();
+        adminList(LAST_LISTA);
+      }, t, "Liberando\u2026");
+    });
+    document.getElementById("csv").addEventListener("click", function(){
+      var btn = this;
+      var data = LAST_LISTA, lines = ["Mesa\tZona\tPuestos\tNombre\tTelefono"], i;
+      for (i = 0; i < data.length; i++){
+        var r = data[i];
+        lines.push([r.n, r.zona, r.puestos, r.nombre, r.tel].join("\t"));
+      }
+      var txt = lines.join("\n");
+      var err = document.getElementById("err");
+      var done = function(){
+        btn.textContent = "\u00a1Lista copiada!";
+        setTimeout(function(){ btn.textContent = "Copiar lista"; }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(done, function(){
+          err.textContent = "No se pudo copiar autom\u00e1ticamente. Copia los datos de la tabla.";
+        });
+      } else {
+        err.textContent = "No se pudo copiar autom\u00e1ticamente. Copia los datos de la tabla.";
+      }
+    });
+  }
+
+  render();
+
+  function loadEstado(){
+    api({ action: "estado" }).then(function(res){
+      if (res && res.ok) {
+        STATE.r = res.r || {};
+        var v = document.getElementById("veil");
+        if (!v || v.hidden) render();
+      }
+    }).catch(function(){});
+  }
+  loadEstado();
+  setInterval(loadEstado, 60000);
+  document.addEventListener("visibilitychange", function(){ if (!document.hidden) loadEstado(); });
+})();
+</script>
+</body>
+</html>
