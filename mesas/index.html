@@ -177,6 +177,17 @@ table.admin td{padding:7px 8px 7px 0;border-top:1px solid var(--edge);font-varia
   .leg{margin:0}
   .hint{width:100%;margin:0;border-top:0;padding-top:0}
 }
+.seat--taken{background:var(--taken-dk);color:#dfe4ee}
+.mesa.is-taken .seat--taken{background:#fff;color:#7a8291}
+.pickgrid{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}
+.pick{width:42px;height:42px;border-radius:4px;border:1px solid var(--edge);background:rgba(255,255,255,.06);
+  color:#fff;font:inherit;font-size:15px;font-weight:600;cursor:pointer;font-variant-numeric:tabular-nums}
+.pick.sel{background:var(--sky);border-color:var(--sky);color:#04121c}
+.pick:disabled{background:rgba(255,255,255,.14);color:#6c7690;cursor:default;text-decoration:line-through}
+.pick:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.picklinks{margin:0 0 14px}
+.whos{margin:0 0 16px;font-size:12.5px;color:var(--dim);line-height:1.8}
+.whos b{color:#dbe4f7;font-weight:600}
 @media (max-width:560px){
   .board{padding:14px 10px}
   .grid{grid-template-columns:repeat(7,40px);column-gap:4px;row-gap:11px}
@@ -194,6 +205,7 @@ table.admin td{padding:7px 8px 7px 0;border-top:1px solid var(--edge);font-varia
   .map{min-width:0}
   .mapscroll{padding-bottom:0}
   .divider{border-top-width:2px}
+  .pick{width:38px;height:38px;font-size:14px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -234,11 +246,24 @@ table.admin td{padding:7px 8px 7px 0;border-top:1px solid var(--edge);font-varia
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
       .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
   }
+  function maskTel(t){
+    var d = String(t).replace(/\D/g, "");
+    if (d.length < 4) return "••••";
+    return "••• ••• " + d.slice(-4);
+  }
 
-  var STATE = { v: 1, r: {} };
+  var STATE = { v: 2, r: {} };
   function api(payload){
     return fetch(API, { method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload) }).then(function(r){ return r.json(); });
+  }
+
+  function mesaInfo(n){
+    var e = STATE.r[String(n)] || null, s = seats(n);
+    if (!e) return { taken: 0, total: s, full: false, sillas: {}, fullRes: null };
+    if (e.full) return { taken: s, total: s, full: true, sillas: {}, fullRes: e.full };
+    var sl = e.sillas || {}, t = Object.keys(sl).length;
+    return { taken: t, total: s, full: t >= s, sillas: sl, fullRes: null };
   }
 
   var root = document.getElementById("root");
@@ -246,17 +271,24 @@ table.admin td{padding:7px 8px 7px 0;border-top:1px solid var(--edge);font-varia
 
   /* ---------- table markup ---------- */
   function mesaHTML(n, style){
-    var res = STATE.r[String(n)];
-    var s = seats(n), half = s / 2, i;
+    var info = mesaInfo(n);
+    var s = info.total, half = s / 2, i;
     var horiz = HORIZ.indexOf(n) > -1;
     var big = BIG.indexOf(n) > -1;
+    function sp(num){
+      var tk = info.fullRes || info.sillas[String(num)];
+      return '<span class="seat' + (tk ? ' seat--taken' : '') + '">' + num + '</span>';
+    }
     var a = "", b = "";
-    for (i = 1; i <= half; i++) a += '<span class="seat">' + i + '</span>';
-    for (i = s; i > half; i--) b += '<span class="seat">' + i + '</span>';
+    for (i = 1; i <= half; i++) a += sp(i);
+    for (i = s; i > half; i--) b += sp(i);
     if (horiz) { var tmp = a; a = b; b = tmp; }
-    var cls = "mesa mesa--" + zone(n) + (horiz ? " mesa--h" : "") + (big ? " mesa--big" : "") + (res ? " is-taken" : "");
-    var label = "Mesa " + n + ", " + zoneName(n) + ", " + s + " puestos, " +
-                (res ? "reservada por " + res.nombre : "disponible");
+    var cls = "mesa mesa--" + zone(n) + (horiz ? " mesa--h" : "") + (big ? " mesa--big" : "") + (info.full ? " is-taken" : "");
+    var label = "Mesa " + n + ", " + zoneName(n) + ", " + s + " puestos, ";
+    if (info.fullRes) label += "reservada completa por " + info.fullRes.nombre;
+    else if (info.full) label += "todas las sillas reservadas";
+    else if (info.taken) label += info.taken + " de " + s + " sillas reservadas";
+    else label += "disponible";
     return '<button type="button" class="' + cls + '" data-n="' + n + '"' +
       (style ? ' style="' + style + '"' : "") +
       ' aria-label="' + esc(label) + '" title="' + esc(label) + '">' +
@@ -267,8 +299,14 @@ table.admin td{padding:7px 8px 7px 0;border-top:1px solid var(--edge);font-varia
 
   function layout(){
     var i, h = "";
-    var taken = Object.keys(STATE.r).length;
-    var free = TOTAL - taken;
+    var full = 0, sillasTk = 0, conReserva = 0;
+    for (var k in STATE.r) {
+      var inf = mesaInfo(Number(k));
+      if (inf.taken > 0) conReserva++;
+      if (inf.full) full++;
+      sillasTk += inf.taken;
+    }
+    var libres = TOTAL - full;
 
     h += '<div class="wrap">';
     h += '<header class="hero">';
@@ -276,13 +314,13 @@ table.admin td{padding:7px 8px 7px 0;border-top:1px solid var(--edge);font-varia
     h += '<h1>Reserva tu mesa</h1>';
     h += '<p class="bill">Boletas VIP : <b class="v">RD$3,000.00</b></p>';
     h += '<p class="bill">Boletas General : <b class="g">RD$2,500.00</b></p>';
-    h += '<p class="sub">Toca la mesa que quieres en el plano del Hard Rock Cafe, escribe tu nombre y tu tel&eacute;fono. La mesa queda apartada a tu nombre al instante y todos ven el plano actualizado.</p>';
+    h += '<p class="sub">Toca la mesa que quieras, elige tus sillas y escribe tu nombre y tel&eacute;fono. Cada silla es una boleta: puedes apartar sillas sueltas o la mesa completa, y el plano se actualiza para todos al instante.</p>';
     h += '</header>';
 
     h += '<div class="stats">' +
-      '<div class="stat ok"><b>' + free + '</b><span>Disponibles</span></div>' +
-      '<div class="stat no"><b>' + taken + '</b><span>Reservadas</span></div>' +
-      '<div class="stat"><b>' + TOTAL + '</b><span>Mesas en total</span></div></div>';
+      '<div class="stat ok"><b>' + libres + '</b><span>Mesas con sillas libres</span></div>' +
+      '<div class="stat no"><b>' + full + '</b><span>Mesas completas</span></div>' +
+      '<div class="stat"><b>' + sillasTk + '</b><span>Sillas apartadas</span></div></div>';
 
     h += '<div class="board"><div class="boardgrid"><div class="mapscroll"><div class="map">';
 
@@ -309,18 +347,21 @@ table.admin td{padding:7px 8px 7px 0;border-top:1px solid var(--edge);font-varia
       '<div class="leg"><span class="swatch" style="--c:var(--gen)"><em></em><b></b><em></em></span>' +
       '<span>General<small>RD$2,500 por boleta</small></span></div>' +
       '<div class="leg"><span class="swatch is-taken" style="--c:var(--taken)"><em></em><b></b><em></em></span>' +
-      '<span>Reservada<small>Ya tiene due&ntilde;o</small></span></div>' +
-      '<p class="hint">Los n&uacute;meros peque&ntilde;os son los puestos: van del 1 al 8 alrededor de cada mesa (del 1 al 14 en las mesas grandes 33, 34, 35, 48, 49 y 50).</p>' +
+      '<span>Completa<small>Sin sillas libres</small></span></div>' +
+      '<p class="hint">Los cuadritos alrededor de cada mesa son las sillas: blancas est&aacute;n libres y oscuras ya tienen due&ntilde;o. Las mesas 33, 34, 35, 48, 49 y 50 tienen 14 sillas; el resto 8.</p>' +
       '</aside></div></div>';
 
-    h += '<div class="listwrap"><details class="list"><summary>Mesas reservadas (' + taken + ')</summary>';
-    if (taken === 0) {
-      h += '<p class="empty">Todav&iacute;a no hay mesas reservadas. S&eacute; el primero.</p>';
+    var keys = Object.keys(STATE.r).map(Number).sort(function(x,y){return x-y;});
+    h += '<div class="listwrap"><details class="list"><summary>Mesas con reservas (' + conReserva + ')</summary>';
+    if (!keys.length) {
+      h += '<p class="empty">Todav&iacute;a no hay reservas. S&eacute; el primero.</p>';
     } else {
       h += '<div class="chips">';
-      var nums = Object.keys(STATE.r).map(Number).sort(function(x,y){return x-y;});
-      for (i = 0; i < nums.length; i++){
-        h += '<span class="chip"><b>#' + nums[i] + '</b> &middot; ' + esc(STATE.r[String(nums[i])].nombre) + '</span>';
+      for (i = 0; i < keys.length; i++){
+        var inf2 = mesaInfo(keys[i]);
+        if (!inf2.taken) continue;
+        var txt = inf2.fullRes ? esc(inf2.fullRes.nombre) : (inf2.taken + "/" + inf2.total + " sillas");
+        h += '<span class="chip"><b>#' + keys[i] + '</b> &middot; ' + txt + '</span>';
       }
       h += '</div>';
     }
@@ -378,55 +419,98 @@ table.admin td{padding:7px 8px 7px 0;border-top:1px solid var(--edge);font-varia
     if (f) f.focus();
   }
 
-  function fmtTel(t){
-    var d = String(t).replace(/\D/g, "");
-    if (d.length === 10) return "(" + d.slice(0,3) + ") " + d.slice(3,6) + "-" + d.slice(6);
-    return t;
-  }
-  function maskTel(t){
-    var d = String(t).replace(/\D/g, "");
-    if (d.length < 4) return "••••";
-    return "••• ••• " + d.slice(-4);
-  }
-
-  /* ---------- reserve / release ---------- */
+  /* ---------- reservar sillas ---------- */
   function openMesa(n){
-    var key = String(n), res = STATE.r[key], z = zone(n), s = seats(n);
+    var key = String(n), info = mesaInfo(n), z = zone(n), s = info.total;
     var head = '<span class="tag ' + z + '">' + zoneName(n) + '</span>' +
       '<h2 id="mtitle">Mesa ' + n + '</h2>' +
-      '<p class="meta">' + s + ' puestos &middot; ' + money(price(n)) + ' por boleta</p>';
+      '<p class="meta">' + s + ' sillas &middot; ' + money(price(n)) + ' por boleta &middot; ' +
+      (s - info.taken) + ' libre' + (s - info.taken === 1 ? '' : 's') + '</p>';
 
-    if (res) {
+    if (info.fullRes) {
       showModal(head +
-        '<dl class="who"><dt>Reservada por</dt><dd>' + esc(res.nombre) + '</dd>' +
-        '<dt>Tel&eacute;fono</dt><dd>' + maskTel(res.tel) + '</dd></dl>' +
+        '<dl class="who"><dt>Mesa completa reservada por</dt><dd>' + esc(info.fullRes.nombre) + '</dd>' +
+        '<dt>Tel&eacute;fono</dt><dd>' + (info.fullRes.tel || "••••") + '</dd></dl>' +
         '<p class="err" id="err"></p>' +
         '<div class="actions"><button type="button" class="btn primary" data-close>Volver al plano</button></div>' +
-        '<p class="meta" style="margin:16px 0 0">&iquest;Necesitas cambiar o liberar esta mesa? Contacta a los organizadores.</p>');
+        '<p class="meta" style="margin:16px 0 0">&iquest;Necesitas un cambio? Contacta a los organizadores.</p>');
+      return;
+    }
+
+    var grid = '<div class="pickgrid">', i;
+    for (i = 1; i <= s; i++){
+      var tk = info.sillas[String(i)];
+      grid += '<button type="button" class="pick" data-s="' + i + '"' +
+        (tk ? ' disabled title="Reservada por ' + esc(tk.nombre) + '"' : '') + '>' + i + '</button>';
+    }
+    grid += '</div>';
+
+    var who = '', tknums = Object.keys(info.sillas).map(Number).sort(function(a,b){return a-b;});
+    if (tknums.length){
+      who = '<p class="whos">';
+      for (i = 0; i < tknums.length; i++)
+        who += 'Silla ' + tknums[i] + ' &middot; <b>' + esc(info.sillas[String(tknums[i])].nombre) + '</b><br>';
+      who += '</p>';
+    }
+
+    if (info.full){
+      showModal(head + '<label>Sillas de esta mesa</label>' + grid + who +
+        '<div class="actions"><button type="button" class="btn primary" data-close>Volver al plano</button></div>' +
+        '<p class="meta" style="margin:16px 0 0">Todas las sillas ya tienen due&ntilde;o. Para cambios contacta a los organizadores.</p>');
       return;
     }
 
     showModal(head +
       '<form id="f" novalidate>' +
+      '<label>Elige tus sillas &mdash; cada silla es una boleta</label>' + grid +
+      '<p class="picklinks"><button type="button" class="linkbtn" id="todas">Seleccionar todas las libres (mesa completa)</button></p>' +
+      who +
       '<div class="field"><label for="nombre">Nombre y apellido</label>' +
       '<input type="text" id="nombre" autocomplete="name" placeholder="Ej. Mar&iacute;a P&eacute;rez" required></div>' +
       '<div class="field"><label for="tel">Tel&eacute;fono (WhatsApp)</label>' +
       '<input type="tel" id="tel" autocomplete="tel" inputmode="tel" placeholder="Ej. 809 555 1234" required></div>' +
       '<p class="err" id="err"></p>' +
-      '<div class="actions"><button type="submit" class="btn primary" id="ok">Reservar mesa ' + n + '</button>' +
+      '<div class="actions"><button type="submit" class="btn primary" id="ok" disabled>Elige tus sillas</button>' +
       '<button type="button" class="btn ghost" data-close>Cancelar</button></div></form>');
 
-    document.getElementById("f").addEventListener("submit", function(ev){
+    var sel = {};
+    var form = document.getElementById("f");
+    function updateBtn(){
+      var c = Object.keys(sel).length, ok = document.getElementById("ok");
+      ok.disabled = c === 0;
+      ok.textContent = c === 0 ? "Elige tus sillas" : (c === 1 ? "Reservar 1 silla" : "Reservar " + c + " sillas");
+    }
+    form.addEventListener("click", function(ev){
+      var p = ev.target.closest ? ev.target.closest(".pick") : null;
+      if (p && !p.disabled){
+        var num = p.dataset.s;
+        if (sel[num]) { delete sel[num]; p.classList.remove("sel"); }
+        else { sel[num] = true; p.classList.add("sel"); }
+        updateBtn(); return;
+      }
+      if (ev.target.id === "todas"){
+        var picks = form.querySelectorAll(".pick");
+        for (var j = 0; j < picks.length; j++){
+          if (!picks[j].disabled){ sel[picks[j].dataset.s] = true; picks[j].classList.add("sel"); }
+        }
+        updateBtn();
+      }
+    });
+    form.addEventListener("submit", function(ev){
       ev.preventDefault();
       var nombre = document.getElementById("nombre").value.trim();
       var tel = document.getElementById("tel").value.trim();
       var digits = tel.replace(/\D/g, "");
       var err = document.getElementById("err");
+      var list = Object.keys(sel).map(Number).sort(function(a,b){return a-b;});
+      if (!list.length) { err.textContent = "Elige al menos una silla."; return; }
       if (nombre.length < 3) { err.textContent = "Escribe tu nombre completo."; document.getElementById("nombre").focus(); return; }
       if (digits.length < 10) { err.textContent = "El teléfono debe tener al menos 10 dígitos."; document.getElementById("tel").focus(); return; }
-      if (STATE.r[key]) { err.textContent = "Esa mesa acaba de ser reservada. Actualizando el plano…"; return; }
-      commit({ action: "reservar", mesa: n, nombre: nombre, tel: digits }, function(){
-        STATE.r[key] = { nombre: nombre, tel: maskTel(digits) };
+      commit({ action: "reservar", mesa: n, sillas: list, nombre: nombre, tel: digits }, function(){
+        var e = STATE.r[key];
+        if (!e || e.full) e = STATE.r[key] = { sillas: {} };
+        if (!e.sillas) e.sillas = {};
+        for (var j = 0; j < list.length; j++) e.sillas[String(list[j])] = { nombre: nombre, tel: maskTel(digits) };
         closeModal();
         render();
       }, document.getElementById("ok"), "Reservando…");
@@ -450,25 +534,31 @@ table.admin td{padding:7px 8px 7px 0;border-top:1px solid var(--edge);font-varia
       if (res && res.ok) { if (apply) apply(res); return; }
       var code = (res && res.code) || "error";
       var m;
-      if (code === "ocupada") { m = "Esa mesa acaba de ser reservada por otra persona."; loadEstado(); }
-      else if (code === "pin") m = "C\u00f3digo incorrecto.";
-      else if (code === "telefono") m = "El tel\u00e9fono debe tener al menos 10 d\u00edgitos.";
+      if (code === "ocupada") {
+        m = (res && res.sillas && res.sillas.length)
+          ? "La silla " + res.sillas.join(", la ") + " acaba de ser tomada por otra persona. Cierra y abre la mesa para ver lo disponible."
+          : "Esa mesa acaba de ser reservada completa. Cierra y abre la mesa.";
+        loadEstado();
+      }
+      else if (code === "pin") m = "Código incorrecto.";
+      else if (code === "telefono") m = "El teléfono debe tener al menos 10 dígitos.";
       else if (code === "nombre") m = "Escribe tu nombre completo.";
-      else m = "No se pudo guardar. Int\u00e9ntalo otra vez.";
+      else if (code === "sillas_invalidas") m = "Elige al menos una silla.";
+      else m = "No se pudo guardar. Inténtalo otra vez.";
       var e2 = document.getElementById("err");
       if (e2) e2.textContent = m;
     }).catch(function(){
       busy = false;
       if (btn) { btn.disabled = false; if (btn.dataset.orig) btn.textContent = btn.dataset.orig; }
       var e2 = document.getElementById("err");
-      if (e2) e2.textContent = "Sin conexi\u00f3n. Revisa tu internet e int\u00e9ntalo otra vez.";
+      if (e2) e2.textContent = "Sin conexión. Revisa tu internet e inténtalo otra vez.";
     });
   }
 
-  /* ---------- organizers ---------- */
+  /* ---------- organizadores ---------- */
   function openAdmin(){
     showModal('<span class="tag vip">Organizadores</span><h2 id="mtitle">Lista completa</h2>' +
-      '<p class="meta">Incluye los tel&eacute;fonos de contacto de cada mesa.</p>' +
+      '<p class="meta">Incluye los tel&eacute;fonos de contacto de cada reserva.</p>' +
       '<form id="pf"><div class="field"><label for="pin">C&oacute;digo</label>' +
       '<input type="password" id="pin" autocomplete="off"></div>' +
       '<p class="err" id="err"></p>' +
@@ -488,13 +578,15 @@ table.admin td{padding:7px 8px 7px 0;border-top:1px solid var(--edge);font-varia
     LAST_LISTA = data;
     var i, body = "";
     for (i = 0; i < data.length; i++){
-      body += '<tr><td>' + data[i].mesa + '</td><td>' + esc(data[i].nombre) + '</td><td>' +
-        esc(data[i].tel) + '</td><td>' + zoneName(data[i].mesa) +
-        '</td><td><button type="button" class="linkbtn" data-rel="' + data[i].mesa + '">Liberar</button></td></tr>';
+      var r = data[i];
+      var sillaTxt = r.silla === "" ? "Completa" : "Silla " + r.silla;
+      body += '<tr><td>' + r.mesa + '</td><td>' + sillaTxt + '</td><td>' + esc(r.nombre) + '</td><td>' +
+        esc(r.tel) + '</td><td>' + zoneName(r.mesa) +
+        '</td><td><button type="button" class="linkbtn" data-rel="' + r.mesa + '" data-sil="' + esc(r.silla) + '">Liberar</button></td></tr>';
     }
-    showModal('<span class="tag vip">Organizadores</span><h2 id="mtitle">' + data.length + ' mesas</h2>' +
-      '<p class="meta">Reservas registradas hasta ahora.</p>' +
-      (data.length ? '<div class="scroller" id="rows"><table class="admin"><thead><tr><th>Mesa</th><th>Nombre</th><th>Tel&eacute;fono</th><th>Zona</th><th></th></tr></thead><tbody>' + body + '</tbody></table></div>'
+    showModal('<span class="tag vip">Organizadores</span><h2 id="mtitle">' + data.length + ' reservas</h2>' +
+      '<p class="meta">Cada fila es una reserva: mesa completa o silla individual.</p>' +
+      (data.length ? '<div class="scroller" id="rows"><table class="admin"><thead><tr><th>Mesa</th><th>Silla</th><th>Nombre</th><th>Tel&eacute;fono</th><th>Zona</th><th></th></tr></thead><tbody>' + body + '</tbody></table></div>'
                    : '<p class="meta">Sin reservas todav&iacute;a.</p>') +
       '<p class="err" id="err"></p>' +
       '<div class="actions"><button type="button" class="btn primary" id="csv">Copiar lista</button>' +
@@ -503,34 +595,44 @@ table.admin td{padding:7px 8px 7px 0;border-top:1px solid var(--edge);font-varia
     if (sc) sc.addEventListener("click", function(ev){
       var t = ev.target;
       if (!t || !t.dataset || t.dataset.rel === undefined) return;
-      var n = t.dataset.rel;
-      if (t.dataset.arm === undefined) { t.dataset.arm = "1"; t.textContent = "\u00bfSeguro? Liberar mesa " + n; return; }
-      commit({ action: "liberar", pin: ADMIN_PIN, mesa: n }, function(){
-        delete STATE.r[String(n)];
-        LAST_LISTA = LAST_LISTA.filter(function(r){ return String(r.mesa) !== String(n); });
-        render();
+      var m = t.dataset.rel, sil = t.dataset.sil;
+      if (t.dataset.arm === undefined) {
+        t.dataset.arm = "1";
+        t.textContent = "¿Seguro? Liberar " + (sil === "" ? "mesa " + m + " completa" : "silla " + sil + " de mesa " + m);
+        return;
+      }
+      commit({ action: "liberar", pin: ADMIN_PIN, mesa: m, silla: sil }, function(){
+        LAST_LISTA = LAST_LISTA.filter(function(r){ return !(String(r.mesa) === String(m) && String(r.silla) === String(sil)); });
+        var e = STATE.r[String(m)];
+        if (e) {
+          if (sil === "") delete STATE.r[String(m)];
+          else if (e.sillas) {
+            delete e.sillas[sil];
+            if (!Object.keys(e.sillas).length) delete STATE.r[String(m)];
+          }
+        }
         adminList(LAST_LISTA);
-      }, t, "Liberando\u2026");
+      }, t, "Liberando…");
     });
     document.getElementById("csv").addEventListener("click", function(){
       var btn = this;
-      var data = LAST_LISTA, lines = ["Mesa\tZona\tPuestos\tNombre\tTelefono"], i;
+      var data = LAST_LISTA, lines = ["Mesa\tSilla\tZona\tPuestos\tNombre\tTelefono"], i;
       for (i = 0; i < data.length; i++){
         var r = data[i];
-        lines.push([r.n, r.zona, r.puestos, r.nombre, r.tel].join("\t"));
+        lines.push([r.mesa, r.silla === "" ? "Completa" : r.silla, zoneName(r.mesa), r.puestos, r.nombre, r.tel].join("\t"));
       }
       var txt = lines.join("\n");
       var err = document.getElementById("err");
       var done = function(){
-        btn.textContent = "\u00a1Lista copiada!";
+        btn.textContent = "¡Lista copiada!";
         setTimeout(function(){ btn.textContent = "Copiar lista"; }, 2000);
       };
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(txt).then(done, function(){
-          err.textContent = "No se pudo copiar autom\u00e1ticamente. Copia los datos de la tabla.";
+          err.textContent = "No se pudo copiar automáticamente. Copia los datos de la tabla.";
         });
       } else {
-        err.textContent = "No se pudo copiar autom\u00e1ticamente. Copia los datos de la tabla.";
+        err.textContent = "No se pudo copiar automáticamente. Copia los datos de la tabla.";
       }
     });
   }
