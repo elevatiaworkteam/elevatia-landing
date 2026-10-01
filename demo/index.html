@@ -16,7 +16,7 @@
   tailwind.config = {
     darkMode: "class",
     theme: { extend: {
-      colors: { "primary": "#ee2bee", "accent-blue": "#2b9eee", "background-dark": "#020202" },
+      colors: { "primary": "#ee2bee", "accent-blue": "#2b9eee", "background-dark": "#06041a" },
       fontFamily: { "display": ["Space Grotesk","sans-serif"], "sans": ["Space Grotesk","sans-serif"] }
     } }
   }
@@ -24,9 +24,15 @@
 <style type="text/tailwindcss">
   @layer base {
     body { @apply bg-background-dark text-white font-sans overflow-x-hidden; }
+    body::before { content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+      background:
+        radial-gradient(900px 620px at 8% -5%, rgba(8,160,247,.30), transparent 62%),
+        radial-gradient(820px 620px at 95% 18%, rgba(217,23,252,.26), transparent 60%),
+        radial-gradient(760px 560px at 50% 105%, rgba(44,60,167,.40), transparent 62%),
+        linear-gradient(180deg, #0a0626 0%, #06041a 55%, #080428 100%); }
     html { scroll-behavior: smooth; }
   }
-  .glass-card { background: rgba(10,10,15,0.75); border: 1px solid rgba(255,255,255,0.08); }
+  .glass-card { background: rgba(12,8,38,0.72); border: 1px solid rgba(255,255,255,0.10); backdrop-filter: blur(6px); }
   .glow-border-magenta { border: 1px solid rgba(238,43,238,0.35); box-shadow: 0 0 18px rgba(238,43,238,0.12); }
   .glow-border-blue { border: 1px solid rgba(43,158,238,0.35); box-shadow: 0 0 18px rgba(43,158,238,0.12); }
   .glow-button { box-shadow: 0 0 25px rgba(238,43,238,0.35); transition: all .3s cubic-bezier(.175,.885,.32,1.275); }
@@ -34,10 +40,10 @@
   .text-gradient { background: linear-gradient(90deg,#2b9eee,#ee2bee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .logo-gradient-text { background: linear-gradient(90deg,#2b9eee 0%,#ee2bee 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .ambient { position:absolute; width:520px; height:520px; border-radius:50%; filter: blur(90px); z-index:-1; pointer-events:none; }
-  .ambient-pink { background: radial-gradient(circle, rgba(238,43,238,.18) 0%, transparent 70%); }
-  .ambient-blue { background: radial-gradient(circle, rgba(43,158,238,.18) 0%, transparent 70%); }
+  .ambient-pink { background: radial-gradient(circle, rgba(217,23,252,.22) 0%, transparent 70%); }
+  .ambient-blue { background: radial-gradient(circle, rgba(8,160,247,.22) 0%, transparent 70%); }
   .msg { max-width: 86%; padding: .65rem .9rem; border-radius: 1.1rem; font-size: .9rem; line-height: 1.45; white-space: pre-wrap; word-wrap: break-word; }
-  .msg-bot { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.08); border-top-left-radius: .35rem; }
+  .msg-bot { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.10); border-top-left-radius: .35rem; }
   .msg-user { background: linear-gradient(135deg,#ee2bee,#9b2bee); border-top-right-radius: .35rem; }
   .typing span { display:inline-block; width:6px; height:6px; margin:0 2px; background:#cbd5e1; border-radius:50%; animation: blink 1.2s infinite; }
   .typing span:nth-child(2){ animation-delay:.2s } .typing span:nth-child(3){ animation-delay:.4s }
@@ -53,65 +59,34 @@
 <body class="min-h-screen">
 
 <!-- HEADER -->
-<header class="fixed top-0 w-full z-50 border-b border-white/5 bg-background-dark/85 backdrop-blur-md">
+<header class="fixed top-0 w-full z-50 border-b border-white/10 bg-[#06041a]/80 backdrop-blur-md">
   <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
     <a href="https://www.elevatia.do" class="flex items-center gap-2">
       <span class="logo-gradient-text text-2xl font-bold tracking-tight">ElevatIA</span>
       <span class="hidden sm:inline-block text-[10px] font-bold tracking-[0.25em] uppercase px-2 py-1 rounded-full border border-white/15 text-slate-300">Demo</span>
     </a>
-    <a href="#chat" onclick="track('click_probar','header')" class="px-5 py-2.5 bg-primary text-white text-xs font-bold rounded-full glow-button uppercase tracking-widest">Prueba el bot</a>
+    <nav class="flex items-center gap-4 sm:gap-6">
+      <a href="#chat" class="hidden sm:block text-xs font-bold uppercase tracking-[0.2em] text-slate-300 hover:text-white">Demo</a>
+      <a href="#contacto" class="hidden sm:block text-xs font-bold uppercase tracking-[0.2em] text-slate-300 hover:text-white">Contacto</a>
+      <a href="#chat" onclick="track('click_probar','header')" class="px-5 py-2.5 bg-primary text-white text-xs font-bold rounded-full glow-button uppercase tracking-widest">Prueba el bot</a>
+    </nav>
   </div>
 </header>
 
-<!-- 1. ENCABEZADO -->
-<section class="relative pt-32 pb-14 sm:pt-40 sm:pb-20 px-4 sm:px-6 overflow-hidden">
-  <div class="ambient ambient-pink -top-40 -left-40"></div>
-  <div class="ambient ambient-blue top-10 -right-40"></div>
+<!-- 1. ENCABEZADO (breve) -->
+<section class="relative pt-28 pb-8 sm:pt-36 sm:pb-10 px-4 sm:px-6 overflow-hidden">
   <div class="max-w-3xl mx-auto text-center">
-    <span class="inline-block text-[11px] font-bold tracking-[0.3em] uppercase px-4 py-2 rounded-full border border-accent-blue/40 text-accent-blue mb-6">Demo gratis · Sin registrarte</span>
-    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight mb-6">¿Cómo respondería una <span class="text-gradient">IA</span> a los clientes de tu negocio?</h1>
-    <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto mb-8">Pregunta por precios, servicios o pide una cotización y mira cómo responde nuestro bot. Como si fueras el cliente.</p>
-    <div class="flex flex-col sm:flex-row gap-3 justify-center">
-      <a href="#chat" onclick="track('click_probar','hero')" class="px-8 py-4 bg-primary text-white font-black rounded-xl text-sm glow-button uppercase tracking-[0.2em]">Prueba el bot</a>
-      <button onclick="playRecorded('hero')" class="px-8 py-4 border border-white/15 text-white font-bold rounded-xl text-sm uppercase tracking-[0.2em] hover:bg-white/5 transition-colors">▶ Ver demo grabada</button>
-    </div>
-    <p class="text-xs text-slate-500 mt-6">Responde en segundos · Funciona 24/7 · Negocio de prueba, sin pagos reales</p>
+    <span class="inline-block text-[11px] font-bold tracking-[0.3em] uppercase px-4 py-2 rounded-full border border-accent-blue/40 text-accent-blue mb-5">Demo gratis · Sin registrarte</span>
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight mb-5">¿Cómo respondería una <span class="text-gradient">IA</span> a los clientes de tu negocio?</h1>
+    <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto">Elige un negocio de prueba, pregunta precios, pide una cotización o agenda, y mira cómo responde el bot. Como si fueras el cliente.</p>
   </div>
 </section>
 
-<!-- 2. INSTRUCCIÓN -->
-<section class="px-4 sm:px-6 pb-10">
-  <div class="max-w-3xl mx-auto glass-card rounded-3xl p-6 sm:p-8">
-    <div class="flex items-center gap-3 mb-5">
-      <span class="material-symbols-outlined text-accent-blue">info</span>
-      <h2 class="font-bold text-lg sm:text-xl">Cómo probarlo</h2>
-    </div>
-    <div class="grid sm:grid-cols-3 gap-4 text-sm">
-      <div class="rounded-2xl bg-white/[0.03] border border-white/10 p-4">
-        <div class="step-num text-2xl mb-1">1</div>
-        <p class="text-slate-300">Elige un <strong class="text-white">negocio de prueba</strong>: una clínica (citas), una ferretería (cotizaciones) o un restaurante (pedidos y reservas). Son <strong class="text-white">ficticios</strong>.</p>
-      </div>
-      <div class="rounded-2xl bg-white/[0.03] border border-white/10 p-4">
-        <div class="step-num text-2xl mb-1">2</div>
-        <p class="text-slate-300">Pregunta <strong class="text-white">precios</strong>, qué <strong class="text-white">servicios</strong> ofrecen o pide una <strong class="text-white">cotización</strong>.</p>
-      </div>
-      <div class="rounded-2xl bg-white/[0.03] border border-white/10 p-4">
-        <div class="step-num text-2xl mb-1">3</div>
-        <p class="text-slate-300">Intenta <strong class="text-white">agendar, cotizar o pedir</strong>: el bot lo simula y te da un código de solicitud.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 3. DEMO VISIBLE -->
-<section id="chat" class="px-4 sm:px-6 pb-16 scroll-mt-20">
+<!-- 2. DEMO -->
+<section id="chat" class="px-4 sm:px-6 pb-6 scroll-mt-20">
   <div class="max-w-3xl mx-auto">
-    <div class="text-center mb-4">
-      <span class="text-[11px] font-bold tracking-[0.3em] uppercase text-accent-blue">Elige qué quieres probar</span>
-    </div>
     <div id="bizSelector" class="grid grid-cols-3 gap-2 sm:gap-3 mb-4"></div>
     <div class="glass-card glow-border-magenta rounded-3xl overflow-hidden">
-      <!-- chat header -->
       <div class="flex items-center justify-between gap-3 px-4 sm:px-5 py-3 border-b border-white/10 bg-white/[0.03]">
         <div class="flex items-center gap-3 min-w-0">
           <div id="chatAvatar" class="size-10 rounded-full bg-gradient-to-br from-accent-blue to-primary flex items-center justify-center font-black text-white shrink-0">D</div>
@@ -125,119 +100,70 @@
           <button onclick="resetChat()" title="Reiniciar conversación" class="size-9 rounded-lg hover:bg-white/10 flex items-center justify-center text-slate-300"><span class="material-symbols-outlined text-[20px]">restart_alt</span></button>
         </div>
       </div>
-      <!-- messages -->
-      <div id="chatMessages" class="h-[52vh] min-h-[340px] max-h-[520px] overflow-y-auto px-4 sm:px-5 py-4 flex flex-col gap-3"></div>
-      <!-- chips -->
+      <div id="chatMessages" class="h-[50vh] min-h-[320px] max-h-[500px] overflow-y-auto px-4 sm:px-5 py-4 flex flex-col gap-3"></div>
       <div class="px-4 sm:px-5 pb-2">
         <div id="chatChips" class="chips flex gap-2 overflow-x-auto pb-1"></div>
       </div>
-      <!-- input -->
       <form id="chatForm" onsubmit="return onChatSubmit(event)" class="flex items-center gap-2 px-4 sm:px-5 pb-4">
         <input id="chatInput" type="text" maxlength="400" autocomplete="off" placeholder="Escribe como si fueras el cliente…" class="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-primary focus:ring-0"/>
         <button id="chatSend" type="submit" class="size-12 rounded-xl bg-primary text-white flex items-center justify-center glow-button shrink-0" aria-label="Enviar"><span class="material-symbols-outlined">send</span></button>
       </form>
       <div class="px-4 sm:px-5 pb-3 text-[11px] text-slate-500 flex flex-wrap gap-x-3 gap-y-1 justify-between">
-        <span>Negocio ficticio · sin reservas ni pagos reales · no escribas datos sensibles</span>
+        <span>Negocios ficticios · sin reservas ni pagos reales · no escribas datos sensibles</span>
         <span id="chatQuota"></span>
       </div>
     </div>
-    <p class="text-center text-sm text-slate-400 mt-5">¿Falló el chat? <button onclick="playRecorded('fallback')" class="text-accent-blue underline font-semibold">Mira la demo grabada</button> o <a id="waFallback" href="#" target="_blank" rel="noopener" class="text-accent-blue underline font-semibold">escríbenos por WhatsApp</a>.</p>
-  </div>
-</section>
 
-<!-- 4. APLICACIÓN -->
-<section class="relative px-4 sm:px-6 py-16 overflow-hidden">
-  <div class="ambient ambient-blue -left-60 top-20"></div>
-  <div class="max-w-5xl mx-auto">
-    <div class="text-center mb-10">
-      <span class="text-[11px] font-bold tracking-[0.3em] uppercase text-primary">Lo que acabas de ver</span>
-      <h2 class="text-3xl sm:text-4xl font-bold mt-3">Esto mismo, con los datos de <span class="text-gradient">tu empresa</span></h2>
-    </div>
-    <div class="grid md:grid-cols-2 gap-6">
-      <div class="glass-card rounded-3xl p-6 sm:p-8">
-        <h3 class="font-bold text-lg mb-5 flex items-center gap-2"><span class="material-symbols-outlined text-accent-blue">visibility</span> Lo que hizo el bot</h3>
-        <ul class="space-y-4 text-sm text-slate-300">
-          <li class="flex gap-3"><span class="material-symbols-outlined text-emerald-400 text-[20px]">check_circle</span><span><strong class="text-white">Respondió precios y servicios</strong> al instante, sin esperar a un empleado.</span></li>
-          <li class="flex gap-3"><span class="material-symbols-outlined text-emerald-400 text-[20px]">check_circle</span><span><strong class="text-white">Preguntó para entender la necesidad</strong> antes de recomendar.</span></li>
-          <li class="flex gap-3"><span class="material-symbols-outlined text-emerald-400 text-[20px]">check_circle</span><span><strong class="text-white">Armó una cotización</strong> sumando lo que el cliente pidió.</span></li>
-          <li class="flex gap-3"><span class="material-symbols-outlined text-emerald-400 text-[20px]">check_circle</span><span><strong class="text-white">Registró una solicitud</strong> (cita, cotización o pedido) con código de seguimiento.</span></li>
-        </ul>
-      </div>
-      <div class="glass-card glow-border-blue rounded-3xl p-6 sm:p-8">
-        <h3 class="font-bold text-lg mb-5 flex items-center gap-2"><span class="material-symbols-outlined text-primary">tune</span> Lo que adaptamos a tu negocio</h3>
-        <ul class="space-y-4 text-sm text-slate-300">
-          <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-[20px]">arrow_forward</span><span><strong class="text-white">Tu catálogo y tus precios</strong>: productos, servicios, promociones y horarios.</span></li>
-          <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-[20px]">arrow_forward</span><span><strong class="text-white">Tu canal</strong>: WhatsApp, Instagram o tu página web, con tu nombre y tu tono.</span></li>
-          <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-[20px]">arrow_forward</span><span><strong class="text-white">Citas y cotizaciones reales</strong>: se guardan en tu agenda o tu hoja de cálculo y avisan a tu equipo.</span></li>
-          <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-[20px]">arrow_forward</span><span><strong class="text-white">Pase a una persona</strong> cuando el cliente lo pida o el caso lo amerite.</span></li>
-          <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-[20px]">arrow_forward</span><span><strong class="text-white">Reporte semanal</strong> de consultas, cotizaciones y citas generadas.</span></li>
-        </ul>
-      </div>
+    <!-- CTA justo debajo del demo -->
+    <div class="mt-5 text-center">
+      <a href="#contacto" onclick="track('click_solicitud','bajo-demo')" class="inline-block w-full sm:w-auto px-10 py-5 bg-primary text-white font-black rounded-2xl text-sm sm:text-base glow-button uppercase tracking-[0.2em]">Lo quiero para mi negocio</a>
+      <p class="text-xs sm:text-sm text-slate-400 mt-3">Evaluación gratis · Al contratar, el <strong class="text-white">primer mes de mantenimiento va incluido</strong></p>
+      <p class="text-xs text-slate-500 mt-2">¿Falló el chat? <button onclick="playRecorded('fallback')" class="text-accent-blue underline font-semibold">Mira la demo grabada</button> o <a id="waFallback" href="#" target="_blank" rel="noopener" class="text-accent-blue underline font-semibold">escríbenos por WhatsApp</a>.</p>
     </div>
   </div>
 </section>
 
-<!-- 4b. MÁS AUTOMATIZACIONES -->
-<section class="px-4 sm:px-6 pb-16">
+<!-- 3. BREVE EXPLICACIÓN -->
+<section class="relative px-4 sm:px-6 py-14 overflow-hidden">
   <div class="max-w-5xl mx-auto">
     <div class="text-center mb-8">
-      <span class="text-[11px] font-bold tracking-[0.3em] uppercase text-accent-blue">Más allá del chat</span>
-      <h2 class="text-3xl sm:text-4xl font-bold mt-3">Otras automatizaciones que <span class="text-gradient">hacemos</span></h2>
-      <p class="text-slate-400 mt-3 text-sm sm:text-base max-w-xl mx-auto">El bot de arriba es un ejemplo. Estas son otras formas en que la IA puede trabajar para tu negocio.</p>
+      <h2 class="text-2xl sm:text-3xl font-bold">Lo mismo que probaste, pero con <span class="text-gradient">tus datos</span></h2>
+      <p class="text-slate-400 mt-2 text-sm sm:text-base max-w-xl mx-auto">Tu catálogo, tus precios y tu tono, atendiendo en tu WhatsApp, Instagram o web las 24 horas. Las citas, cotizaciones y pedidos llegan a tu agenda y a tu equipo.</p>
     </div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      <div class="glass-card rounded-2xl p-5">
+        <span class="material-symbols-outlined text-accent-blue text-3xl">chat</span>
+        <h3 class="font-bold mt-3 mb-1">Bot de WhatsApp</h3>
+        <p class="text-sm text-slate-400">Responde, cotiza y agenda como el que acabas de probar.</p>
+      </div>
       <a href="https://www.elevatia.do/#demos" target="_blank" rel="noopener" onclick="track('click_otra_demo','voz')" class="glass-card rounded-2xl p-5 hover:-translate-y-1 transition-transform block">
-        <span class="material-symbols-outlined text-accent-blue text-3xl">call</span>
+        <span class="material-symbols-outlined text-primary text-3xl">call</span>
         <h3 class="font-bold mt-3 mb-1">Asistente de voz IA</h3>
-        <p class="text-sm text-slate-400">Contesta llamadas, agenda citas y recuerda pagos con una voz natural, 24/7.</p>
-        <span class="inline-block mt-3 text-xs font-bold text-accent-blue uppercase tracking-widest">Ver demo →</span>
+        <p class="text-sm text-slate-400">Contesta llamadas, agenda y recuerda pagos con voz natural.</p>
+        <span class="inline-block mt-2 text-[11px] font-bold text-accent-blue uppercase tracking-widest">Ver demo →</span>
       </a>
       <a href="https://www.elevatia.do/#demos" target="_blank" rel="noopener" onclick="track('click_otra_demo','email')" class="glass-card rounded-2xl p-5 hover:-translate-y-1 transition-transform block">
-        <span class="material-symbols-outlined text-primary text-3xl">mail</span>
+        <span class="material-symbols-outlined text-emerald-400 text-3xl">mail</span>
         <h3 class="font-bold mt-3 mb-1">Correo inteligente</h3>
-        <p class="text-sm text-slate-400">Clasifica los correos que llegan, redacta respuestas y avisa de lo urgente.</p>
-        <span class="inline-block mt-3 text-xs font-bold text-accent-blue uppercase tracking-widest">Ver demo →</span>
+        <p class="text-sm text-slate-400">Clasifica correos, redacta respuestas y avisa de lo urgente.</p>
+        <span class="inline-block mt-2 text-[11px] font-bold text-accent-blue uppercase tracking-widest">Ver demo →</span>
       </a>
-      <a href="#solicitud" onclick="track('click_otra_demo','cobros')" class="glass-card rounded-2xl p-5 hover:-translate-y-1 transition-transform block">
-        <span class="material-symbols-outlined text-emerald-400 text-3xl">notifications_active</span>
-        <h3 class="font-bold mt-3 mb-1">Recordatorios y cobros</h3>
-        <p class="text-sm text-slate-400">Mensajes automáticos por WhatsApp o SMS para citas, pagos pendientes y seguimientos.</p>
-        <span class="inline-block mt-3 text-xs font-bold text-accent-blue uppercase tracking-widest">Pedir ejemplo →</span>
-      </a>
-      <a href="#solicitud" onclick="track('click_otra_demo','reportes')" class="glass-card rounded-2xl p-5 hover:-translate-y-1 transition-transform block">
-        <span class="material-symbols-outlined text-amber-400 text-3xl">bar_chart</span>
-        <h3 class="font-bold mt-3 mb-1">Reportes automáticos</h3>
-        <p class="text-sm text-slate-400">Un resumen semanal de ventas, consultas y citas directo a tu correo o WhatsApp.</p>
-        <span class="inline-block mt-3 text-xs font-bold text-accent-blue uppercase tracking-widest">Pedir ejemplo →</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- 5. OFERTA -->
-<section class="px-4 sm:px-6 pb-16">
-  <div class="max-w-3xl mx-auto rounded-3xl p-[1px] bg-gradient-to-r from-accent-blue via-primary to-accent-blue">
-    <div class="rounded-3xl bg-background-dark p-6 sm:p-10 text-center">
-      <span class="text-[11px] font-bold tracking-[0.3em] uppercase text-accent-blue">La oferta</span>
-      <h2 class="text-2xl sm:text-3xl font-bold mt-3 mb-4 leading-snug">Prueba la demo gratis. Al contratar la implementación, <span class="text-gradient">el primer mes de mantenimiento está incluido.</span></h2>
-      <div class="grid sm:grid-cols-3 gap-3 text-left text-sm mt-6">
-        <div class="rounded-2xl bg-white/[0.04] border border-white/10 p-4"><div class="font-bold mb-1">Demo gratis</div><p class="text-slate-400">Un ejemplo estándar que cualquiera puede probar, como el de arriba.</p></div>
-        <div class="rounded-2xl bg-white/[0.04] border border-white/10 p-4"><div class="font-bold mb-1">Implementación a tu medida</div><p class="text-slate-400">Se adapta a tu empresa y a tus canales; se cotiza según el alcance.</p></div>
-        <div class="rounded-2xl bg-white/[0.04] border border-white/10 p-4"><div class="font-bold mb-1">Primer mes incluido</div><p class="text-slate-400">Empieza cuando el bot entra en funcionamiento; desde el segundo mes aplica la mensualidad.</p></div>
+      <div class="glass-card rounded-2xl p-5">
+        <span class="material-symbols-outlined text-amber-400 text-3xl">notifications_active</span>
+        <h3 class="font-bold mt-3 mb-1">Recordatorios y reportes</h3>
+        <p class="text-sm text-slate-400">Avisos de citas y cobros por WhatsApp, y un resumen semanal a tu correo.</p>
       </div>
-      <a href="#solicitud" onclick="track('click_solicitud','oferta')" class="inline-block mt-8 px-8 py-4 bg-primary text-white font-black rounded-xl text-sm glow-button uppercase tracking-[0.2em]">Quiero una evaluación gratis</a>
     </div>
   </div>
 </section>
 
-<!-- 6. FORMULARIO + 7. CONFIRMACIÓN -->
-<section id="solicitud" class="relative px-4 sm:px-6 pb-20 scroll-mt-20 overflow-hidden">
-  <div class="ambient ambient-pink -right-60 bottom-0"></div>
+<!-- 4. CONTACTO -->
+<section id="contacto" class="relative px-4 sm:px-6 pb-20 scroll-mt-20 overflow-hidden">
   <div class="max-w-xl mx-auto">
     <div class="text-center mb-8">
-      <span class="text-[11px] font-bold tracking-[0.3em] uppercase text-primary">Solicita tu evaluación</span>
-      <h2 class="text-3xl sm:text-4xl font-bold mt-3">¿Lo quieres para tu negocio?</h2>
-      <p class="text-slate-400 mt-3 text-sm sm:text-base">Déjanos tus datos y te contactamos el mismo día hábil para revisar tu caso en una llamada de 20 minutos.</p>
+      <span class="text-[11px] font-bold tracking-[0.3em] uppercase text-primary">Contacto</span>
+      <h2 class="text-3xl sm:text-4xl font-bold mt-3">Lo quiero para mi negocio</h2>
+      <p class="text-slate-400 mt-3 text-sm sm:text-base">Déjanos tus datos y te contactamos el mismo día hábil para revisar tu caso en una llamada de 20 minutos. Sin compromiso.</p>
     </div>
     <div class="glass-card glow-border-magenta rounded-3xl p-6 sm:p-8">
       <form id="leadForm" onsubmit="return submitLead(event)" class="space-y-4">
@@ -268,11 +194,12 @@
         <a id="agendaLink" href="#" target="_blank" rel="noopener" onclick="track('click_agendar','confirmacion')" class="inline-block px-8 py-4 bg-primary text-white font-black rounded-xl text-sm glow-button uppercase tracking-[0.2em]">Agendar por WhatsApp</a>
       </div>
     </div>
+    <p class="text-center text-sm text-slate-400 mt-6">¿Prefieres hablar directo? <a id="waContacto" href="#" target="_blank" rel="noopener" class="text-accent-blue underline font-semibold">Escríbenos por WhatsApp</a> · <a href="mailto:info@elevatia.do" class="text-accent-blue underline font-semibold">info@elevatia.do</a></p>
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer class="border-t border-white/5 px-4 sm:px-6 py-10">
+<footer class="border-t border-white/10 px-4 sm:px-6 py-8">
   <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-400">
     <a href="https://www.elevatia.do" class="logo-gradient-text text-xl font-bold">ElevatIA</a>
     <div class="flex flex-wrap justify-center gap-x-5 gap-y-2">
@@ -334,6 +261,7 @@
   const waBase = 'https://wa.me/' + WA + '?text=';
   document.getElementById('waFallback').href = waBase + encodeURIComponent('Hola, probé la demo del bot de ElevatIA y quiero más información.');
   document.getElementById('waFooter').href = waBase + encodeURIComponent('Hola, vengo de la demo del bot de ElevatIA.');
+  document.getElementById('waContacto').href = waBase + encodeURIComponent('Hola, probé la demo del bot de ElevatIA y quiero una evaluación para mi negocio.');
 
   // ---------- chat ----------
   const BIZ = {
@@ -498,7 +426,7 @@
     if (!started){ started = true; track('chat_inicio', current + '/' + (origen || 'texto')); }
     addUser(text); $input.value='';
     if (aiUsed() >= AI_LIMIT){
-      addBot('', 'Llegaste al límite de mensajes de prueba por hoy 🙏. Si quieres ver más, <a href="#solicitud" class="text-accent-blue underline font-bold">solicita una evaluación</a> y te mostramos un ejemplo con los datos de tu negocio.');
+      addBot('', 'Llegaste al límite de mensajes de prueba por hoy 🙏. Si quieres ver más, <a href="#contacto" class="text-accent-blue underline font-bold">solicita una evaluación</a> y te mostramos un ejemplo con los datos de tu negocio.');
       return;
     }
     history.push({ role:'user', content:text });
@@ -580,7 +508,7 @@
     else agenda.href = waBase + encodeURIComponent('Hola, soy '+data.nombre+' de '+data.empresa+'. Acabo de enviar el formulario de la demo y quiero agendar la llamada de 20 minutos.');
     document.getElementById('leadDoneMsg').textContent = ok ? 'Te contactamos el mismo día hábil por WhatsApp.' : 'Abrimos WhatsApp para confirmar tu solicitud directamente con el equipo.';
     f.classList.add('hidden'); document.getElementById('leadDone').classList.remove('hidden');
-    document.getElementById('solicitud').scrollIntoView({ behavior:'smooth', block:'start' });
+    document.getElementById('contacto').scrollIntoView({ behavior:'smooth', block:'start' });
     return false;
   };
 })();
