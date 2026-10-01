@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Prueba el bot | ElevatIA</title>
+<meta name="description" content="¿Cómo respondería una IA a los clientes de tu negocio? Pregunta precios, pide una cotización o agenda una cita de prueba. Sin registrarte."/>
+<meta property="og:title" content="¿Cómo respondería una IA a los clientes de tu negocio?"/>
+<meta property="og:description" content="Pregunta por precios, servicios o una cotización y mira cómo responde nuestro bot. Pruébalo gratis, sin registrarte."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.elevatia.do/demo/"/>
+<link rel="canonical" href="https://www.elevatia.do/demo/"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: { extend: {
+      colors: { "primary": "#ee2bee", "accent-blue": "#2b9eee", "background-dark": "#020202" },
+      fontFamily: { "display": ["Space Grotesk","sans-serif"], "sans": ["Space Grotesk","sans-serif"] }
+    } }
+  }
+</script>
+<style type="text/tailwindcss">
+  @layer base {
+    body { @apply bg-background-dark text-white font-sans overflow-x-hidden; }
+    html { scroll-behavior: smooth; }
+  }
+  .glass-card { background: rgba(10,10,15,0.75); border: 1px solid rgba(255,255,255,0.08); }
+  .glow-border-magenta { border: 1px solid rgba(238,43,238,0.35); box-shadow: 0 0 18px rgba(238,43,238,0.12); }
+  .glow-border-blue { border: 1px solid rgba(43,158,238,0.35); box-shadow: 0 0 18px rgba(43,158,238,0.12); }
+  .glow-button { box-shadow: 0 0 25px rgba(238,43,238,0.35); transition: all .3s cubic-bezier(.175,.885,.32,1.275); }
+  .glow-button:hover { box-shadow: 0 0 40px rgba(238,43,238,0.6); transform: translateY(-2px); }
+  .text-gradient { background: linear-gradient(90deg,#2b9eee,#ee2bee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .logo-gradient-text { background: linear-gradient(90deg,#2b9eee 0%,#ee2bee 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .ambient { position:absolute; width:520px; height:520px; border-radius:50%; filter: blur(90px); z-index:-1; pointer-events:none; }
+  .ambient-pink { background: radial-gradient(circle, rgba(238,43,238,.18) 0%, transparent 70%); }
+  .ambient-blue { background: radial-gradient(circle, rgba(43,158,238,.18) 0%, transparent 70%); }
+  .msg { max-width: 86%; padding: .65rem .9rem; border-radius: 1.1rem; font-size: .9rem; line-height: 1.45; white-space: pre-wrap; word-wrap: break-word; }
+  .msg-bot { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.08); border-top-left-radius: .35rem; }
+  .msg-user { background: linear-gradient(135deg,#ee2bee,#9b2bee); border-top-right-radius: .35rem; }
+  .typing span { display:inline-block; width:6px; height:6px; margin:0 2px; background:#cbd5e1; border-radius:50%; animation: blink 1.2s infinite; }
+  .typing span:nth-child(2){ animation-delay:.2s } .typing span:nth-child(3){ animation-delay:.4s }
+  @keyframes blink { 0%,80%,100%{ opacity:.25 } 40%{ opacity:1 } }
+  .chips { scrollbar-width: none; } .chips::-webkit-scrollbar { display:none; }
+  .chip { white-space: nowrap; border:1px solid rgba(43,158,238,.45); background: rgba(43,158,238,.08); color:#cfe8ff; padding:.45rem .8rem; border-radius:999px; font-size:.78rem; font-weight:600; transition: all .2s; }
+  .chip:hover { background: rgba(43,158,238,.2); }
+  .chip:disabled { opacity:.4; cursor:not-allowed; }
+  #chatMessages { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.15) transparent; }
+  .step-num { background: linear-gradient(135deg,#2b9eee,#ee2bee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; font-style: italic; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- HEADER -->
+<header class="fixed top-0 w-full z-50 border-b border-white/5 bg-background-dark/85 backdrop-blur-md">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <a href="https://www.elevatia.do" class="flex items-center gap-2">
+      <span class="logo-gradient-text text-2xl font-bold tracking-tight">ElevatIA</span>
+      <span class="hidden sm:inline-block text-[10px] font-bold tracking-[0.25em] uppercase px-2 py-1 rounded-full border border-white/15 text-slate-300">Demo</span>
+    </a>
+    <a href="#chat" onclick="track('click_probar','header')" class="px-5 py-2.5 bg-primary text-white text-xs font-bold rounded-full glow-button uppercase tracking-widest">Prueba el bot</a>
+  </div>
+</header>
+
+<!-- 1. ENCABEZADO -->
+<section class="relative pt-32 pb-14 sm:pt-40 sm:pb-20 px-4 sm:px-6 overflow-hidden">
+  <div class="ambient ambient-pink -top-40 -left-40"></div>
+  <div class="ambient ambient-blue top-10 -right-40"></div>
+  <div class="max-w-3xl mx-auto text-center">
+    <span class="inline-block text-[11px] font-bold tracking-[0.3em] uppercase px-4 py-2 rounded-full border border-accent-blue/40 text-accent-blue mb-6">Demo gratis · Sin registrarte</span>
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight mb-6">¿Cómo respondería una <span class="text-gradient">IA</span> a los clientes de tu negocio?</h1>
+    <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto mb-8">Pregunta por precios, servicios o pide una cotización y mira cómo responde nuestro bot. Como si fueras el cliente.</p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <a href="#chat" onclick="track('click_probar','hero')" class="px-8 py-4 bg-primary text-white font-black rounded-xl text-sm glow-button uppercase tracking-[0.2em]">Prueba el bot</a>
+      <button onclick="playRecorded('hero')" class="px-8 py-4 border border-white/15 text-white font-bold rounded-xl text-sm uppercase tracking-[0.2em] hover:bg-white/5 transition-colors">▶ Ver demo grabada</button>
+    </div>
+    <p class="text-xs text-slate-500 mt-6">Responde en segundos · Funciona 24/7 · Negocio de prueba, sin pagos reales</p>
+  </div>
+</section>
+
+<!-- 2. INSTRUCCIÓN -->
+<section class="px-4 sm:px-6 pb-10">
+  <div class="max-w-3xl mx-auto glass-card rounded-3xl p-6 sm:p-8">
+    <div class="flex items-center gap-3 mb-5">
+      <span class="material-symbols-outlined text-accent-blue">info</span>
+      <h2 class="font-bold text-lg sm:text-xl">Cómo probarlo</h2>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-4 text-sm">
+      <div class="rounded-2xl bg-white/[0.03] border border-white/10 p-4">
+        <div class="step-num text-2xl mb-1">1</div>
+        <p class="text-slate-300">El chat atiende a <strong class="text-white">Clínica Dental Brillo</strong>, un negocio <strong class="text-white">ficticio</strong> que creamos para la demo.</p>
+      </div>
+      <div class="rounded-2xl bg-white/[0.03] border border-white/10 p-4">
+        <div class="step-num text-2xl mb-1">2</div>
+        <p class="text-slate-300">Pregunta <strong class="text-white">precios</strong>, qué <strong class="text-white">servicios</strong> ofrecen o pide una <strong class="text-white">cotización</strong>.</p>
+      </div>
+      <div class="rounded-2xl bg-white/[0.03] border border-white/10 p-4">
+        <div class="step-num text-2xl mb-1">3</div>
+        <p class="text-slate-300">Intenta <strong class="text-white">agendar una cita</strong>: el bot la simula y te da un código de solicitud.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. DEMO VISIBLE -->
+<section id="chat" class="px-4 sm:px-6 pb-16 scroll-mt-20">
+  <div class="max-w-3xl mx-auto">
+    <div class="glass-card glow-border-magenta rounded-3xl overflow-hidden">
+      <!-- chat header -->
+      <div class="flex items-center justify-between gap-3 px-4 sm:px-5 py-3 border-b border-white/10 bg-white/[0.03]">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="size-10 rounded-full bg-gradient-to-br from-accent-blue to-primary flex items-center justify-center font-black text-white shrink-0">D</div>
+          <div class="min-w-0">
+            <div class="font-bold text-sm truncate">Dani · Clínica Dental Brillo</div>
+            <div class="text-[11px] text-emerald-400 flex items-center gap-1"><span class="size-1.5 rounded-full bg-emerald-400 inline-block"></span> En línea · responde al instante</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-1 shrink-0">
+          <button onclick="playRecorded('chat')" title="Ver demo grabada" class="size-9 rounded-lg hover:bg-white/10 flex items-center justify-center text-slate-300"><span class="material-symbols-outlined text-[20px]">play_circle</span></button>
+          <button onclick="resetChat()" title="Reiniciar conversación" class="size-9 rounded-lg hover:bg-white/10 flex items-center justify-center text-slate-300"><span class="material-symbols-outlined text-[20px]">restart_alt</span></button>
+        </div>
+      </div>
+      <!-- messages -->
+      <div id="chatMessages" class="h-[52vh] min-h-[340px] max-h-[520px] overflow-y-auto px-4 sm:px-5 py-4 flex flex-col gap-3"></div>
+      <!-- chips -->
+      <div class="px-4 sm:px-5 pb-2">
+        <div id="chatChips" class="chips flex gap-2 overflow-x-auto pb-1"></div>
+      </div>
+      <!-- input -->
+      <form id="chatForm" onsubmit="return onChatSubmit(event)" class="flex items-center gap-2 px-4 sm:px-5 pb-4">
+        <input id="chatInput" type="text" maxlength="400" autocomplete="off" placeholder="Escribe como si fueras el cliente…" class="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-primary focus:ring-0"/>
+        <button id="chatSend" type="submit" class="size-12 rounded-xl bg-primary text-white flex items-center justify-center glow-button shrink-0" aria-label="Enviar"><span class="material-symbols-outlined">send</span></button>
+      </form>
+      <div class="px-4 sm:px-5 pb-3 text-[11px] text-slate-500 flex flex-wrap gap-x-3 gap-y-1 justify-between">
+        <span>Negocio ficticio · sin reservas ni pagos reales · no escribas datos sensibles</span>
+        <span id="chatQuota"></span>
+      </div>
+    </div>
+    <p class="text-center text-sm text-slate-400 mt-5">¿Falló el chat? <button onclick="playRecorded('fallback')" class="text-accent-blue underline font-semibold">Mira la demo grabada</button> o <a id="waFallback" href="#" target="_blank" rel="noopener" class="text-accent-blue underline font-semibold">escríbenos por WhatsApp</a>.</p>
+  </div>
+</section>
+
+<!-- 4. APLICACIÓN -->
+<section class="relative px-4 sm:px-6 py-16 overflow-hidden">
+  <div class="ambient ambient-blue -left-60 top-20"></div>
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-10">
+      <span class="text-[11px] font-bold tracking-[0.3em] uppercase text-primary">Lo que acabas de ver</span>
+      <h2 class="text-3xl sm:text-4xl font-bold mt-3">Esto mismo, con los datos de <span class="text-gradient">tu empresa</span></h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="glass-card rounded-3xl p-6 sm:p-8">
+        <h3 class="font-bold text-lg mb-5 flex items-center gap-2"><span class="material-symbols-outlined text-accent-blue">visibility</span> Lo que hizo el bot</h3>
+        <ul class="space-y-4 text-sm text-slate-300">
+          <li class="flex gap-3"><span class="material-symbols-outlined text-emerald-400 text-[20px]">check_circle</span><span><strong class="text-white">Respondió precios y servicios</strong> al instante, sin esperar a un empleado.</span></li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-emerald-400 text-[20px]">check_circle</span><span><strong class="text-white">Preguntó para entender la necesidad</strong> antes de recomendar.</span></li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-emerald-400 text-[20px]">check_circle</span><span><strong class="text-white">Armó una cotización</strong> sumando lo que el cliente pidió.</span></li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-emerald-400 text-[20px]">check_circle</span><span><strong class="text-white">Registró una solicitud de cita</strong> con código de seguimiento.</span></li>
+        </ul>
+      </div>
+      <div class="glass-card glow-border-blue rounded-3xl p-6 sm:p-8">
+        <h3 class="font-bold text-lg mb-5 flex items-center gap-2"><span class="material-symbols-outlined text-primary">tune</span> Lo que adaptamos a tu negocio</h3>
+        <ul class="space-y-4 text-sm text-slate-300">
+          <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-[20px]">arrow_forward</span><span><strong class="text-white">Tu catálogo y tus precios</strong>: productos, servicios, promociones y horarios.</span></li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-[20px]">arrow_forward</span><span><strong class="text-white">Tu canal</strong>: WhatsApp, Instagram o tu página web, con tu nombre y tu tono.</span></li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-[20px]">arrow_forward</span><span><strong class="text-white">Citas y cotizaciones reales</strong>: se guardan en tu agenda o tu hoja de cálculo y avisan a tu equipo.</span></li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-[20px]">arrow_forward</span><span><strong class="text-white">Pase a una persona</strong> cuando el cliente lo pida o el caso lo amerite.</span></li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-[20px]">arrow_forward</span><span><strong class="text-white">Reporte semanal</strong> de consultas, cotizaciones y citas generadas.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. OFERTA -->
+<section class="px-4 sm:px-6 pb-16">
+  <div class="max-w-3xl mx-auto rounded-3xl p-[1px] bg-gradient-to-r from-accent-blue via-primary to-accent-blue">
+    <div class="rounded-3xl bg-background-dark p-6 sm:p-10 text-center">
+      <span class="text-[11px] font-bold tracking-[0.3em] uppercase text-accent-blue">La oferta</span>
+      <h2 class="text-2xl sm:text-3xl font-bold mt-3 mb-4 leading-snug">Prueba la demo gratis. Al contratar la implementación, <span class="text-gradient">el primer mes de mantenimiento está incluido.</span></h2>
+      <div class="grid sm:grid-cols-3 gap-3 text-left text-sm mt-6">
+        <div class="rounded-2xl bg-white/[0.04] border border-white/10 p-4"><div class="font-bold mb-1">Demo gratis</div><p class="text-slate-400">Un ejemplo estándar que cualquiera puede probar, como el de arriba.</p></div>
+        <div class="rounded-2xl bg-white/[0.04] border border-white/10 p-4"><div class="font-bold mb-1">Implementación a tu medida</div><p class="text-slate-400">Se adapta a tu empresa y a tus canales; se cotiza según el alcance.</p></div>
+        <div class="rounded-2xl bg-white/[0.04] border border-white/10 p-4"><div class="font-bold mb-1">Primer mes incluido</div><p class="text-slate-400">Empieza cuando el bot entra en funcionamiento; desde el segundo mes aplica la mensualidad.</p></div>
+      </div>
+      <a href="#solicitud" onclick="track('click_solicitud','oferta')" class="inline-block mt-8 px-8 py-4 bg-primary text-white font-black rounded-xl text-sm glow-button uppercase tracking-[0.2em]">Quiero una evaluación gratis</a>
+    </div>
+  </div>
+</section>
+
+<!-- 6. FORMULARIO + 7. CONFIRMACIÓN -->
+<section id="solicitud" class="relative px-4 sm:px-6 pb-20 scroll-mt-20 overflow-hidden">
+  <div class="ambient ambient-pink -right-60 bottom-0"></div>
+  <div class="max-w-xl mx-auto">
+    <div class="text-center mb-8">
+      <span class="text-[11px] font-bold tracking-[0.3em] uppercase text-primary">Solicita tu evaluación</span>
+      <h2 class="text-3xl sm:text-4xl font-bold mt-3">¿Lo quieres para tu negocio?</h2>
+      <p class="text-slate-400 mt-3 text-sm sm:text-base">Déjanos tus datos y te contactamos el mismo día hábil para revisar tu caso en una llamada de 20 minutos.</p>
+    </div>
+    <div class="glass-card glow-border-magenta rounded-3xl p-6 sm:p-8">
+      <form id="leadForm" onsubmit="return submitLead(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2" for="f_nombre">Nombre</label>
+          <input id="f_nombre" name="nombre" type="text" required maxlength="80" autocomplete="name" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:border-primary focus:ring-0" placeholder="Tu nombre"/>
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2" for="f_empresa">Empresa o negocio</label>
+          <input id="f_empresa" name="empresa" type="text" required maxlength="100" autocomplete="organization" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:border-primary focus:ring-0" placeholder="Nombre de tu negocio"/>
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2" for="f_whatsapp">WhatsApp</label>
+          <input id="f_whatsapp" name="whatsapp" type="tel" required inputmode="tel" minlength="10" maxlength="20" autocomplete="tel" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:border-primary focus:ring-0" placeholder="809-000-0000"/>
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2" for="f_necesidad">¿Qué te gustaría mejorar primero?</label>
+          <textarea id="f_necesidad" name="necesidad" required rows="3" maxlength="600" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:border-primary focus:ring-0" placeholder="Ej.: responder cotizaciones por WhatsApp, agendar citas, atender fuera de horario…"></textarea>
+        </div>
+        <button id="leadSubmitBtn" type="submit" class="w-full py-4 bg-primary text-white font-black rounded-xl text-sm glow-button uppercase tracking-[0.2em]">Solicitar evaluación gratis</button>
+        <p class="text-[11px] text-slate-500 text-center leading-relaxed">Usamos tus datos solo para contactarte sobre esta solicitud. No los compartimos con terceros. <a href="#privacidad" class="underline">Aviso de privacidad</a>.</p>
+      </form>
+      <div id="leadDone" class="hidden text-center py-6">
+        <div class="size-20 mx-auto mb-5 rounded-full bg-emerald-500/20 border-2 border-emerald-500/40 flex items-center justify-center"><span class="material-symbols-outlined text-5xl text-emerald-400">check_circle</span></div>
+        <h3 class="font-black text-2xl mb-2">¡Recibido!</h3>
+        <p class="text-slate-300 mb-1" id="leadDoneMsg">Te contactamos el mismo día hábil por WhatsApp.</p>
+        <p class="text-sm text-slate-400 mb-6">Si prefieres, agenda tu llamada de 20 minutos ahora mismo:</p>
+        <a id="agendaLink" href="#" target="_blank" rel="noopener" onclick="track('click_agendar','confirmacion')" class="inline-block px-8 py-4 bg-primary text-white font-black rounded-xl text-sm glow-button uppercase tracking-[0.2em]">Agendar por WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/5 px-4 sm:px-6 py-10">
+  <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-400">
+    <a href="https://www.elevatia.do" class="logo-gradient-text text-xl font-bold">ElevatIA</a>
+    <div class="flex flex-wrap justify-center gap-x-5 gap-y-2">
+      <a href="https://www.elevatia.do" class="hover:text-white">www.elevatia.do</a>
+      <a id="waFooter" href="#" target="_blank" rel="noopener" class="hover:text-white">WhatsApp</a>
+      <a href="mailto:info@elevatia.do" class="hover:text-white">info@elevatia.do</a>
+    </div>
+  </div>
+  <details id="privacidad" class="max-w-5xl mx-auto mt-6 text-xs text-slate-500 scroll-mt-24">
+    <summary class="cursor-pointer hover:text-slate-300">Aviso de privacidad</summary>
+    <p class="mt-2 leading-relaxed">Esta demostración usa un negocio ficticio (Clínica Dental Brillo); no existen reservas, citas ni pagos reales. El chat se procesa con un modelo de inteligencia artificial para generar las respuestas; no escribas datos personales ni sensibles en él. Registramos métricas de uso anónimas (visitas, pruebas iniciadas y formularios enviados) para mejorar la página; no guardamos el contenido de tu conversación. Los datos del formulario se usan únicamente para contactarte sobre tu solicitud y no se comparten con terceros. Responsable: ElevatIA SRL, República Dominicana · info@elevatia.do.</p>
+  </details>
+  <p class="text-center text-[11px] text-slate-600 mt-6">© 2026 ElevatIA · Automatización e Inteligencia Artificial</p>
+</footer>
+
+<script>
+(function(){
+  // ===================== CONFIGURACIÓN =====================
+  const CHAT_WEBHOOK   = 'https://n8n.elevatia.do/webhook/demo-chat';
+  const EVENTS_WEBHOOK = 'https://n8n.elevatia.do/webhook/demo-eventos';
+  const LEAD_WEBHOOK   = 'https://n8n.elevatia.do/webhook/leads-elevatia';
+  const WA             = '18098606379';       // WhatsApp oficial ElevatIA
+  const CAL_URL        = '';                  // Opcional: enlace de calendario (Cal.com/Calendly). Vacío = agendar por WhatsApp
+  const META_PIXEL_ID  = '';                  // Opcional: ID del píxel de Meta para medir el anuncio
+  const AI_LIMIT       = 12;                  // Mensajes con IA por visitante y día (control de consumo)
+  // =========================================================
+
+  // ---------- sesión + UTM ----------
+  function rid(){ return Math.random().toString(36).slice(2,10) + Date.now().toString(36); }
+  let SID = ''; try { SID = localStorage.getItem('demo_sid') || ''; if(!SID){ SID = rid(); localStorage.setItem('demo_sid', SID); } } catch(e){ SID = rid(); }
+  const params = new URLSearchParams(location.search);
+  const UTM = {};
+  ['utm_source','utm_medium','utm_campaign'].forEach(k => {
+    let v = params.get(k) || '';
+    try { if (v) sessionStorage.setItem(k, v); else v = sessionStorage.getItem(k) || ''; } catch(e){}
+    UTM[k] = v;
+  });
+  const DEVICE = /Mobi|Android/i.test(navigator.userAgent) ? 'movil' : 'escritorio';
+
+  // ---------- medición ----------
+  window.track = function(evento, detalle){
+    try {
+      const payload = { evento, detalle: detalle || '', sesion: SID, utm_source: UTM.utm_source, utm_medium: UTM.utm_medium, utm_campaign: UTM.utm_campaign, referencia: (document.referrer || '').slice(0,160), dispositivo: DEVICE };
+      fetch(EVENTS_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload), keepalive: true }).catch(()=>{});
+      if (window.fbq) {
+        if (evento === 'formulario_enviado') fbq('track','Lead');
+        else if (evento === 'chat_inicio') fbq('trackCustom','PruebaBot');
+      }
+    } catch(e){}
+  };
+  if (META_PIXEL_ID) {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', META_PIXEL_ID); fbq('track','PageView');
+  }
+  let visited = false; try { visited = sessionStorage.getItem('demo_visita') === '1'; } catch(e){}
+  if (!visited) { track('visita', location.pathname); try { sessionStorage.setItem('demo_visita','1'); } catch(e){} }
+
+  // ---------- enlaces WhatsApp ----------
+  const waBase = 'https://wa.me/' + WA + '?text=';
+  document.getElementById('waFallback').href = waBase + encodeURIComponent('Hola, probé la demo del bot de ElevatIA y quiero más información.');
+  document.getElementById('waFooter').href = waBase + encodeURIComponent('Hola, vengo de la demo del bot de ElevatIA.');
+
+  // ---------- chat ----------
+  const WELCOME = '¡Hola! 👋 Soy Dani, el asistente de Clínica Dental Brillo (un negocio de prueba). Puedo darte precios, prepararte una cotización o agendarte una cita de ejemplo. ¿En qué te ayudo?';
+  const CHIPS = [
+    { t:'💰 ¿Cuánto cuesta una limpieza?', m:'¿Cuánto cuesta una limpieza dental?' },
+    { t:'🦷 ¿Qué servicios ofrecen?', m:'¿Qué servicios ofrecen y cuánto cuestan?' },
+    { t:'🧾 Cotízame limpieza + blanqueamiento', m:'Cotízame una limpieza y un blanqueamiento' },
+    { t:'📅 Quiero una cita', m:'Quiero agendar una cita' },
+    { t:'🕐 ¿Horario y ubicación?', m:'¿Cuál es el horario y dónde están ubicados?' }
+  ];
+  // Respuestas de respaldo (Plan B) si la IA no responde
+  const FALLBACK = [
+    { k:/limpieza|cuesta|precio|cu[aá]nto/i, r:'La limpieza dental cuesta RD$2,500 (10% de descuento en tu primera visita). El blanqueamiento está en RD$8,500 y una resina en RD$3,000 por pieza. ¿Para quién sería el servicio?' },
+    { k:/servicio|ofrecen|hacen/i, r:'Ofrecemos limpieza (RD$2,500), resinas (RD$3,000), extracciones (RD$3,500), blanqueamiento (RD$8,500), coronas (RD$18,000), ortodoncia (desde RD$45,000) e implantes (RD$65,000). ¿Cuál te interesa?' },
+    { k:/cotiza|presupuesto/i, r:'Claro: limpieza RD$2,500 + blanqueamiento RD$8,500 = RD$11,000 en total. ¿Te gustaría agendar una cita?' },
+    { k:/cita|agendar|turno/i, r:'¡Con gusto! Dime tu nombre, el servicio y el día u hora que prefieres y te registro la solicitud.' },
+    { k:/horario|ubicaci|d[oó]nde|direcci/i, r:'Estamos en Av. Winston Churchill #45, Piantini. Atendemos de lunes a viernes de 8:00 am a 6:00 pm y sábados de 9:00 am a 1:00 pm. ¿Quieres que te agende una cita?' }
+  ];
+  const RECORDED = [
+    ['user','Hola, ¿cuánto cuesta una limpieza?'],
+    ['bot','¡Hola! 😊 La limpieza dental cuesta RD$2,500 y, si es tu primera vez con nosotros, tienes 10% de descuento. ¿Es para ti o para alguien más?'],
+    ['user','Para mí. También quiero saber del blanqueamiento'],
+    ['bot','El blanqueamiento está en RD$8,500. Si haces los dos:\n• Limpieza: RD$2,500\n• Blanqueamiento: RD$8,500\nTotal: RD$11,000. ¿Te gustaría agendar una cita?'],
+    ['user','Sí, el sábado en la mañana. Soy Laura'],
+    ['bot','¡Listo, Laura! Solicitud DEMO-4821: limpieza + blanqueamiento, sábado 9:00 am con la Dra. Ana Peña. Esto es una simulación: en un negocio real la cita quedaría en tu agenda y tu equipo recibiría el aviso. 🦷']
+  ];
+
+  const $msgs = document.getElementById('chatMessages');
+  const $chips = document.getElementById('chatChips');
+  const $input = document.getElementById('chatInput');
+  const $send = document.getElementById('chatSend');
+  const $quota = document.getElementById('chatQuota');
+  let history = [];
+  let busy = false;
+  let started = false;
+  let playing = false;
+  const seenCodes = new Set();
+
+  function quotaKey(){ return 'demo_ai_' + new Date().toISOString().slice(0,10); }
+  function aiUsed(){ try { return parseInt(localStorage.getItem(quotaKey()) || '0', 10) || 0; } catch(e){ return 0; } }
+  function aiBump(){ try { localStorage.setItem(quotaKey(), String(aiUsed()+1)); } catch(e){} }
+  function renderQuota(){ const left = Math.max(0, AI_LIMIT - aiUsed()); $quota.textContent = left + ' ' + (left===1?'mensaje restante':'mensajes restantes') + ' hoy'; }
+
+  function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function linkify(s){ return esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/(DEMO-\d{4})/g, '<strong class="text-accent-blue">$1</strong>'); }
+  function scroll(){ $msgs.scrollTop = $msgs.scrollHeight; }
+  function addBot(text, html){
+    const w = document.createElement('div'); w.className = 'flex items-end gap-2';
+    w.innerHTML = '<div class="size-7 rounded-full bg-gradient-to-br from-accent-blue to-primary flex items-center justify-center text-[11px] font-black shrink-0">D</div><div class="msg msg-bot">'+(html || linkify(text))+'</div>';
+    $msgs.appendChild(w); scroll();
+  }
+  function addUser(text){
+    const w = document.createElement('div'); w.className = 'flex justify-end';
+    w.innerHTML = '<div class="msg msg-user">'+esc(text)+'</div>';
+    $msgs.appendChild(w); scroll();
+  }
+  let $typing = null;
+  function showTyping(){ removeTyping(); $typing = document.createElement('div'); $typing.className='flex items-end gap-2'; $typing.innerHTML='<div class="size-7 rounded-full bg-gradient-to-br from-accent-blue to-primary flex items-center justify-center text-[11px] font-black shrink-0">D</div><div class="msg msg-bot typing"><span></span><span></span><span></span></div>'; $msgs.appendChild($typing); scroll(); }
+  function removeTyping(){ if ($typing){ $typing.remove(); $typing = null; } }
+  function setBusy(b){ busy = b; $input.disabled = b; $send.disabled = b; $send.style.opacity = b ? '.5' : '1'; $chips.querySelectorAll('button').forEach(x => x.disabled = b); }
+
+  function renderChips(){
+    $chips.innerHTML = '';
+    CHIPS.forEach(c => { const b = document.createElement('button'); b.type='button'; b.className='chip'; b.textContent=c.t; b.onclick=()=>send(c.m, 'chip'); $chips.appendChild(b); });
+  }
+  window.resetChat = function(){
+    if (playing) return;
+    history = []; $msgs.innerHTML=''; addBot(WELCOME); renderChips(); renderQuota(); $input.value=''; track('chat_reinicio');
+  };
+  function fallbackReply(text){
+    const f = FALLBACK.find(x => x.k.test(text));
+    return f ? f.r : null;
+  }
+  async function send(text, origen){
+    text = (text || '').trim().slice(0,400);
+    if (!text || busy || playing) return;
+    if (!started){ started = true; track('chat_inicio', origen || 'texto'); }
+    addUser(text); $input.value='';
+    if (aiUsed() >= AI_LIMIT){
+      addBot('', 'Llegaste al límite de mensajes de prueba por hoy 🙏. Si quieres ver más, <a href="#solicitud" class="text-accent-blue underline font-bold">solicita una evaluación</a> y te mostramos un ejemplo con los datos de tu negocio.');
+      return;
+    }
+    history.push({ role:'user', content:text });
+    setBusy(true); showTyping();
+    let reply = null, ok = false;
+    try {
+      const ctrl = new AbortController(); const to = setTimeout(()=>ctrl.abort(), 25000);
+      const r = await fetch(CHAT_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ message:text, history: history.slice(-9, -1), session: SID }), signal: ctrl.signal });
+      clearTimeout(to);
+      if (r.ok){ const d = await r.json(); reply = d.reply || d.message || d.text || null; ok = !!reply; }
+    } catch(e){}
+    removeTyping();
+    if (ok){
+      aiBump(); renderQuota(); track('chat_mensaje', origen || 'texto');
+      addBot(reply); history.push({ role:'assistant', content: reply });
+      const m = reply.match(/DEMO-\d{4}/); if (m && !seenCodes.has(m[0])){ seenCodes.add(m[0]); track('solicitud_simulada', m[0]); }
+    } else {
+      track('chat_error', origen || 'texto');
+      const fb = fallbackReply(text);
+      if (fb){ addBot(fb); history.push({ role:'assistant', content: fb }); }
+      else addBot('', 'Ahora mismo no pude conectar con mi inteligencia 😅. Puedes <button onclick="playRecorded(\'error\')" class="text-accent-blue underline font-bold">ver la demo grabada</button> o <a href="'+waBase+encodeURIComponent('Hola, probé la demo del bot de ElevatIA y quiero más información.')+'" target="_blank" rel="noopener" class="text-accent-blue underline font-bold">escribirnos por WhatsApp</a>.');
+    }
+    setBusy(false); $input.focus();
+  }
+  window.onChatSubmit = function(e){ e.preventDefault(); send($input.value, 'texto'); return false; };
+
+  window.playRecorded = async function(origen){
+    if (playing) return;
+    document.getElementById('chat').scrollIntoView({ behavior:'smooth', block:'start' });
+    track('demo_grabada', origen || '');
+    playing = true; setBusy(true);
+    history = []; $msgs.innerHTML=''; addBot(WELCOME); $chips.innerHTML='';
+    const wait = ms => new Promise(r => setTimeout(r, ms));
+    for (const [who, text] of RECORDED){
+      await wait(who === 'user' ? 900 : 300);
+      if (who === 'user') addUser(text);
+      else { showTyping(); await wait(1100); removeTyping(); addBot(text); }
+      history.push({ role: who === 'user' ? 'user' : 'assistant', content: text });
+    }
+    await wait(400);
+    addBot('', '<span class="text-slate-400 text-xs">Fin de la demo grabada.</span> Ahora pruébalo tú: escribe abajo o toca una sugerencia. 👇');
+    playing = false; renderChips(); setBusy(false);
+  };
+
+  addBot(WELCOME); renderChips(); renderQuota();
+
+  // ---------- formulario ----------
+  function normalizePhone(v){
+    let d = String(v || '').replace(/\D/g,'');
+    if (d.length === 10 && /^(809|829|849)/.test(d)) d = '1' + d;
+    return d;
+  }
+  window.submitLead = async function(e){
+    e.preventDefault();
+    const f = e.target;
+    const data = {
+      nombre: f.nombre.value.trim(),
+      correo: 'No indicado (formulario demo)',
+      telefono: normalizePhone(f.whatsapp.value),
+      empresa: f.empresa.value.trim(),
+      descripcion: f.necesidad.value.trim(),
+      fuente: 'demo-landing' + (UTM.utm_source ? ' · ' + UTM.utm_source : '') + (UTM.utm_campaign ? ' · ' + UTM.utm_campaign : ''),
+      sesion: SID,
+      timestamp: new Date().toISOString()
+    };
+    if (data.telefono.length < 10){ f.whatsapp.focus(); f.whatsapp.setCustomValidity('Escribe un número de WhatsApp válido'); f.whatsapp.reportValidity(); setTimeout(()=>f.whatsapp.setCustomValidity(''),1500); return false; }
+    const btn = document.getElementById('leadSubmitBtn');
+    btn.disabled = true; btn.textContent = 'Enviando…'; btn.style.opacity = '.7';
+    let ok = false;
+    try {
+      const r = await fetch(LEAD_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) });
+      ok = r.ok;
+    } catch(err){}
+    const waMsg = 'Hola, probé la demo del bot de ElevatIA y quiero una evaluación.\n\n*Nombre:* '+data.nombre+'\n*Empresa:* '+data.empresa+'\n*WhatsApp:* '+data.telefono+'\n\n*Lo que quiero mejorar:*\n'+data.descripcion;
+    track('formulario_enviado', ok ? 'webhook' : 'fallback-whatsapp');
+    if (!ok) window.open(waBase + encodeURIComponent(waMsg), '_blank');
+    const agenda = document.getElementById('agendaLink');
+    if (CAL_URL){ agenda.href = CAL_URL; agenda.textContent = 'Agendar mi llamada'; }
+    else agenda.href = waBase + encodeURIComponent('Hola, soy '+data.nombre+' de '+data.empresa+'. Acabo de enviar el formulario de la demo y quiero agendar la llamada de 20 minutos.');
+    document.getElementById('leadDoneMsg').textContent = ok ? 'Te contactamos el mismo día hábil por WhatsApp.' : 'Abrimos WhatsApp para confirmar tu solicitud directamente con el equipo.';
+    f.classList.add('hidden'); document.getElementById('leadDone').classList.remove('hidden');
+    document.getElementById('solicitud').scrollIntoView({ behavior:'smooth', block:'start' });
+    return false;
+  };
+})();
+</script>
+</body></html>
