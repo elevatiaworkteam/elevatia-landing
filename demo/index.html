@@ -89,7 +89,7 @@
     <div class="grid sm:grid-cols-3 gap-4 text-sm">
       <div class="rounded-2xl bg-white/[0.03] border border-white/10 p-4">
         <div class="step-num text-2xl mb-1">1</div>
-        <p class="text-slate-300">El chat atiende a <strong class="text-white">Clínica Dental Brillo</strong>, un negocio <strong class="text-white">ficticio</strong> que creamos para la demo.</p>
+        <p class="text-slate-300">Elige un <strong class="text-white">negocio de prueba</strong>: una clínica (citas), una ferretería (cotizaciones) o un restaurante (pedidos y reservas). Son <strong class="text-white">ficticios</strong>.</p>
       </div>
       <div class="rounded-2xl bg-white/[0.03] border border-white/10 p-4">
         <div class="step-num text-2xl mb-1">2</div>
@@ -97,7 +97,7 @@
       </div>
       <div class="rounded-2xl bg-white/[0.03] border border-white/10 p-4">
         <div class="step-num text-2xl mb-1">3</div>
-        <p class="text-slate-300">Intenta <strong class="text-white">agendar una cita</strong>: el bot la simula y te da un código de solicitud.</p>
+        <p class="text-slate-300">Intenta <strong class="text-white">agendar, cotizar o pedir</strong>: el bot lo simula y te da un código de solicitud.</p>
       </div>
     </div>
   </div>
@@ -106,13 +106,17 @@
 <!-- 3. DEMO VISIBLE -->
 <section id="chat" class="px-4 sm:px-6 pb-16 scroll-mt-20">
   <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-4">
+      <span class="text-[11px] font-bold tracking-[0.3em] uppercase text-accent-blue">Elige qué quieres probar</span>
+    </div>
+    <div id="bizSelector" class="grid grid-cols-3 gap-2 sm:gap-3 mb-4"></div>
     <div class="glass-card glow-border-magenta rounded-3xl overflow-hidden">
       <!-- chat header -->
       <div class="flex items-center justify-between gap-3 px-4 sm:px-5 py-3 border-b border-white/10 bg-white/[0.03]">
         <div class="flex items-center gap-3 min-w-0">
-          <div class="size-10 rounded-full bg-gradient-to-br from-accent-blue to-primary flex items-center justify-center font-black text-white shrink-0">D</div>
+          <div id="chatAvatar" class="size-10 rounded-full bg-gradient-to-br from-accent-blue to-primary flex items-center justify-center font-black text-white shrink-0">D</div>
           <div class="min-w-0">
-            <div class="font-bold text-sm truncate">Dani · Clínica Dental Brillo</div>
+            <div class="font-bold text-sm truncate" id="chatTitle">Dani · Clínica Dental Brillo</div>
             <div class="text-[11px] text-emerald-400 flex items-center gap-1"><span class="size-1.5 rounded-full bg-emerald-400 inline-block"></span> En línea · responde al instante</div>
           </div>
         </div>
@@ -156,7 +160,7 @@
           <li class="flex gap-3"><span class="material-symbols-outlined text-emerald-400 text-[20px]">check_circle</span><span><strong class="text-white">Respondió precios y servicios</strong> al instante, sin esperar a un empleado.</span></li>
           <li class="flex gap-3"><span class="material-symbols-outlined text-emerald-400 text-[20px]">check_circle</span><span><strong class="text-white">Preguntó para entender la necesidad</strong> antes de recomendar.</span></li>
           <li class="flex gap-3"><span class="material-symbols-outlined text-emerald-400 text-[20px]">check_circle</span><span><strong class="text-white">Armó una cotización</strong> sumando lo que el cliente pidió.</span></li>
-          <li class="flex gap-3"><span class="material-symbols-outlined text-emerald-400 text-[20px]">check_circle</span><span><strong class="text-white">Registró una solicitud de cita</strong> con código de seguimiento.</span></li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-emerald-400 text-[20px]">check_circle</span><span><strong class="text-white">Registró una solicitud</strong> (cita, cotización o pedido) con código de seguimiento.</span></li>
         </ul>
       </div>
       <div class="glass-card glow-border-blue rounded-3xl p-6 sm:p-8">
@@ -169,6 +173,43 @@
           <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-[20px]">arrow_forward</span><span><strong class="text-white">Reporte semanal</strong> de consultas, cotizaciones y citas generadas.</span></li>
         </ul>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4b. MÁS AUTOMATIZACIONES -->
+<section class="px-4 sm:px-6 pb-16">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-8">
+      <span class="text-[11px] font-bold tracking-[0.3em] uppercase text-accent-blue">Más allá del chat</span>
+      <h2 class="text-3xl sm:text-4xl font-bold mt-3">Otras automatizaciones que <span class="text-gradient">hacemos</span></h2>
+      <p class="text-slate-400 mt-3 text-sm sm:text-base max-w-xl mx-auto">El bot de arriba es un ejemplo. Estas son otras formas en que la IA puede trabajar para tu negocio.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <a href="https://www.elevatia.do/#demos" target="_blank" rel="noopener" onclick="track('click_otra_demo','voz')" class="glass-card rounded-2xl p-5 hover:-translate-y-1 transition-transform block">
+        <span class="material-symbols-outlined text-accent-blue text-3xl">call</span>
+        <h3 class="font-bold mt-3 mb-1">Asistente de voz IA</h3>
+        <p class="text-sm text-slate-400">Contesta llamadas, agenda citas y recuerda pagos con una voz natural, 24/7.</p>
+        <span class="inline-block mt-3 text-xs font-bold text-accent-blue uppercase tracking-widest">Ver demo →</span>
+      </a>
+      <a href="https://www.elevatia.do/#demos" target="_blank" rel="noopener" onclick="track('click_otra_demo','email')" class="glass-card rounded-2xl p-5 hover:-translate-y-1 transition-transform block">
+        <span class="material-symbols-outlined text-primary text-3xl">mail</span>
+        <h3 class="font-bold mt-3 mb-1">Correo inteligente</h3>
+        <p class="text-sm text-slate-400">Clasifica los correos que llegan, redacta respuestas y avisa de lo urgente.</p>
+        <span class="inline-block mt-3 text-xs font-bold text-accent-blue uppercase tracking-widest">Ver demo →</span>
+      </a>
+      <a href="#solicitud" onclick="track('click_otra_demo','cobros')" class="glass-card rounded-2xl p-5 hover:-translate-y-1 transition-transform block">
+        <span class="material-symbols-outlined text-emerald-400 text-3xl">notifications_active</span>
+        <h3 class="font-bold mt-3 mb-1">Recordatorios y cobros</h3>
+        <p class="text-sm text-slate-400">Mensajes automáticos por WhatsApp o SMS para citas, pagos pendientes y seguimientos.</p>
+        <span class="inline-block mt-3 text-xs font-bold text-accent-blue uppercase tracking-widest">Pedir ejemplo →</span>
+      </a>
+      <a href="#solicitud" onclick="track('click_otra_demo','reportes')" class="glass-card rounded-2xl p-5 hover:-translate-y-1 transition-transform block">
+        <span class="material-symbols-outlined text-amber-400 text-3xl">bar_chart</span>
+        <h3 class="font-bold mt-3 mb-1">Reportes automáticos</h3>
+        <p class="text-sm text-slate-400">Un resumen semanal de ventas, consultas y citas directo a tu correo o WhatsApp.</p>
+        <span class="inline-block mt-3 text-xs font-bold text-accent-blue uppercase tracking-widest">Pedir ejemplo →</span>
+      </a>
     </div>
   </div>
 </section>
@@ -242,7 +283,7 @@
   </div>
   <details id="privacidad" class="max-w-5xl mx-auto mt-6 text-xs text-slate-500 scroll-mt-24">
     <summary class="cursor-pointer hover:text-slate-300">Aviso de privacidad</summary>
-    <p class="mt-2 leading-relaxed">Esta demostración usa un negocio ficticio (Clínica Dental Brillo); no existen reservas, citas ni pagos reales. El chat se procesa con un modelo de inteligencia artificial para generar las respuestas; no escribas datos personales ni sensibles en él. Registramos métricas de uso anónimas (visitas, pruebas iniciadas y formularios enviados) para mejorar la página; no guardamos el contenido de tu conversación. Los datos del formulario se usan únicamente para contactarte sobre tu solicitud y no se comparten con terceros. Responsable: ElevatIA SRL, República Dominicana · info@elevatia.do.</p>
+    <p class="mt-2 leading-relaxed">Esta demostración usa negocios ficticios (Clínica Dental Brillo, Ferretería El Tornillo y Restaurante La Terraza Criolla); no existen reservas, citas, pedidos ni pagos reales. El chat se procesa con un modelo de inteligencia artificial para generar las respuestas; no escribas datos personales ni sensibles en él. Registramos métricas de uso anónimas (visitas, pruebas iniciadas y formularios enviados) para mejorar la página; no guardamos el contenido de tu conversación. Los datos del formulario se usan únicamente para contactarte sobre tu solicitud y no se comparten con terceros. Responsable: ElevatIA SRL, República Dominicana · info@elevatia.do.</p>
   </details>
   <p class="text-center text-[11px] text-slate-600 mt-6">© 2026 ElevatIA · Automatización e Inteligencia Artificial</p>
 </footer>
@@ -295,30 +336,95 @@
   document.getElementById('waFooter').href = waBase + encodeURIComponent('Hola, vengo de la demo del bot de ElevatIA.');
 
   // ---------- chat ----------
-  const WELCOME = '¡Hola! 👋 Soy Dani, el asistente de Clínica Dental Brillo (un negocio de prueba). Puedo darte precios, prepararte una cotización o agendarte una cita de ejemplo. ¿En qué te ayudo?';
-  const CHIPS = [
-    { t:'💰 ¿Cuánto cuesta una limpieza?', m:'¿Cuánto cuesta una limpieza dental?' },
-    { t:'🦷 ¿Qué servicios ofrecen?', m:'¿Qué servicios ofrecen y cuánto cuestan?' },
-    { t:'🧾 Cotízame limpieza + blanqueamiento', m:'Cotízame una limpieza y un blanqueamiento' },
-    { t:'📅 Quiero una cita', m:'Quiero agendar una cita' },
-    { t:'🕐 ¿Horario y ubicación?', m:'¿Cuál es el horario y dónde están ubicados?' }
-  ];
-  // Respuestas de respaldo (Plan B) si la IA no responde
-  const FALLBACK = [
-    { k:/limpieza|cuesta|precio|cu[aá]nto/i, r:'La limpieza dental cuesta RD$2,500 (10% de descuento en tu primera visita). El blanqueamiento está en RD$8,500 y una resina en RD$3,000 por pieza. ¿Para quién sería el servicio?' },
-    { k:/servicio|ofrecen|hacen/i, r:'Ofrecemos limpieza (RD$2,500), resinas (RD$3,000), extracciones (RD$3,500), blanqueamiento (RD$8,500), coronas (RD$18,000), ortodoncia (desde RD$45,000) e implantes (RD$65,000). ¿Cuál te interesa?' },
-    { k:/cotiza|presupuesto/i, r:'Claro: limpieza RD$2,500 + blanqueamiento RD$8,500 = RD$11,000 en total. ¿Te gustaría agendar una cita?' },
-    { k:/cita|agendar|turno/i, r:'¡Con gusto! Dime tu nombre, el servicio y el día u hora que prefieres y te registro la solicitud.' },
-    { k:/horario|ubicaci|d[oó]nde|direcci/i, r:'Estamos en Av. Winston Churchill #45, Piantini. Atendemos de lunes a viernes de 8:00 am a 6:00 pm y sábados de 9:00 am a 1:00 pm. ¿Quieres que te agende una cita?' }
-  ];
-  const RECORDED = [
-    ['user','Hola, ¿cuánto cuesta una limpieza?'],
-    ['bot','¡Hola! 😊 La limpieza dental cuesta RD$2,500 y, si es tu primera vez con nosotros, tienes 10% de descuento. ¿Es para ti o para alguien más?'],
-    ['user','Para mí. También quiero saber del blanqueamiento'],
-    ['bot','El blanqueamiento está en RD$8,500. Si haces los dos:\n• Limpieza: RD$2,500\n• Blanqueamiento: RD$8,500\nTotal: RD$11,000. ¿Te gustaría agendar una cita?'],
-    ['user','Sí, el sábado en la mañana. Soy Laura'],
-    ['bot','¡Listo, Laura! Solicitud DEMO-4821: limpieza + blanqueamiento, sábado 9:00 am con la Dra. Ana Peña. Esto es una simulación: en un negocio real la cita quedaría en tu agenda y tu equipo recibiría el aviso. 🦷']
-  ];
+  const BIZ = {
+    dental: {
+      icon:'🦷', label:'Clínica dental', sub:'Citas', letter:'D',
+      title:'Dani · Clínica Dental Brillo',
+      welcome:'¡Hola! 👋 Soy Dani, el asistente de Clínica Dental Brillo (un negocio de prueba). Puedo darte precios, prepararte una cotización o agendarte una cita de ejemplo. ¿En qué te ayudo?',
+      chips:[
+        { t:'💰 ¿Cuánto cuesta una limpieza?', m:'¿Cuánto cuesta una limpieza dental?' },
+        { t:'🦷 ¿Qué servicios ofrecen?', m:'¿Qué servicios ofrecen y cuánto cuestan?' },
+        { t:'🧾 Cotízame limpieza + blanqueamiento', m:'Cotízame una limpieza y un blanqueamiento' },
+        { t:'📅 Quiero una cita', m:'Quiero agendar una cita' },
+        { t:'🕐 ¿Horario y ubicación?', m:'¿Cuál es el horario y dónde están ubicados?' }
+      ],
+      fallback:[
+        { k:/limpieza|cuesta|precio|cu[aá]nto/i, r:'La limpieza dental cuesta RD$2,500 (10% de descuento en tu primera visita). El blanqueamiento está en RD$8,500 y una resina en RD$3,000 por pieza. ¿Para quién sería el servicio?' },
+        { k:/servicio|ofrecen|hacen/i, r:'Ofrecemos limpieza (RD$2,500), resinas (RD$3,000), extracciones (RD$3,500), blanqueamiento (RD$8,500), coronas (RD$18,000), ortodoncia (desde RD$45,000) e implantes (RD$65,000). ¿Cuál te interesa?' },
+        { k:/cotiza|presupuesto/i, r:'Claro: limpieza RD$2,500 + blanqueamiento RD$8,500 = RD$11,000 en total. ¿Te gustaría agendar una cita?' },
+        { k:/cita|agendar|turno/i, r:'¡Con gusto! Dime tu nombre, el servicio y el día u hora que prefieres y te registro la solicitud.' },
+        { k:/horario|ubicaci|d[oó]nde|direcci/i, r:'Estamos en Av. Winston Churchill #45, Piantini. Atendemos de lunes a viernes de 8:00 am a 6:00 pm y sábados de 9:00 am a 1:00 pm. ¿Quieres que te agende una cita?' }
+      ],
+      recorded:[
+        ['user','Hola, ¿cuánto cuesta una limpieza?'],
+        ['bot','¡Hola! 😊 La limpieza dental cuesta RD$2,500 y, si es tu primera vez con nosotros, tienes 10% de descuento. ¿Es para ti o para alguien más?'],
+        ['user','Para mí. También quiero saber del blanqueamiento'],
+        ['bot','El blanqueamiento está en RD$8,500. Si haces los dos:\n- Limpieza: RD$2,500\n- Blanqueamiento: RD$8,500\nTotal: RD$11,000. ¿Te gustaría agendar una cita?'],
+        ['user','Sí, el sábado en la mañana. Soy Laura'],
+        ['bot','¡Listo, Laura! Solicitud DEMO-4821: limpieza + blanqueamiento, sábado 9:00 am con la Dra. Ana Peña. Esto es una simulación: en un negocio real la cita quedaría en tu agenda y tu equipo recibiría el aviso. 🦷']
+      ]
+    },
+    ferreteria: {
+      icon:'🧱', label:'Ferretería', sub:'Cotizaciones', letter:'R',
+      title:'Rafa · Ferretería El Tornillo',
+      welcome:'¡Saludos! 👋 Soy Rafa, de Ferretería El Tornillo (un negocio de prueba). Dime qué materiales necesitas y las cantidades, y te preparo la cotización al momento. ¿Qué estás construyendo?',
+      chips:[
+        { t:'🧱 Precio del block y el cemento', m:'¿A cuánto está el block de 6 pulgadas y el saco de cemento?' },
+        { t:'🧾 Cotiza 20 sacos de cemento y 200 blocks', m:'Cotízame 20 sacos de cemento y 200 blocks de 6 pulgadas' },
+        { t:'🚚 ¿Hacen delivery?', m:'¿Hacen entrega a domicilio y cuánto cuesta?' },
+        { t:'📋 ¿Qué materiales tienen?', m:'¿Qué materiales de construcción tienen y a qué precio?' },
+        { t:'🕐 ¿Horario?', m:'¿Cuál es el horario y dónde están?' }
+      ],
+      fallback:[
+        { k:/block|cemento|precio|cu[aá]nto/i, r:'El block de 6" está a RD$38 la unidad y el saco de cemento gris a RD$480. ¿Cuántos necesitas? Te preparo la cotización.' },
+        { k:/cotiza|presupuesto/i, r:'Ejemplo: 20 sacos de cemento (RD$9,600) + 200 blocks de 6" (RD$7,600) = RD$17,200 + ITBIS RD$3,096 = RD$20,296. Con delivery gratis en el Distrito Nacional por superar RD$15,000. ¿Lo quieres a domicilio o lo recoges?' },
+        { k:/delivery|entrega|domicilio|env[ií]o/i, r:'Sí, entregamos en el Distrito Nacional: gratis en compras mayores a RD$15,000; si no, RD$1,200 por viaje. ¿Qué materiales necesitas?' },
+        { k:/material|tienen|venden/i, r:'Tenemos cemento, blocks, varillas, arena, grava, pintura, PVC y cable eléctrico, entre otros. Dime qué buscas y te doy el precio.' },
+        { k:/horario|ubicaci|d[oó]nde|direcci/i, r:'Estamos en la Av. Independencia km 9½, Santo Domingo. Lunes a sábado de 7:30 am a 6:00 pm. ¿Te preparo una cotización?' }
+      ],
+      recorded:[
+        ['user','Buenas, necesito cemento y blocks para un muro'],
+        ['bot','¡Claro! El saco de cemento gris está a RD$480 y el block de 6" a RD$38. ¿Cuántos sacos y cuántos blocks necesitas?'],
+        ['user','20 sacos y 200 blocks. Soy Miguel, de Constructora MH'],
+        ['bot','Perfecto, Miguel. Tu cotización:\n- 20 sacos de cemento: RD$9,600\n- 200 blocks de 6": RD$7,600\nSubtotal: RD$17,200 · ITBIS: RD$3,096 · Total: RD$20,296\nDelivery gratis por superar RD$15,000. ¿Lo quieres a domicilio o pasas a recogerlo?'],
+        ['user','A domicilio, en Los Prados'],
+        ['bot','Listo. Cotización COT-2187 registrada para entrega en Los Prados. Esto es una simulación: en un negocio real recibirías el PDF de la cotización y el vendedor sería avisado para confirmar la entrega. 🧱']
+      ]
+    },
+    restaurante: {
+      icon:'🍽️', label:'Restaurante', sub:'Pedidos y reservas', letter:'V',
+      title:'Vale · Restaurante La Terraza Criolla',
+      welcome:'¡Hola! 👋 Soy Vale, de Restaurante La Terraza Criolla (un negocio de prueba). Puedo mostrarte el menú, tomarte un pedido a domicilio o reservarte una mesa de ejemplo. ¿Qué se te antoja?',
+      chips:[
+        { t:'📖 ¿Qué hay en el menú?', m:'¿Qué platos tienen y a qué precio?' },
+        { t:'🛵 Quiero pedir a domicilio', m:'Quiero hacer un pedido a domicilio' },
+        { t:'🪑 Reservar mesa para 4', m:'Quiero reservar una mesa para 4 personas' },
+        { t:'🍲 ¿Tienen sancocho hoy?', m:'¿Tienen sancocho hoy?' },
+        { t:'🕐 ¿Horario?', m:'¿Cuál es el horario y dónde están?' }
+      ],
+      fallback:[
+        { k:/men[uú]|platos|tienen|precio/i, r:'Hoy tenemos bandera dominicana (RD$450), chivo guisado (RD$650), mofongo de camarones (RD$850), pescado frito con tostones (RD$900) y chicharrón de pollo (RD$520). ¿Qué te provoca?' },
+        { k:/domicilio|pedir|pedido|delivery/i, r:'¡Claro! Dime qué platos quieres, tu nombre y el sector de entrega. El delivery cuesta RD$150 dentro de 5 km y el pedido mínimo es RD$600.' },
+        { k:/reserv|mesa/i, r:'Con gusto. ¿Para cuántas personas, qué día y a qué hora? Y dime tu nombre para la reserva.' },
+        { k:/sancocho/i, r:'El sancocho lo servimos sábados y domingos (RD$550). Entre semana te recomiendo el chivo guisado (RD$650). ¿Te lo mando a domicilio o vienes?' },
+        { k:/horario|ubicaci|d[oó]nde|direcci/i, r:'Estamos en la Av. Abraham Lincoln #120, Piantini. Abrimos de martes a domingo de 12:00 pm a 11:00 pm. ¿Quieres reservar?' }
+      ],
+      recorded:[
+        ['user','Hola, ¿qué tienen hoy para pedir a domicilio?'],
+        ['bot','¡Hola! 😊 Hoy tenemos bandera dominicana (RD$450), chivo guisado (RD$650), mofongo de camarones (RD$850) y pescado frito con tostones (RD$900). El delivery es RD$150 dentro de 5 km. ¿Qué te provoca?'],
+        ['user','Dos chivos y un mofongo. Soy Carla, en Naco'],
+        ['bot','¡Buena elección, Carla! Tu pedido:\n- 2 chivo guisado: RD$1,300\n- 1 mofongo de camarones: RD$850\n- Delivery a Naco: RD$150\nTotal: RD$2,300. ¿Pagas en efectivo o con tarjeta al recibir?'],
+        ['user','Tarjeta'],
+        ['bot','Listo. Pedido PED-5530 registrado, llega en 35-45 minutos. Esto es una simulación: en un negocio real la cocina recibiría el ticket y tú un mensaje cuando el motorista salga. 🛵']
+      ]
+    }
+  };
+  let current = 'dental';
+  try { const q = params.get('negocio'); if (q && BIZ[q]) current = q; } catch(e){}
+  const WELCOME = () => BIZ[current].welcome;
+  const CHIPS = () => BIZ[current].chips;
+  const FALLBACK = () => BIZ[current].fallback;
+  const RECORDED = () => BIZ[current].recorded;
 
   const $msgs = document.getElementById('chatMessages');
   const $chips = document.getElementById('chatChips');
@@ -337,11 +443,11 @@
   function renderQuota(){ const left = Math.max(0, AI_LIMIT - aiUsed()); $quota.textContent = left + ' ' + (left===1?'mensaje restante':'mensajes restantes') + ' hoy'; }
 
   function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-  function linkify(s){ return esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/(DEMO-\d{4})/g, '<strong class="text-accent-blue">$1</strong>'); }
+  function linkify(s){ return esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/((?:DEMO|COT|RES|PED)-\d{4})/g, '<strong class="text-accent-blue">$1</strong>'); }
   function scroll(){ $msgs.scrollTop = $msgs.scrollHeight; }
   function addBot(text, html){
     const w = document.createElement('div'); w.className = 'flex items-end gap-2';
-    w.innerHTML = '<div class="size-7 rounded-full bg-gradient-to-br from-accent-blue to-primary flex items-center justify-center text-[11px] font-black shrink-0">D</div><div class="msg msg-bot">'+(html || linkify(text))+'</div>';
+    w.innerHTML = '<div class="biz-letter size-7 rounded-full bg-gradient-to-br from-accent-blue to-primary flex items-center justify-center text-[11px] font-black shrink-0">'+BIZ[current].letter+'</div><div class="msg msg-bot">'+(html || linkify(text))+'</div>';
     $msgs.appendChild(w); scroll();
   }
   function addUser(text){
@@ -350,26 +456,46 @@
     $msgs.appendChild(w); scroll();
   }
   let $typing = null;
-  function showTyping(){ removeTyping(); $typing = document.createElement('div'); $typing.className='flex items-end gap-2'; $typing.innerHTML='<div class="size-7 rounded-full bg-gradient-to-br from-accent-blue to-primary flex items-center justify-center text-[11px] font-black shrink-0">D</div><div class="msg msg-bot typing"><span></span><span></span><span></span></div>'; $msgs.appendChild($typing); scroll(); }
+  function showTyping(){ removeTyping(); $typing = document.createElement('div'); $typing.className='flex items-end gap-2'; $typing.innerHTML='<div class="biz-letter size-7 rounded-full bg-gradient-to-br from-accent-blue to-primary flex items-center justify-center text-[11px] font-black shrink-0">'+BIZ[current].letter+'</div><div class="msg msg-bot typing"><span></span><span></span><span></span></div>'; $msgs.appendChild($typing); scroll(); }
   function removeTyping(){ if ($typing){ $typing.remove(); $typing = null; } }
   function setBusy(b){ busy = b; $input.disabled = b; $send.disabled = b; $send.style.opacity = b ? '.5' : '1'; $chips.querySelectorAll('button').forEach(x => x.disabled = b); }
 
+  function renderBiz(){
+    const $sel = document.getElementById('bizSelector');
+    $sel.innerHTML = '';
+    Object.keys(BIZ).forEach(k => {
+      const b = BIZ[k]; const el = document.createElement('button'); el.type='button';
+      const on = k === current;
+      el.className = 'rounded-2xl px-2 py-3 sm:px-4 text-center border transition-all ' + (on ? 'border-primary bg-primary/15 shadow-[0_0_18px_rgba(238,43,238,0.25)]' : 'border-white/10 bg-white/[0.03] hover:bg-white/[0.07]');
+      el.innerHTML = '<div class="text-2xl">'+b.icon+'</div><div class="font-bold text-xs sm:text-sm mt-1">'+b.label+'</div><div class="text-[10px] sm:text-[11px] text-slate-400">'+b.sub+'</div>';
+      el.onclick = () => switchBiz(k);
+      $sel.appendChild(el);
+    });
+    document.getElementById('chatTitle').textContent = BIZ[current].title;
+    document.getElementById('chatAvatar').textContent = BIZ[current].letter;
+    $msgs.querySelectorAll('.biz-letter').forEach(x => x.textContent = BIZ[current].letter);
+  }
+  window.switchBiz = function(k){
+    if (playing || busy || !BIZ[k] || k === current) return;
+    current = k; started = false; track('negocio', k);
+    history = []; $msgs.innerHTML=''; renderBiz(); addBot(WELCOME()); renderChips(); renderQuota(); $input.value='';
+  };
   function renderChips(){
     $chips.innerHTML = '';
-    CHIPS.forEach(c => { const b = document.createElement('button'); b.type='button'; b.className='chip'; b.textContent=c.t; b.onclick=()=>send(c.m, 'chip'); $chips.appendChild(b); });
+    CHIPS().forEach(c => { const b = document.createElement('button'); b.type='button'; b.className='chip'; b.textContent=c.t; b.onclick=()=>send(c.m, 'chip'); $chips.appendChild(b); });
   }
   window.resetChat = function(){
     if (playing) return;
-    history = []; $msgs.innerHTML=''; addBot(WELCOME); renderChips(); renderQuota(); $input.value=''; track('chat_reinicio');
+    history = []; $msgs.innerHTML=''; addBot(WELCOME()); renderChips(); renderQuota(); $input.value=''; track('chat_reinicio');
   };
   function fallbackReply(text){
-    const f = FALLBACK.find(x => x.k.test(text));
+    const f = FALLBACK().find(x => x.k.test(text));
     return f ? f.r : null;
   }
   async function send(text, origen){
     text = (text || '').trim().slice(0,400);
     if (!text || busy || playing) return;
-    if (!started){ started = true; track('chat_inicio', origen || 'texto'); }
+    if (!started){ started = true; track('chat_inicio', current + '/' + (origen || 'texto')); }
     addUser(text); $input.value='';
     if (aiUsed() >= AI_LIMIT){
       addBot('', 'Llegaste al límite de mensajes de prueba por hoy 🙏. Si quieres ver más, <a href="#solicitud" class="text-accent-blue underline font-bold">solicita una evaluación</a> y te mostramos un ejemplo con los datos de tu negocio.');
@@ -380,7 +506,7 @@
     let reply = null, ok = false;
     try {
       const ctrl = new AbortController(); const to = setTimeout(()=>ctrl.abort(), 25000);
-      const r = await fetch(CHAT_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ message:text, history: history.slice(-9, -1), session: SID }), signal: ctrl.signal });
+      const r = await fetch(CHAT_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ message:text, history: history.slice(-9, -1), session: SID, negocio: current }), signal: ctrl.signal });
       clearTimeout(to);
       if (r.ok){ const d = await r.json(); reply = d.reply || d.message || d.text || null; ok = !!reply; }
     } catch(e){}
@@ -388,7 +514,7 @@
     if (ok){
       aiBump(); renderQuota(); track('chat_mensaje', origen || 'texto');
       addBot(reply); history.push({ role:'assistant', content: reply });
-      const m = reply.match(/DEMO-\d{4}/); if (m && !seenCodes.has(m[0])){ seenCodes.add(m[0]); track('solicitud_simulada', m[0]); }
+      const m = reply.match(/(?:DEMO|COT|RES|PED)-\d{4}/); if (m && !seenCodes.has(m[0])){ seenCodes.add(m[0]); track('solicitud_simulada', current + '/' + m[0]); }
     } else {
       track('chat_error', origen || 'texto');
       const fb = fallbackReply(text);
@@ -402,11 +528,11 @@
   window.playRecorded = async function(origen){
     if (playing) return;
     document.getElementById('chat').scrollIntoView({ behavior:'smooth', block:'start' });
-    track('demo_grabada', origen || '');
+    track('demo_grabada', current + '/' + (origen || ''));
     playing = true; setBusy(true);
-    history = []; $msgs.innerHTML=''; addBot(WELCOME); $chips.innerHTML='';
+    history = []; $msgs.innerHTML=''; addBot(WELCOME()); $chips.innerHTML='';
     const wait = ms => new Promise(r => setTimeout(r, ms));
-    for (const [who, text] of RECORDED){
+    for (const [who, text] of RECORDED()){
       await wait(who === 'user' ? 900 : 300);
       if (who === 'user') addUser(text);
       else { showTyping(); await wait(1100); removeTyping(); addBot(text); }
@@ -417,7 +543,7 @@
     playing = false; renderChips(); setBusy(false);
   };
 
-  addBot(WELCOME); renderChips(); renderQuota();
+  renderBiz(); addBot(WELCOME()); renderChips(); renderQuota();
 
   // ---------- formulario ----------
   function normalizePhone(v){
