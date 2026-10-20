@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ita's Grand Opening · Confirma tu asistencia</title>
+<meta name="description" content="Celebremos juntos un nuevo espacio para cada forma de crecer. 11 de noviembre, 7:00 p. m., Holiday Inn, Salón Los Tenores. Confirma tu asistencia.">
+<meta property="og:title" content="ita's Grand Opening · Confirma tu asistencia">
+<meta property="og:description" content="11 de noviembre · 7:00 a 10:00 p. m. · Holiday Inn, Salón Los Tenores">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.elevatia.do/ita/og.jpg">
+<meta name="theme-color" content="#FDF8EC">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%2314A9E9'/%3E%3Ccircle cx='24' cy='28' r='9' fill='%23fff' stroke='%23111' stroke-width='3'/%3E%3Ccircle cx='42' cy='30' r='8' fill='%23fff' stroke='%23111' stroke-width='3'/%3E%3Ccircle cx='26' cy='27' r='5'/%3E%3Ccircle cx='43' cy='29' r='4.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FDF8EC; --card:#FFFCF5; --bar:#FFFDF8;
+  --navy:#2456AC; --navy-2:#1D4E9E; --ink:#22488F;
+  --sky:#14A9E9; --sky-soft:#D3EAFA; --yellow:#FFC72C; --yellow-soft:#FCF0CD;
+  --pink:#F7A3BB; --pink-2:#F0628A; --red:#F2552C; --green:#79BF49; --green-2:#4E9A3A;
+  --line:#BCCDE7; --muted:#8C9BB5;
+  color-scheme: light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Lexend,system-ui,sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+svg{display:block}
+
+/* ---------- barra superior ---------- */
+.bar{background:var(--bar);position:sticky;top:0;z-index:50;box-shadow:0 1px 0 rgba(36,86,172,.06)}
+.bar-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 28px}
+.logo{width:84px;color:var(--navy);text-decoration:none}
+.nav{display:flex;gap:6px}
+.nav a{text-decoration:none;font-size:15px;font-weight:500;color:var(--navy);padding:10px 22px;border-radius:999px;transition:background .2s}
+.nav a:hover{background:#EEF5FC}
+.nav a.on{background:var(--sky-soft)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;isolation:isolate}
+.hero-in{position:relative;z-index:4;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;padding:56px 28px 0}
+.deco{position:absolute;z-index:0;pointer-events:none}
+.left{position:relative;text-align:center;padding-bottom:330px}
+.itas{width:min(300px,62%);margin:0 auto -10px;color:var(--navy);position:relative;transform:translateX(18px)}
+.itas .marks{position:absolute;right:-60px;top:-28px;width:64px}
+h1{font-weight:500;color:var(--navy);font-size:clamp(64px,9.4vw,124px);line-height:.86;letter-spacing:-.035em}
+h1 span{display:block}
+.confirma{position:relative;display:inline-block;margin-top:34px;font-weight:600;font-size:clamp(26px,3vw,34px);color:var(--navy-2);letter-spacing:-.01em}
+.confirma .marks{position:absolute;left:-92px;top:-22px;width:70px}
+.lead{margin-top:10px;font-size:clamp(17px,1.7vw,21px);font-weight:300;line-height:1.35;color:var(--navy-2)}
+.info{list-style:none;display:grid;gap:14px;margin:30px auto 0;width:max-content;max-width:100%;text-align:left}
+.info li{display:flex;align-items:center;gap:16px}
+.ic{flex:none;width:76px;height:76px;border-radius:50%;background:var(--yellow-soft);display:grid;place-items:center}
+.ic svg{width:40px;height:40px}
+.info .txt{border-left:2px solid var(--navy);padding-left:18px;font-size:22px;font-weight:300;line-height:1.15;color:var(--navy-2)}
+.info .big{display:flex;align-items:center;gap:10px}
+.info .big b{font-weight:300;font-size:54px;line-height:.9;letter-spacing:-.02em}
+
+/* ---------- tarjeta RSVP ---------- */
+.card{position:relative;z-index:6;align-self:start;background:var(--card);border-radius:40px;padding:44px 36px 36px;box-shadow:0 30px 60px -30px rgba(36,86,172,.28),0 2px 0 rgba(36,86,172,.04);margin-top:120px}
+.card h2{position:relative;font-weight:700;font-size:48px;letter-spacing:-.02em;color:var(--navy-2);line-height:1;padding-left:68px}
+.card h2 .marks{position:absolute;left:0;top:-12px;width:58px}
+.card .sub{margin:12px 0 26px 46px;color:var(--navy);font-size:16px;font-weight:300;line-height:1.3}
+.f{display:grid;gap:18px}
+label,.lab{display:block;font-size:15px;font-weight:600;color:var(--navy-2);margin-bottom:8px}
+.lab small{font-weight:400;font-size:15px}
+.in{width:100%;font:inherit;font-size:15px;font-weight:300;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:13px 18px;outline:none;transition:border-color .2s,box-shadow .2s;appearance:none;-webkit-appearance:none}
+.in::placeholder{color:#9CA8BC}
+.in:focus{border-color:var(--sky);box-shadow:0 0 0 4px rgba(20,169,233,.15)}
+.in.bad{border-color:var(--red);box-shadow:0 0 0 4px rgba(242,85,44,.12)}
+select.in{background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232456AC' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 18px center;padding-right:46px;cursor:pointer}
+select.in:invalid{color:#9CA8BC}
+select.in:disabled{opacity:.55;cursor:not-allowed}
+textarea.in{min-height:96px;resize:vertical}
+.radios{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.radio{position:relative;display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);border-radius:14px;padding:13px 16px;background:#fff;cursor:pointer;font-size:15px;font-weight:600;color:var(--navy-2);margin:0;transition:all .2s}
+.radio input{position:absolute;opacity:0}
+.radio .dot{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--navy);display:grid;place-items:center}
+.radio .dot:after{content:"";width:10px;height:10px;border-radius:50%;background:var(--navy);transform:scale(0);transition:transform .2s}
+.radio:has(input:checked){background:#EAF4FD;border-color:#8FB1E0}
+.radio:has(input:checked) .dot:after{transform:scale(1)}
+.radio:has(input:focus-visible){box-shadow:0 0 0 4px rgba(20,169,233,.2)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.btn{position:relative;display:flex;align-items:center;justify-content:center;gap:14px;width:100%;margin-top:6px;border:0;border-radius:999px;background:#1F63BC;color:#fff;font:inherit;font-size:20px;font-weight:500;padding:18px 24px;cursor:pointer;transition:transform .15s,background .2s,box-shadow .2s;box-shadow:0 12px 24px -12px rgba(31,99,188,.7)}
+.btn:hover{background:#1A57A8;transform:translateY(-1px)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.75;cursor:wait}
+.btn .spark{width:30px}
+.btn .spin{display:none;width:20px;height:20px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}
+.btn.loading .spin{display:block}.btn.loading .spark{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.err{display:none;margin-top:4px;background:#FFF0EB;color:#B5361A;border-radius:12px;padding:10px 14px;font-size:14px}
+.err.show{display:block}
+.thanks{display:none;text-align:center;padding:10px 4px 6px}
+.card.done .f,.card.done .sub{display:none}
+.card.done .thanks{display:block}
+.thanks .face{width:150px;margin:0 auto 8px}
+.thanks h3{font-size:34px;font-weight:700;color:var(--navy-2);letter-spacing:-.02em;line-height:1.05}
+.thanks p{margin-top:12px;font-weight:300;font-size:17px;line-height:1.45;color:var(--navy)}
+.thanks .acts{display:grid;gap:10px;margin-top:22px}
+.ghost{display:flex;align-items:center;justify-content:center;gap:10px;border:1.5px solid var(--line);border-radius:999px;padding:14px 18px;text-decoration:none;font-weight:500;color:var(--navy-2);background:#fff;font-size:16px;cursor:pointer;font-family:inherit}
+.ghost:hover{border-color:var(--sky)}
+.ghost svg{width:20px;height:20px}
+.again{margin-top:14px;background:none;border:0;font:inherit;font-size:14px;color:var(--muted);text-decoration:underline;cursor:pointer}
+
+/* ---------- monstruos + ola ---------- */
+.monsters,.paws{position:absolute;z-index:2;left:max(10px,calc(50% - 590px + 20px));bottom:14px;width:min(500px,44vw)}
+.paws{z-index:4}
+.wave{position:absolute;z-index:3;left:0;right:0;bottom:0;width:100%;height:130px}
+
+/* ---------- pie ---------- */
+.foot{position:relative;overflow:hidden;padding:40px 20px 210px;text-align:center}
+.pill{position:relative;z-index:2;display:inline-block;background:var(--sky-soft);border-radius:999px;padding:18px 54px;font-size:17px;font-weight:300;line-height:1.35;color:var(--navy-2)}
+.pill .l,.pill .r{position:absolute;top:50%;width:46px;transform:translateY(-50%)}
+.pill .l{left:-62px}.pill .r{right:-62px;transform:translateY(-50%) scaleX(-1)}
+.links{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:22px}
+.links .ghost{padding:11px 18px;font-size:15px}
+.credit{position:relative;z-index:2;margin-top:18px;font-size:12px;color:var(--muted)}
+.credit a{text-decoration:none}
+.hills{position:absolute;left:0;right:0;bottom:0;width:100%;height:220px;z-index:0}
+
+/* ---------- entrada animada ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) backwards}
+  .d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}.d4{animation-delay:.35s}.d5{animation-delay:.45s}
+  @keyframes rise{from{transform:translateY(18px)}}
+  .bob{animation:bob 4.5s ease-in-out infinite}
+  .bob2{animation:bob 5.5s ease-in-out -2s infinite}
+  @keyframes bob{50%{transform:translateY(-8px) rotate(-2deg)}}
+  .monsters .blue,.paws .bluep{animation:peek 6s ease-in-out infinite}
+  .monsters .yel,.paws .yelp{animation:peek 6s ease-in-out -3s infinite}
+  @keyframes peek{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  .blink{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
+  @keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+}
+
+/* ---------- responsive ---------- */
+@media (max-width:980px){
+  .hero-in{grid-template-columns:1fr;gap:10px;padding-top:36px}
+  .left{padding-bottom:0}
+  .card{margin:20px auto 0;width:100%;max-width:560px}
+  .hero-in{padding-bottom:330px}
+  .monsters,.paws{left:50%;transform:translateX(-50%);width:min(440px,92vw);bottom:56px}
+  .d-top-right{width:260px!important;right:-80px!important}
+}
+@media (max-width:640px){
+  .bar-in{padding:12px 16px}
+  .logo{width:64px}
+  .nav{gap:0}
+  .nav a{padding:8px 10px;font-size:13px}
+  .nav a.hide-sm{display:none}
+  .hero-in{padding:28px 16px 275px}
+  .itas{width:200px;transform:translateX(10px)}
+  .itas .marks{right:-44px;width:46px;top:-18px}
+  .confirma{margin-top:24px}
+  .confirma .marks{left:-48px;width:40px;top:-14px}
+  .info{gap:10px}
+  .ic{width:58px;height:58px}.ic svg{width:30px;height:30px}
+  .info .txt{font-size:18px;padding-left:14px}
+  .info .big b{font-size:44px}
+  .card{border-radius:30px;padding:32px 20px 24px}
+  .card h2{font-size:40px;padding-left:52px}
+  .card h2 .marks{width:44px}
+  .card .sub{margin-left:0}
+  .radios{grid-template-columns:1fr}
+  .monsters,.paws{bottom:44px}
+  .wave{height:100px}
+  .pill{padding:16px 26px;font-size:15px}
+  .pill .l,.pill .r{display:none}
+  .foot{padding-bottom:150px}
+  .hills{height:150px}
+  .d-hide-sm{display:none}
+}
+</style>
+</head>
+<body id="inicio">
+
+<header class="bar">
+  <div class="bar-in">
+    <a href="#inicio" class="logo" aria-label="ita"><svg aria-hidden="true" viewBox="0 0 540 330" xmlns="http://www.w3.org/2000/svg"><path d="M0 0 C5.5 3.6 8.2 8 9.6 14.4 C9.6 28.2 -0.6 39.2 -8.6 49.6 C-15.4 58.8 -15.4 58.8 -15.4 64.4 C-6.3 64.8 2.4 63.1 11.2 61.6 C12.8 61.4 14.4 61.1 15.9 60.9 C24.4 59.4 32.6 57.7 40.9 55.4 C47.7 53.5 54.5 51.9 61.3 50.2 C62.7 49.8 64.1 49.5 65.6 49.1 C85.4 44.2 85.4 44.2 93.6 46.4 C98 49.2 101 52.4 102.6 57.4 C103 63.2 103.1 67.5 99.6 72.4 C85.3 82.8 65.3 86.3 48.2 89.4 C43.6 90.4 43.6 90.4 39.4 91.8 C33.3 93.8 27.3 94.8 21 95.9 C19.7 96.1 18.5 96.3 17.1 96.5 C2.6 98.9 -12 101.2 -26.8 101.9 C-37.5 102.4 -37.5 102.4 -42.4 105.4 C-45.6 109.6 -45.6 109.6 -48.4 114.4 C-49 115.4 -49.7 116.5 -50.3 117.6 C-55 126.2 -59.4 135 -63.1 144.1 C-64 146.5 -65 148.9 -66.1 151.3 C-74.5 170.9 -82.6 194.3 -74.4 215.4 C-71.4 220.4 -71.4 220.4 -67.4 222.4 C-55.8 222.4 -48.5 214.9 -40.4 207.4 C-25 191.8 -15 174.2 -6.6 154.1 C-0.1 140.2 8.6 128.9 19.6 118.4 C20.7 117.3 21.9 116.2 23 115.1 C35.8 105.4 51.6 100.6 67.6 102.4 C79.5 104.7 89.2 108.1 96.6 118 C105.5 132.1 107.4 146 107.6 162.4 C107.7 167.2 107.8 172 107.9 176.9 C108 180.2 108.1 183.6 108.1 187 C108.4 199.4 109.3 209.4 115.6 220.4 C119.6 223.4 119.6 223.4 124.6 223.4 C128.3 220.9 131.7 218.2 135 215.3 C140.4 210.7 144.4 208 151.6 207.4 C157.1 207.9 159.3 209.1 163.6 212.7 C167 218 167.8 221 167.4 227.1 C166 233.1 162.1 236.4 157.6 240.4 C157.2 240.7 157.2 240.7 155.3 242.6 C144 253.1 132.3 258.3 116.9 260 C106.1 258.7 97.3 255.4 89.6 247.4 C84.6 241 84.6 241 84.6 238.4 C80.7 238.1 78.4 237.9 75 240.1 C74.2 240.8 73.3 241.6 72.5 242.4 C59.6 253.6 46.8 260.3 29.5 259.8 C17.2 258.5 6.4 252.1 -1.4 242.8 C-3.6 240 -5.4 237.4 -6.9 234.1 C-8.4 231.4 -8.4 231.4 -12.1 230 C-16.4 230.4 -16.4 230.4 -20.2 234.3 C-21.3 235.7 -22.3 237 -23.4 238.4 C-24 238.4 -24.7 238.4 -25.4 238.4 C-26 239.7 -26.7 241 -27.4 242.4 C-29.9 244.2 -29.9 244.2 -33.4 246.4 C-34.7 247.3 -36.1 248.3 -37.4 249.3 C-49.7 256.9 -64.5 261.7 -79 258.6 C-92.3 254.8 -100.4 247.1 -107.4 235.4 C-108 234.1 -108.7 232.7 -109.4 231.4 C-111.4 231.4 -113.3 231.4 -115.4 231.4 C-117.5 233.6 -119.4 236 -121.4 238.4 C-124 240.5 -126.6 242.5 -129.4 244.4 C-130.3 245 -131.2 245.7 -132.1 246.3 C-133.2 247 -134.3 247.7 -135.4 248.4 C-136.2 248.9 -137.1 249.5 -138 250.1 C-150.1 257.7 -163.4 260.5 -177.6 257.8 C-189 254.5 -196.7 247.1 -203.4 237.4 C-203.9 235.9 -204.4 234.4 -204.9 232.9 C-206.4 229.4 -206.4 229.4 -209.2 228.1 C-213.6 228.5 -214.6 230 -217.4 233.4 C-225.4 242.6 -233.4 250.4 -243.4 257.4 C-244.4 258.2 -245.5 258.9 -246.6 259.8 C-254.3 264.2 -263.6 264.6 -272.2 262.4 C-276.6 259.6 -278.8 256.9 -281.4 252.4 C-282.4 246.1 -282.1 243.5 -278.6 238.1 C-274.5 234.5 -270.9 232.2 -266.1 229.8 C-260 226.6 -255.2 222.2 -250.4 217.4 C-249.6 216.6 -248.7 215.8 -247.9 215 C-242.9 210.1 -238.4 205.1 -234.4 199.4 C-233.8 198.6 -233.2 197.8 -232.7 197 C-228.6 191.3 -225 185.4 -221.4 179.4 C-220.7 178.4 -220 177.4 -219.2 176.4 C-216.7 172.3 -215.1 167.9 -213.4 163.4 C-211.5 159 -209.5 154.7 -207.4 150.4 C-205.4 146.4 -205.4 146.4 -203.6 141.9 C-201.1 135.8 -198.2 130 -195.3 124.2 C-193.8 121.3 -192.5 118.3 -191.2 115.3 C-187.9 108.3 -183.6 103.4 -176.4 100.4 C-170.2 99.8 -165.7 99.9 -160.4 103.4 C-156 107.8 -155.5 111 -155.1 117.1 C-155.6 125.4 -158.2 132 -161.7 139.4 C-172.2 161.5 -183 189.2 -174.7 213.5 C-172.6 218 -169.9 222.1 -165.4 224.4 C-159 225.1 -156.3 223.2 -151.4 219.4 C-150.7 219.4 -150.1 219.4 -149.4 219.4 C-149 218.4 -148.7 217.4 -148.4 216.4 C-146.5 214.7 -144.6 213.1 -142.7 211.5 C-126.7 196.8 -115.4 176.6 -108.4 156.4 C-104.9 146.5 -100.7 137 -96.4 127.4 C-95.7 125.8 -95 124.3 -94.3 122.7 C-92.2 118.1 -89.9 113.6 -87.5 109.2 C-86.4 106.4 -86.4 106.4 -86.4 101.4 C-87.7 101.2 -89.1 101 -90.5 100.8 C-92.3 100.6 -94 100.3 -95.9 100.1 C-97.6 99.8 -99.4 99.6 -101.2 99.3 C-108.7 97.9 -114.5 96.4 -119.4 90.4 C-122.7 85.5 -124.3 82.3 -123.4 76.4 C-119.4 67.9 -119.4 67.9 -114.4 65.4 C-106.5 64.8 -98.6 65 -90.8 66.4 C-83.3 67.6 -75.9 68.5 -68.4 67.4 C-63.2 63.3 -61.2 58.2 -58.4 52.4 C-56.6 49.9 -54.9 47.4 -53.2 44.9 C-50.9 41.8 -49 38.5 -47 35.1 C-21.3 -7.9 -21.3 -7.9 0 0 Z M46.6 139.4 C45.6 140.1 44.6 140.9 43.6 141.6 C40.1 144.9 37.4 148.4 34.6 152.4 C33.8 153.5 32.9 154.6 32 155.8 C27.5 162.5 25.1 169.8 22.6 177.4 C21.9 179.1 21.2 180.9 20.4 182.7 C16.7 194 16.7 206.6 21.8 217.4 C24.5 222.3 25.7 223.4 30.6 226.4 C37.6 227.6 41.6 225.1 47.1 221.2 C61.3 210.6 70.7 192.3 73.3 175 C74.3 161.9 73.3 150.8 66.6 139.4 C63.1 135.8 61.8 135.5 56.8 135.1 C52 135.4 50.3 136.4 46.6 139.4 Z " fill="currentColor" transform="translate(318.375,25.625)"/>
+<path d="M0 0 C4.6 3.4 7.4 5.9 10 11 C10.8 23.9 10.8 23.9 6 30 C0.3 34.4 -3.8 35.4 -11 35 C-17.7 33.3 -21 30.6 -25 25 C-26.1 20.5 -26.3 16.7 -26 12 C-22.5 6.1 -19 2.3 -12.6 -0.4 C-8 -1.2 -4.6 -1.1 0 0 Z " fill="currentColor" transform="translate(176,76)"/></svg></a>
+    <nav class="nav">
+      <a href="#inicio" class="hide-sm">Inicio</a>
+      <a href="#evento">Evento</a>
+      <a href="#rsvp" class="on">RSVP</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<main class="hero">
+  <!-- decoración de fondo -->
+  <svg class="deco" style="left:-40px;top:-30px;width:400px" viewBox="0 0 400 200" aria-hidden="true"><path d="M0 0H360C340 60 300 95 230 92C170 90 140 110 110 150C80 190 30 196 0 180Z" fill="#FFC72C"/></svg>
+  <svg class="deco bob d-hide-sm" style="left:-6px;top:150px;width:190px" viewBox="0 0 190 110" aria-hidden="true"><path d="M8 70C40 66 70 60 92 44C112 28 104 4 84 8C62 12 60 48 76 70C92 92 130 90 182 70" fill="none" stroke="#FFC72C" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 70C40 66 70 60 92 44C112 28 104 4 84 8C62 12 60 48 76 70C92 92 130 90 182 70" fill="none" stroke="#FFE07A" stroke-width="5" stroke-linecap="round" opacity=".7"/></svg>
+  <svg class="deco d-top-right" style="right:-30px;top:-20px;width:520px" viewBox="0 0 520 300" aria-hidden="true"><path d="M0 0H520V300C470 290 440 250 420 210C395 160 340 140 280 125C200 105 160 110 110 85C60 60 20 40 0 0Z" fill="#14A9E9"/><path d="M455 165C440 120 430 70 462 40C492 12 520 40 506 70C490 104 445 96 432 60" fill="none" stroke="#4E9A3A" stroke-width="16" stroke-linecap="round"/></svg>
+  <svg class="deco bob2 d-hide-sm" style="right:110px;top:50px;width:130px" viewBox="0 0 120 120" aria-hidden="true">
+    <g fill="#F7A3BB" stroke="#F58AA9" stroke-width="2"><circle cx="60" cy="30" r="25"/><circle cx="89" cy="51" r="25"/><circle cx="78" cy="86" r="25"/><circle cx="42" cy="86" r="25"/><circle cx="31" cy="51" r="25"/></g>
+    <circle cx="60" cy="60" r="17" fill="#F0567A"/><circle cx="55" cy="55" r="6" fill="#F57D9A"/>
+  </svg>
+  <svg class="deco d-hide-sm" style="right:300px;top:96px;width:70px" viewBox="0 0 70 70" aria-hidden="true"><g stroke="#4CC1F3" stroke-width="10" stroke-linecap="round"><path d="M14 30L28 58"/><path d="M42 12L50 44"/></g></svg>
+  <svg class="deco bob d-hide-sm" style="left:40px;top:640px;width:120px" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 108C24 84 4 60 8 36C12 12 40 6 56 28C66 4 104 2 112 30C120 60 92 86 60 108Z" fill="#F7A3BB" transform="rotate(-12 60 60)"/><path d="M30 34C40 28 50 34 54 44M74 30C86 22 98 30 100 42M28 54C44 70 60 84 66 92" stroke="#FBC3D3" stroke-width="4" fill="none" stroke-linecap="round" transform="rotate(-12 60 60)"/></svg>
+  <svg class="deco bob2 d-hide-sm" style="right:-10px;bottom:150px;width:130px;z-index:5" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 108C24 84 4 60 8 36C12 12 40 6 56 28C66 4 104 2 112 30C120 60 92 86 60 108Z" fill="#F7A3BB" transform="rotate(14 60 60)"/><path d="M30 34C40 28 50 34 54 44M74 30C86 22 98 30 100 42M28 54C44 70 60 84 66 92" stroke="#FBC3D3" stroke-width="4" fill="none" stroke-linecap="round" transform="rotate(14 60 60)"/></svg>
+
+  <div class="hero-in">
+    <section class="left" id="evento">
+      <div class="itas rise d1" role="img" aria-label="ita's">
+        <svg aria-hidden="true" viewBox="0 0 1590 900" xmlns="http://www.w3.org/2000/svg"><path d="M0 0 C1.5 0.6 2.9 1.2 4.4 1.8 C17.5 8.1 28.4 16.2 39 26 C40.2 27.1 41.3 28.1 42.5 29.2 C52 39.5 59.2 50.8 66 63 C66.7 64.1 67.3 65.3 68 66.5 C85.4 98.8 89.2 148.3 80 184 C75 198.7 68.6 211.8 59 224 C58.3 224.9 57.7 225.8 57 226.7 C51.9 233.2 47 237.6 40 242 C39.1 242.7 38.1 243.3 37.2 244 C24.6 251.9 9.5 252.8 -4.8 250.1 C-21.1 246 -33.4 238 -42.3 223.3 C-48 212 -50.9 200.6 -51 188 C-51 186.7 -51.1 185.4 -51.1 184 C-51.7 162.2 -43.8 134.8 -28.6 118.4 C-27.8 117.6 -26.9 116.8 -26 116 C-25 114.9 -24 113.9 -22.9 112.8 C-18.7 108.7 -14.2 105.3 -9.5 101.9 C-7 100 -7 100 -6 98 C-6 89.7 -10.1 86.2 -15.6 80.2 C-25.4 71.1 -33.7 66.3 -47.2 65.6 C-60.7 64.9 -70.2 60.3 -79.3 50.5 C-84.8 42.5 -83.6 32 -82.7 22.7 C-81.1 14.1 -76.7 8.5 -70 3 C-48.9 -10.9 -22.6 -9.3 0 0 Z " fill="currentColor" transform="translate(1131,191)"/>
+<path d="M0 0 C8.8 9.5 14.6 24.7 14.2 37.8 C11.7 55.1 4 70.8 -7.2 84.1 C-8 85.2 -8.7 86.2 -9.4 87.4 C-11.4 90.3 -13.7 92.6 -16.2 95.1 C-16.8 95.7 -16.8 95.7 -19.8 99.1 C-22.5 102.2 -25.3 105.2 -28.2 108.1 C-29.1 108.9 -29.9 109.7 -30.8 110.6 C-31.6 111.4 -32.4 112.2 -33.2 113.1 C-34 113.8 -34.7 114.5 -35.4 115.3 C-42.1 121.8 -49.2 127.9 -56.2 134.1 C-57 134.7 -57 134.7 -60.6 138 C-64.2 141.1 -64.2 141.1 -66.2 141.1 C-66.2 141.7 -66.2 142.4 -66.2 143.1 C-71.7 148.1 -77.4 152.5 -83.2 157.1 C-91.1 163.5 -91.1 163.5 -92.2 168.1 C-91.2 169.1 -91.2 169.1 -87.5 169.2 C-65.4 168.6 -43.8 164.3 -22.3 159.9 C-15.4 158.5 -8.4 157.2 -1.5 156 C3.1 155 7.3 153.5 11.8 152.1 C14.7 151.4 17.7 150.7 20.7 150.1 C27.2 148.7 33.4 147.1 39.8 145.1 C49.7 142 59.6 139.3 69.8 137 C74.4 135.9 78.9 134.6 83.4 133.1 C87.1 132 90.7 130.9 94.4 129.8 C95.8 129.4 97.2 129 98.7 128.6 C101.4 127.7 104.2 126.9 107 126.1 C110.5 125.1 114.1 124 117.6 123 C118.8 122.7 119.9 122.3 121 122 C128.1 119.9 134.9 117.6 141.8 115.1 C156 110.4 168.1 110.9 181.8 117.1 C190.7 123.3 194.6 130.4 196.8 141.1 C197.7 152.9 196.3 163.4 188.8 173.1 C180.4 181.3 170.5 185.7 159.4 189 C150.7 191.6 142.2 194.7 133.8 198.1 C131.7 198.6 129.5 199.1 127.4 199.5 C123.8 200.3 120.5 201.2 116.9 202.5 C108.9 205.5 100.5 207.2 92.1 209.1 C81.3 211.6 70.7 214.5 60.1 217.6 C50.6 220.4 41.2 223 31.6 225 C27.6 225.9 23.7 226.8 19.7 227.7 C4 231.5 -11.6 234.7 -27.7 236.6 C-29.1 236.7 -30.4 236.9 -31.9 237.1 C-33.1 237.2 -34.3 237.3 -35.5 237.4 C-39.2 238.1 -39.2 238.1 -43.8 239.5 C-50.4 241.4 -56.8 242.4 -63.6 243.4 C-65 243.6 -66.5 243.8 -68 244 C-89 246.8 -110 248.3 -131.1 250 C-131.8 250.1 -131.8 250.1 -135.6 250.4 C-138.4 250.6 -141.3 250.8 -144.1 251 C-145.3 251.2 -146.6 251.3 -147.9 251.4 C-149 251.5 -150.1 251.5 -151.3 251.6 C-155.6 252.3 -158.6 253.4 -161.7 256.5 C-165 261.1 -167.6 265.8 -170.2 270.8 C-170.8 271.8 -171.4 272.9 -172 274.1 C-178 285.4 -183.7 297 -189.4 308.5 C-189.8 309.4 -190.3 310.4 -190.8 311.3 C-195.4 320.8 -199.9 330.1 -203.2 340.1 C-204.6 343.3 -205.9 346.5 -207.2 349.7 C-207.9 351.2 -208.6 352.8 -209.2 354.4 C-210.6 357.5 -211.9 360.5 -213.3 363.6 C-219.1 376.7 -224.1 390.1 -228.7 403.7 C-229.9 407 -231.1 410.2 -232.4 413.5 C-235.3 422.2 -237.2 431.1 -239.2 440.1 C-239.5 441.2 -239.8 442.4 -240.1 443.6 C-247 472.1 -252.1 502.1 -240.2 530.1 C-235.9 537.2 -231.4 541 -223.2 543.1 C-210 544 -199.9 539.5 -189.2 532.1 C-188.3 531.4 -187.3 530.7 -186.3 530 C-176.4 523 -167.7 514.8 -158.9 506.5 C-156.5 504.2 -154 502 -151.5 499.9 C-147.7 496.5 -144.6 492.9 -141.2 489.1 C-139.3 486.9 -137.3 484.8 -135.2 482.6 C-130.6 477.6 -126.3 472.5 -122.2 467.1 C-120.6 464.9 -119 462.8 -117.3 460.7 C-113.6 455.9 -110 451 -106.4 446.1 C-104.8 443.8 -103.1 441.5 -101.4 439.2 C-94.6 429.8 -89.2 420.5 -84.2 410.1 C-83 407.6 -81.7 405.1 -80.4 402.7 C-77 395.7 -73.9 388.7 -70.9 381.5 C-64 364.9 -56.8 348.4 -47.2 333.1 C-46.2 331.3 -45.2 329.6 -44.2 327.9 C-37.7 317.3 -30.4 307.2 -23.2 297.1 C-22.4 295.8 -21.5 294.5 -20.5 293.2 C-18.3 290.1 -16 287.7 -13.2 285.1 C-12 283.8 -10.7 282.5 -9.4 281.2 C-5.5 277.3 -1.4 273.7 2.8 270.1 C3.5 269.4 4.2 268.6 5 267.9 C31.5 242.9 66.4 239.2 101.1 240.2 C121.8 241.3 141.1 250.8 155.8 265.1 C156.6 265.9 157.4 266.7 158.3 267.5 C194.8 305.2 197.5 358.7 196.8 408.1 C196.6 413.4 196.5 418.8 196.4 424.1 C195.9 442.8 195.6 461.4 195.5 480.1 C195.5 482.4 195.5 484.7 195.5 487 C195.3 503.3 195.3 518.6 203.8 533.1 C204.5 534.3 205.2 535.6 205.9 536.9 C210.9 542.5 216.6 544.6 223.8 546.1 C244.6 546.1 264.1 527.6 278.1 513.7 C287.8 504.4 298.4 499.7 311.9 499.9 C315.3 500.1 317.6 500.6 320.8 502.1 C321.2 502.3 321.2 502.3 323.3 503.2 C333.2 508.1 338.9 515.5 342.9 525.8 C345.8 536.6 344.2 547.3 338.8 557.1 C336 560.7 332.9 563.8 329.8 567.1 C328.8 568.3 327.8 569.5 326.8 570.7 C326.1 571.5 325.5 572.3 324.8 573.1 C324.1 573.1 323.4 573.1 322.8 573.1 C322.1 574.4 321.4 575.7 320.8 577.1 C314.3 583.7 307.3 589.7 299.8 595.1 C298.6 596 297.4 596.9 296.1 597.9 C275 613.3 250.2 624.3 223.8 625.1 C222.6 625.1 221.5 625.1 220.4 625.2 C210.8 625.4 202.6 624 193.8 620.1 C193 619.8 193 619.8 189 618.8 C177 614.9 167.6 608 158.8 599.1 C157.8 598.2 156.9 597.3 156 596.4 C155.1 595.5 154.1 594.6 153.2 593.6 C152.3 592.7 151.3 591.8 150.4 590.9 C147.8 588.1 145.8 585.3 143.8 582.1 C143.3 581.3 143.3 581.3 140.8 577.7 C133.8 566.9 133.8 566.9 133.8 563.1 C128.9 563.2 128.9 563.2 123.8 564.1 C123.1 565.7 122.4 567.4 121.8 569.1 C112.2 579.9 101.2 589.2 89.3 597.3 C85.6 599.9 82 602.6 78.4 605.3 C75.6 607.2 72.8 608.6 69.8 610.1 C69.1 610.4 69.1 610.4 66.1 611.9 C64.6 612.6 63.2 613.3 61.8 614.1 C60.2 614.9 58.7 615.7 57.1 616.5 C38.8 624.6 16.7 628 -2.5 622 C-6.3 621 -9.9 620.5 -13.8 620.1 C-19.1 619.4 -23.5 618.7 -28.2 616.1 C-29.6 615.4 -31 614.7 -32.4 614 C-45.9 605.8 -57.7 595.5 -66.2 582.1 C-66.9 581.1 -67.5 580.1 -68.2 579.2 C-75 568.5 -79.4 557.2 -83.2 545.1 C-86.5 545.2 -86.5 545.2 -90.2 546.1 C-91.6 548 -93 550 -94.2 552.1 C-97.8 555.2 -101.5 558.1 -105.2 561.1 C-108.1 563.4 -110.9 565.7 -113.5 568.3 C-144.3 599.1 -179.2 621.6 -223.8 622.2 C-241 622.1 -255.5 618.2 -270.2 609.1 C-271 608.6 -271 608.6 -275 606.1 C-297 590.3 -308 567.2 -316.2 542.1 C-319.9 541.5 -319.9 541.5 -324.2 542.1 C-327.3 546.1 -327.3 546.1 -330.2 551.1 C-332.5 553.4 -334.9 555.8 -337.2 558.1 C-338.4 559.4 -339.5 560.7 -340.7 562 C-368 593.1 -406.8 620.6 -448.9 623.4 C-475.7 624 -498.4 616.3 -518.2 598.1 C-518.2 597.4 -518.2 596.7 -518.2 596.1 C-519.6 595.4 -520.9 594.7 -522.2 594.1 C-524.2 591.7 -524.2 591.7 -526.2 588.9 C-526.5 588.4 -526.5 588.4 -528.3 585.9 C-528.9 584.9 -529.6 584 -530.2 583.1 C-531.1 581.9 -532 580.8 -532.9 579.6 C-536 575 -538.1 570.1 -540.2 565.1 C-540.9 563.6 -541.6 562.1 -542.3 560.6 C-548.2 546.6 -548.2 546.6 -548.2 542.1 C-552.8 542.2 -554.1 542.9 -557.3 546.2 C-558.3 547.5 -559.3 548.8 -560.2 550.1 C-561 551 -561.8 551.9 -562.6 552.8 C-564.1 554.7 -565.7 556.6 -567.2 558.5 C-574.4 567.4 -582.1 575.9 -590.2 584.1 C-591.1 585 -592 585.9 -592.9 586.9 C-595.2 589.1 -595.2 589.1 -597.2 589.1 C-597.9 590.4 -598.6 591.7 -599.2 593.1 C-601.3 594.7 -603.3 596.3 -605.3 597.8 C-610.3 601.7 -615 605.9 -619.7 610.1 C-634.6 622.6 -655.7 634.3 -675.6 634 C-686.7 632.8 -695.9 629.7 -704.2 622.1 C-710.3 613.4 -714.4 605.1 -714.2 594.2 C-711.5 582.3 -707.3 573.5 -697.2 566.1 C-693 563.7 -688.7 561.7 -684.2 559.8 C-680.5 558.2 -677.5 556.3 -674.2 554.1 C-673.3 553.6 -672.3 553.1 -671.3 552.6 C-667.9 550.9 -665.1 548.8 -662.1 546.4 C-660.9 545.6 -659.8 544.7 -658.6 543.8 C-653.8 539.9 -649 536 -644.2 532.1 C-643.1 531.2 -642 530.2 -640.9 529.3 C-637.4 526.3 -634.1 523.2 -631.2 519.6 C-629.2 517.1 -629.2 517.1 -627 514.8 C-619.7 507.4 -612.9 499.4 -607.1 490.8 C-604.7 487.3 -602.2 484 -599.8 480.6 C-596 475.5 -592.4 470.3 -589.1 464.9 C-586.8 461.4 -584.5 458 -582.2 454.5 C-578.4 448.8 -574.7 443 -571.2 437.1 C-570.5 435.8 -569.8 434.6 -569.1 433.4 C-562.5 422.4 -556.3 411.3 -550.2 400.1 C-544.3 389.1 -544.3 389.1 -541.6 384.4 C-539.2 380.1 -537.3 375.6 -535.2 371.1 C-534.1 368.7 -532.9 366.4 -531.7 364.1 C-527.6 355.9 -523.9 347.6 -520.2 339.2 C-517.3 332.4 -514.2 325.6 -511 318.9 C-508.8 314.2 -506.7 309.5 -504.6 304.8 C-502.8 300.9 -501 297 -499.2 293.1 C-498.7 292 -498.2 290.9 -497.7 289.7 C-496.2 286.3 -494.6 282.8 -493 279.4 C-492.5 278.3 -492 277.3 -491.5 276.2 C-483.8 259.4 -476.4 247.1 -458.9 239.6 C-449 238.1 -439.6 238.5 -430.2 242.1 C-425.9 245.4 -425.9 245.4 -422.2 249.1 C-421.4 249.8 -420.5 250.6 -419.6 251.4 C-413.2 258.8 -410.8 266.8 -410.9 276.4 C-412 289.1 -418.7 300.1 -424.6 311.1 C-427.1 315.7 -429.2 320.3 -431.2 325.1 C-431.9 326.5 -432.6 328 -433.2 329.5 C-436.7 337.3 -440.1 345.1 -443.2 353.1 C-444.6 356.2 -445.9 359.3 -447.2 362.4 C-449.9 368.7 -452.2 375 -454.1 381.6 C-455.5 386 -457.3 390.1 -459.1 394.4 C-463.7 405.7 -467 417.3 -470.2 429.1 C-470.5 429.9 -470.5 429.9 -471.6 434 C-480 465.5 -488.8 505.6 -472.4 535.9 C-468.4 541.1 -464.4 544 -458.2 546.1 C-445.4 547.2 -434.6 543.5 -424.4 535.6 C-423.7 535 -423.7 535 -420.2 532.1 C-418.5 530.8 -416.8 529.6 -415.1 528.4 C-409.3 524.4 -404.2 520.1 -399.2 515.1 C-398.4 514.2 -397.6 513.4 -396.7 512.6 C-394.2 510.1 -394.2 510.1 -392.2 507.6 C-390.1 504.9 -387.7 502.5 -385.2 500.1 C-377.3 492.2 -370 484 -363.2 475.1 C-362.2 473.7 -361.1 472.3 -359.9 470.9 C-344.9 451.6 -331.4 431.1 -319.4 409.8 C-317.9 407.2 -316.4 404.6 -314.9 402 C-311 395.2 -307.3 388.4 -304.4 381.1 C-303.1 377.7 -301.6 374.3 -300.2 371 C-298.1 366.1 -296.2 361.2 -294.4 356.2 C-292.9 352.2 -291.2 348.3 -289.6 344.3 C-286 335.9 -282.6 327.5 -279.4 319 C-277.3 313.5 -274.9 308.3 -272.2 303.1 C-271.1 300.3 -269.9 297.5 -268.8 294.7 C-266.2 288.6 -263.3 282.6 -260.4 276.7 C-258.9 273.5 -257.5 270.4 -256.1 267.2 C-254.2 263.1 -254.2 263.1 -251.9 259.9 C-250.2 257.1 -250.2 257.1 -250.3 253.8 C-251.2 251.1 -251.2 251.1 -254.2 249.1 C-258.5 248.4 -262.7 247.7 -267 247.2 C-275.9 246 -284.4 244.5 -293.1 242 C-296.3 241.1 -299.5 240.4 -302.8 239.7 C-313.7 237.2 -324 234 -331.2 225.1 C-331.8 224.4 -331.8 224.4 -334.5 221.2 C-341.3 211 -341.4 201.1 -339.2 189.4 C-335.1 178.1 -328.6 171.6 -318.1 165.8 C-307.9 161.3 -295.8 162.2 -285.2 165.1 C-273.7 167.9 -262 170 -250.2 172.1 C-249.1 172.3 -247.9 172.5 -246.7 172.7 C-238.6 174.2 -230.5 174.7 -222.2 175.1 C-221.7 175.1 -221.7 175.1 -218.7 175.3 C-215.5 175.4 -215.5 175.4 -210.2 175.1 C-200.8 165.6 -194.3 154 -187.8 142.4 C-184.9 137.4 -181.7 132.8 -178.2 128.1 C-177.1 126.2 -175.9 124.3 -174.7 122.4 C-171.8 117.8 -168.6 113.4 -165.2 109.1 C-164.6 108.1 -164 107.2 -163.4 106.3 C-161 102.7 -158.4 99.2 -155.8 95.7 C-152.5 91.4 -149.3 87.1 -146.1 82.8 C-140.3 75.1 -134.4 67.5 -128.2 60.1 C-126.8 58.3 -125.4 56.5 -123.9 54.8 C-116.3 45.4 -108.4 36.2 -100.3 27.3 C-98.4 25.2 -96.6 23.1 -94.8 21 C-68.5 -8.1 -34.9 -24.1 0 0 Z M-323.2 171.1 C-323.6 172.1 -323.9 173 -324.2 174.1 C-322.6 173.7 -320.9 173.4 -319.2 173.1 C-319.2 172.4 -319.2 171.7 -319.2 171.1 C-320.6 171.1 -321.9 171.1 -323.2 171.1 Z M49.8 333.1 C49.4 333.4 49.4 333.4 47.8 335.1 C39.3 344 32.8 354.3 26.8 365.1 C26 366.3 25.2 367.6 24.5 368.9 C18.5 378.7 13.5 388.6 8.8 399.1 C8.3 400 7.8 401 7.4 402 C3.7 409.8 0.7 417.9 -2.2 426.1 C-2.7 427.4 -3.2 428.8 -3.8 430.2 C-6.9 439.1 -9.4 448 -11.6 457.2 C-11.7 457.7 -11.7 457.7 -12.3 460.4 C-15.1 472.1 -15.4 483.1 -15.4 495 C-15.4 496.6 -15.5 498.2 -15.5 499.9 C-15.5 514.2 -13.6 526.6 -5.1 538.5 C2.5 545.6 9.6 548.1 19.7 547.7 C27.2 546.5 33.3 542.8 39.8 539.1 C41.7 538.1 43.7 537.1 45.6 536.1 C51.4 532.7 55.9 528.7 60.8 524.1 C62.2 522.8 63.6 521.6 65.1 520.3 C75.5 511.1 84.7 500.4 92.8 489.1 C93.9 487.5 95 485.9 96.2 484.3 C121.5 447.7 124.4 404.9 118.2 362 C117.5 358.6 116.7 355.4 115.8 352.1 C115.6 351.3 115.6 351.3 114.6 347.5 C111.2 334.7 106.1 325.2 94.6 318.2 C76.8 310 61.9 320 49.8 333.1 Z M-372.2 584.1 C-371.2 586.1 -371.2 586.1 -371.2 586.1 Z " fill="currentColor" transform="translate(746.25,220.9375)"/>
+<path d="M0 0 C4.4 3.4 4.4 3.4 8 7 C9.1 8.1 10.1 9.1 11.2 10.2 C17.4 18.6 20 26.5 19 37 C16.3 51.4 9.8 60.9 -2.1 69.2 C-10.4 74.3 -19.8 73.9 -29.1 71.9 C-39.6 69 -47.2 62.4 -52.8 53 C-57.7 43 -59.4 31.8 -56 20.9 C-54.8 18.3 -54.8 18.3 -52 14 C-51.2 12.8 -50.5 11.6 -49.7 10.3 C-36.6 -5.8 -18.3 -9.8 0 0 Z " fill="currentColor" transform="translate(369,366)"/>
+<path d="M0 0 C27.4 -0.5 60.4 -0.9 85.8 11.1 C88.7 11.8 91.7 12.5 94.7 13.2 C103 15.4 110.8 18.9 118.8 22.1 C120.6 22.7 122.4 23.3 124.2 23.9 C136.1 28.5 147.2 34.6 153.8 46.1 C157.9 57.2 159.6 66.8 154.8 78.1 C154.4 79.5 154 81 153.6 82.6 C150.4 90.4 145 94.7 137.7 98.6 C122.6 104.8 108.4 99.6 93.8 94.1 C91.1 92.7 88.5 91.4 85.8 90.1 C76.9 86.2 68 83.7 58.5 81.8 C57.3 81.6 56.1 81.3 54.9 81 C41.4 78.2 28.4 77.9 14.7 77.9 C12.8 77.9 10.9 77.9 9 77.8 C7.1 77.8 5.3 77.8 3.4 77.8 C2.6 77.8 2.6 77.8 -1.6 77.8 C-12.4 78.4 -21.2 82.2 -28.9 89.6 C-32 95.7 -32.5 100.4 -31.2 107.1 C-25.4 118.3 -14.8 127.9 -2.8 132.1 C-0.6 132.7 1.6 133.4 3.8 134.1 C6.5 135.3 9.1 136.7 11.8 138.1 C18.7 141.4 25.6 144.4 32.8 147.1 C39.6 149.8 46.2 152.7 52.8 156.1 C54.8 157 56.8 157.9 58.8 158.8 C80.3 168.7 100.6 180.4 120 194.1 C122 195.5 124 196.9 126.1 198.3 C133.5 203.5 140.3 209 146.9 215.3 C149.2 217.5 151.7 219.7 154.2 221.8 C179.9 244.9 195.1 277.2 197.6 311.4 C198.7 337.6 191 363.1 173.8 383.1 C171.5 385.4 169.1 387.8 166.8 390.1 C166 391.1 165.1 392.1 164.3 393.1 C157 401.7 147.4 406.7 137.8 412.1 C136.7 412.7 135.5 413.4 134.4 414 C99.7 432.7 55.1 434.6 16.8 429.1 C15.7 428.9 14.7 428.8 13.6 428.6 C10.1 428.2 6.6 427.7 3.2 427.2 C2.1 427 1 426.9 -0.1 426.7 C-6.8 425.7 -12.1 423.9 -18.2 421.1 C-21.8 420.2 -21.8 420.2 -25.3 419.7 C-35.5 417.8 -45.3 414.4 -54.2 409.1 C-55 408.8 -55 408.8 -58.7 407.6 C-63.2 406.1 -63.2 406.1 -68.2 403.1 C-70.9 401.6 -73.6 400.1 -76.3 398.6 C-104.7 382.8 -104.7 382.8 -116.2 373.1 C-117.2 372.4 -118.1 371.8 -119.1 371.2 C-124.7 367.4 -129.4 362.7 -134.2 358.1 C-135.2 357.1 -136.2 356.2 -137.2 355.3 C-146.8 346 -153.7 336.4 -156.2 323.1 C-156.3 312.5 -153.3 302.2 -146.4 294.1 C-136.5 284.6 -127.7 281.7 -114.3 281.9 C-100.2 282.8 -88.9 291.7 -78.2 300.1 C-76.9 301.1 -75.6 302 -74.2 303.1 C-74.2 303.7 -74.2 304.4 -74.2 305.1 C-72.6 305.7 -70.9 306.4 -69.2 307.1 C-63.7 310.5 -58.5 314.3 -53.2 318.1 C-48 321.8 -42.9 325.1 -37.2 328.1 C-36 328.7 -34.9 329.3 -33.6 329.9 C2.9 348.6 47.4 357.6 87.8 347.1 C100.7 342.1 110.5 334.6 116.8 322.1 C119 312.1 116.6 303.6 111.6 294.9 C109 290.8 105.9 287.1 102.7 283.5 C100.8 281.1 100.8 281.1 98.8 277.1 C97.5 276.4 96.1 275.7 94.8 275.1 C91.2 272 87.7 269 84.4 265.6 C75 256.4 63.3 249.3 51.8 243.1 C50.1 242.2 48.5 241.2 46.8 240.3 C24.8 228.3 24.8 228.3 14.8 224.1 C12.6 223 10.3 221.9 8.1 220.9 C0.6 217.3 -7.1 214.2 -14.8 211.2 C-19.1 209.5 -22.5 207.8 -26.2 205.1 C-29.2 203.7 -32.2 202.4 -35.2 201.1 C-45.8 196 -55.7 190.5 -64.8 183 C-67 181.2 -69.3 179.5 -71.5 177.9 C-74.7 175.4 -77.4 172.9 -80.2 170.1 C-81 169.5 -81.8 168.9 -82.6 168.3 C-97.6 155.7 -107.5 133.2 -110.2 114.1 C-110.4 109.2 -110.4 104.3 -110.4 99.4 C-110.4 98.1 -110.4 96.8 -110.4 95.4 C-110.5 76.7 -105.2 60.8 -95.2 45.1 C-94.3 43.6 -93.5 42.1 -92.6 40.6 C-81.8 24.4 -63.2 14.2 -45.2 8.1 C-43.8 7.5 -42.3 7 -40.8 6.5 C-39.3 6 -37.8 5.6 -36.2 5.1 C-35.7 4.9 -35.7 4.9 -33.2 4 C-22.2 0.5 -11.5 0.2 0 0 Z M89.8 265.1 C89.8 265.7 89.8 266.4 89.8 267.1 C90.4 267.1 91.1 267.1 91.8 267.1 C91.8 266.4 91.8 265.7 91.8 265.1 C91.1 265.1 90.5 265.1 89.8 265.1 Z M-137.2 349.1 C-137.2 352.1 -137.2 352.1 -137.2 352.1 Z " fill="currentColor" transform="translate(1340.2158203125,419.93798828125)"/></svg>
+        <svg class="marks" viewBox="0 0 64 80" aria-hidden="true"><g stroke="#F2552C" stroke-width="9" stroke-linecap="round"><path d="M10 34L24 8"/><path d="M26 48L52 36"/><path d="M28 70L58 72"/></g></svg>
+      </div>
+      <h1 class="rise d2"><span>Grand</span><span>Opening</span></h1>
+      <p class="confirma rise d3">
+        <svg class="marks" viewBox="0 0 70 70" aria-hidden="true"><g stroke="#F2552C" stroke-width="9" stroke-linecap="round"><path d="M8 34L30 24"/><path d="M28 56L40 38"/><path d="M58 64L60 44"/></g></svg>
+        Confirma tu asistencia
+      </p>
+      <p class="lead rise d3">Celebremos juntos un nuevo espacio<br>para cada forma de crecer.</p>
+      <ul class="info rise d4">
+        <li><span class="ic"><svg viewBox="0 0 40 40" fill="none" stroke="#F4B40F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="30" height="27" rx="4"/><path d="M5 15h30M12 4v7M28 4v7"/><g fill="#F4B40F" stroke="none"><rect x="10" y="19" width="5" height="4" rx="1"/><rect x="17.5" y="19" width="5" height="4" rx="1"/><rect x="25" y="19" width="5" height="4" rx="1"/><rect x="10" y="26" width="5" height="4" rx="1"/><rect x="17.5" y="26" width="5" height="4" rx="1"/><rect x="25" y="26" width="5" height="4" rx="1"/></g></svg></span><span class="txt big"><b>11</b><span>de<br>noviembre</span></span></li>
+        <li><span class="ic"><svg viewBox="0 0 40 40" fill="none" stroke="#F4B40F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="21" r="14"/><path d="M14 20l5 5 8-9"/></svg></span><span class="txt">7:00 p. m. a<br>10:00 p. m.</span></li>
+        <li><span class="ic"><svg viewBox="0 0 40 40" fill="none" stroke="#F4B40F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 36s11-11.5 11-20a11 11 0 0 0-22 0c0 8.5 11 20 11 20z"/><circle cx="20" cy="16" r="4.5"/></svg></span><span class="txt">Holiday Inn, Salón<br>Los Tenores</span></li>
+      </ul>
+    </section>
+
+    <section class="card rise d5" id="rsvp" aria-labelledby="rsvp-t">
+      <h2 id="rsvp-t"><svg class="marks" viewBox="0 0 58 58" aria-hidden="true"><g stroke-width="11" stroke-linecap="round"><path d="M34 8L46 30" stroke="#F7A3BB"/><path d="M8 34L32 44" stroke="#F7A3BB"/></g></svg>RSVP</h2>
+      <p class="sub">Completa el formulario para confirmar tu asistencia.</p>
+
+      <form class="f" id="form" novalidate>
+        <div><label for="nombre">Nombre y apellido</label><input class="in" id="nombre" name="nombre" autocomplete="name" placeholder="Tu nombre y apellido" required maxlength="120"></div>
+        <div><label for="correo">Correo electrónico</label><input class="in" id="correo" name="correo" type="email" autocomplete="email" inputmode="email" placeholder="tu@correo.com" required maxlength="160"></div>
+        <div><label for="telefono">Teléfono</label><input class="in" id="telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" placeholder="Tu número de teléfono" required maxlength="40"></div>
+        <div><label for="invitados">Cantidad de invitados</label>
+          <select class="in" id="invitados" name="invitados" required>
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option value="1">1 persona (solo yo)</option>
+            <option value="2">2 personas</option>
+            <option value="3">3 personas</option>
+            <option value="4">4 personas</option>
+            <option value="5">5 personas</option>
+            <option value="6">6 o más personas</option>
+          </select></div>
+        <div><span class="lab" id="asis-l">¿Asistirás?</span>
+          <div class="radios" role="radiogroup" aria-labelledby="asis-l">
+            <label class="radio"><input type="radio" name="asistira" value="si" checked><span class="dot"></span>Sí, asistiré</label>
+            <label class="radio"><input type="radio" name="asistira" value="no"><span class="dot"></span>No podré asistir</label>
+          </div></div>
+        <div><label for="mensaje" class="lab">Mensaje adicional <small>(opcional)</small></label><textarea class="in" id="mensaje" name="mensaje" placeholder="Cuéntanos cualquier detalle adicional..." maxlength="1000"></textarea></div>
+        <div class="hp" aria-hidden="true"><label>Web<input name="web" tabindex="-1" autocomplete="off"></label></div>
+        <p class="err" id="err" role="alert"></p>
+        <button class="btn" id="btn" type="submit"><span class="lbl">Confirmar asistencia</span><span class="spin"></span>
+          <svg class="spark" viewBox="0 0 30 30" aria-hidden="true"><g stroke="#fff" stroke-width="3.6" stroke-linecap="round"><path d="M6 6L9 13"/><path d="M14 16L22 14"/><path d="M12 24L21 26"/></g></svg></button>
+      </form>
+
+      <div class="thanks" id="thanks" aria-live="polite">
+        <svg class="face" viewBox="0 0 150 110" aria-hidden="true"><g stroke="#111" stroke-width="3.5"><ellipse cx="75" cy="120" rx="62" ry="80" fill="#14A9E9"/><circle cx="52" cy="62" r="20" fill="#fff"/><circle cx="100" cy="66" r="19" fill="#fff"/></g><g class="blink"><circle cx="55" cy="58" r="13"/><circle cx="102" cy="63" r="12"/></g><path d="M68 92q8 10 16 0" stroke="#111" stroke-width="3.5" fill="none" stroke-linecap="round"/><g stroke="#F2552C" stroke-width="6" stroke-linecap="round"><path d="M14 20l8 10"/><path d="M6 44l12 2"/><path d="M136 20l-8 10"/><path d="M144 44l-12 2"/></g></svg>
+        <h3 id="t-h">¡Gracias!</h3>
+        <p id="t-p"></p>
+        <div class="acts" id="t-acts">
+          <a class="ghost" id="gcal" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Agregar a Google Calendar</a>
+          <button class="ghost" id="ics" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Descargar evento (iPhone / Outlook)</button>
+        </div>
+        <button class="again" id="again" type="button">Registrar a otra persona</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- monstruos (cuerpos detrás de la ola, patitas delante) -->
+  <svg class="monsters" viewBox="0 0 520 320" aria-hidden="true">
+    <g class="blue">
+      <g stroke="#111" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M28 330C14 240 26 118 138 82C246 50 282 170 262 330Z" fill="#19A9EC"/>
+        <path d="M80 122C66 104 82 84 102 92C104 70 136 60 154 76C168 56 204 58 210 82C232 76 250 98 238 116C252 132 236 152 216 144C210 162 182 166 172 150C160 166 132 162 130 146C114 156 88 150 90 134C78 136 72 128 80 122Z" fill="#2756B5"/>
+        <circle cx="89" cy="192" r="45" fill="#fff"/>
+        <circle cx="199" cy="203" r="42" fill="#fff"/>
+        <path d="M133 186Q145 174 158 190" fill="none"/>
+        <path d="M122 233Q136 254 151 234" fill="none"/>
+      </g>
+      <rect x="74" y="130" width="28" height="10" rx="5" fill="#2756B5" transform="rotate(-4 88 135)"/>
+      <rect x="199" y="149" width="26" height="10" rx="5" fill="#2756B5" transform="rotate(6 212 154)"/>
+      <g class="blink"><circle cx="97" cy="184" r="31" fill="#111"/><circle cx="206" cy="197" r="30" fill="#111"/></g>
+      <circle cx="84" cy="168" r="5" fill="#fff" opacity=".9"/><circle cx="193" cy="182" r="5" fill="#fff" opacity=".9"/>
+    </g>
+    <g class="yel">
+      <g stroke="#111" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M282 330C266 222 296 104 386 98C474 94 508 214 496 330Z" fill="#FFCB2E"/>
+        <circle cx="383" cy="163" r="42" fill="#fff"/>
+        <path d="M268 132C292 128 306 112 316 90C334 58 382 52 420 60C452 66 474 82 492 70C498 94 486 114 466 120C450 124 440 116 436 110C412 120 380 114 352 118C320 122 296 134 268 132Z" fill="#F2502A"/>
+        <path d="M424 128l14-8M430 140l15-3M432 152l14 3" fill="none" stroke-width="3"/>
+        <rect x="370" y="210" width="13" height="15" rx="3" fill="#fff" stroke-width="3.5"/>
+        <rect x="385" y="210" width="13" height="15" rx="3" fill="#fff" stroke-width="3.5"/>
+        <path d="M344 204Q384 226 426 202" fill="none" stroke-width="4.5"/>
+      </g>
+      <g class="blink"><circle cx="388" cy="171" r="31" fill="#111"/></g>
+      <circle cx="377" cy="156" r="5" fill="#fff" opacity=".9"/>
+      <g stroke="#111" stroke-width="3.5"><g fill="#F7A1BC"><circle cx="412" cy="58" r="13"/><circle cx="427" cy="69" r="13"/><circle cx="421" cy="87" r="13"/><circle cx="403" cy="87" r="13"/><circle cx="397" cy="69" r="13"/></g><circle cx="412" cy="73" r="7" fill="#F2678F"/></g>
+    </g>
+  </svg>
+
+  <svg class="wave" viewBox="0 0 1440 130" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46C120 34 260 60 380 58C520 56 600 18 760 22C930 26 1040 70 1200 66C1320 62 1390 40 1440 34V130H0Z" fill="#14A9E9"/></svg>
+
+  <svg class="paws" viewBox="0 0 520 320" aria-hidden="true">
+    <g stroke="#111" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+      <g class="bluep" fill="#19A9EC">
+        <path d="M20 276C18 250 34 238 50 238C68 238 82 252 78 276C78 286 68 290 64 282C62 292 52 294 48 286C44 294 32 294 32 284C24 290 18 286 20 276Z"/>
+        <path d="M176 292C174 266 190 254 206 254C224 254 238 268 234 292C234 302 224 306 220 298C218 308 208 310 204 302C200 310 188 310 188 300C180 306 174 302 176 292Z"/>
+      </g>
+      <g class="yelp" fill="#FFCB2E">
+        <path d="M300 266C298 240 314 228 330 228C348 228 362 242 358 266C358 276 348 280 344 272C342 282 332 284 328 276C324 284 312 284 312 274C304 280 298 276 300 266Z"/>
+        <path d="M418 262C416 236 432 224 448 224C466 224 480 238 476 262C476 272 466 276 462 268C460 278 450 280 446 272C442 280 430 280 430 270C422 276 416 272 418 262Z"/>
+      </g>
+    </g>
+  </svg>
+</main>
+
+<footer class="foot" id="contacto">
+  <p class="pill">
+    <svg class="l" viewBox="0 0 46 46" aria-hidden="true"><g stroke="#14A9E9" stroke-width="7" stroke-linecap="round"><path d="M6 12L26 18"/><path d="M6 36L26 28"/></g></svg>
+    Nos encantará acompañarte<br>en este gran comienzo.
+    <svg class="r" viewBox="0 0 46 46" aria-hidden="true"><g stroke="#14A9E9" stroke-width="7" stroke-linecap="round"><path d="M6 12L26 18"/><path d="M6 36L26 28"/></g></svg>
+  </p>
+  <div class="links">
+    <a class="ghost" href="https://www.google.com/maps/search/?api=1&query=Holiday+Inn+Santo+Domingo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Cómo llegar</a>
+    <a class="ghost" href="#rsvp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Confirmar asistencia</a>
+  </div>
+  <p class="credit">Hecho con cariño por <a href="https://www.elevatia.do" target="_blank" rel="noopener">ElevatIA</a></p>
+
+  <svg class="hills" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 80C120 40 260 50 380 90C470 120 560 120 640 150L660 220H0Z" fill="#F7A3BB"/>
+    <path d="M940 220C1040 140 1160 70 1300 60C1370 56 1420 64 1440 70V220Z" fill="#79BF49"/>
+  </svg>
+  <svg class="deco bob" style="left:3%;bottom:10px;width:150px;z-index:1" viewBox="0 0 150 150" aria-hidden="true">
+    <path d="M70 150C70 120 62 100 40 86" stroke="#4E9A3A" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M52 110C34 96 18 100 14 112C30 120 44 118 52 110Z" fill="#4E9A3A"/>
+    <g fill="#F2552C"><circle cx="85" cy="32" r="22"/><circle cx="110" cy="52" r="22"/><circle cx="100" cy="82" r="22"/><circle cx="70" cy="82" r="22"/><circle cx="60" cy="52" r="22"/></g><circle cx="85" cy="60" r="12" fill="#FBE9C8"/>
+  </svg>
+  <svg class="deco bob2 d-hide-sm" style="left:27%;bottom:-6px;width:180px;z-index:1" viewBox="0 0 180 100" aria-hidden="true"><g fill="none" stroke="#FFC72C" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><path d="M90 70C70 30 30 10 16 30C4 50 40 76 90 70C140 76 176 50 164 30C150 10 110 30 90 70Z"/><path d="M90 70L70 100M90 70L112 100"/></g></svg>
+  <svg class="deco d-hide-sm" style="left:58%;bottom:-10px;width:170px;z-index:1" viewBox="0 0 170 90" aria-hidden="true"><g fill="#A9D9F6"><circle cx="40" cy="60" r="32"/><circle cx="80" cy="40" r="36"/><circle cx="122" cy="56" r="32"/><rect x="20" y="58" width="130" height="40" rx="16"/></g><g fill="none" stroke="#CDEBFB" stroke-width="4" stroke-linecap="round"><path d="M30 60q10-12 22-4M70 40q12-14 26-4M112 56q10-10 20-2"/></g></svg>
+  <svg class="deco bob d-hide-sm" style="right:6%;bottom:110px;width:150px;z-index:1" viewBox="0 0 150 90" aria-hidden="true"><path d="M10 50C40 60 70 58 86 40C100 24 92 6 76 10C60 14 60 44 80 58C100 72 126 64 142 40" fill="none" stroke="#FFC72C" stroke-width="15" stroke-linecap="round"/></svg>
+</footer>
+
+<script>
+// Envío de confirmaciones → n8n (workflow "ita Grand Opening - RSVP") → Google Sheets
+const RSVP_WEBHOOK = 'https://n8n.elevatia.do/webhook/ita-rsvp';
+const EVENTO = { titulo: "ita's Grand Opening", lugar: 'Holiday Inn, Salón Los Tenores', inicio: '20261111T190000', fin: '20261111T220000', tz: 'America/Santo_Domingo' };
+
+const form = document.getElementById('form');
+const card = document.getElementById('rsvp');
+const btn = document.getElementById('btn');
+const err = document.getElementById('err');
+const sel = document.getElementById('invitados');
+
+form.addEventListener('change', e => {
+  if (e.target.name !== 'asistira') return;
+  const no = e.target.value === 'no';
+  sel.disabled = no; sel.required = !no;
+  if (no) sel.classList.remove('bad');
+});
+form.addEventListener('input', e => e.target.classList.remove('bad'));
+
+function revisar() {
+  const d = Object.fromEntries(new FormData(form));
+  const malos = [];
+  if ((d.nombre || '').trim().length < 2) malos.push('nombre');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((d.correo || '').trim())) malos.push('correo');
+  if ((d.telefono || '').replace(/\D/g, '').length < 7) malos.push('telefono');
+  if (d.asistira !== 'no' && !sel.value) malos.push('invitados');
+  malos.forEach(id => document.getElementById(id).classList.add('bad'));
+  return { d, malos };
+}
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  err.classList.remove('show');
+  const { d, malos } = revisar();
+  if (malos.length) {
+    const nombres = { nombre: 'tu nombre y apellido', correo: 'un correo válido', telefono: 'tu teléfono', invitados: 'la cantidad de invitados' };
+    err.textContent = 'Por favor completa ' + malos.map(m => nombres[m]).join(', ') + '.';
+    err.classList.add('show');
+    document.getElementById(malos[0]).focus();
+    return;
+  }
+  btn.disabled = true; btn.classList.add('loading');
+  try {
+    const r = await fetch(RSVP_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...d, invitados: sel.disabled ? '0' : sel.value }) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || !j.ok) throw new Error(j.error || 'HTTP ' + r.status);
+    gracias(d);
+  } catch (x) {
+    err.textContent = 'No pudimos guardar tu confirmación. Revisa tu conexión e inténtalo de nuevo.';
+    err.classList.add('show');
+  } finally {
+    btn.disabled = false; btn.classList.remove('loading');
+  }
+});
+
+function gracias(d) {
+  const nombre = d.nombre.trim().split(/\s+/)[0];
+  const va = d.asistira !== 'no';
+  document.getElementById('t-h').textContent = va ? `¡Nos vemos pronto, ${nombre}!` : `Gracias por avisarnos, ${nombre}`;
+  document.getElementById('t-p').textContent = va
+    ? 'Tu asistencia quedó confirmada para el 11 de noviembre a las 7:00 p. m. en el Holiday Inn, Salón Los Tenores.'
+    : 'Te vamos a extrañar. Si cambias de opinión, puedes volver a confirmar cuando quieras.';
+  document.getElementById('t-acts').style.display = va ? '' : 'none';
+  card.classList.add('done');
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+document.getElementById('again').onclick = () => {
+  form.reset(); sel.disabled = false; sel.required = true;
+  card.classList.remove('done');
+  document.getElementById('nombre').focus();
+};
+
+document.getElementById('gcal').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+  + '&text=' + encodeURIComponent(EVENTO.titulo)
+  + '&dates=' + EVENTO.inicio + '/' + EVENTO.fin + '&ctz=' + EVENTO.tz
+  + '&location=' + encodeURIComponent(EVENTO.lugar)
+  + '&details=' + encodeURIComponent('Celebremos juntos un nuevo espacio para cada forma de crecer.');
+
+document.getElementById('ics').onclick = () => {
+  const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//ita//RSVP//ES', 'BEGIN:VEVENT',
+    'UID:ita-grand-opening-20261111@elevatia.do', 'DTSTAMP:20261020T000000Z',
+    // 7:00–10:00 p. m. en RD (UTC-4) = 23:00–02:00 UTC
+    'DTSTART:20261111T230000Z', 'DTEND:20261112T020000Z',
+    "SUMMARY:ita's Grand Opening", 'LOCATION:Holiday Inn\\, Salón Los Tenores',
+    'DESCRIPTION:Celebremos juntos un nuevo espacio para cada forma de crecer.', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+  a.download = 'ita-grand-opening.ics';
+  a.click();
+};
+
+// resalta en el menú la sección visible
+const links = [...document.querySelectorAll('.nav a')];
+const io = new IntersectionObserver(es => es.forEach(en => {
+  if (!en.isIntersecting) return;
+  links.forEach(l => l.classList.toggle('on', l.getAttribute('href') === '#' + en.target.id));
+}), { rootMargin: '-45% 0px -45% 0px' });
+['evento', 'rsvp', 'contacto'].forEach(id => io.observe(document.getElementById(id)));
+</script>
+</body>
+</html>
