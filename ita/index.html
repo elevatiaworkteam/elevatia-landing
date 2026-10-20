@@ -96,7 +96,7 @@ textarea.in{min-height:96px;resize:vertical}
 .thanks{display:none;text-align:center;padding:10px 4px 6px}
 .card.done .f,.card.done .sub{display:none}
 .card.done .thanks{display:block}
-.thanks .face{width:150px;margin:0 auto 8px}
+.thanks .face{width:150px;margin:0 auto 10px}
 .thanks h3{font-size:34px;font-weight:700;color:var(--navy-2);letter-spacing:-.02em;line-height:1.05}
 .thanks p{margin-top:12px;font-weight:300;font-size:17px;line-height:1.45;color:var(--navy)}
 .thanks .acts{display:grid;gap:10px;margin-top:22px}
@@ -106,9 +106,12 @@ textarea.in{min-height:96px;resize:vertical}
 .again{margin-top:14px;background:none;border:0;font:inherit;font-size:14px;color:var(--muted);text-decoration:underline;cursor:pointer}
 
 /* ---------- monstruos + ola ---------- */
-.monsters,.paws{position:absolute;z-index:2;left:max(10px,calc(50% - 590px + 20px));bottom:14px;width:min(500px,44vw)}
-.paws{z-index:4}
+.monsters{position:absolute;z-index:2;left:max(10px,calc(50% - 570px));bottom:70px;width:min(500px,44vw);display:flex;align-items:flex-end}
+.monsters img{display:block;height:auto}
+.m-azul{width:51.7%;margin-bottom:-1.2%}.m-amarillo{width:48.3%;margin-left:-1%}
+img.deco{height:auto}
 .wave{position:absolute;z-index:3;left:0;right:0;bottom:0;width:100%;height:130px}
+.wave-m{display:none}
 
 /* ---------- pie ---------- */
 .foot{position:relative;overflow:hidden;padding:40px 20px 210px;text-align:center}
@@ -129,8 +132,8 @@ textarea.in{min-height:96px;resize:vertical}
   .bob{animation:bob 4.5s ease-in-out infinite}
   .bob2{animation:bob 5.5s ease-in-out -2s infinite}
   @keyframes bob{50%{transform:translateY(-8px) rotate(-2deg)}}
-  .monsters .blue,.paws .bluep{animation:peek 6s ease-in-out infinite}
-  .monsters .yel,.paws .yelp{animation:peek 6s ease-in-out -3s infinite}
+  .m-azul{animation:peek 6s ease-in-out infinite}
+  .m-amarillo{animation:peek 6s ease-in-out -3s infinite}
   @keyframes peek{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
   .blink{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
   @keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
@@ -142,7 +145,8 @@ textarea.in{min-height:96px;resize:vertical}
   .left{padding-bottom:0}
   .card{margin:20px auto 0;width:100%;max-width:560px}
   .hero-in{padding-bottom:330px}
-  .monsters,.paws{left:50%;transform:translateX(-50%);width:min(440px,92vw);bottom:56px}
+  .monsters{left:50%;transform:translateX(-50%);width:min(440px,92vw);bottom:71px}
+  .wave-d{display:none}.wave-m{display:block}
   .d-top-right{width:260px!important;right:-80px!important}
 }
 @media (max-width:640px){
@@ -165,13 +169,15 @@ textarea.in{min-height:96px;resize:vertical}
   .card h2 .marks{width:44px}
   .card .sub{margin-left:0}
   .radios{grid-template-columns:1fr}
-  .monsters,.paws{bottom:44px}
+  .monsters{bottom:54px}
   .wave{height:100px}
   .pill{padding:16px 26px;font-size:15px}
   .pill .l,.pill .r{display:none}
   .foot{padding-bottom:150px}
   .hills{height:150px}
   .d-hide-sm{display:none}
+  .f-tallo{width:96px!important;left:2%!important}
+  .foot{padding-bottom:170px}
 }
 </style>
 </head>
@@ -193,15 +199,12 @@ textarea.in{min-height:96px;resize:vertical}
 <main class="hero">
   <!-- decoración de fondo -->
   <svg class="deco" style="left:-40px;top:-30px;width:400px" viewBox="0 0 400 200" aria-hidden="true"><path d="M0 0H360C340 60 300 95 230 92C170 90 140 110 110 150C80 190 30 196 0 180Z" fill="#FFC72C"/></svg>
-  <svg class="deco bob d-hide-sm" style="left:-6px;top:150px;width:190px" viewBox="0 0 190 110" aria-hidden="true"><path d="M8 70C40 66 70 60 92 44C112 28 104 4 84 8C62 12 60 48 76 70C92 92 130 90 182 70" fill="none" stroke="#FFC72C" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 70C40 66 70 60 92 44C112 28 104 4 84 8C62 12 60 48 76 70C92 92 130 90 182 70" fill="none" stroke="#FFE07A" stroke-width="5" stroke-linecap="round" opacity=".7"/></svg>
+  <img class="deco bob d-hide-sm" src="img/garabato.webp" style="left:-34px;top:150px;width:210px" alt="" aria-hidden="true">
   <svg class="deco d-top-right" style="right:-30px;top:-20px;width:520px" viewBox="0 0 520 300" aria-hidden="true"><path d="M0 0H520V300C470 290 440 250 420 210C395 160 340 140 280 125C200 105 160 110 110 85C60 60 20 40 0 0Z" fill="#14A9E9"/><path d="M455 165C440 120 430 70 462 40C492 12 520 40 506 70C490 104 445 96 432 60" fill="none" stroke="#4E9A3A" stroke-width="16" stroke-linecap="round"/></svg>
-  <svg class="deco bob2 d-hide-sm" style="right:110px;top:50px;width:130px" viewBox="0 0 120 120" aria-hidden="true">
-    <g fill="#F7A3BB" stroke="#F58AA9" stroke-width="2"><circle cx="60" cy="30" r="25"/><circle cx="89" cy="51" r="25"/><circle cx="78" cy="86" r="25"/><circle cx="42" cy="86" r="25"/><circle cx="31" cy="51" r="25"/></g>
-    <circle cx="60" cy="60" r="17" fill="#F0567A"/><circle cx="55" cy="55" r="6" fill="#F57D9A"/>
-  </svg>
+  <img class="deco bob2 d-hide-sm" src="img/flor.webp" style="right:96px;top:36px;width:150px" alt="" aria-hidden="true">
   <svg class="deco d-hide-sm" style="right:300px;top:96px;width:70px" viewBox="0 0 70 70" aria-hidden="true"><g stroke="#4CC1F3" stroke-width="10" stroke-linecap="round"><path d="M14 30L28 58"/><path d="M42 12L50 44"/></g></svg>
-  <svg class="deco bob d-hide-sm" style="left:40px;top:640px;width:120px" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 108C24 84 4 60 8 36C12 12 40 6 56 28C66 4 104 2 112 30C120 60 92 86 60 108Z" fill="#F7A3BB" transform="rotate(-12 60 60)"/><path d="M30 34C40 28 50 34 54 44M74 30C86 22 98 30 100 42M28 54C44 70 60 84 66 92" stroke="#FBC3D3" stroke-width="4" fill="none" stroke-linecap="round" transform="rotate(-12 60 60)"/></svg>
-  <svg class="deco bob2 d-hide-sm" style="right:-10px;bottom:150px;width:130px;z-index:5" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 108C24 84 4 60 8 36C12 12 40 6 56 28C66 4 104 2 112 30C120 60 92 86 60 108Z" fill="#F7A3BB" transform="rotate(14 60 60)"/><path d="M30 34C40 28 50 34 54 44M74 30C86 22 98 30 100 42M28 54C44 70 60 84 66 92" stroke="#FBC3D3" stroke-width="4" fill="none" stroke-linecap="round" transform="rotate(14 60 60)"/></svg>
+  <img class="deco bob d-hide-sm" src="img/corazon.webp" style="left:30px;top:640px;width:120px;rotate:-12deg" alt="" aria-hidden="true">
+  <img class="deco bob2 d-hide-sm" src="img/corazon.webp" style="right:-14px;bottom:160px;width:130px;z-index:5;rotate:16deg" alt="" aria-hidden="true">
 
   <div class="hero-in">
     <section class="left" id="evento">
@@ -256,7 +259,7 @@ textarea.in{min-height:96px;resize:vertical}
       </form>
 
       <div class="thanks" id="thanks" aria-live="polite">
-        <svg class="face" viewBox="0 0 150 110" aria-hidden="true"><g stroke="#111" stroke-width="3.5"><ellipse cx="75" cy="120" rx="62" ry="80" fill="#14A9E9"/><circle cx="52" cy="62" r="20" fill="#fff"/><circle cx="100" cy="66" r="19" fill="#fff"/></g><g class="blink"><circle cx="55" cy="58" r="13"/><circle cx="102" cy="63" r="12"/></g><path d="M68 92q8 10 16 0" stroke="#111" stroke-width="3.5" fill="none" stroke-linecap="round"/><g stroke="#F2552C" stroke-width="6" stroke-linecap="round"><path d="M14 20l8 10"/><path d="M6 44l12 2"/><path d="M136 20l-8 10"/><path d="M144 44l-12 2"/></g></svg>
+        <img class="face" src="img/monstruo-azul.webp" alt="" aria-hidden="true">
         <h3 id="t-h">¡Gracias!</h3>
         <p id="t-p"></p>
         <div class="acts" id="t-acts">
@@ -269,51 +272,10 @@ textarea.in{min-height:96px;resize:vertical}
   </div>
 
   <!-- monstruos (cuerpos detrás de la ola, patitas delante) -->
-  <svg class="monsters" viewBox="0 0 520 320" aria-hidden="true">
-    <g class="blue">
-      <g stroke="#111" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
-        <path d="M28 330C14 240 26 118 138 82C246 50 282 170 262 330Z" fill="#19A9EC"/>
-        <path d="M80 122C66 104 82 84 102 92C104 70 136 60 154 76C168 56 204 58 210 82C232 76 250 98 238 116C252 132 236 152 216 144C210 162 182 166 172 150C160 166 132 162 130 146C114 156 88 150 90 134C78 136 72 128 80 122Z" fill="#2756B5"/>
-        <circle cx="89" cy="192" r="45" fill="#fff"/>
-        <circle cx="199" cy="203" r="42" fill="#fff"/>
-        <path d="M133 186Q145 174 158 190" fill="none"/>
-        <path d="M122 233Q136 254 151 234" fill="none"/>
-      </g>
-      <rect x="74" y="130" width="28" height="10" rx="5" fill="#2756B5" transform="rotate(-4 88 135)"/>
-      <rect x="199" y="149" width="26" height="10" rx="5" fill="#2756B5" transform="rotate(6 212 154)"/>
-      <g class="blink"><circle cx="97" cy="184" r="31" fill="#111"/><circle cx="206" cy="197" r="30" fill="#111"/></g>
-      <circle cx="84" cy="168" r="5" fill="#fff" opacity=".9"/><circle cx="193" cy="182" r="5" fill="#fff" opacity=".9"/>
-    </g>
-    <g class="yel">
-      <g stroke="#111" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
-        <path d="M282 330C266 222 296 104 386 98C474 94 508 214 496 330Z" fill="#FFCB2E"/>
-        <circle cx="383" cy="163" r="42" fill="#fff"/>
-        <path d="M268 132C292 128 306 112 316 90C334 58 382 52 420 60C452 66 474 82 492 70C498 94 486 114 466 120C450 124 440 116 436 110C412 120 380 114 352 118C320 122 296 134 268 132Z" fill="#F2502A"/>
-        <path d="M424 128l14-8M430 140l15-3M432 152l14 3" fill="none" stroke-width="3"/>
-        <rect x="370" y="210" width="13" height="15" rx="3" fill="#fff" stroke-width="3.5"/>
-        <rect x="385" y="210" width="13" height="15" rx="3" fill="#fff" stroke-width="3.5"/>
-        <path d="M344 204Q384 226 426 202" fill="none" stroke-width="4.5"/>
-      </g>
-      <g class="blink"><circle cx="388" cy="171" r="31" fill="#111"/></g>
-      <circle cx="377" cy="156" r="5" fill="#fff" opacity=".9"/>
-      <g stroke="#111" stroke-width="3.5"><g fill="#F7A1BC"><circle cx="412" cy="58" r="13"/><circle cx="427" cy="69" r="13"/><circle cx="421" cy="87" r="13"/><circle cx="403" cy="87" r="13"/><circle cx="397" cy="69" r="13"/></g><circle cx="412" cy="73" r="7" fill="#F2678F"/></g>
-    </g>
-  </svg>
+  <div class="monsters" aria-hidden="true"><img class="m-azul" src="img/monstruo-azul.webp" alt=""><img class="m-amarillo" src="img/monstruo-amarillo.webp" alt=""></div>
 
-  <svg class="wave" viewBox="0 0 1440 130" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46C120 34 260 60 380 58C520 56 600 18 760 22C930 26 1040 70 1200 66C1320 62 1390 40 1440 34V130H0Z" fill="#14A9E9"/></svg>
-
-  <svg class="paws" viewBox="0 0 520 320" aria-hidden="true">
-    <g stroke="#111" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
-      <g class="bluep" fill="#19A9EC">
-        <path d="M20 276C18 250 34 238 50 238C68 238 82 252 78 276C78 286 68 290 64 282C62 292 52 294 48 286C44 294 32 294 32 284C24 290 18 286 20 276Z"/>
-        <path d="M176 292C174 266 190 254 206 254C224 254 238 268 234 292C234 302 224 306 220 298C218 308 208 310 204 302C200 310 188 310 188 300C180 306 174 302 176 292Z"/>
-      </g>
-      <g class="yelp" fill="#FFCB2E">
-        <path d="M300 266C298 240 314 228 330 228C348 228 362 242 358 266C358 276 348 280 344 272C342 282 332 284 328 276C324 284 312 284 312 274C304 280 298 276 300 266Z"/>
-        <path d="M418 262C416 236 432 224 448 224C466 224 480 238 476 262C476 272 466 276 462 268C460 278 450 280 446 272C442 280 430 280 430 270C422 276 416 272 418 262Z"/>
-      </g>
-    </g>
-  </svg>
+  <svg class="wave wave-d" viewBox="0 0 1440 130" preserveAspectRatio="none" aria-hidden="true"><path d="M0 50C300 48 520 52 700 50C860 48 940 22 1080 24C1240 26 1340 50 1440 40V130H0Z" fill="#14A9E9"/></svg>
+  <svg class="wave wave-m" viewBox="0 0 1440 130" preserveAspectRatio="none" aria-hidden="true"><path d="M0 50C360 46 1080 54 1440 48V130H0Z" fill="#14A9E9"/></svg>
 </main>
 
 <footer class="foot" id="contacto">
@@ -331,13 +293,10 @@ textarea.in{min-height:96px;resize:vertical}
     <path d="M0 80C120 40 260 50 380 90C470 120 560 120 640 150L660 220H0Z" fill="#F7A3BB"/>
     <path d="M940 220C1040 140 1160 70 1300 60C1370 56 1420 64 1440 70V220Z" fill="#79BF49"/>
   </svg>
-  <svg class="deco bob" style="left:3%;bottom:10px;width:150px;z-index:1" viewBox="0 0 150 150" aria-hidden="true">
-    <path d="M70 150C70 120 62 100 40 86" stroke="#4E9A3A" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M52 110C34 96 18 100 14 112C30 120 44 118 52 110Z" fill="#4E9A3A"/>
-    <g fill="#F2552C"><circle cx="85" cy="32" r="22"/><circle cx="110" cy="52" r="22"/><circle cx="100" cy="82" r="22"/><circle cx="70" cy="82" r="22"/><circle cx="60" cy="52" r="22"/></g><circle cx="85" cy="60" r="12" fill="#FBE9C8"/>
-  </svg>
-  <svg class="deco bob2 d-hide-sm" style="left:27%;bottom:-6px;width:180px;z-index:1" viewBox="0 0 180 100" aria-hidden="true"><g fill="none" stroke="#FFC72C" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><path d="M90 70C70 30 30 10 16 30C4 50 40 76 90 70C140 76 176 50 164 30C150 10 110 30 90 70Z"/><path d="M90 70L70 100M90 70L112 100"/></g></svg>
-  <svg class="deco d-hide-sm" style="left:58%;bottom:-10px;width:170px;z-index:1" viewBox="0 0 170 90" aria-hidden="true"><g fill="#A9D9F6"><circle cx="40" cy="60" r="32"/><circle cx="80" cy="40" r="36"/><circle cx="122" cy="56" r="32"/><rect x="20" y="58" width="130" height="40" rx="16"/></g><g fill="none" stroke="#CDEBFB" stroke-width="4" stroke-linecap="round"><path d="M30 60q10-12 22-4M70 40q12-14 26-4M112 56q10-10 20-2"/></g></svg>
-  <svg class="deco bob d-hide-sm" style="right:6%;bottom:110px;width:150px;z-index:1" viewBox="0 0 150 90" aria-hidden="true"><path d="M10 50C40 60 70 58 86 40C100 24 92 6 76 10C60 14 60 44 80 58C100 72 126 64 142 40" fill="none" stroke="#FFC72C" stroke-width="15" stroke-linecap="round"/></svg>
+  <img class="deco bob f-tallo" src="img/flor-tallo.webp" style="left:3%;bottom:6px;width:150px;z-index:1" alt="" aria-hidden="true">
+  
+  <img class="deco d-hide-sm" src="img/nube.webp" style="left:55%;bottom:-18px;width:230px;z-index:1" alt="" aria-hidden="true">
+  <img class="deco bob d-hide-sm" src="img/garabato.webp" style="right:5%;bottom:120px;width:170px;z-index:1" alt="" aria-hidden="true">
 </footer>
 
 <script>
