@@ -245,16 +245,6 @@ img.deco{height:auto}
         <div><label for="nombre">Nombre y apellido</label><input class="in" id="nombre" name="nombre" autocomplete="name" placeholder="Tu nombre y apellido" required maxlength="120"></div>
         <div><label for="correo">Correo electrónico</label><input class="in" id="correo" name="correo" type="email" autocomplete="email" inputmode="email" placeholder="tu@correo.com" required maxlength="160"></div>
         <div><label for="telefono">Teléfono</label><input class="in" id="telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" placeholder="Tu número de teléfono" required maxlength="40"></div>
-        <div><label for="invitados">Cantidad de invitados</label>
-          <select class="in" id="invitados" name="invitados" required>
-            <option value="" disabled selected>Selecciona una opción</option>
-            <option value="1">1 persona (solo yo)</option>
-            <option value="2">2 personas</option>
-            <option value="3">3 personas</option>
-            <option value="4">4 personas</option>
-            <option value="5">5 personas</option>
-            <option value="6">6 o más personas</option>
-          </select></div>
         <div><span class="lab" id="asis-l">¿Asistirás?</span>
           <div class="radios" role="radiogroup" aria-labelledby="asis-l">
             <label class="radio"><input type="radio" name="asistira" value="si" checked><span class="dot"></span>Sí, asistiré</label>
@@ -320,13 +310,12 @@ const form = document.getElementById('form');
 const card = document.getElementById('rsvp');
 const btn = document.getElementById('btn');
 const err = document.getElementById('err');
-const sel = document.getElementById('invitados');
 const acompBox = document.getElementById('acomp-box');
 const acompList = document.getElementById('acomp-list');
 const addAcomp = document.getElementById('add-acomp');
 const MAX_ACOMP = 10;
 
-// Cada acompañante es un campo con su nombre; la cantidad de invitados sube sola si hace falta
+// Cada acompañante es un campo con su nombre; el total de personas = 1 + acompañantes
 function nuevoAcomp() {
   const fila = document.createElement('div');
   fila.className = 'acomp';
@@ -334,8 +323,6 @@ function nuevoAcomp() {
   fila.innerHTML = `<input class="in" name="acomp" maxlength="120" autocomplete="off" placeholder="Nombre y apellido" aria-label="Nombre del acompañante ${n}"><button type="button" class="rm" aria-label="Quitar acompañante">×</button>`;
   acompList.append(fila);
   fila.querySelector('input').focus();
-  const total = acompList.children.length + 1;
-  if (!sel.disabled && Number(sel.value || 0) < total) sel.value = String(Math.min(total, 6));
   addAcomp.hidden = acompList.children.length >= MAX_ACOMP;
 }
 addAcomp.onclick = nuevoAcomp;
@@ -352,9 +339,7 @@ const acompanantes = () => [...acompList.querySelectorAll('input')].map(i => i.v
 form.addEventListener('change', e => {
   if (e.target.name !== 'asistira') return;
   const no = e.target.value === 'no';
-  sel.disabled = no; sel.required = !no;
   acompBox.hidden = no;
-  if (no) sel.classList.remove('bad');
 });
 form.addEventListener('input', e => e.target.classList.remove('bad'));
 
@@ -365,7 +350,6 @@ function revisar() {
   if ((d.nombre || '').trim().length < 2) malos.push('nombre');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((d.correo || '').trim())) malos.push('correo');
   if ((d.telefono || '').replace(/\D/g, '').length < 7) malos.push('telefono');
-  if (d.asistira !== 'no' && !sel.value) malos.push('invitados');
   malos.forEach(id => document.getElementById(id).classList.add('bad'));
   return { d, malos };
 }
@@ -375,7 +359,7 @@ form.addEventListener('submit', async e => {
   err.classList.remove('show');
   const { d, malos } = revisar();
   if (malos.length) {
-    const nombres = { nombre: 'tu nombre y apellido', correo: 'un correo válido', telefono: 'tu teléfono', invitados: 'la cantidad de invitados' };
+    const nombres = { nombre: 'tu nombre y apellido', correo: 'un correo válido', telefono: 'tu teléfono' };
     err.textContent = 'Por favor completa ' + malos.map(m => nombres[m]).join(', ') + '.';
     err.classList.add('show');
     document.getElementById(malos[0]).focus();
@@ -383,7 +367,7 @@ form.addEventListener('submit', async e => {
   }
   btn.disabled = true; btn.classList.add('loading');
   try {
-    const r = await fetch(RSVP_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...d, invitados: sel.disabled ? '0' : sel.value, acompanantes: sel.disabled ? [] : acompanantes() }) });
+    const r = await fetch(RSVP_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...d, invitados: d.asistira === 'no' ? '0' : String(1 + acompanantes().length), acompanantes: d.asistira === 'no' ? [] : acompanantes() }) });
     const j = await r.json().catch(() => ({}));
     if (!r.ok || !j.ok) throw new Error(j.error || 'HTTP ' + r.status);
     gracias(d);
@@ -410,7 +394,7 @@ function gracias(d) {
 }
 
 document.getElementById('again').onclick = () => {
-  form.reset(); sel.disabled = false; sel.required = true;
+  form.reset();
   acompList.replaceChildren(); acompBox.hidden = false; addAcomp.hidden = false;
   card.classList.remove('done');
   document.getElementById('nombre').focus();
