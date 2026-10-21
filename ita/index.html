@@ -40,9 +40,9 @@ svg{display:block}
 
 /* ---------- hero ---------- */
 .hero{position:relative;overflow:hidden;isolation:isolate}
-.hero-in{position:relative;z-index:4;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;padding:56px 28px 0}
+.hero-in{position:relative;z-index:4;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;padding:56px 28px 70px}
 .deco{position:absolute;z-index:0;pointer-events:none}
-.left{position:relative;text-align:center;padding-bottom:330px}
+.left{position:relative;text-align:center;padding-bottom:260px}
 .itas{width:min(300px,62%);margin:0 auto 18px;color:var(--navy);position:relative;transform:translateX(18px)}
 .itas .marks{position:absolute;right:-60px;top:-28px;width:64px}
 h1{font-weight:500;color:var(--navy);font-size:clamp(64px,9.4vw,124px);line-height:.86;letter-spacing:-.035em}
@@ -82,6 +82,15 @@ textarea.in{min-height:96px;resize:vertical}
 .radio:has(input:checked){background:#EAF4FD;border-color:#8FB1E0}
 .radio:has(input:checked) .dot:after{transform:scale(1)}
 .radio:has(input:focus-visible){box-shadow:0 0 0 4px rgba(20,169,233,.2)}
+.acomp-list{display:grid;gap:10px}
+.acomp-list:empty{display:none}
+.acomp{display:grid;grid-template-columns:1fr auto;gap:8px}
+.rm{width:48px;border:1.5px solid var(--line);border-radius:14px;background:#fff;color:var(--navy);font:inherit;font-size:22px;line-height:1;cursor:pointer;transition:border-color .2s,color .2s}
+.rm:hover{border-color:var(--red);color:var(--red)}
+.add{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:10px;border:1.5px dashed #8FB1E0;border-radius:14px;background:#F3F8FE;color:var(--navy-2);font:inherit;font-size:15px;font-weight:600;padding:12px 16px;cursor:pointer;transition:background .2s,border-color .2s}
+.add:hover{background:#EAF4FD;border-color:var(--sky)}
+.add .plus{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;font-size:18px;line-height:1}
+.add[hidden]{display:none}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .btn{position:relative;display:flex;align-items:center;justify-content:center;gap:14px;width:100%;margin-top:6px;border:0;border-radius:999px;background:#1F63BC;color:#fff;font:inherit;font-size:20px;font-weight:500;padding:18px 24px;cursor:pointer;transition:transform .15s,background .2s,box-shadow .2s;box-shadow:0 12px 24px -12px rgba(31,99,188,.7)}
 .btn:hover{background:#1A57A8;transform:translateY(-1px)}
@@ -251,6 +260,9 @@ img.deco{height:auto}
             <label class="radio"><input type="radio" name="asistira" value="si" checked><span class="dot"></span>Sí, asistiré</label>
             <label class="radio"><input type="radio" name="asistira" value="no"><span class="dot"></span>No podré asistir</label>
           </div></div>
+        <div id="acomp-box"><span class="lab">Acompañantes <small>(opcional)</small></span>
+          <div class="acomp-list" id="acomp-list"></div>
+          <button type="button" class="add" id="add-acomp"><span class="plus" aria-hidden="true">+</span>Añadir acompañante</button></div>
         <div><label for="mensaje" class="lab">Mensaje adicional <small>(opcional)</small></label><textarea class="in" id="mensaje" name="mensaje" placeholder="Cuéntanos cualquier detalle adicional..." maxlength="1000"></textarea></div>
         <div class="hp" aria-hidden="true"><label>Web<input name="web" tabindex="-1" autocomplete="off"></label></div>
         <p class="err" id="err" role="alert"></p>
@@ -309,17 +321,46 @@ const card = document.getElementById('rsvp');
 const btn = document.getElementById('btn');
 const err = document.getElementById('err');
 const sel = document.getElementById('invitados');
+const acompBox = document.getElementById('acomp-box');
+const acompList = document.getElementById('acomp-list');
+const addAcomp = document.getElementById('add-acomp');
+const MAX_ACOMP = 10;
+
+// Cada acompañante es un campo con su nombre; la cantidad de invitados sube sola si hace falta
+function nuevoAcomp() {
+  const fila = document.createElement('div');
+  fila.className = 'acomp';
+  const n = acompList.children.length + 1;
+  fila.innerHTML = `<input class="in" name="acomp" maxlength="120" autocomplete="off" placeholder="Nombre y apellido" aria-label="Nombre del acompañante ${n}"><button type="button" class="rm" aria-label="Quitar acompañante">×</button>`;
+  acompList.append(fila);
+  fila.querySelector('input').focus();
+  const total = acompList.children.length + 1;
+  if (!sel.disabled && Number(sel.value || 0) < total) sel.value = String(Math.min(total, 6));
+  addAcomp.hidden = acompList.children.length >= MAX_ACOMP;
+}
+addAcomp.onclick = nuevoAcomp;
+acompList.addEventListener('click', e => {
+  if (!e.target.classList.contains('rm')) return;
+  e.target.parentElement.remove();
+  [...acompList.querySelectorAll('input')].forEach((inp, i) => {
+    inp.setAttribute('aria-label', `Nombre del acompañante ${i + 1}`);
+  });
+  addAcomp.hidden = false;
+});
+const acompanantes = () => [...acompList.querySelectorAll('input')].map(i => i.value.trim()).filter(Boolean);
 
 form.addEventListener('change', e => {
   if (e.target.name !== 'asistira') return;
   const no = e.target.value === 'no';
   sel.disabled = no; sel.required = !no;
+  acompBox.hidden = no;
   if (no) sel.classList.remove('bad');
 });
 form.addEventListener('input', e => e.target.classList.remove('bad'));
 
 function revisar() {
   const d = Object.fromEntries(new FormData(form));
+  delete d.acomp;
   const malos = [];
   if ((d.nombre || '').trim().length < 2) malos.push('nombre');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((d.correo || '').trim())) malos.push('correo');
@@ -342,7 +383,7 @@ form.addEventListener('submit', async e => {
   }
   btn.disabled = true; btn.classList.add('loading');
   try {
-    const r = await fetch(RSVP_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...d, invitados: sel.disabled ? '0' : sel.value }) });
+    const r = await fetch(RSVP_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...d, invitados: sel.disabled ? '0' : sel.value, acompanantes: sel.disabled ? [] : acompanantes() }) });
     const j = await r.json().catch(() => ({}));
     if (!r.ok || !j.ok) throw new Error(j.error || 'HTTP ' + r.status);
     gracias(d);
@@ -357,9 +398,11 @@ form.addEventListener('submit', async e => {
 function gracias(d) {
   const nombre = d.nombre.trim().split(/\s+/)[0];
   const va = d.asistira !== 'no';
+  const ac = va ? acompanantes() : [];
+  const conQuien = ac.length ? ` Te acompaña${ac.length > 1 ? 'n' : ''}: ${ac.join(', ')}.` : '';
   document.getElementById('t-h').textContent = va ? `¡Nos vemos pronto, ${nombre}!` : `Gracias por avisarnos, ${nombre}`;
   document.getElementById('t-p').textContent = va
-    ? 'Tu asistencia quedó confirmada para el 11 de noviembre a las 7:00 p. m. en el Holiday Inn, Salón Los Tenores.'
+    ? 'Tu asistencia quedó confirmada para el 11 de noviembre a las 7:00 p. m. en el Holiday Inn, Salón Los Tenores.' + conQuien
     : 'Te vamos a extrañar. Si cambias de opinión, puedes volver a confirmar cuando quieras.';
   document.getElementById('t-acts').style.display = va ? '' : 'none';
   card.classList.add('done');
@@ -368,6 +411,7 @@ function gracias(d) {
 
 document.getElementById('again').onclick = () => {
   form.reset(); sel.disabled = false; sel.required = true;
+  acompList.replaceChildren(); acompBox.hidden = false; addAcomp.hidden = false;
   card.classList.remove('done');
   document.getElementById('nombre').focus();
 };
