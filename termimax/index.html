@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Termimax × ElevatIA · Demo de automatización</title>
+<meta name="description" content="Demostración preparada por ElevatIA para Termimax: atención automática por WhatsApp, Instagram y correo, agenda y seguimiento de clientes.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0B0B0C">
+<meta property="og:title" content="Termimax × ElevatIA · Demo de automatización">
+<meta property="og:description" content="Así atendería Termimax a sus clientes 24/7 por WhatsApp, Instagram y correo.">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0B0C; --bg2:#121214; --card:#18181B; --card2:#1F1F23; --line:rgba(255,255,255,.08);
+  --text:#F6F2EC; --muted:#A8A29A; --dim:#6F6A63;
+  --orange:#E0893A; --gold:#E4B56F; --cream:#F4EBDD;
+  --wa:#25D366; --wa-bg:#0B141A; --wa-in:#202C33; --wa-out:#005C4B;
+  --ig:#E1306C;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Satoshi',system-ui,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.5}
+a{color:inherit}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.display{font-family:'Clash Display','Satoshi',sans-serif;letter-spacing:-.02em;line-height:.95}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.o{color:var(--orange)} .g{color:var(--gold)}
+
+/* NAV */
+nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;width:calc(100% - 28px);max-width:1180px;display:flex;align-items:center;justify-content:space-between;padding:10px 12px 10px 18px;border-radius:999px;background:rgba(18,18,20,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.tmx{display:inline-flex;align-items:flex-end;gap:2px;font-family:'Clash Display',sans-serif;font-weight:700;letter-spacing:.01em;line-height:1}
+.tmx svg{margin-bottom:.15em}
+.tmx b{color:var(--orange);font-weight:700}
+.x{color:var(--dim);font-weight:500}
+.nav-links{display:flex;gap:4px}
+.nav-links a{font-size:13px;text-decoration:none;padding:8px 12px;border-radius:999px;color:var(--muted)}
+.nav-links a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;transition:transform .2s,background .2s}
+.pill:hover{transform:translateY(-1px)}
+.pill.solid{background:var(--orange);color:#160C02}
+.pill.ghost{border:1px solid rgba(255,255,255,.18)}
+@media(max-width:860px){.nav-links{display:none}}
+@media(max-width:520px){.brand .x,.brand .ev{display:none}nav .pill{padding:9px 14px;font-size:13px}.stats{gap:22px}.stat .n{font-size:38px}}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;min-height:100dvh;display:flex;align-items:flex-end;padding:140px 0 60px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(60% 50% at 80% 20%,rgba(224,137,58,.35),transparent 70%),
+  radial-gradient(40% 40% at 10% 90%,rgba(228,181,111,.18),transparent 70%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(80% 70% at 60% 40%,#000 30%,transparent 80%)}
+.hero .wrap{position:relative;width:100%}
+.tag{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;border:1px solid rgba(224,137,58,.35);background:rgba(224,137,58,.08);font-size:13px;color:var(--gold);font-weight:500}
+.tag i{width:7px;height:7px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 4px rgba(224,137,58,.2);animation:pulse 1.8s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(224,137,58,0)}}
+.hero h1{font-size:clamp(52px,10.5vw,148px);font-weight:600;margin:26px 0 28px;text-transform:uppercase}
+.hero h1 span{display:block}
+.hero h1 .stroke{color:rgba(246,242,236,.22)}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap}
+.hero p.lead{max-width:520px;font-size:clamp(17px,1.6vw,20px);color:var(--muted)}
+.hero p.lead strong{color:var(--text);font-weight:500}
+.stats{display:flex;gap:34px;flex-wrap:wrap}
+.stat .n{font-family:'Clash Display';font-size:46px;font-weight:600;line-height:1}
+.stat .l{font-size:13px;color:var(--muted);margin-top:6px;max-width:130px}
+.scroll-cta{margin-top:36px;display:flex;gap:10px;flex-wrap:wrap}
+
+/* MARQUEE */
+.marquee{border-block:1px solid var(--line);overflow:hidden;background:var(--bg2)}
+.marquee .track{display:flex;gap:48px;width:max-content;padding:20px 0;animation:mq 38s linear infinite}
+.marquee span{font-family:'Clash Display';font-size:22px;font-weight:500;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:48px}
+.marquee span::after{content:"✦";color:var(--orange);font-size:14px}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* SECTIONS */
+section.block{padding:120px 0}
+.sec-head{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:end;margin-bottom:56px}
+.num{font-family:'Clash Display';font-size:15px;color:var(--orange);border:1px solid rgba(224,137,58,.4);border-radius:999px;padding:6px 14px;font-weight:600;align-self:start;margin-top:12px}
+.sec-head h2{font-size:clamp(40px,6vw,84px);font-weight:600}
+.sec-head p{color:var(--muted);font-size:18px;max-width:620px;margin-top:18px}
+@media(max-width:700px){.sec-head{grid-template-columns:1fr;gap:14px}.num{justify-self:start}}
+
+.split{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:56px;align-items:start}
+.split.rev{grid-template-columns:minmax(0,1fr) minmax(0,420px)}
+.split>*{min-width:0}
+@media(max-width:960px){.split,.split.rev{grid-template-columns:minmax(0,1fr)}.split.rev .phone-col{order:-1}}
+
+/* PHONE (WhatsApp) */
+.phone{width:100%;max-width:400px;margin:0 auto;border-radius:44px;padding:10px;background:linear-gradient(160deg,#2a2a2e,#111);box-shadow:0 40px 100px -30px rgba(224,137,58,.45),0 0 0 1px rgba(255,255,255,.06)}
+.screen{border-radius:36px;overflow:hidden;background:var(--wa-bg);height:640px;display:flex;flex-direction:column}
+.wa-top{display:flex;align-items:center;gap:10px;padding:16px 16px 12px;background:#1F2C34}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--orange);display:grid;place-items:center;flex:none}
+.wa-top .who b{display:block;font-size:15px}
+.wa-top .who small{font-size:12px;color:#8FA2AD}
+.wa-top .ver{margin-left:auto;font-size:11px;background:rgba(37,211,102,.15);color:var(--wa);padding:4px 8px;border-radius:999px;font-weight:700}
+.msgs{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:6px;background-color:#0B141A;background-image:radial-gradient(rgba(255,255,255,.03) 1px,transparent 1px);background-size:18px 18px;scroll-behavior:smooth}
+.b{max-width:84%;padding:8px 10px 6px;border-radius:10px;font-size:14.5px;line-height:1.4;white-space:pre-wrap;word-wrap:break-word;position:relative;animation:bin .25s ease both}
+@keyframes bin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.b.in{background:var(--wa-in);align-self:flex-start;border-top-left-radius:2px}
+.b.out{background:var(--wa-out);align-self:flex-end;border-top-right-radius:2px}
+.b .t{display:block;text-align:right;font-size:10.5px;color:rgba(255,255,255,.5);margin-top:2px}
+.b.sys{align-self:center;background:#182229;color:#8FA2AD;font-size:12px;border-radius:8px;text-align:center;max-width:92%}
+.b.code{border:1px solid rgba(224,137,58,.6);box-shadow:0 0 0 3px rgba(224,137,58,.12)}
+.typing{align-self:flex-start;background:var(--wa-in);padding:12px 14px;border-radius:10px;border-top-left-radius:2px;display:flex;gap:4px}
+.typing i{width:7px;height:7px;border-radius:50%;background:#8FA2AD;animation:dot 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes dot{0%,60%,100%{opacity:.3;transform:none}30%{opacity:1;transform:translateY(-3px)}}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:8px 10px;background:#0B141A;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-size:12.5px;padding:7px 12px;border-radius:999px;border:1px solid rgba(224,137,58,.45);color:var(--gold);background:rgba(224,137,58,.07)}
+.chip:hover{background:rgba(224,137,58,.18)}
+.composer{display:flex;gap:8px;padding:8px 10px 14px;background:#0B141A}
+.composer input{flex:1;min-width:0;background:#202C33;border:0;border-radius:999px;padding:12px 16px;color:#E9EDEF;font:inherit;font-size:15px;outline:none}
+.send{width:44px;height:44px;border-radius:50%;background:var(--wa);display:grid;place-items:center;flex:none}
+.send:disabled{opacity:.5}
+
+/* Explain list */
+.side h3{font-family:'Clash Display';font-size:30px;font-weight:600;line-height:1.05;margin-bottom:18px}
+.side p{color:var(--muted);font-size:17px;margin-bottom:26px}
+.steps{display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--line)}
+.step{display:grid;grid-template-columns:36px 1fr;gap:14px;padding:18px 0;border-bottom:1px solid var(--line)}
+.step .k{font-family:'Clash Display';color:var(--orange);font-weight:600}
+.step b{display:block;font-size:16px;margin-bottom:3px}
+.step span{color:var(--muted);font-size:14.5px}
+.note{margin-top:22px;font-size:13px;color:var(--dim)}
+
+/* INSTAGRAM */
+.ig{max-width:400px;margin:0 auto;background:#000;border-radius:28px;border:1px solid #262626;overflow:hidden;box-shadow:0 40px 100px -30px rgba(225,48,108,.35)}
+.ig-tabs{display:flex;border-bottom:1px solid #262626}
+.ig-tabs button{flex:1;padding:13px;font-size:13.5px;font-weight:700;color:#8e8e8e;border-bottom:2px solid transparent}
+.ig-tabs button.on{color:#fff;border-color:#fff}
+.ig-pane{display:none;height:640px;flex-direction:column}
+.ig-pane.on{display:flex}
+.ig-head{display:flex;align-items:center;gap:10px;padding:12px 14px}
+.ig-av{width:34px;height:34px;border-radius:50%;padding:2px;background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf)}
+.ig-av div{width:100%;height:100%;border-radius:50%;background:var(--orange);border:2px solid #000;display:grid;place-items:center}
+.ig-head b{font-size:14px}
+.ig-post{flex:none;height:210px;width:100%;position:relative;overflow:hidden;background:linear-gradient(160deg,#2b1a0c,#0d0d0d 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:22px}
+.ig-post .big{font-family:'Clash Display';font-size:34px;font-weight:600;color:var(--gold);line-height:1}
+.ig-post .sm{font-size:16px;color:#fff;margin-top:6px}
+.ig-post .bug{position:absolute;top:28px;right:34px;font-size:64px;transform:rotate(20deg);opacity:.9;filter:drop-shadow(0 8px 20px rgba(0,0,0,.6))}
+.ig-post .bug.s{top:58px;right:150px;font-size:30px;transform:rotate(-30deg)}
+.ig-post .lg{position:absolute;top:18px;left:20px;font-size:15px}
+.comments{flex:1;overflow-y:auto;padding:10px 14px;display:flex;flex-direction:column;gap:12px}
+.cm{font-size:13.5px;line-height:1.4;animation:bin .3s both}
+.cm b{margin-right:6px}
+.cm .meta{display:block;font-size:11.5px;color:#8e8e8e;margin-top:3px}
+.cm.reply{margin-left:28px;padding-left:10px;border-left:2px solid rgba(224,137,58,.5)}
+.auto{display:inline-block;font-size:10px;padding:2px 7px;border-radius:999px;background:rgba(224,137,58,.15);color:var(--gold);margin-left:6px;font-weight:700;vertical-align:1px}
+.ig-composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid #262626}
+.ig-composer input{flex:1;min-width:0;background:#121212;border:1px solid #262626;border-radius:999px;padding:10px 14px;color:#fff;font:inherit;font-size:14px;outline:none}
+.ig-composer button{font-weight:700;color:#0095f6;font-size:14px;padding:0 6px}
+.ig-composer button:disabled{opacity:.4}
+.dm-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:6px}
+.dm{max-width:80%;padding:9px 13px;border-radius:20px;font-size:14px;line-height:1.4;white-space:pre-wrap;animation:bin .25s both}
+.dm.in{background:#262626;align-self:flex-start}
+.dm.out{background:linear-gradient(135deg,#7b3fe4,#3a64f5);align-self:flex-end}
+.dm.sys{align-self:center;background:none;color:#8e8e8e;font-size:12px;text-align:center}
+.ig .chips{background:#000}
+.ig .chip{border-color:#363636;color:#e0e0e0;background:#121212}
+
+/* EMAIL */
+.mail{display:grid;grid-template-columns:300px 1fr;background:var(--cream);color:#1d1a16;border-radius:28px;overflow:hidden;min-height:600px;box-shadow:0 40px 100px -40px rgba(228,181,111,.4)}
+.mail-list{border-right:1px solid #e6dccb;background:#efe4d3;display:flex;flex-direction:column}
+.mail-list .hd{padding:18px 18px 12px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.mail-list .hd small{font-size:11px;background:#1d1a16;color:var(--cream);padding:3px 8px;border-radius:999px}
+.mi{text-align:left;padding:14px 18px;border-top:1px solid #e3d6c1;display:block;width:100%;transition:background .2s}
+.mi:hover{background:#e9dcc6}
+.mi.on{background:#fff8ec;box-shadow:inset 3px 0 0 var(--orange)}
+.mi b{display:flex;justify-content:space-between;font-size:14px}
+.mi b em{font-style:normal;font-weight:500;font-size:11.5px;color:#8a7f70}
+.mi .s{font-size:13px;font-weight:700;margin-top:2px}
+.mi .p{font-size:12.5px;color:#7a6f60;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mi .lab{display:inline-block;margin-top:6px;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:#1d1a16;color:var(--gold)}
+.mail-view{padding:28px 32px;display:flex;flex-direction:column;gap:18px;min-width:0}
+.mv-h h4{font-family:'Clash Display';font-size:24px;font-weight:600;line-height:1.1}
+.mv-h small{color:#7a6f60;font-size:13px}
+.mv-body{font-size:14.5px;line-height:1.6;white-space:pre-wrap;color:#3a332b}
+.ai-box{border-radius:18px;background:#fff;border:1px solid #eadfcd;padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+.ai-box .top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ai-box .top b{display:flex;align-items:center;gap:8px;font-size:14px}
+.spark{width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,var(--orange),var(--gold));display:grid;place-items:center;color:#fff;font-size:12px}
+.draft{font-size:14px;line-height:1.6;white-space:pre-wrap;color:#1d1a16;min-height:60px;font-family:inherit}
+.draft.wait{color:#9a8f80}
+.btn-dark{background:#1d1a16;color:var(--cream);padding:10px 16px;border-radius:999px;font-weight:700;font-size:13.5px}
+.btn-dark:disabled{opacity:.5}
+.btn-or{background:var(--orange);color:#160C02;padding:10px 16px;border-radius:999px;font-weight:700;font-size:13.5px}
+.btn-or:disabled{opacity:.5}
+.sent{font-size:13px;color:#2f7d3a;font-weight:700}
+@media(max-width:820px){.mail{grid-template-columns:minmax(0,1fr)}.mail-list{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid #e6dccb}.mail-list .hd{display:none}.mi{min-width:230px;border-top:0;border-right:1px solid #e3d6c1}.mail-view{padding:22px 18px}}
+
+/* PANEL */
+.bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:24px;min-width:0}
+.card h5{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.c-kpi{grid-column:span 3}
+.c-kpi .n{font-family:'Clash Display';font-size:52px;font-weight:600;line-height:1}
+.c-kpi .d{font-size:13px;color:var(--muted);margin-top:8px}
+.c-kpi .up{color:#7BD88F;font-weight:700}
+.c-kanban{grid-column:span 12}
+.c-time{grid-column:span 7}
+.c-phone{grid-column:span 5}
+@media(max-width:960px){.c-kpi{grid-column:span 6}.c-time,.c-phone{grid-column:span 12}}
+@media(max-width:520px){.c-kpi .n{font-size:40px}}
+.kanban{display:grid;grid-template-columns:repeat(5,minmax(190px,1fr));gap:12px;overflow-x:auto;padding-bottom:6px}
+.col{background:var(--bg2);border-radius:18px;padding:12px;min-height:220px}
+.col .ch{display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:10px;padding:2px 4px}
+.col .ch em{font-style:normal;color:var(--dim)}
+.lc{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:11px 12px;margin-bottom:8px;font-size:13px;animation:bin .4s both}
+.lc b{display:block;font-size:13.5px}
+.lc span{color:var(--muted);display:block;margin-top:2px}
+.lc .src{display:inline-flex;gap:6px;margin-top:8px;font-size:11px;font-weight:700}
+.src i{font-style:normal;padding:2px 7px;border-radius:999px}
+.src .wa{background:rgba(37,211,102,.14);color:var(--wa)}
+.src .igs{background:rgba(225,48,108,.15);color:#ff6d9b}
+.src .em{background:rgba(228,181,111,.15);color:var(--gold)}
+.src .tm{background:rgba(255,255,255,.07);color:var(--muted)}
+.lc.new{border-color:rgba(224,137,58,.7);box-shadow:0 0 0 4px rgba(224,137,58,.12)}
+.tl{display:flex;flex-direction:column}
+.tli{display:grid;grid-template-columns:86px 1fr auto;gap:14px;align-items:center;padding:14px 12px;border-radius:14px;text-align:left;width:100%;transition:background .2s}
+.tli:hover{background:rgba(255,255,255,.04)}
+.tli.on{background:rgba(224,137,58,.1)}
+.tli .when{font-family:'Clash Display';font-weight:600;color:var(--orange);font-size:14px}
+.tli b{display:block;font-size:15px}
+.tli span{color:var(--muted);font-size:13.5px}
+.tli .ar{color:var(--dim)}
+.mini{background:var(--wa-bg);border-radius:22px;padding:14px;min-height:300px;display:flex;flex-direction:column;gap:8px}
+.mini .hdr{display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:6px}
+.mini .hdr .avatar{width:32px;height:32px}
+.mini .hdr small{display:block;font-size:11px;color:#8FA2AD}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btnrow button{font-size:12px;padding:7px 12px;border-radius:999px;background:#202C33;color:#E9EDEF}
+
+/* BEFORE/AFTER */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.compare{grid-template-columns:1fr}}
+.cmp{border-radius:26px;padding:32px;border:1px solid var(--line)}
+.cmp.before{background:var(--bg2)}
+.cmp.after{background:linear-gradient(160deg,rgba(224,137,58,.2),rgba(224,137,58,.04));border-color:rgba(224,137,58,.35)}
+.cmp h4{font-family:'Clash Display';font-size:28px;font-weight:600;margin-bottom:18px}
+.cmp ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.cmp li{display:flex;gap:12px;font-size:16px;color:var(--muted)}
+.cmp.after li{color:var(--text)}
+.cmp li::before{content:"–";color:var(--dim);flex:none}
+.cmp.after li::before{content:"✓";color:var(--orange);font-weight:700}
+
+/* CTA */
+.cta{padding:140px 0 120px;text-align:center;position:relative;overflow:hidden}
+.cta::before{content:"";position:absolute;inset:auto 0 -40% 0;height:80%;background:radial-gradient(50% 60% at 50% 100%,rgba(224,137,58,.35),transparent 70%)}
+.cta .wrap{position:relative}
+.cta h2{font-size:clamp(48px,9vw,128px);font-weight:600;text-transform:uppercase}
+.cta p{color:var(--muted);font-size:19px;max-width:560px;margin:24px auto 36px}
+/* PLANES */
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
+@media(max-width:960px){.plans{grid-template-columns:minmax(0,1fr)}}
+.plan{position:relative;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:32px 28px;display:flex;flex-direction:column}
+.plan.star{background:linear-gradient(170deg,rgba(224,137,58,.24),rgba(224,137,58,.05) 60%),var(--card);border-color:rgba(224,137,58,.6);box-shadow:0 40px 90px -40px rgba(224,137,58,.55)}
+@media(min-width:961px){.plan.star{transform:translateY(-14px)}}
+.plan .badge{position:absolute;top:-13px;left:28px;background:var(--orange);color:#160C02;font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px}
+.plan .pn{font-family:'Clash Display';font-size:30px;font-weight:600;line-height:1}
+.plan .pd{color:var(--muted);font-size:15px;margin:10px 0 26px;min-height:46px}
+.plan .price{display:flex;flex-direction:column;gap:6px}
+.plan .price .n{font-family:'Clash Display';font-size:clamp(40px,11vw,56px);font-weight:600;line-height:1}
+.plan .price small{color:var(--muted);font-size:14px}
+.plan .mo{margin-top:10px;font-size:16px;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.plan .mo b{font-family:'Clash Display';font-size:24px;font-weight:600}
+.plan.star .price .n,.plan.star .mo b{color:var(--orange)}
+.plan ul{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:24px}
+.plan li{display:flex;gap:10px;font-size:15px;line-height:1.45}
+.plan li::before{content:"✓";color:var(--orange);font-weight:700;flex:none}
+.plan li.plus{color:var(--gold);font-weight:700}
+.plan li.plus::before{content:"+"}
+.terms{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:28px}
+@media(max-width:960px){.terms{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.terms{grid-template-columns:minmax(0,1fr)}}
+.term{border:1px solid var(--line);border-radius:20px;padding:20px}
+.term b{display:block;font-family:'Clash Display';font-size:20px;font-weight:600;margin-bottom:6px}
+.term span{color:var(--muted);font-size:14px}
+footer{border-top:1px solid var(--line);padding:28px 0;font-size:13px;color:var(--dim)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}.marquee .track{animation:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="roof" viewBox="0 0 40 22"><path d="M2 20 L20 4 L38 20" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><path d="M27 9 V3 h5 v10" fill="currentColor"/></symbol>
+</svg>
+
+<nav>
+  <div class="brand">
+    <span class="tmx" style="font-size:18px"><svg width="20" height="11" style="color:var(--orange)"><use href="#roof"/></svg>TERMI<b>MAX</b></span>
+    <span class="x">×</span><span class="ev">ElevatIA</span>
+  </div>
+  <div class="nav-links">
+    <a href="#whatsapp">WhatsApp</a><a href="#instagram">Instagram</a><a href="#correo">Correo</a><a href="#panel">Panel</a><a href="#planes">Planes</a>
+  </div>
+  <a class="pill solid" href="#whatsapp">Probar demo</a>
+</nav>
+
+<header class="hero">
+  <div class="hero-grid"></div>
+  <div class="wrap">
+    <span class="tag"><i></i>Demo preparada para Termimax · Octubre 2026</span>
+    <h1 class="display">
+      <span>Cero plagas.</span>
+      <span class="o">Cero clientes</span>
+      <span class="stroke">sin respues<span style="display:inline;letter-spacing:-.07em">t</span>a.</span>
+    </h1>
+    <div class="hero-bottom">
+      <div>
+        <p class="lead">Un asistente con inteligencia artificial que <strong>atiende, cotiza y agenda</strong> por WhatsApp, Instagram y correo, a cualquier hora, y le pasa al equipo de Termimax solo lo que necesita su atención.</p>
+        <div class="scroll-cta">
+          <a class="pill solid" href="#whatsapp">Hablar con Max ↓</a>
+          <a class="pill ghost" href="#panel">Ver el panel</a>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="n">3 s</div><div class="l">en responder, de día o de noche</div></div>
+        <div class="stat"><div class="n">24/7</div><div class="l">incluye fines de semana y feriados</div></div>
+        <div class="stat"><div class="n o">3</div><div class="l">canales en una sola bandeja</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true"><div class="track" id="mq"></div></div>
+
+<!-- 01 WHATSAPP -->
+<section class="block" id="whatsapp">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">01</span>
+      <div>
+        <h2 class="display">WhatsApp que <span class="o">vende</span><br>mientras duermen.</h2>
+        <p>Max diagnostica la plaga, da el precio, agenda la visita y avisa al técnico. Es IA real: escríbele lo que escribiría un cliente.</p>
+      </div>
+    </div>
+    <div class="split">
+      <div class="phone-col reveal">
+        <div class="phone">
+          <div class="screen">
+            <div class="wa-top">
+              <div class="avatar"><svg width="22" height="12" style="color:#160C02"><use href="#roof"/></svg></div>
+              <div class="who"><b>Termimax</b><small id="waStatus">en línea</small></div>
+              <span class="ver">Cuenta de empresa</span>
+            </div>
+            <div class="msgs" id="waMsgs"></div>
+            <div class="chips" id="waChips"></div>
+            <form class="composer" id="waForm" autocomplete="off">
+              <input id="waInput" maxlength="300" placeholder="Escribe como un cliente…">
+              <button class="send" id="waSend" aria-label="Enviar"><svg width="20" height="20" viewBox="0 0 24 24" fill="#0B141A"><path d="M3 20.5v-6l8-2.5-8-2.5v-6l19 8.5z"/></svg></button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="side reveal">
+        <h3>Lo que pasa detrás de cada conversación</h3>
+        <p>El cliente solo ve un WhatsApp que responde al instante. Termimax ve una agenda que se llena sola.</p>
+        <div class="steps">
+          <div class="step"><span class="k">01</span><div><b>Entiende y diagnostica</b><span>Pregunta qué plaga es, qué tipo de lugar y de qué tamaño, igual que un asesor con experiencia.</span></div></div>
+          <div class="step"><span class="k">02</span><div><b>Cotiza con la lista de Termimax</b><span>Precios, ITBIS y paquetes siempre iguales, sin errores ni olvidos.</span></div></div>
+          <div class="step"><span class="k">03</span><div><b>Agenda y avisa</b><span>La visita entra al calendario y el técnico recibe la dirección y el tipo de servicio.</span></div></div>
+          <div class="step"><span class="k">04</span><div><b>Pasa a un humano cuando hace falta</b><span>Quejas, casos especiales o clientes grandes llegan al equipo con todo el historial.</span></div></div>
+        </div>
+        <p class="note">Precios de referencia solo para esta demo; la versión real usa la lista de Termimax.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 INSTAGRAM -->
+<section class="block" id="instagram" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">02</span>
+      <div>
+        <h2 class="display">Cada comentario<br>es un <span class="o">cliente.</span></h2>
+        <p>Cuando alguien comenta "precio" o "info" en una publicación, se le responde en público y se le escribe por mensaje directo en segundos. Nadie se queda esperando.</p>
+      </div>
+    </div>
+    <div class="split rev">
+      <div class="side reveal">
+        <h3>Instagram deja de ser solo una vitrina</h3>
+        <p>Hoy muchas consultas se quedan en un comentario sin contestar. Con la automatización:</p>
+        <div class="steps">
+          <div class="step"><span class="k">01</span><div><b>Respuesta pública automática</b><span>El comentario recibe respuesta y la publicación gana interacción.</span></div></div>
+          <div class="step"><span class="k">02</span><div><b>Mensaje directo con IA</b><span>Contesta dudas y precios en el DM con el tono de Termimax.</span></div></div>
+          <div class="step"><span class="k">03</span><div><b>Del DM a WhatsApp</b><span>Para agendar lo pasa a WhatsApp, donde Max cierra la cita.</span></div></div>
+        </div>
+        <p class="note">Toque las pestañas para ver la publicación y el mensaje directo.</p>
+      </div>
+      <div class="phone-col reveal">
+        <div class="ig">
+          <div class="ig-tabs"><button class="on" data-tab="post">Publicación</button><button data-tab="dm">Mensajes <span id="dmBadge"></span></button></div>
+          <div class="ig-pane on" id="pane-post">
+            <div class="ig-head"><div class="ig-av"><div><svg width="16" height="9" style="color:#160C02"><use href="#roof"/></svg></div></div><b>termimaxrd</b></div>
+            <div class="ig-post">
+              <span class="lg tmx"><svg width="18" height="10" style="color:var(--orange)"><use href="#roof"/></svg>TERMI<b>MAX</b></span>
+              <span class="bug">🪳</span><span class="bug s">🪳</span>
+              <div class="big">¿Palomitas? Sí.</div>
+              <div class="sm">¿Cucarachas? Definitivamente no.</div>
+            </div>
+            <div class="comments" id="igComments"></div>
+            <div class="chips" id="igChips"></div>
+            <form class="ig-composer" id="igForm" autocomplete="off">
+              <input id="igInput" maxlength="200" placeholder="Comenta como un seguidor…">
+              <button id="igSend">Publicar</button>
+            </form>
+          </div>
+          <div class="ig-pane" id="pane-dm">
+            <div class="ig-head"><div class="ig-av"><div><svg width="16" height="9" style="color:#160C02"><use href="#roof"/></svg></div></div><div><b>termimaxrd</b><br><small style="color:#8e8e8e;font-size:12px">Responde al instante</small></div></div>
+            <div class="dm-msgs" id="dmMsgs"><div class="dm sys">Cuando comente en la publicación, el mensaje directo aparecerá aquí.</div></div>
+            <form class="ig-composer" id="dmForm" autocomplete="off">
+              <input id="dmInput" maxlength="300" placeholder="Escribe un mensaje…">
+              <button id="dmSend">Enviar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 CORREO -->
+<section class="block" id="correo">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">03</span>
+      <div>
+        <h2 class="display">Cotizaciones a empresas<br>en <span class="o">30 segundos.</span></h2>
+        <p>Los clientes grandes (condominios, restaurantes, plazas) escriben por correo. La IA lee la solicitud y prepara una cotización formal lista para revisar y enviar.</p>
+      </div>
+    </div>
+    <div class="mail reveal">
+      <div class="mail-list" id="mailList"><div class="hd">Bandeja de entrada <small id="mailNew">3 nuevos</small></div></div>
+      <div class="mail-view">
+        <div class="mv-h"><h4 id="mvSubject"></h4><small id="mvFrom"></small></div>
+        <div class="mv-body" id="mvBody"></div>
+        <div class="ai-box">
+          <div class="top">
+            <b><span class="spark">✦</span>Respuesta sugerida por la IA</b>
+            <div style="display:flex;gap:8px;align-items:center">
+              <button class="btn-dark" id="btnDraft">Redactar respuesta</button>
+              <button class="btn-or" id="btnSend" disabled>Aprobar y enviar</button>
+            </div>
+          </div>
+          <div class="draft wait" id="draft">Toque "Redactar respuesta" y mire cómo se escribe la cotización.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 PANEL -->
+<section class="block" id="panel" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">04</span>
+      <div>
+        <h2 class="display">Lo que ve el<br>equipo de <span class="o">Termimax.</span></h2>
+        <p>Todas las conversaciones terminan en un mismo tablero. Lo que usted hizo arriba en el demo aparece aquí.</p>
+      </div>
+    </div>
+    <div class="bento">
+      <div class="card c-kpi reveal"><h5>Consultas este mes</h5><div class="n" id="kpiLeads">214</div><div class="d"><span class="up">+38%</span> frente al mes pasado</div></div>
+      <div class="card c-kpi reveal"><h5>Respondidas por IA</h5><div class="n">91%</div><div class="d">el equipo atendió solo 19 casos especiales</div></div>
+      <div class="card c-kpi reveal"><h5>Servicios agendados</h5><div class="n o" id="kpiAg">67</div><div class="d">31 fuera del horario de oficina</div></div>
+      <div class="card c-kpi reveal"><h5>Clientes que repiten</h5><div class="n">42%</div><div class="d">gracias a los recordatorios automáticos</div></div>
+
+      <div class="card c-kanban reveal">
+        <h5>Embudo de clientes <span style="text-transform:none;letter-spacing:0;font-weight:500;color:var(--dim)">datos de ejemplo + lo que usted pruebe</span></h5>
+        <div class="kanban" id="kanban"></div>
+      </div>
+
+      <div class="card c-time reveal">
+        <h5>Seguimiento automático</h5>
+        <div class="tl" id="tl"></div>
+      </div>
+      <div class="card c-phone reveal">
+        <h5>Lo que recibe el cliente</h5>
+        <div class="mini">
+          <div class="hdr"><div class="avatar"><svg width="18" height="10" style="color:#160C02"><use href="#roof"/></svg></div><div><b style="font-size:14px">Termimax</b><small id="miniWhen">Mensaje automático</small></div></div>
+          <div id="miniMsgs" style="display:flex;flex-direction:column;gap:6px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANTES / DESPUÉS -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">05</span>
+      <div><h2 class="display">El cambio para <span class="o">Termimax.</span></h2></div>
+    </div>
+    <div class="compare">
+      <div class="cmp before reveal">
+        <h4>Hoy</h4>
+        <ul>
+          <li>Mensajes de noche y fin de semana se contestan al otro día; el cliente ya llamó a otra compañía.</li>
+          <li>Comentarios y DMs de Instagram que se pierden.</li>
+          <li>Cotizaciones a empresas que tardan horas o días.</li>
+          <li>Nadie le recuerda al cliente que ya le toca su fumigación.</li>
+          <li>Sin números claros de cuántas consultas se convierten en servicio.</li>
+        </ul>
+      </div>
+      <div class="cmp after reveal">
+        <h4>Con ElevatIA</h4>
+        <ul>
+          <li>Respuesta en segundos, 24/7, con el tono y los precios de Termimax.</li>
+          <li>Instagram convertido en un canal de ventas.</li>
+          <li>Cotización formal lista para aprobar en menos de un minuto.</li>
+          <li>Recordatorios de mantenimiento cada 3 meses = clientes que repiten.</li>
+          <li>Un panel con cada consulta, cotización y servicio.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 PLANES -->
+<section class="block" id="planes" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">06</span>
+      <div>
+        <h2 class="display">Planes para <span class="o">Termimax.</span></h2>
+        <p>Un pago de instalación y una mensualidad fija que incluye servidor, inteligencia artificial, mantenimiento y ajustes.</p>
+      </div>
+    </div>
+    <div class="plans">
+      <div class="plan reveal">
+        <div class="pn">Básico</div>
+        <div class="pd">Para empezar a responder y agendar al instante por WhatsApp.</div>
+        <div class="price"><span class="n">US$750</span><small>instalación</small></div>
+        <div class="mo"><b>US$150</b> / mes</div>
+        <ul>
+          <li>Asistente de WhatsApp con IA, 24/7</li>
+          <li>Diagnóstico y cotización con los precios de Termimax</li>
+          <li>Agenda de citas y aviso al técnico</li>
+          <li>Confirmación y recordatorio 1 día antes</li>
+          <li>Paso a un humano con todo el historial</li>
+        </ul>
+      </div>
+      <div class="plan star reveal">
+        <span class="badge">Recomendado · lo que vio en el demo</span>
+        <div class="pn">Completo</div>
+        <div class="pd">Todos los canales de venta y servicio al cliente conectados en un solo lugar.</div>
+        <div class="price"><span class="n">US$1,450</span><small>instalación</small></div>
+        <div class="mo"><b>US$250</b> / mes</div>
+        <ul>
+          <li class="plus">Todo lo del plan Básico</li>
+          <li>Instagram: respuesta automática a comentarios y mensajes directos</li>
+          <li>Correo: cotizaciones formales a empresas listas para aprobar</li>
+          <li>Panel de clientes: consultas, cotizaciones, citas y servicios</li>
+          <li>"Técnico en camino" y encuesta después del servicio</li>
+          <li>Más reseñas de 5 estrellas en Google</li>
+          <li>Aviso de mantenimiento a los 3 meses para que el cliente repita</li>
+          <li>Seguimiento de cotizaciones sin respuesta</li>
+        </ul>
+      </div>
+      <div class="plan reveal">
+        <div class="pn">Premium</div>
+        <div class="pd">Para que ninguna llamada ni oportunidad se pierda.</div>
+        <div class="price"><span class="n">US$2,200</span><small>instalación</small></div>
+        <div class="mo"><b>US$380</b> / mes</div>
+        <ul>
+          <li class="plus">Todo lo del plan Completo</li>
+          <li>Asistente de voz con IA que contesta llamadas, cotiza y agenda</li>
+          <li>Reporte mensual de ventas: consultas, servicios, canales y clientes que repiten</li>
+          <li>Prioridad en soporte y en nuevos ajustes</li>
+        </ul>
+      </div>
+    </div>
+    <div class="terms">
+      <div class="term reveal"><b>50% / 50%</b><span>50% al firmar y 50% al entregar.</span></div>
+      <div class="term reveal"><b>3–4 semanas</b><span>Configurado con los servicios, precios y horarios reales de Termimax.</span></div>
+      <div class="term reveal"><b>Todo incluido</b><span>La mensualidad cubre servidor, IA, mantenimiento y cambios menores.</span></div>
+      <div class="term reveal"><b>WhatsApp de Meta</b><span>El costo por conversación que cobra Meta va aparte, directo a la tarjeta de Termimax.</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Demostración preparada por <a href="https://www.elevatia.do" target="_blank" rel="noopener">ElevatIA</a> para Termimax. Las conversaciones son simuladas: no se agenda, cobra ni envía nada real.</span>
+    <span>www.elevatia.do · info@elevatia.do</span>
+  </div>
+</footer>
+
+<script>
+const API = 'https://n8n.elevatia.do/webhook/demo-termimax';
+const AI_LIMIT = 40;
+
+/* ---------- utilidades ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const now = () => new Date().toLocaleTimeString('es-DO', { hour: 'numeric', minute: '2-digit' });
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const strip = s => String(s).replace(/\*\*?|__|#+ /g, '');
+function aiCount(add) {
+  try {
+    const k = 'tmx_ai_' + new Date().toISOString().slice(0, 10);
+    const n = +(localStorage.getItem(k) || 0) + (add ? 1 : 0);
+    if (add) localStorage.setItem(k, n);
+    return n;
+  } catch (e) { return 0; }
+}
+async function ask(canal, message, history) {
+  if (aiCount() >= AI_LIMIT) return null;
+  try {
+    const ctl = new AbortController();
+    const to = setTimeout(() => ctl.abort(), 45000);
+    const r = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ canal, message, history }), signal: ctl.signal });
+    clearTimeout(to);
+    const j = await r.json();
+    aiCount(true);
+    return j && j.reply ? strip(j.reply) : null;
+  } catch (e) { return null; }
+}
+
+/* ---------- marquee ---------- */
+(() => {
+  const items = ['Control de plagas', 'Desinfección electrostática', 'Limpieza de colchones', 'Muebles y alfombras', 'Condominios', 'Restaurantes', 'Plazas comerciales', 'Oficinas', 'ISO 9001:2015'];
+  $('#mq').innerHTML = [...items, ...items].map(t => `<span>${t}</span>`).join('');
+})();
+
+/* ---------- panel (se define antes porque los demos lo alimentan) ---------- */
+const COLS = [
+  { id: 'nuevo', t: 'Nueva consulta' },
+  { id: 'cot', t: 'Cotizado' },
+  { id: 'ag', t: 'Agendado' },
+  { id: 'hecho', t: 'Servicio hecho' },
+  { id: 'rec', t: 'Plan recurrente' },
+];
+const LEADS = [
+  { c: 'nuevo', n: 'Yokasta R.', d: 'Chinches · Los Prados', s: 'wa' },
+  { c: 'nuevo', n: 'Comentario IG', d: '"¿Hacen colchones king?"', s: 'igs' },
+  { c: 'cot', n: 'Colegio Nuevo Horizonte', d: 'Fumigación 12 aulas · RD$ 38,940', s: 'em' },
+  { c: 'cot', n: 'Luis M.', d: 'Sofá + 6 sillas · RD$ 5,900', s: 'wa' },
+  { c: 'ag', n: 'Carmen P.', d: 'Fumigación apto 3 hab · jue 9:00 am', s: 'wa' },
+  { c: 'ag', n: 'Farmacia Los Ríos', d: 'Desinfección 140 m² · vie 7:00 am', s: 'em' },
+  { c: 'hecho', n: 'Roberto D.', d: 'Colchón queen · ⭐⭐⭐⭐⭐', s: 'wa' },
+  { c: 'hecho', n: 'Ana G.', d: 'Cucarachas · reseña en Google', s: 'igs' },
+  { c: 'rec', n: 'Residencial Las Palmas', d: 'Mensual · RD$ 9,500', s: 'em' },
+  { c: 'rec', n: 'Pizzería Don Peppe', d: 'Mensual + certificado', s: 'tm' },
+];
+const SRC = { wa: ['wa', 'WhatsApp'], igs: ['igs', 'Instagram'], em: ['em', 'Correo'], tm: ['tm', 'Equipo'] };
+function renderKanban() {
+  $('#kanban').innerHTML = COLS.map(col => {
+    const ls = LEADS.filter(l => l.c === col.id);
+    return `<div class="col"><div class="ch">${col.t}<em>${ls.length}</em></div>${ls.map(l => `<div class="lc${l.nw ? ' new' : ''}"><b>${esc(l.n)}</b><span>${esc(l.d)}</span><div class="src"><i class="${SRC[l.s][0]}">${SRC[l.s][1]}</i>${l.nw ? '<i class="tm">Su prueba</i>' : ''}</div></div>`).join('')}</div>`;
+  }).join('');
+}
+function addLead(lead) {
+  LEADS.forEach(l => l.nw = false);
+  lead.nw = true;
+  LEADS.unshift(lead);
+  renderKanban();
+  const k = $('#kpiLeads'); k.textContent = +k.textContent + 1;
+  if (lead.c === 'ag') { const a = $('#kpiAg'); a.textContent = +a.textContent + 1; }
+}
+renderKanban();
+
+/* ---------- 01 WhatsApp ---------- */
+const wa = { hist: [], busy: false, logged: false };
+const WA_CHIPS = ['Tengo cucarachas en la cocina 🪳', 'Creo que tengo chinches en el colchón', '¿Cuánto cuesta limpiar un sofá?', 'Administro un condominio de 40 apartamentos', '¿Están certificados?'];
+const WA_FALLBACK = [
+  [/cucarach|hormig|plaga|fumig/i, '¡Claro que le ayudamos! 🪳 Para darle el precio exacto: ¿es apartamento o casa, y de cuántas habitaciones?'],
+  [/chinche|colch|ácaro|acaro/i, 'Las chinches se tratan habitación por habitación: RD$5,500 cada una e incluye 2 visitas. ¿Cuántas habitaciones están afectadas?'],
+  [/sof|mueble|silla|alfombra/i, 'La limpieza de sofá de 3 plazas es RD$3,200 y el de 2 plazas RD$2,500. ¿Qué tipo de mueble tiene?'],
+  [/condominio|empresa|restaurante|oficina|plaza/i, 'Para empresas y condominios hacemos una inspección GRATUITA y luego un plan mensual o bimestral con certificado de servicio. ¿En qué sector está?'],
+  [/certific|iso/i, 'Sí, Termimax está certificada bajo la norma ISO 9001:2015 y entregamos certificado de servicio. ¿Qué servicio necesita?'],
+];
+function waBubble(text, who, extra = '') {
+  const d = document.createElement('div');
+  d.className = `b ${who} ${extra}`;
+  d.innerHTML = esc(text) + (who !== 'sys' ? `<span class="t">${now()}${who === 'out' ? ' ✓✓' : ''}</span>` : '');
+  $('#waMsgs').appendChild(d);
+  $('#waMsgs').scrollTop = 1e6;
+  return d;
+}
+function typingOn(box) { const t = document.createElement('div'); t.className = 'typing'; t.innerHTML = '<i></i><i></i><i></i>'; box.appendChild(t); box.scrollTop = 1e6; return t; }
+function guessService(text) {
+  const map = [[/chinche/i, 'Tratamiento de chinches'], [/cucarach/i, 'Fumigación (cucarachas)'], [/roedor|rat/i, 'Control de roedores'], [/comej|termit/i, 'Inspección comején'], [/colch/i, 'Limpieza de colchón'], [/sof|mueble|silla/i, 'Limpieza de muebles'], [/alfombra/i, 'Limpieza de alfombra'], [/desinfec|electrost/i, 'Desinfección electrostática'], [/condominio/i, 'Inspección condominio']];
+  for (const [r, s] of map) if (r.test(text)) return s;
+  return 'Servicio Termimax';
+}
+async function waSend(text) {
+  text = text.trim();
+  if (!text || wa.busy) return;
+  wa.busy = true; $('#waSend').disabled = true;
+  waBubble(text, 'out');
+  $('#waInput').value = '';
+  $('#waStatus').textContent = 'escribiendo…';
+  const t = typingOn($('#waMsgs'));
+  const started = Date.now();
+  let reply = await ask('whatsapp', text, wa.hist);
+  if (!reply) { const f = WA_FALLBACK.find(([r]) => r.test(text)); reply = f ? f[1] : 'Con gusto le ayudo 😊 ¿Qué necesita: control de plagas, desinfección o limpieza de muebles y colchones?'; }
+  await sleep(Math.max(0, 900 - (Date.now() - started)));
+  t.remove();
+  const code = reply.match(/TMX-\d{4}/);
+  waBubble(reply, 'in', code ? 'code' : '');
+  $('#waStatus').textContent = 'en línea';
+  wa.hist.push({ role: 'user', content: text }, { role: 'assistant', content: reply });
+  if (code && !wa.logged) {
+    wa.logged = true;
+    const all = wa.hist.map(h => h.content).join(' ');
+    waBubble('📅 Cita registrada en la agenda de Termimax y aviso enviado al técnico (simulado). Mírela en el panel ↓', 'sys');
+    const i = LEADS.indexOf(wa.lead);
+    if (i >= 0) LEADS.splice(i, 1);
+    addLead({ c: 'ag', n: 'Cliente demo · ' + code[0], d: guessService(all), s: 'wa' });
+  } else if (wa.hist.length === 2) {
+    wa.lead = { c: 'nuevo', n: 'Cliente demo', d: guessService(text), s: 'wa' };
+    addLead(wa.lead);
+  }
+  wa.busy = false; $('#waSend').disabled = false;
+}
+$('#waChips').innerHTML = WA_CHIPS.map(c => `<button class="chip" type="button">${esc(c)}</button>`).join('');
+$('#waChips').addEventListener('click', e => { if (e.target.classList.contains('chip')) waSend(e.target.textContent); });
+$('#waForm').addEventListener('submit', e => { e.preventDefault(); waSend($('#waInput').value); });
+waBubble('Los mensajes de esta demo son simulados. Escriba como si fuera un cliente de Termimax.', 'sys');
+waBubble('¡Hola! 👋 Soy Max, el asistente de Termimax. Le ayudo con control de plagas, desinfección y limpieza de muebles y colchones. ¿En qué le puedo ayudar hoy?', 'in');
+
+/* ---------- 02 Instagram ---------- */
+const ig = { hist: [], busy: false, unread: 0 };
+const IG_SEED = [
+  ['mariel.santos', 'Jajaja esto es mi casa en verano 😂', '2 h'],
+  ['jose_rdz', '¿Precio para un apartamento de 2 habitaciones?', '1 h'],
+];
+const IG_CHIPS = ['Precio para fumigar una casa?', 'Info 🙏', '¿Limpian colchones?', '¿Van a Santiago?'];
+function igComment(user, text, meta, reply) {
+  const d = document.createElement('div');
+  d.className = 'cm' + (reply ? ' reply' : '');
+  d.innerHTML = `<b>${esc(user)}</b>${reply ? '<span class="auto">automático</span> ' : ''}${esc(text)}<span class="meta">${esc(meta)}</span>`;
+  $('#igComments').appendChild(d);
+  $('#igComments').scrollTop = 1e6;
+}
+IG_SEED.forEach(([u, t, m]) => igComment(u, t, m));
+igComment('termimaxrd', '@jose_rdz ¡Hola! Te escribimos por mensaje directo con todos los detalles 📩', '1 h', true);
+function dm(text, who) {
+  const d = document.createElement('div'); d.className = 'dm ' + who; d.textContent = text;
+  $('#dmMsgs').appendChild(d); $('#dmMsgs').scrollTop = 1e6;
+}
+function setBadge() { $('#dmBadge').textContent = ig.unread ? `(${ig.unread})` : ''; }
+async function igAsk(text) {
+  const t = typingOn($('#dmMsgs'));
+  let reply = await ask('instagram', text, ig.hist);
+  if (!reply) reply = '¡Hola! 😊 Con gusto. Te paso a WhatsApp para darte el precio exacto y agendarte en minutos 👉 wa.me/termimax';
+  t.remove();
+  dm(reply, 'in');
+  ig.hist.push({ role: 'user', content: text }, { role: 'assistant', content: reply });
+  if (!document.querySelector('#pane-dm.on')) { ig.unread++; setBadge(); }
+}
+async function igPost(text) {
+  text = text.trim();
+  if (!text || ig.busy) return;
+  ig.busy = true; $('#igSend').disabled = true;
+  $('#igInput').value = '';
+  igComment('usted', text, 'ahora');
+  await sleep(1200);
+  igComment('termimaxrd', '@usted ¡Gracias por escribirnos! Te enviamos la información por mensaje directo 📩', 'ahora', true);
+  if (ig.hist.length === 0) $('#dmMsgs').innerHTML = '<div class="dm sys">Mensaje automático enviado por el comentario en la publicación</div>';
+  dm(text, 'out');
+  addLead({ c: 'nuevo', n: 'Seguidor de Instagram', d: '"' + text.slice(0, 40) + '"', s: 'igs' });
+  await igAsk(text);
+  ig.busy = false; $('#igSend').disabled = false;
+}
+$('#igChips').innerHTML = IG_CHIPS.map(c => `<button class="chip" type="button">${esc(c)}</button>`).join('');
+$('#igChips').addEventListener('click', e => { if (e.target.classList.contains('chip')) igPost(e.target.textContent); });
+$('#igForm').addEventListener('submit', e => { e.preventDefault(); igPost($('#igInput').value); });
+$('#dmForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const v = $('#dmInput').value.trim();
+  if (!v || ig.busy) return;
+  ig.busy = true; $('#dmInput').value = '';
+  if (ig.hist.length === 0) $('#dmMsgs').innerHTML = '';
+  dm(v, 'out');
+  await igAsk(v);
+  ig.busy = false;
+});
+document.querySelectorAll('.ig-tabs button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.ig-tabs button').forEach(x => x.classList.toggle('on', x === b));
+  document.querySelectorAll('.ig-pane').forEach(p => p.classList.toggle('on', p.id === 'pane-' + b.dataset.tab));
+  if (b.dataset.tab === 'dm') { ig.unread = 0; setBadge(); }
+}));
+
+/* ---------- 03 Correo ---------- */
+const MAILS = [
+  { from: 'Carolina Méndez', org: 'Administración Residencial Torre Alba', when: '7:42 am', lab: 'Condominio',
+    subject: 'Solicitud de cotización – fumigación áreas comunes',
+    body: 'Buenos días,\n\nSoy la administradora del Residencial Torre Alba en Bella Vista (48 apartamentos, 12 pisos). Necesitamos cotización para fumigación de áreas comunes, cuarto de basura y parqueo soterrado, y control de roedores.\n\nLa asamblea de propietarios es el próximo mes y nos piden presentar al menos dos cotizaciones con certificado de servicio.\n\nGracias,\nCarolina Méndez' },
+  { from: 'Pedro Almonte', org: 'Restaurante Mar Azul', when: 'Ayer', lab: 'Restaurante',
+    subject: 'Plan mensual + certificado para Salud Pública',
+    body: 'Saludos,\n\nTenemos un restaurante en la Zona Colonial: cocina de 80 m², salón de 150 m² y almacén. En la última inspección de Salud Pública nos pidieron un certificado de fumigación vigente.\n\n¿Qué plan mensual nos recomiendan y cuánto costaría? Preferimos servicio de madrugada o lunes, que cerramos.\n\nPedro Almonte\nGerente de Operaciones' },
+  { from: 'Laura Peña', org: 'Recursos Humanos · Grupo Andes', when: 'Lun', lab: 'Oficina',
+    subject: 'Desinfección electrostática de oficinas',
+    body: 'Hola,\n\nQueremos desinfectar nuestras oficinas en Piantini (220 m² aprox., 35 estaciones de trabajo) y limpiar 40 sillas de oficina tapizadas.\n\n¿Pueden hacerlo un sábado? Necesitamos la propuesta esta semana para aprobarla.\n\nLaura Peña' },
+];
+let mailSel = 0, drafting = false;
+function renderMailList() {
+  const list = $('#mailList');
+  const pend = MAILS.filter(m => !m.done).length;
+  $('#mailNew').textContent = pend ? pend + (pend === 1 ? ' nuevo' : ' nuevos') : 'al día ✓';
+  list.querySelectorAll('.mi').forEach(n => n.remove());
+  MAILS.forEach((m, i) => {
+    const b = document.createElement('button');
+    b.className = 'mi' + (i === mailSel ? ' on' : '');
+    b.innerHTML = `<b>${esc(m.from)}<em>${m.when}</em></b><div class="s">${esc(m.subject)}</div><div class="p">${esc(m.body.split('\n').filter(Boolean)[1] || '')}</div><span class="lab">${m.done ? '✓ Respondido' : m.lab}</span>`;
+    b.onclick = () => { if (!drafting) { mailSel = i; showMail(); } };
+    list.appendChild(b);
+  });
+}
+function showMail() {
+  const m = MAILS[mailSel];
+  $('#mvSubject').textContent = m.subject;
+  $('#mvFrom').textContent = `${m.from} · ${m.org} · ${m.when}`;
+  $('#mvBody').textContent = m.body;
+  const d = $('#draft');
+  if (m.draft) { d.textContent = m.draft; d.classList.remove('wait'); } else { d.textContent = 'Toque "Redactar respuesta" y mire cómo se escribe la cotización.'; d.classList.add('wait'); }
+  $('#btnSend').disabled = !m.draft || m.done;
+  $('#btnSend').textContent = m.done ? 'Enviado ✓' : 'Aprobar y enviar';
+  $('#btnDraft').disabled = false;
+  renderMailList();
+}
+async function typeOut(el, text) {
+  el.textContent = '';
+  const words = text.split(/(\s+)/);
+  for (let i = 0; i < words.length; i++) {
+    el.textContent += words[i];
+    if (i % 2 === 0) await sleep(14);
+  }
+}
+$('#btnDraft').onclick = async () => {
+  if (drafting) return;
+  drafting = true;
+  const m = MAILS[mailSel];
+  const d = $('#draft');
+  $('#btnDraft').disabled = true; $('#btnSend').disabled = true;
+  d.classList.add('wait'); d.textContent = 'Leyendo el correo y preparando la cotización…';
+  let reply = await ask('email', `De: ${m.from}, ${m.org}. Asunto: ${m.subject}. ${m.body}`, []);
+  if (!reply) reply = `Asunto: Re: ${m.subject}\n\nEstimado(a) ${m.from}:\n\nGracias por considerar a Termimax. Para preparar una propuesta exacta le ofrecemos una inspección gratuita en sus instalaciones. Somos una empresa certificada bajo la norma ISO 9001:2015 y entregamos certificado de servicio.\n\nQuedamos atentos para coordinar el día.\n\nEquipo Comercial Termimax\nAv. Los Próceres #20, Plaza Los Próceres, Local 2C, Santo Domingo`;
+  d.classList.remove('wait');
+  await typeOut(d, reply);
+  m.draft = reply;
+  $('#btnSend').disabled = false; $('#btnDraft').disabled = false;
+  drafting = false;
+};
+$('#btnSend').onclick = () => {
+  const m = MAILS[mailSel];
+  if (!m.draft || m.done) return;
+  m.done = true;
+  const tot = m.draft.match(/(?:^|\n)[\s-]*total[^\d\n]*([\d,.]+)/i);
+  addLead({ c: 'cot', n: m.org, d: m.lab + (tot ? ' · RD$ ' + tot[1].replace(/[.,]$/, '') : ' · inspección gratuita'), s: 'em' });
+  showMail();
+};
+showMail();
+
+/* ---------- 04 Seguimiento automático ---------- */
+const TL = [
+  { when: 'Al agendar', t: 'Confirmación de la cita', s: 'Fecha, hora, dirección y cómo preparar la casa.', m: ['✅ ¡Listo, Carmen! Su fumigación quedó para el jueves a las 9:00 am en Naco.', 'Antes de la visita: guarde alimentos y utensilios, y retire las mascotas. El técnico le dará el resto de indicaciones.'] },
+  { when: '1 día antes', t: 'Recordatorio', s: 'Baja las citas perdidas y las visitas en vano.', m: ['Hola Carmen 👋 Le recordamos su servicio de mañana jueves a las 9:00 am.', 'Responda 1 para confirmar o 2 para cambiar la hora.'], r: '1' },
+  { when: 'Día del servicio', t: 'El técnico va en camino', s: 'El cliente sabe quién llega y a qué hora.', m: ['🚐 Su técnico Juan Pérez va en camino. Llegada estimada: 25 minutos.', 'Todo nuestro personal está identificado con uniforme y carnet de Termimax.'] },
+  { when: '+1 día', t: 'Encuesta y reseña', s: 'Más reseñas de 5 estrellas en Google.', m: ['¿Cómo le fue con el servicio de ayer? Califíquenos del 1 al 5 ⭐', '¡Gracias por el 5! 🙏 ¿Nos ayudaría con una reseña en Google? Le toma 30 segundos: g.page/termimax'], r: '5' },
+  { when: '+85 días', t: 'Ya le toca su mantenimiento', s: 'Clientes que vuelven sin que nadie tenga que acordarse.', m: ['Hola Carmen 🏠 Ya pasaron casi 3 meses desde su fumigación. Para mantener su casa libre de plagas le recomendamos el refuerzo.', 'Esta semana tiene 10% de descuento como cliente Termimax. ¿Le reservo un espacio?'] },
+  { when: '+48 h sin respuesta', t: 'Seguimiento de cotización', s: 'Ninguna cotización se queda olvidada.', m: ['Buenas tardes, Carolina. Le escribimos sobre la cotización para el Residencial Torre Alba.', '¿Tiene alguna pregunta o le reservamos la inspección gratuita para esta semana?'] },
+];
+let tlSel = -1;
+async function showTL(i) {
+  tlSel = i;
+  document.querySelectorAll('.tli').forEach((x, j) => x.classList.toggle('on', j === i));
+  const box = $('#miniMsgs');
+  box.innerHTML = '';
+  $('#miniWhen').textContent = 'Mensaje automático · ' + TL[i].when.toLowerCase();
+  for (let k = 0; k < TL[i].m.length; k++) {
+    await sleep(k ? 700 : 150);
+    if (tlSel !== i) return;
+    const d = document.createElement('div'); d.className = 'b in'; d.style.maxWidth = '92%';
+    d.innerHTML = esc(TL[i].m[k]) + `<span class="t">${now()}</span>`;
+    box.appendChild(d);
+    if (k === 0 && TL[i].r) {
+      await sleep(700);
+      if (tlSel !== i) return;
+      const r = document.createElement('div'); r.className = 'b out';
+      r.innerHTML = esc(TL[i].r) + `<span class="t">${now()} ✓✓</span>`;
+      box.appendChild(r);
+    }
+  }
+}
+$('#tl').innerHTML = TL.map((x, i) => `<button class="tli"><span class="when">${x.when}</span><div><b>${x.t}</b><span>${x.s}</span></div><span class="ar">→</span></button>`).join('');
+document.querySelectorAll('.tli').forEach((b, i) => b.onclick = () => showTL(i));
+showTL(0);
+
+/* ---------- revelado al scroll ---------- */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
