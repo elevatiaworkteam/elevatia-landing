@@ -1,5 +1,1 @@
 .git
-Dockerfile
-.dockerignore
-nginx.conf
-README.md
