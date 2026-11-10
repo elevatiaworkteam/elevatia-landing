@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Live AI agent demos | ElevatIA</title>
+<meta name="description" content="Try three live AI agents: a real estate assistant that qualifies buyers, a clinic assistant that takes appointment requests, and a sales workflow that turns a form into a follow-up."/>
+<meta name="robots" content="noindex, nofollow"/>
+<meta property="og:title" content="Try an AI agent before you buy one"/>
+<meta property="og:description" content="Three live demos: Real Estate AI, Appointment AI and Sales Workflow."/>
+<meta property="og:type" content="website"/>
+<link rel="canonical" href="https://www.elevatia.do/agents/"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#06041a;--card:rgba(12,8,38,.78);--line:rgba(255,255,255,.12);--fg:#fff;--muted:#a9b3d6;--blue:#2b9eee;--pink:#ee2bee;--green:#45de8e;--amber:#ffc24d;--red:#ff6b7a;
+  --sans:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"JetBrains Mono","SF Mono",Menlo,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.55;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+  radial-gradient(900px 620px at 8% -5%,rgba(8,160,247,.30),transparent 62%),
+  radial-gradient(820px 620px at 95% 18%,rgba(217,23,252,.26),transparent 60%),
+  radial-gradient(760px 560px at 50% 105%,rgba(44,60,167,.40),transparent 62%),
+  linear-gradient(180deg,#0a0626 0%,#06041a 55%,#080428 100%)}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0}
+.logo{font-weight:700;font-size:22px;letter-spacing:-.02em;background:linear-gradient(90deg,var(--blue),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent;text-decoration:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:11px 20px;font:inherit;font-weight:600;font-size:15px;text-decoration:none;cursor:pointer;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;transition:transform .2s,box-shadow .2s,background .2s}
+.btn:hover{background:rgba(255,255,255,.12)}
+.btn.primary{border:0;background:linear-gradient(135deg,var(--pink),#9b2bee);box-shadow:0 0 25px rgba(238,43,238,.35)}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(238,43,238,.6)}
+.btn:focus-visible,.tab:focus-visible,.chip:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
+.hero{padding:28px 0 26px;display:flex;flex-direction:column;gap:14px}
+h1{margin:0;font-size:clamp(34px,6vw,60px);line-height:1.04;letter-spacing:-.03em;font-weight:700;text-wrap:balance;max-width:16ch}
+h1 span{background:linear-gradient(90deg,var(--blue),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:0;color:var(--muted);max-width:60ch;font-size:18px}
+h2{margin:0;font-size:clamp(24px,3.4vw,34px);letter-spacing:-.02em;line-height:1.15;text-wrap:balance}
+h3{margin:0;font-size:18px}
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 18px}
+.tab{border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--muted);border-radius:14px;padding:12px 16px;font:inherit;font-weight:600;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:2px;flex:1 1 200px;min-width:0}
+.tab small{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500}
+.tab[aria-selected="true"]{color:#fff;border-color:var(--blue);background:rgba(43,158,238,.14);box-shadow:0 0 22px rgba(43,158,238,.22)}
+.stage{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:18px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;min-width:0}
+.card-h{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.who{display:flex;align-items:center;gap:12px;min-width:0}
+.avatar{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-weight:700;background:linear-gradient(135deg,var(--blue),var(--pink))}
+.who b{display:block;line-height:1.2}
+.who span{font-size:13px;color:var(--muted)}
+.badge{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--amber);color:var(--amber);border-radius:999px;padding:3px 10px;white-space:nowrap}
+#msgs{height:380px;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.18) transparent}
+.msg{max-width:86%;padding:10px 14px;border-radius:18px;font-size:15px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.bot{align-self:flex-start;background:rgba(255,255,255,.08);border:1px solid var(--line);border-top-left-radius:6px}
+.msg.user{align-self:flex-end;background:linear-gradient(135deg,var(--pink),#9b2bee);border-top-right-radius:6px}
+.typing span{display:inline-block;width:6px;height:6px;margin:0 2px;background:#cbd5e1;border-radius:50%;animation:blink 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:0 18px 12px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid rgba(43,158,238,.45);background:rgba(43,158,238,.08);color:#cfe8ff;padding:7px 13px;border-radius:999px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.chip:hover{background:rgba(43,158,238,.2)}
+.send{display:flex;gap:10px;padding:14px 18px;border-top:1px solid var(--line)}
+input,textarea{font:inherit;color:#fff;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:12px;padding:11px 14px;width:100%;min-width:0}
+textarea{resize:vertical;min-height:96px}
+input::placeholder,textarea::placeholder{color:#7f89ad}
+.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:0 18px 14px;font-size:12px;color:var(--muted)}
+.foot button{background:none;border:0;color:var(--muted);font:inherit;font-size:12px;cursor:pointer;text-decoration:underline;padding:0}
+form.lead{padding:18px;display:flex;flex-direction:column;gap:12px}
+form.lead label{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.side{padding:18px;display:flex;flex-direction:column;gap:16px}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.steps li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:center;font-size:14px;color:var(--muted)}
+.steps i{width:22px;height:22px;border-radius:7px;border:1px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:12px}
+.steps li.done{color:#fff}.steps li.done i{border-color:var(--green);color:var(--green);background:rgba(69,222,142,.12)}
+.steps li.now{color:#fff}.steps li.now i{border-color:var(--blue);box-shadow:0 0 12px rgba(43,158,238,.6)}
+dl.fields{margin:0;display:grid;gap:8px}
+dl.fields div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px;font-size:14px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.04)}
+dl.fields dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);align-self:center}
+dl.fields dd{margin:0;overflow-wrap:anywhere}
+dl.fields dd.empty{color:#69739a}
+dl.fields div.fresh{animation:pop .9s ease}
+@keyframes pop{0%{background:rgba(69,222,142,.35)}100%{background:rgba(255,255,255,.04)}}
+.alert{border:1px solid var(--amber);background:rgba(255,194,77,.1);color:#ffe2a6;border-radius:12px;padding:10px 12px;font-size:14px}
+.pipe{display:flex;flex-direction:column;gap:10px}
+.pipe .p{border:1px solid var(--line);border-radius:12px;padding:12px;opacity:.35;transition:opacity .4s,border-color .4s}
+.pipe .p.on{opacity:1;border-color:rgba(69,222,142,.6)}
+.pipe .p b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:4px}
+.pipe .p span{font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.pill{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:2px 9px;border:1px solid}
+.pill.high{color:var(--green);border-color:var(--green)}.pill.medium{color:var(--amber);border-color:var(--amber)}.pill.low{color:var(--muted);border-color:var(--muted)}
+section.block{padding:56px 0 0}
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:22px}
+.three .card{padding:20px;display:flex;flex-direction:column;gap:8px}
+.three p{margin:0;color:var(--muted);font-size:15px}
+.cta{margin-top:56px;padding:34px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px;border:1px solid rgba(238,43,238,.35);box-shadow:0 0 30px rgba(238,43,238,.12)}
+.cta p{margin:0;color:var(--muted);max-width:56ch}
+footer{padding:36px 0 44px;color:var(--muted);font-size:13px;max-width:80ch}
+[hidden]{display:none!important}
+@media (max-width:860px){.stage{grid-template-columns:minmax(0,1fr)}#msgs{height:340px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="https://www.elevatia.do/">ElevatIA</a>
+    <a class="btn" href="#book" data-cta="header">Book a free diagnostic</a>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow">Live demos · fictional companies</span>
+    <h1>Try an AI agent <span>before you buy one.</span></h1>
+    <p>Pick a demo and talk to it like a customer would. On the right you will see what the agent captures for the business while it answers.</p>
+  </section>
+
+  <div class="tabs" role="tablist" aria-label="Demos">
+    <button class="tab" role="tab" id="tab-realestate" data-demo="realestate" aria-selected="true"><small>Real estate</small>Real Estate AI</button>
+    <button class="tab" role="tab" id="tab-clinic" data-demo="clinic" aria-selected="false"><small>Aesthetic clinics</small>Appointment AI</button>
+    <button class="tab" role="tab" id="tab-sales" data-demo="sales" aria-selected="false"><small>B2B agencies</small>Sales Workflow</button>
+  </div>
+
+  <div class="stage">
+    <!-- izquierda: chat o formulario -->
+    <div class="card">
+      <div class="card-h">
+        <div class="who"><div class="avatar" id="avatar">M</div><div><b id="agentName">Maya</b><span id="agentRole">AI assistant · Palm Key Realty</span></div></div>
+        <span class="badge">Demo</span>
+      </div>
+      <div id="chatBox">
+        <div id="msgs" aria-live="polite"></div>
+        <div class="chips" id="chips"></div>
+        <form class="send" id="sendForm" autocomplete="off">
+          <input id="input" type="text" maxlength="400" placeholder="Type your message…" aria-label="Your message"/>
+          <button class="btn primary" type="submit">Send</button>
+        </form>
+        <div class="foot"><span id="quota"></span><button type="button" id="restart">Start over</button></div>
+      </div>
+      <form class="lead" id="leadForm" hidden autocomplete="off">
+        <p style="margin:0;color:var(--muted);font-size:14px">This is the contact form on Northbay Agency's website. Fill it in like a prospect would, or use the sample.</p>
+        <label for="fName">First name<input id="fName" maxlength="80" placeholder="Jordan"/></label>
+        <label for="fCompany">Company<input id="fCompany" maxlength="120" placeholder="Brightline Dental"/></label>
+        <label for="fNeed">What do you need help with?<textarea id="fNeed" maxlength="600" placeholder="We want our website leads to go straight into our CRM and get a follow-up the same day."></textarea></label>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn primary" type="submit" id="fSubmit">Submit the form</button>
+          <button class="btn" type="button" id="fSample">Use the sample</button>
+        </div>
+        <div class="foot" style="padding:0"><span id="quota2"></span><span>Use made-up details. Nothing is saved.</span></div>
+      </form>
+    </div>
+
+    <!-- derecha: lo que captura el agente -->
+    <div class="card">
+      <div class="card-h"><h3 id="sideTitle">What the agent captured</h3><span class="eyebrow" id="sideTag">CRM lead</span></div>
+      <div class="side" id="sideChat">
+        <ol class="steps" id="steps"></ol>
+        <div class="alert" id="handoff" hidden>Handed off to the front desk with the full conversation.</div>
+        <dl class="fields" id="fields"></dl>
+      </div>
+      <div class="side" id="sideSales" hidden>
+        <div class="pipe" id="pipe">
+          <div class="p" data-k="lead"><b>1 · Lead created in the CRM</b><span>Waiting for a form…</span></div>
+          <div class="p" data-k="notification"><b>2 · Sales team notified</b><span>—</span></div>
+          <div class="p" data-k="task"><b>3 · Follow-up task scheduled</b><span>—</span></div>
+          <div class="p" data-k="crm"><b>4 · CRM status updated</b><span>—</span></div>
+          <div class="p" data-k="reply"><b>5 · Reply sent to the prospect</b><span>—</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="block">
+    <span class="eyebrow">What you just saw</span>
+    <h2>The agent talks. The business gets the record.</h2>
+    <div class="three">
+      <div class="card"><h3>It answers right away</h3><p>On WhatsApp, Instagram or your website, at any hour, using only the information you approve.</p></div>
+      <div class="card"><h3>It asks the right questions</h3><p>Budget, area, service, day. Every answer lands in your CRM without anyone copying it.</p></div>
+      <div class="card"><h3>It hands off to your people</h3><p>Your team is notified when a lead is ready, or the moment someone needs a person.</p></div>
+    </div>
+  </section>
+
+  <section class="card cta" id="book">
+    <h2>Want this for your business?</h2>
+    <p>In a free 20-minute diagnostic we look at where an AI agent would save your team the most time. No commitment.</p>
+    <a class="btn primary" id="bookBtn" href="#" target="_blank" rel="noopener" data-cta="book">Book a free diagnostic</a>
+  </section>
+
+  <footer>
+    Palm Key Realty, Lumina Aesthetics and Northbay Agency are fictional companies created for these demos. No prices are loaded and no appointment or visit is real. Messages are processed by an AI model to generate the answers; please do not share personal or sensitive information. Built by ElevatIA · <a href="https://www.elevatia.do/privacidad/">Privacy</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  // ================= CONFIGURACIÓN =================
+  const AGENTS_WEBHOOK = 'https://n8n.elevatia.do/webhook/demo-agents';
+  const EVENTS_WEBHOOK = 'https://n8n.elevatia.do/webhook/demo-eventos';
+  const CAL_URL  = '';                 // Enlace de agenda (Cal.com / Calendly). Vacío = WhatsApp
+  const WHATSAPP = '18098606379';
+  const AI_LIMIT = 20;                 // Llamadas a la IA por visitante y día
+  // =================================================
+
+  const DEMOS = {
+    realestate: { name:'Maya', role:'AI assistant · Palm Key Realty', tag:'CRM lead',
+      hello:"Hi! I'm Maya, the AI assistant at Palm Key Realty. Ask me about a listing, for example the 3-bedroom home on Palm Ave.",
+      chips:['Is the Palm Ave home still available?','Do you have anything in Brickell?','I want to visit this week'],
+      steps:[['new','Inquiry received'],['qualifying','Qualifying the buyer'],['qualified','Buyer qualified'],['visit_proposed','Visit proposed'],['visit_booked','Visit booked · agent notified']],
+      fields:[['name','Name'],['listing','Listing'],['budget','Budget'],['area','Area'],['timeline','Timeline'],['financing','Financing'],['visit','Visit']] },
+    clinic: { name:'Lia', role:'AI assistant · Lumina Aesthetics', tag:'Appointment request',
+      hello:"Hi! I'm Lia, the AI assistant at Lumina Aesthetics. I can tell you about our treatments and check available times.",
+      chips:['What does the Signature Facial include?','Any time available this week?','Can I talk to a person?'],
+      steps:[['new','Question received'],['info','Approved info shared'],['scheduling','Checking availability'],['request_sent','Request sent to the front desk']],
+      fields:[['name','Name'],['service','Service'],['day','Day'],['time','Time'],['notes','Notes']] }
+  };
+  const $ = id => document.getElementById(id);
+  const msgs = $('msgs'), input = $('input');
+  let demo = 'realestate', history = [], fields = {}, stage = 'new', busy = false;
+
+  // ---------- sesión, UTM y medición ----------
+  function rid(){ return Math.random().toString(36).slice(2,10) + Date.now().toString(36); }
+  let SID = ''; try { SID = localStorage.getItem('demo_sid') || ''; if(!SID){ SID = rid(); localStorage.setItem('demo_sid', SID); } } catch(e){ SID = rid(); }
+  const params = new URLSearchParams(location.search), UTM = {};
+  ['utm_source','utm_medium','utm_campaign'].forEach(k => { let v = params.get(k) || ''; try { if (v) sessionStorage.setItem(k, v); else v = sessionStorage.getItem(k) || ''; } catch(e){} UTM[k] = v; });
+  const DEVICE = /Mobi|Android/i.test(navigator.userAgent) ? 'movil' : 'escritorio';
+  function track(evento, detalle){
+    if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return;   // las pruebas locales no cuentan en las métricas
+    try { fetch(EVENTS_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, keepalive:true,
+      body: JSON.stringify({ evento:'en_'+evento, detalle: detalle || '', sesion: SID, utm_source: UTM.utm_source, utm_medium: UTM.utm_medium, utm_campaign: UTM.utm_campaign, referencia:(document.referrer||'').slice(0,160), dispositivo: DEVICE }) }).catch(()=>{}); } catch(e){}
+  }
+
+  // ---------- cuota diaria ----------
+  const qKey = () => 'agents_q_' + new Date().toISOString().slice(0,10);
+  const used = () => { try { return parseInt(localStorage.getItem(qKey()) || '0', 10) || 0; } catch(e){ return 0; } };
+  const bump = () => { try { localStorage.setItem(qKey(), String(used()+1)); } catch(e){} };
+  function renderQuota(){ const left = Math.max(0, AI_LIMIT - used()), t = left + (left === 1 ? ' try left today' : ' tries left today'); $('quota').textContent = t; $('quota2').textContent = t; }
+
+  // ---------- chat ----------
+  function add(role, text){ const d = document.createElement('div'); d.className = 'msg ' + role; d.textContent = text; msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight; return d; }
+  function typing(){ const d = document.createElement('div'); d.className = 'msg bot typing'; d.innerHTML = '<span></span><span></span><span></span>'; msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight; return d; }
+  function renderSide(fresh){
+    const D = DEMOS[demo]; if (!D) return;
+    const order = D.steps.map(s => s[0]), at = Math.max(0, order.indexOf(stage));
+    $('steps').innerHTML = D.steps.map((s,i) => `<li class="${i < at || (i === at && i === order.length-1) ? 'done' : i === at ? 'now' : ''}"><i>${i < at || (i === at && i === order.length-1) ? '✓' : i+1}</i><span>${s[1]}</span></li>`).join('');
+    $('handoff').hidden = stage !== 'handoff';
+    const dl = $('fields'); dl.innerHTML = '';
+    D.fields.forEach(([k, label]) => {
+      const v = String(fields[k] || '').trim(), row = document.createElement('div');
+      if (fresh && fresh.includes(k)) row.className = 'fresh';
+      const dt = document.createElement('dt'); dt.textContent = label;
+      const dd = document.createElement('dd'); dd.textContent = v || 'Not yet'; if (!v) dd.className = 'empty';
+      row.append(dt, dd); dl.appendChild(row);
+    });
+  }
+  async function call(payload){
+    const r = await fetch(AGENTS_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    if (!r.ok) throw new Error('http ' + r.status);
+    return r.json();
+  }
+  async function send(text){
+    text = String(text || '').trim(); if (!text || busy) return;
+    if (used() >= AI_LIMIT){ add('bot', "You've reached today's limit for this demo. Book a free diagnostic below and we'll show you the full version."); return; }
+    busy = true; input.value = ''; add('user', text);
+    const t = typing();
+    if (!history.length) track('chat_inicio', demo);
+    track('chat_mensaje', demo);
+    try {
+      const res = await call({ demo, message: text, history, fields });
+      bump(); renderQuota(); t.remove();
+      const reply = String(res.reply || '').trim() || 'Sorry, I could not answer that. Please try again.';
+      add('bot', reply);
+      history.push({ role:'user', content:text }, { role:'assistant', content:reply });
+      const fresh = [];
+      if (res.fields && typeof res.fields === 'object') Object.keys(res.fields).forEach(k => { const v = String(res.fields[k] || '').trim(); if (v && v !== fields[k]) { fields[k] = v; fresh.push(k); } });
+      if (res.handoff === true) stage = 'handoff'; else if (res.stage) stage = String(res.stage);
+      renderSide(fresh);
+      if (stage === 'visit_booked' || stage === 'request_sent') track('solicitud_simulada', demo);
+    } catch(e){
+      t.remove(); add('bot', 'The demo is busy right now. Please try again in a moment.'); track('chat_error', demo);
+    }
+    busy = false; input.focus();
+  }
+  function startChat(){
+    const D = DEMOS[demo]; history = []; fields = {}; stage = 'new'; msgs.innerHTML = '';
+    add('bot', D.hello);
+    $('chips').innerHTML = ''; D.chips.forEach(c => { const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = c; b.addEventListener('click', () => send(c)); $('chips').appendChild(b); });
+    renderSide();
+  }
+
+  // ---------- sales workflow ----------
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  function setPipe(k, text, on){ const p = document.querySelector('.pipe .p[data-k="'+k+'"]'); p.querySelector('span').textContent = text; p.classList.toggle('on', !!on); }
+  function resetPipe(){ setPipe('lead','Waiting for a form…',false); ['notification','task','crm','reply'].forEach(k => setPipe(k,'—',false)); }
+  $('fSample').addEventListener('click', () => { $('fName').value = 'Jordan'; $('fCompany').value = 'Brightline Dental'; $('fNeed').value = 'We want our website leads to go straight into our CRM and get a follow-up the same day.'; });
+  $('leadForm').addEventListener('submit', async ev => {
+    ev.preventDefault(); if (busy) return;
+    const form = { name: $('fName').value.trim(), company: $('fCompany').value.trim(), need: $('fNeed').value.trim() };
+    if (!form.name || !form.need){ setPipe('lead','Add at least a first name and what they need.',false); return; }
+    if (used() >= AI_LIMIT){ setPipe('lead',"You've reached today's limit for this demo.",false); return; }
+    busy = true; $('fSubmit').disabled = true; $('fSubmit').textContent = 'Running the workflow…'; resetPipe(); setPipe('lead','Creating the lead…',false);
+    track('workflow_enviado','sales');
+    try {
+      const r = await call({ demo:'sales', form }); bump(); renderQuota();
+      const L = r.lead || {}, T = r.task || {};
+      const p = document.querySelector('.pipe .p[data-k="lead"] span'); p.textContent = '';
+      p.append(`${L.name || form.name} · ${L.company || form.company || 'No company given'}\n${L.need || ''}\nService: ${L.service_match || 'To be reviewed'}\nPriority: `);
+      const pill = document.createElement('i'); pill.className = 'pill ' + (['high','medium','low'].includes(L.priority) ? L.priority : 'low'); pill.style.fontStyle = 'normal'; pill.textContent = L.priority || 'low'; p.append(pill, L.priority_reason ? ' ' + L.priority_reason : '');
+      document.querySelector('.pipe .p[data-k="lead"]').classList.add('on');
+      await wait(700); setPipe('notification', r.notification || 'New lead received.', true);
+      await wait(700); setPipe('task', `${T.title || 'Follow up with the lead'}\nOwner: ${T.owner || 'Account Executive'} · Due: ${T.due || 'next business day'}`, true);
+      await wait(700); setPipe('crm', r.crm_status || 'New lead, contact pending', true);
+      await wait(700); setPipe('reply', r.reply || 'Thanks for reaching out. The Northbay Team.', true);
+    } catch(e){ setPipe('lead','The demo is busy right now. Please try again in a moment.',false); track('chat_error','sales'); }
+    busy = false; $('fSubmit').disabled = false; $('fSubmit').textContent = 'Submit the form';
+  });
+
+  // ---------- pestañas ----------
+  function select(d, user){
+    demo = ['realestate','clinic','sales'].includes(d) ? d : 'realestate';
+    document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', t.dataset.demo === demo ? 'true' : 'false'));
+    const sales = demo === 'sales';
+    $('chatBox').hidden = sales; $('leadForm').hidden = !sales; $('sideChat').hidden = sales; $('sideSales').hidden = !sales;
+    if (sales){ $('avatar').textContent = 'N'; $('agentName').textContent = 'Northbay Agency'; $('agentRole').textContent = 'Website form → automated sales workflow'; $('sideTitle').textContent = 'What happens automatically'; $('sideTag').textContent = 'Workflow'; resetPipe(); }
+    else { const D = DEMOS[demo]; $('avatar').textContent = D.name[0]; $('agentName').textContent = D.name; $('agentRole').textContent = D.role; $('sideTitle').textContent = 'What the agent captured'; $('sideTag').textContent = D.tag; startChat(); }
+    if (user) track('demo', demo);
+  }
+  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => select(t.dataset.demo, true)));
+  $('sendForm').addEventListener('submit', ev => { ev.preventDefault(); send(input.value); });
+  $('restart').addEventListener('click', () => { startChat(); track('chat_reinicio', demo); });
+
+  // ---------- CTA ----------
+  const wa = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent("Hi ElevatIA! I tried the AI agent demos and I'd like to book the free 20-minute diagnostic.");
+  $('bookBtn').href = CAL_URL || wa;
+  document.querySelectorAll('[data-cta]').forEach(a => a.addEventListener('click', () => track('click_cta', a.dataset.cta)));
+
+  renderQuota();
+  select(params.get('demo') || 'realestate', false);
+  let seen = false; try { seen = sessionStorage.getItem('agents_visita') === '1'; sessionStorage.setItem('agents_visita','1'); } catch(e){}
+  if (!seen) track('visita', params.get('demo') || 'realestate');
+})();
+</script>
+</body></html>
