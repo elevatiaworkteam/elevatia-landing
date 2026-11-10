@@ -14,7 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Inter+Tight:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
 <style>
 /* Editorial: fotos a sangre, titulares condensados enormes, papel crema y tinta. Sin brillos ni degradados. */
-:root{--paper:#f3efe6;--paper2:#e9e3d6;--card:#fffdf8;--ink:#15150f;--ink2:#56554b;--line:rgba(21,21,15,.16);--blue:#2c3ca7;--mark:#ffe17a;--ok:#1f7a4d;--warn:#a85b00;
+:root{--paper:#f3efe6;--paper2:#e9e3d6;--card:#fffdf8;--ink:#15150f;--ink2:#56554b;--line:rgba(21,21,15,.16);--blue:#2c3ca7;--sky:#08a0f7;--violet:#d917fc;--navy:#070a26;--grad:linear-gradient(90deg,#08a0f7 0%,#2c3ca7 52%,#d917fc 100%);--gradl:linear-gradient(90deg,#6fd3ff 0%,#a99bff 55%,#f28bff 100%);--mark:rgba(8,160,247,.26);--ok:#1f7a4d;--warn:#a85b00;
   --display:"Anton","Impact","Arial Narrow",sans-serif;--body:"Inter Tight","Helvetica Neue",Arial,sans-serif;--mono:"IBM Plex Mono","SF Mono",Menlo,monospace;--gut:clamp(18px,4vw,56px)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -24,12 +24,14 @@ a{color:inherit}
 .mono{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
 .pill{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:14px 24px;font:600 15px var(--body);text-decoration:none;cursor:pointer;border:1px solid currentColor;background:transparent;color:inherit;transition:background .2s,color .2s,transform .2s}
 .pill:hover{transform:translateY(-2px)}
-.pill.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pill.solid{background:var(--grad);color:#fff;border-color:transparent}
+.gt{font-style:normal;background:var(--gradl);-webkit-background-clip:text;background-clip:text;color:transparent}
 .pill.light{background:var(--paper);color:var(--ink);border-color:var(--paper)}
 :focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 
 /* ---------- portada ---------- */
 .hero{position:relative;min-height:min(92vh,980px);display:flex;flex-direction:column;justify-content:space-between;color:#fff;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0 0 auto;height:6px;background:var(--grad);z-index:1}
 .hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,10,6,.55) 0%,rgba(10,10,6,.08) 34%,rgba(10,10,6,.78) 100%)}
 nav{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px var(--gut)}
@@ -44,17 +46,18 @@ h1{margin:14px 0 0;font:400 clamp(60px,13.2vw,208px)/.88 var(--display);text-tra
 .hero-side p{margin:0;font-size:18px;line-height:1.45;max-width:34ch}
 
 /* ---------- cinta ---------- */
-.tape{background:var(--ink);color:var(--paper);overflow:hidden;white-space:nowrap;padding:14px 0}
+.tape{background:var(--navy);color:var(--paper);overflow:hidden;white-space:nowrap;padding:14px 0}
 .tape div{display:inline-block;font:400 clamp(22px,3vw,38px)/1 var(--display);text-transform:uppercase;letter-spacing:.02em;animation:slide 38s linear infinite}
-.tape span{margin:0 26px;opacity:.5}
+.tape span{margin:0 26px;color:var(--sky)}
 @keyframes slide{to{transform:translateX(-50%)}}
 
 /* ---------- cada demo ---------- */
 .demo{padding:clamp(56px,8vw,120px) var(--gut)}
-.demo.dark{background:var(--ink);color:var(--paper)}
-.demo.dark .lede{color:#bdb9aa}
+.demo.dark{background:var(--navy);color:var(--paper)}
+.demo.dark .lede{color:#b9bfdc}
 .head{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(20px,4vw,60px);align-items:end;margin-bottom:clamp(28px,4vw,56px)}
-.num{font:400 clamp(20px,2vw,26px)/1 var(--display);letter-spacing:.06em}
+.num{display:inline-block;font:400 clamp(20px,2vw,26px)/1 var(--display);letter-spacing:.06em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.demo.dark .num{background-image:var(--gradl)}
 h2{margin:10px 0 0;font:400 clamp(52px,9.4vw,150px)/.9 var(--display);text-transform:uppercase}
 .lede{margin:0 0 14px;color:var(--ink2);font-size:19px;max-width:44ch}
 .tags{display:flex;flex-wrap:wrap;gap:8px}
@@ -71,13 +74,13 @@ figure{margin:0}
 .demo.dark .card{border-color:transparent}
 .card-h{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
 .who{display:flex;align-items:center;gap:12px;min-width:0}
-.av{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:var(--paper);font:400 20px var(--display)}
+.av{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--grad);color:#fff;font:400 20px var(--display)}
 .who b{display:block;line-height:1.2}
 .who small{color:var(--ink2);font-size:13px}
 .msgs{flex:1;height:360px;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin}
 .msg{max-width:88%;padding:11px 15px;border-radius:20px;font-size:15.5px;line-height:1.42;white-space:pre-wrap;overflow-wrap:anywhere}
 .msg.bot{align-self:flex-start;background:var(--paper2);border-bottom-left-radius:6px}
-.msg.user{align-self:flex-end;background:var(--ink);color:var(--paper);border-bottom-right-radius:6px}
+.msg.user{align-self:flex-end;background:var(--blue);color:#fff;border-bottom-right-radius:6px}
 .typing span{display:inline-block;width:6px;height:6px;margin:0 2px;background:var(--ink2);border-radius:50%;animation:blink 1.2s infinite}
 .typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
 @keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
@@ -88,7 +91,7 @@ figure{margin:0}
 .send{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line)}
 input,textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:12px 18px;width:100%;min-width:0}
 textarea{border-radius:18px;resize:vertical;min-height:110px}
-.go{flex:none;width:48px;height:48px;border-radius:50%;border:0;background:var(--ink);color:var(--paper);font-size:20px;cursor:pointer}
+.go{flex:none;width:48px;height:48px;border-radius:50%;border:0;background:var(--blue);color:#fff;font-size:20px;cursor:pointer}
 .foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:0 18px 14px;font-size:12.5px;color:var(--ink2)}
 .foot button{background:none;border:0;color:inherit;font:inherit;cursor:pointer;text-decoration:underline;padding:0}
 .rec{padding:18px;display:flex;flex-direction:column;gap:18px}
@@ -98,7 +101,7 @@ textarea{border-radius:18px;resize:vertical;min-height:110px}
 .steps li::after{content:"";position:absolute;left:8.5px;top:17px;bottom:-3px;width:1px;background:var(--line)}
 .steps li:last-child{padding-bottom:0}.steps li:last-child::after{display:none}
 .steps li.done{color:var(--ink)}.steps li.done::before{background:var(--ok);border-color:var(--ok)}
-.steps li.now{color:var(--ink);font-weight:600}.steps li.now::before{background:var(--ink);border-color:var(--ink)}
+.steps li.now{color:var(--ink);font-weight:600}.steps li.now::before{background:var(--sky);border-color:var(--sky)}
 dl{margin:0;display:flex;flex-direction:column}
 dl div{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:9px 0;border-top:1px dashed var(--line);font-size:15px}
 dt{color:var(--ink2);align-self:center}
@@ -116,7 +119,7 @@ form.lead p{margin:0;color:var(--ink2);font-size:15px}
 .pipe li::before{content:counter(p);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;border:1px solid var(--ink2);display:grid;place-items:center;font:500 13px var(--mono);background:var(--card)}
 .pipe li::after{content:"";position:absolute;left:15px;top:32px;bottom:2px;width:1px;background:var(--line)}
 .pipe li:last-child{padding-bottom:0}.pipe li:last-child::after{display:none}
-.pipe li.on{opacity:1}.pipe li.on::before{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pipe li.on{opacity:1}.pipe li.on::before{background:var(--blue);color:#fff;border-color:var(--blue)}
 .pipe b{display:block;margin-bottom:3px}
 .pipe span{font-size:15px;color:var(--ink2);white-space:pre-wrap;overflow-wrap:anywhere}
 .pipe li.on span{color:var(--ink)}
@@ -125,6 +128,7 @@ form.lead p{margin:0;color:var(--ink2);font-size:15px}
 
 /* ---------- cierre ---------- */
 .three{padding:clamp(56px,8vw,110px) var(--gut);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,48px);border-top:1px solid var(--line)}
+.three .mono{color:var(--blue)}
 .three h3{margin:14px 0 8px;font:400 clamp(30px,3.4vw,46px)/1 var(--display);text-transform:uppercase}
 .three p{margin:0;color:var(--ink2)}
 .cta{position:relative;color:#fff;isolation:isolate;padding:clamp(80px,13vw,190px) var(--gut);display:flex;flex-direction:column;gap:26px;align-items:flex-start}
@@ -132,7 +136,7 @@ form.lead p{margin:0;color:var(--ink2);font-size:15px}
 .cta::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(10,10,6,.78),rgba(10,10,6,.25))}
 .cta h2{max-width:10ch}
 .cta p{margin:0;font-size:20px;max-width:40ch}
-footer{background:var(--ink);color:#a8a497;padding:34px var(--gut) 44px;font-size:13.5px}
+footer{background:var(--navy);color:#a4abcc;padding:34px var(--gut) 44px;font-size:13.5px}
 footer p{margin:0;max-width:90ch}
 [hidden]{display:none!important}
 @media (max-width:1040px){.grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.photo{grid-column:1/-1;min-height:300px}}
@@ -159,11 +163,11 @@ footer p{margin:0;max-width:90ch}
   <div class="hero-b">
     <div>
       <span class="mono">Live demos — the companies are made up, the agents are real</span>
-      <h1>Talk to it like a customer would.</h1>
+      <h1>Talk to it like a <em class="gt">customer</em> would.</h1>
     </div>
     <div class="hero-side">
       <p>Three AI agents you can try right now. Ask a question the way your customers do and watch what the business receives.</p>
-      <a class="pill light" href="#realestate">Start with real estate ↓</a>
+      <a class="pill solid" href="#realestate">Start with real estate ↓</a>
     </div>
   </div>
 </header>
@@ -272,9 +276,9 @@ footer p{margin:0;max-width:90ch}
 <section class="cta" id="book">
   <img src="img/coast.jpg" alt="Miami coastline at golden hour" loading="lazy"/>
   <span class="mono">Free · 20 minutes · no commitment</span>
-  <h2>Want this for your business?</h2>
+  <h2>Want this for your <em class="gt">business?</em></h2>
   <p>We look at how your leads arrive today and where an agent would take work off your team.</p>
-  <a class="pill light" id="bookBtn" href="#" target="_blank" rel="noopener" data-cta="book">Book a free diagnostic →</a>
+  <a class="pill solid" id="bookBtn" href="#" target="_blank" rel="noopener" data-cta="book">Book a free diagnostic →</a>
 </section>
 
 <footer><p>Palm Key Realty, Lumina Aesthetics and Northbay Agency are fictional companies created for these demos. No prices are loaded and no visit or appointment is real. Your messages are processed by an AI model to write the answers, so please do not share personal or sensitive information. Made by ElevatIA · <a href="https://www.elevatia.do/privacidad/">Privacy</a></p></footer>
