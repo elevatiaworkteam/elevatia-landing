@@ -4,14 +4,28 @@
 // Las animaciones son cuadros sueltos ya cargados en memoria: responden al instante, sin congelarse.
 
 const BASES = { vaso20: ['vaso', 0.88], vaso30: ['vaso', 1], vaso40: ['asa', 1], termo18: ['termo', 0.84], termo36: ['termo', 0.93], termo64: ['termo', 1], taza14: ['taza', 0.86], lata12: ['lata', 0.86] };
-const FOTOS = ['vaso-4k', 'vaso', 'asa', 'termo', 'taza', 'lata', 'vaso-corte', 'asa-corte', 'termo-corte', 'taza-corte', 'lata-corte'];
+const FOTOS = ['vaso-4k', 'vaso-2k', 'vaso', 'asa', 'termo', 'taza', 'lata', 'vaso-corte', 'asa-corte', 'termo-corte', 'taza-corte', 'lata-corte'];
 // qué parte del alto ocupa la tapa (zona donde se hace clic) y dónde va el punto de ayuda
 const TAPA = { vaso: [0.2, 0.5], asa: [0.3, 0.38], termo: [0.25, 0.5], taza: [0.3, 0.4], lata: [0.34, 0.5] };
 export const base = forma => (BASES[forma] || BASES.vaso30)[0];
 export const tiene = (forma, tipo) => FOTOS.includes(`${base(forma)}-${tipo}`);
 
 const rgb = hex => { const n = parseInt(hex.slice(1), 16); return [(n >> 16 & 255) / 255, (n >> 8 & 255) / 255, (n & 255) / 255]; };
-const W = 1080, H = 1440;
+// En celulares y tabletas se usa una versión liviana de las secuencias (540×720, mitad de cuadros).
+export const MOVIL = window.matchMedia('(max-width: 860px), (pointer: coarse)').matches;
+// Modo simple: imágenes normales en vez de ImageBitmap. Se usa en celular y en Safari,
+// donde las opciones de ImageBitmap no se comportan igual que en Chrome.
+const SAFARI = /^((?!chrome|chromium|android|edg).)*safari/i.test(navigator.userAgent);
+const SIMPLE = MOVIL || SAFARI || !window.createImageBitmap;
+const RAIZ = MOVIL ? 'real/m/' : 'real/';
+const FINO = MOVIL ? 'vaso-2k' : 'vaso-4k'; // foto para los acercamientos
+const W = MOVIL ? 540 : 1080, H = MOVIL ? 720 : 1440;
+// Avisa cuando un elemento entra o sale de la pantalla (para pausar lo que no se ve).
+function alVer(el, cb, margen = '0px') {
+  if (!('IntersectionObserver' in window)) { cb(true); return { disconnect() {} }; }
+  const o = new IntersectionObserver(es => cb(es[es.length - 1].isIntersecting), { rootMargin: margen });
+  o.observe(el); return o;
+}
 
 // ---------- Pintor WebGL compartido ----------
 const lienzoGL = document.createElement('canvas');
@@ -81,8 +95,8 @@ const imgs = {};
 let indice = {}, _listo;
 export function listo() {
   _listo ||= Promise.all([
-    fetch('real/cuadros.json', { cache: 'no-store' }).then(r => r.json()).then(j => { indice = j; }).catch(() => {}),
-    ...FOTOS.map(n => new Promise(res => { const im = new Image(); im.onload = () => { imgs[n] = im; res(); }; im.onerror = res; im.src = `real/${n}.webp`; })),
+    fetch(RAIZ + 'cuadros.json', { cache: 'no-store' }).then(r => r.json()).then(j => { indice = j; }).catch(() => {}),
+    ...FOTOS.filter(n => !n.startsWith('vaso-') || !/-[24]k$/.test(n) || n === FINO).map(n => new Promise(res => { const im = new Image(); im.onload = () => { imgs[n] = im; res(); }; im.onerror = res; im.src = `real/${n}.webp`; })),
   ]);
   return _listo;
 }
@@ -98,18 +112,24 @@ function secuencia(nombre) {
   let k = 0;
   const siguiente = () => {
     if (k >= orden.length) return;
-    const i = orden[k++];
-    fetch(`real/${nombre}/${String(i).padStart(3, '0')}.webp`).then(r => (r.ok ? r.blob() : null))
-      .then(bl => { if (bl) { s.imgs[i] = bl; s.cargados++; } })
-      .catch(() => {}).finally(siguiente);
+    const i = orden[k++], url = `${RAIZ}${nombre}/${String(i).padStart(3, '0')}.webp`;
+    if (SIMPLE) {
+      const im = new Image();
+      im.onload = () => { (im.decode ? im.decode().catch(() => {}) : Promise.resolve()).then(() => { s.imgs[i] = im; s.cargados++; siguiente(); }); };
+      im.onerror = siguiente;
+      im.src = url;
+    } else {
+      fetch(url).then(r => (r.ok ? r.blob() : null))
+        .then(bl => { if (bl) { s.imgs[i] = bl; s.cargados++; } })
+        .catch(() => {}).finally(siguiente);
+    }
   };
-  for (let c = 0; c < 8; c++) siguiente();
+  for (let c = 0; c < (MOVIL ? 5 : 8); c++) siguiente();
   _sec.set(nombre, s);
   return s;
 }
 // Cuadros ya decodificados (ImageBitmap): se decodifican fuera del hilo principal y dibujarlos no cuesta nada.
 // Solo se guardan los usados más recientemente (entre todas las secuencias) para no llenar la memoria.
-const MOVIL = Math.min(window.innerWidth, window.innerHeight) < 700;
 const BM_W = MOVIL ? 630 : 900, BM_H = MOVIL ? 840 : 1200, MAX_BM = MOVIL ? 60 : 84;
 // en computadora se usa el cuadro completo (1080×1440); en celular se reduce para cuidar la memoria
 const OPC_BM = MOVIL ? { premultiplyAlpha: 'none', imageOrientation: 'flipY', resizeWidth: BM_W, resizeHeight: BM_H, resizeQuality: 'low' } : { premultiplyAlpha: 'none', imageOrientation: 'flipY' };
@@ -119,7 +139,9 @@ function descartar() {
   for (const q of _sec.values()) for (const [k, v] of q.bm) if (v.t < tv) { tv = v.t; kv = k; sv = q; }
   if (sv) { sv.bm.get(kv).bm.close(); sv.bm.delete(kv); totalBM--; }
 }
+const listoCuadro = (s, i) => (SIMPLE ? !!s.imgs[i] : s.bm.has(i));
 function pedir(s, i) {
+  if (SIMPLE) return s.imgs[i] || null;
   const e = s.bm.get(i);
   if (e) { e.t = ++reloj; return e.bm; }
   const bl = s.imgs[i];
@@ -142,9 +164,9 @@ function tomar(s, i, dir = 1, ciclo = false) {
   for (const d of ADELANTE) pedir(s, idx(i + d * dir));
   pedir(s, idx(i - dir));
   if (b) return b;
-  for (let d = 1; d <= 20; d++) {
-    const x = s.bm.get(idx(i - d * dir)) || s.bm.get(idx(i + d * dir));
-    if (x) return x.bm;
+  for (let d = 1; d <= (SIMPLE ? n : 20); d++) {
+    const x = pedir(s, idx(i - d * dir)) || pedir(s, idx(i + d * dir));
+    if (x) return x;
   }
   return null;
 }
@@ -194,7 +216,14 @@ export function crearJuguete(cont, forma, hex, { activo = true, auto = true } = 
   let arrastre = null, ultimo = null, antes = performance.now(), pintado = 0;
   const [zona, puntoX] = TAPA[b];
 
-  function cargar() { if (G) return; G = secuencia(`giro-${b}`); A = secuencia(`abrir-${b}`); B = secuencia(`subir-${b}`); }
+  function cargar() {
+    if (G) return;
+    G = secuencia(`giro-${b}`);
+    const resto = () => { if (vivo) { A = secuencia(`abrir-${b}`); B = secuencia(`subir-${b}`); } };
+    if (MOVIL) setTimeout(resto, 2200); else resto(); // en celular primero baja el giro
+  }
+  let enPantalla = true;
+  const ojo = alVer(cont, v => { enPantalla = v; if (v) { antes = performance.now(); sucio = true; } });
   const total = () => (A ? A.n : 0) + (B ? B.n : 0);
   const sePuedeAbrir = () => A && A.n > 0;
   if (activo) cargar();
@@ -224,7 +253,10 @@ export function crearJuguete(cont, forma, hex, { activo = true, auto = true } = 
     const r = canvas.getBoundingClientRect(), dx = e.clientX - arrastre.x, dy = e.clientY - arrastre.y;
     arrastre.movido = Math.max(arrastre.movido, Math.abs(dx), Math.abs(dy));
     if (fase === 'cerrado' && G && G.n) { const ng = ((arrastre.g - dx / (r.width * 1.15) * G.n) % G.n + G.n) % G.n; arrastre.dir = dx < (arrastre.dx || 0) ? 1 : -1; arrastre.dx = dx; g = ng; }
-    else if (fase === 'abierto' && B && B.n) { pos = Math.max(A.n - 1, Math.min(total() - 1, arrastre.pos + dy / r.height * B.n * 1.6)); }
+    else if (fase === 'abierto' && B && B.n) { // abierto: arrastrar en cualquier dirección cambia el ángulo
+      const d = Math.abs(dx) > Math.abs(dy) ? dx : dy;
+      pos = Math.max(A.n - 1, Math.min(total() - 1, arrastre.pos + d / r.height * B.n * 1.6));
+    }
   };
   const onUp = e => {
     if (!arrastre) return;
@@ -240,6 +272,7 @@ export function crearJuguete(cont, forma, hex, { activo = true, auto = true } = 
   function frame(ahora) {
     if (!vivo) return;
     raf = requestAnimationFrame(frame);
+    if (!enPantalla) return; // fuera de pantalla no gasta nada
     const dt = Math.min(0.05, (ahora - antes) / 1000 || 0); antes = ahora;
     let cambia = acercarColor(color, meta);
     if (G && G.n) {
@@ -273,7 +306,7 @@ export function crearJuguete(cont, forma, hex, { activo = true, auto = true } = 
     },
     get abierto() { return fase === 'abierto' || fase === 'abriendo'; },
     get estado() { return { fase, pos, g, a: A && A.n, b: B && B.n, ca: A && A.cargados, cb: B && B.cargados }; },
-    destruir() { vivo = false; cancelAnimationFrame(raf); },
+    destruir() { vivo = false; cancelAnimationFrame(raf); ojo.disconnect(); },
   };
 }
 
@@ -281,18 +314,21 @@ export function crearJuguete(cont, forma, hex, { activo = true, auto = true } = 
 export function crearCapas(canvas, hex) {
   const ctx = canvas.getContext('2d');
   canvas.width = W; canvas.height = H;
-  const S = secuencia('capas');
+  let S = { n: 0 }, enPantalla = false; // las imágenes se piden al acercarse a la sección
   let color = rgb(hex), meta = rgb(hex), vivo = true, raf = 0, objetivo = 0, actual = 0, ultimo = '', ultimoA = null, pintado = 0;
+  const ojo = alVer(canvas, v => { enPantalla = v; if (v && !S.n) S = secuencia('capas'); }, '120% 0px');
   function frame() {
     if (!vivo) return;
     raf = requestAnimationFrame(frame);
+    if (!enPantalla) return;
     let cambia = acercarColor(color, meta);
     const fin = (S.n - 1) * objetivo;
     actual += (fin - actual) * 0.16;
     if (Math.abs(fin - actual) < 0.01) actual = fin;
     const i = Math.floor(actual), f = actual - i, dir = fin >= actual ? 1 : -1;
     const a = (S.n && tomar(S, i, dir)) || (!pintado && imgs.vaso) || null;
-    const b = S.n && f > 0.03 && i + 1 < S.n && S.bm.has(i) ? pedir(S, i + 1) : null;
+    // en celular no se funden cuadros vecinos: una sola pasada por cuadro mantiene el scroll fluido
+    const b = !MOVIL && S.n && f > 0.03 && i + 1 < S.n && listoCuadro(S, i) ? pedir(S, i + 1) : null;
     const clave = `${b ? f.toFixed(2) : 0}`;
     if (a && (a !== ultimoA || clave !== ultimo)) { ultimoA = a; ultimo = clave; cambia = true; }
     if (!cambia || !a) return;
@@ -304,7 +340,7 @@ export function crearCapas(canvas, hex) {
   return {
     progreso(p) { objetivo = Math.max(0, Math.min(1, p)); },
     color(h) { meta = rgb(h); },
-    destruir() { vivo = false; cancelAnimationFrame(raf); },
+    destruir() { vivo = false; cancelAnimationFrame(raf); ojo.disconnect(); },
   };
 }
 
@@ -313,7 +349,7 @@ export function crearCapas(canvas, hex) {
 // El acercamiento se hace dentro del lienzo, a la resolución real de la pantalla, y de frente usa la foto 4K.
 export function crearVitrina(canvas, hex) {
   const ctx = canvas.getContext('2d');
-  const G = secuencia('giro-vaso'), C = secuencia('capas');
+  let G = { n: 0 }, C = { n: 0 }, enPantalla = false; // las imágenes se piden al acercarse a la sección
   const fino = document.createElement('canvas'); let finoClave = ''; // foto 4K ya recoloreada
   let color = rgb(hex), meta = rgb(hex), vivo = true, raf = 0, escena = 'giro', g = 0, c = 0, ultimo = '', antes = performance.now();
   let periodo = 9, zoom = 1, zoomMeta = 1, foco = 0.5, focoMeta = 0.5, pintado = 0, ultimoA = null;
@@ -323,9 +359,11 @@ export function crearVitrina(canvas, hex) {
     if (w && h && (canvas.width !== w || canvas.height !== h)) { canvas.width = w; canvas.height = h; ultimo = ''; }
   }
   const ro = new ResizeObserver(medir); ro.observe(canvas); medir();
+  const ojo = alVer(canvas, v => { enPantalla = v; if (v) { antes = performance.now(); if (!G.n) { G = secuencia('giro-vaso'); C = secuencia('capas'); } } }, '80% 0px');
   function frame(ahora) {
     if (!vivo) return;
     raf = requestAnimationFrame(frame);
+    if (!enPantalla) return;
     const dt = Math.min(0.05, (ahora - antes) / 1000 || 0); antes = ahora;
     let cambia = acercarColor(color, meta);
     const mitad = Math.floor(C.n / 2);
@@ -339,8 +377,8 @@ export function crearVitrina(canvas, hex) {
     if (Math.abs(zoomMeta - zoom) < 0.002) zoom = zoomMeta;
     // fuente: foto 4K cuando está quieto de frente; si no, el cuadro de la secuencia (fundido con el siguiente)
     let a = null, b = null, f = 0, usaFino = false, id = '';
-    if (c > 0 && C.n) { const i = Math.floor(c); a = tomar(C, i, metaC >= c ? 1 : -1); f = c - i; b = f > 0.03 && i + 1 < C.n && C.bm.has(i) ? pedir(C, i + 1) : null; id = `c|${b ? f.toFixed(2) : 0}`; }
-    else if (escena !== 'giro' && g === 0 && imgs['vaso-4k'] && !cambia) { usaFino = true; id = 'fino'; }
+    if (c > 0 && C.n) { const i = Math.floor(c); a = tomar(C, i, metaC >= c ? 1 : -1); f = c - i; b = !MOVIL && f > 0.03 && i + 1 < C.n && listoCuadro(C, i) ? pedir(C, i + 1) : null; id = `c|${b ? f.toFixed(2) : 0}`; }
+    else if (escena !== 'giro' && g === 0 && imgs[FINO] && !cambia) { usaFino = true; id = 'fino'; }
     else if (G.n) { const i = Math.round(g) % G.n; a = tomar(G, i, 1, true); id = 'g'; }
     if (!a && !usaFino && !pintado) a = imgs.vaso;
     const clave = `${id}|${zoom.toFixed(3)}|${foco.toFixed(3)}|${canvas.width}`;
@@ -355,7 +393,7 @@ export function crearVitrina(canvas, hex) {
     ctx.imageSmoothingQuality = 'high';
     if (usaFino) {
       const k = meta.map(v => v.toFixed(3)).join();
-      if (k !== finoClave) { const im = imgs['vaso-4k']; fino.width = im.naturalWidth; fino.height = im.naturalHeight; fino.getContext('2d').drawImage(recolorear(im, meta), 0, 0); finoClave = k; }
+      if (k !== finoClave) { const im = imgs[FINO]; fino.width = im.naturalWidth; fino.height = im.naturalHeight; fino.getContext('2d').drawImage(recolorear(im, meta), 0, 0); finoClave = k; }
       ctx.drawImage(fino, x, y, w, h);
     } else {
       ctx.drawImage(recolorear(a, color), x, y, w, h);
@@ -367,7 +405,7 @@ export function crearVitrina(canvas, hex) {
     // periodo: segundos por vuelta · zoom: acercamiento · foco: punto vertical de la imagen (0 arriba, 1 abajo)
     escena(e, { periodo: p = 9, zoom: z = 1, foco: fo = 0.5 } = {}) { escena = e; periodo = p; zoomMeta = z; focoMeta = fo; },
     color(h) { meta = rgb(h); },
-    destruir() { vivo = false; cancelAnimationFrame(raf); ro.disconnect(); },
+    destruir() { vivo = false; cancelAnimationFrame(raf); ro.disconnect(); ojo.disconnect(); },
   };
 }
 
@@ -418,9 +456,12 @@ export function crearRueda(cont, items, onChange) {
   // clic en un termo lateral lo trae al centro
   brazos.forEach((b, i) => b.addEventListener('click', () => { if (i !== activo) ir(i); }));
 
+  let ruedaVisible = true;
+  const ojoR = alVer(cont, v => { ruedaVisible = v; });
   function frame() {
     if (!vivo) return;
     raf = requestAnimationFrame(frame);
+    if (!ruedaVisible) return;
     actual += (objetivo - actual) * 0.07;
     suave.x += (mouse.x - suave.x) * 0.05; suave.y += (mouse.y - suave.y) * 0.05;
     eje.style.transform = `rotate(${-actual * paso}rad)`;
@@ -439,7 +480,7 @@ export function crearRueda(cont, items, onChange) {
     get abierto() { return juguetes[activo].abierto; },
     get estado() { return juguetes[activo].estado; },
     destruir() {
-      vivo = false; cancelAnimationFrame(raf); ro.disconnect();
+      vivo = false; cancelAnimationFrame(raf); ro.disconnect(); ojoR.disconnect();
       window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp);
       cont.removeEventListener('pointerdown', onDown);
       juguetes.forEach(j => j.destruir());

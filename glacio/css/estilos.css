@@ -542,3 +542,90 @@ select { width: auto; }
 .vit-escena canvas { inset: 0; width: 100%; height: 100%; max-width: none; aspect-ratio: auto; transform: none !important; filter: none; }
 .vit-item:focus { outline: none; }
 .vit-item:focus-visible { outline: 2px solid var(--tinta); outline-offset: 4px; border-radius: 10px; }
+
+/* ================= Ajustes para celular ================= */
+.solo-cel, .hero-mini, .vit-puntos, .barra-compra { display: none; }
+* { -webkit-tap-highlight-color: transparent; }
+button, a { touch-action: manipulation; }
+.escenario #visor canvas { touch-action: pan-y; }
+@media (max-width: 860px) {
+  .solo-pc { display: none; } .solo-cel { display: inline; }
+  /* efectos caros fuera: en el celular traban el scroll */
+  .cab.solida, .menu, .ico, .puntos, .hero-ficha, .ctrl-lado button, .escenario .pista { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .cab.solida { background: var(--papel); }
+  .ico, .puntos { background: var(--blanco); }
+  .juguete canvas, .anat-fijo canvas, .vit-escena canvas, .tarjeta-img img, .franja img { filter: none; }
+  .rev { transform: translateY(18px); transition-duration: .5s; }
+
+  /* inicio */
+  .hero { min-height: 620px; }
+  .hero-pista { display: block; top: auto; bottom: 16px; font-size: 10.5px; letter-spacing: .1em; white-space: nowrap; opacity: .55; }
+  .hero-ctrl { bottom: 40px; }
+  .hero-izq { bottom: 104px; }
+  .hero-izq h1 { font-size: clamp(24px, 7.4vw, 30px); margin: 0 0 10px; }
+  .hero-mini { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 12px; padding: 9px 14px; border-radius: 999px; background: var(--blanco); font-size: 14px; }
+  .hero-mini span { font-weight: 800; }
+  .hero-mini i { font-style: normal; font-weight: 800; }
+  .brazo .pieza { height: min(46svh, 100vw); }
+  .pt { width: 26px; height: 26px; }
+  .flecha { width: 46px; height: 46px; }
+
+  /* capa por capa */
+  .anatomia { height: 300vh; }
+  .anat-fijo { grid-template-rows: 58% 42%; padding-top: calc(var(--alto-cab) + 4px); }
+  .anat-paso h2 { font-size: clamp(26px, 8vw, 34px); }
+  .anat-paso { transform: translateY(18px); }
+
+  /* por qué GLACIO: sin saltos de alto al cambiar de característica */
+  .vitrina { padding-top: 34px; padding-bottom: 34px; }
+  .vit-lista { display: grid; grid-template-rows: auto auto auto; }
+  .vit-lista .eyebrow { grid-area: 1 / 1; margin-bottom: 4px; }
+  .vit-item { grid-area: 2 / 1; border-top: 0; padding: 8px 0 0; grid-template-columns: 1fr; opacity: 0; visibility: hidden; transition: opacity .45s, visibility .45s; min-height: 148px; align-content: start; }
+  .vit-item.activo { opacity: 1; visibility: visible; }
+  .vit-n { display: none; }
+  .vit-t b { font-size: 25px; }
+  .vit-t > span, .vit-item.activo .vit-t > span { max-height: none; opacity: .78; margin-top: 8px; }
+  .vit-barra { display: none; }
+  .vit-puntos { grid-area: 3 / 1; display: flex; gap: 8px; padding-top: 6px; }
+  .vit-puntos button { flex: 1; height: 28px; border: 0; background: none; padding: 0; position: relative; cursor: pointer; }
+  .vit-puntos button::before { content: ''; position: absolute; left: 0; right: 0; top: 12px; height: 4px; border-radius: 4px; background: rgba(13, 16, 20, .16); }
+  .vit-puntos button.activo::before { background: var(--tinta); }
+  .vit-escena { touch-action: pan-y; }
+
+  /* colores: filas con el termo a la vista (en celular no existe "pasar el cursor") */
+  .franjas { border-radius: var(--radio); }
+  .franja, .franja:hover, .franja:focus-visible { flex: none; min-height: 96px; align-items: center; padding: 0 20px; }
+  .franja h3, .franja:hover h3, .franja:focus-visible h3 { opacity: 1; font-size: 26px; }
+  .franja .det { display: none; }
+  .franja img, .franja:hover img, .franja:focus-visible img { opacity: 1; transform: none; height: 170%; top: -18%; right: 8px; }
+
+  /* catálogo */
+  .tarjeta-pie [data-detalle] { display: none; }
+  .muestras { gap: 8px; }
+  .muestra { width: 24px; height: 24px; }
+  .tarjeta:hover { transform: none; box-shadow: none; }
+  .tarjeta:hover .tarjeta-img img { transform: none; }
+  .titulo-xl { font-size: clamp(38px, 12.5vw, 60px); }
+
+  /* producto: botón de compra siempre a mano */
+  .escenario { aspect-ratio: 1 / 1.12; }
+  .ficha h1 { font-size: 34px; }
+  .muestras.grande .muestra { width: 42px; height: 42px; }
+  .compra .cant { flex: none; }
+  .barra-compra { position: fixed; z-index: 60; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: var(--blanco); box-shadow: 0 -8px 24px -12px rgba(13, 16, 20, .28); transform: translateY(110%); transition: transform .3s; }
+  .barra-compra.visible { transform: none; }
+  .barra-compra div { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
+  .barra-compra b { font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .barra-compra span { font-weight: 800; }
+  .barra-compra .btn { padding: 13px 20px; flex: none; }
+  .avisos { left: 12px; right: 12px; bottom: 76px; }
+  .aviso { max-width: none; }
+}
+@media (max-width: 860px) {
+  .titulo-xl { font-size: clamp(34px, 10.4vw, 52px); }
+  .precio { flex-wrap: wrap; gap: 2px 8px; font-size: 17px; }
+  .precio s { font-size: 12.5px; }
+  .muestras { gap: 5px; }
+  .muestra { width: 19px; height: 19px; }
+  .franja img, .franja:hover img, .franja:focus-visible img { height: 150%; top: 8%; }
+}

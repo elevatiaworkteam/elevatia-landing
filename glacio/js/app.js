@@ -1,8 +1,8 @@
 import {
   TIENDA, COLORES, colorPorId, CATEGORIAS, LINEAS, PRODUCTOS, productoPorId, precioFinal,
   RESENAS, PROMOS, FAQ, LEGALES,
-} from './datos.js?v=1794431229';
-import { crearRueda, crearJuguete, crearCapas, crearVitrina, foto, tiene, listo } from './real.js?v=1794431229';
+} from './datos.js?v=1794433445';
+import { crearRueda, crearJuguete, crearCapas, crearVitrina, foto, tiene, listo } from './real.js?v=1794433445';
 
 // ---------- Utilidades ----------
 const $ = (s, r = document) => r.querySelector(s);
@@ -137,11 +137,12 @@ function vInicio() {
   <section class="hero" id="hero">
     <div class="hero-palabra" id="hero-palabra" aria-hidden="true"></div>
     <div class="rueda-real" id="rueda" aria-label="Termos GLACIO. Arrastra el termo para girarlo 360 grados."></div>
-    <span class="hero-pista">Arrastra el termo para girarlo · toca la tapa para abrirlo</span>
+    <span class="hero-pista"><span class="solo-pc">Arrastra el termo para girarlo · toca la tapa para abrirlo</span><span class="solo-cel">Gíralo con el dedo · toca la tapa</span></span>
     <div class="hero-izq">
       <span class="eyebrow">Nueva colección Caribe · ${COLORES.length} colores</span>
       <h1>${esc(TIENDA.lema)}</h1>
       <p>Vasos, termos y tazas de acero inoxidable con doble pared al vacío, pintados con los colores de la isla.</p>
+      <a class="hero-mini" id="hero-mini"></a>
       <div class="hero-cta">
         <a class="btn oscuro" href="#/productos">Comprar ahora</a>
         <a class="btn" href="#coleccion" data-ancla>Ver más</a>
@@ -182,6 +183,7 @@ function vInicio() {
       <div class="vit-lista">
         <span class="eyebrow">Por qué GLACIO</span>
         ${CARS.map((c, i) => `<button class="vit-item" data-i="${i}"><span class="vit-n">0${i + 1}</span><span class="vit-t"><b>${c.titulo}</b><span>${c.texto}</span><i class="vit-barra"></i></span></button>`).join('')}
+        <div class="vit-puntos" id="vit-puntos">${CARS.map((c, i) => `<button data-i="${i}" aria-label="${c.titulo}"></button>`).join('')}</div>
       </div>
       <div class="vit-escena" id="vit-escena"><span class="vit-palabra" id="vit-palabra" aria-hidden="true"></span><canvas id="lienzo-vit" aria-hidden="true"></canvas></div>
     </div>
@@ -217,14 +219,18 @@ function vInicio() {
     acento(c.hex); anat.color(c.hex);
     palabra.innerHTML = [...c.nombre].map((l, k) => `<span style="--i:${k}">${l}</span>`).join('');
     puntos.forEach((b, k) => b.classList.toggle('activo', k === i));
+    const mini = $('#hero-mini'); mini.href = `#/producto/${p.id}?color=${c.id}`;
+    mini.innerHTML = `<b>${esc(p.nombre)}</b><span>${dinero(precioFinal(p))}</span><i>›</i>`;
     ficha.innerHTML = `<small>Color ${c.nombre}</small><h3>${esc(p.nombre)}</h3><p>${esc(p.corto)}</p>
       <div class="fila">${precioHTML(p)}<a class="btn oscuro chico" href="#/producto/${p.id}?color=${c.id}">Ver producto</a></div>`;
   }
   // Anatomía: el scroll abre la tapa y corta el vaso
   const anat = crearCapas($('#lienzo-anat'), COLORES[0].hex);
   const secAnat = $('#anatomia'), pasos = $$('.anat-paso'), suave01 = x => { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); };
+  const anatFijo = $('.anat-fijo');
   const alScroll = () => {
-    const r = secAnat.getBoundingClientRect(), p = Math.max(0, Math.min(1, -r.top / Math.max(r.height - innerHeight, 1)));
+    // se mide contra el alto del panel fijo (estable aunque la barra del navegador del celular aparezca o se esconda)
+    const r = secAnat.getBoundingClientRect(), p = Math.max(0, Math.min(1, -r.top / Math.max(r.height - anatFijo.offsetHeight, 1)));
     anat.progreso(0.5 * suave01((p - 0.2) / 0.3) + 0.5 * suave01((p - 0.58) / 0.32));
     const paso = p < 0.3 ? 0 : p < 0.64 ? 1 : 2;
     pasos.forEach((el, i) => el.classList.toggle('activo', i === paso));
@@ -235,7 +241,7 @@ function vInicio() {
 
   // Vitrina: un solo vaso que actúa cada característica
   const vit = crearVitrina($('#lienzo-vit'), COLORES[0].hex);
-  const secVit = $('#vitrina'), vitItems = $$('.vit-item'), vitEsc = $('#vit-escena');
+  const secVit = $('#vitrina'), vitItems = $$('.vit-item'), vitEsc = $('#vit-escena'), vitPuntos = $$('#vit-puntos button');
   let vi = -1, vT = 0, vColor = 0, vVisible = false, vCambio = 0;
   const vitColor = k => { vColor = k % COLORES.length; vit.color(COLORES[vColor].hex); secVit.style.setProperty('--acento', COLORES[vColor].hex); };
   function verCar(i) {
@@ -243,9 +249,16 @@ function vInicio() {
     const c = CARS[vi];
     vit.escena(c.escena, { periodo: c.periodo, zoom: c.zoom, foco: c.foco });
     vitItems.forEach((el, k) => { el.classList.remove('activo'); if (k === vi) { void el.offsetWidth; el.classList.add('activo'); } });
+    vitPuntos.forEach((el, k) => el.classList.toggle('activo', k === vi));
     const pal = $('#vit-palabra'); pal.textContent = c.palabra; pal.classList.remove('entra'); void pal.offsetWidth; pal.classList.add('entra');
   }
   vitItems.forEach(el => { el.onclick = () => verCar(+el.dataset.i); });
+  vitPuntos.forEach(el => { el.onclick = () => verCar(+el.dataset.i); });
+  // en celular: deslizar el vaso a los lados cambia de característica
+  let vDedo = null;
+  vitEsc.addEventListener('pointerdown', e => { vDedo = e.clientX; });
+  vitEsc.addEventListener('pointerup', e => { if (vDedo !== null && Math.abs(e.clientX - vDedo) > 45) verCar(vi + (e.clientX < vDedo ? 1 : -1)); vDedo = null; });
+  vitEsc.addEventListener('pointercancel', () => { vDedo = null; });
   const vitObs = new IntersectionObserver(es => { vVisible = es[0].isIntersecting; if (vVisible && vi < 0) verCar(0); if (vVisible) vT = performance.now(); secVit.classList.toggle('pausa', !vVisible); }, { threshold: 0.35 });
   vitObs.observe(secVit);
   const vitReloj = setInterval(() => {
@@ -384,6 +397,7 @@ function vProducto(id, q) {
           <button class="btn oscuro" id="anadir">Añadir al carrito</button>
           <button class="btn" id="comprar">Comprar ahora</button>
         </div>
+        <div class="barra-compra" id="barra-compra"><div><b>${esc(p.nombre)}</b><span>${dinero(precioFinal(p))}</span></div><button class="btn oscuro" id="anadir2">Añadir al carrito</button></div>
         <div class="ventajas"><div>Envío a todo el país</div><div>Garantía contra pérdida de vacío</div><div>Cambio de color sin costo</div></div>
       </div>
     </div>
@@ -439,6 +453,10 @@ function vProducto(id, q) {
   $('#menos').onclick = () => { cant = Math.max(1, cant - 1); pc(); };
   $('#mas').onclick = () => { cant = Math.min(20, cant + 1); pc(); };
   $('#anadir').onclick = () => agregar(p.id, color.id, cant);
+  $('#anadir2').onclick = () => agregar(p.id, color.id, cant);
+  const barra = $('#barra-compra');
+  const ojoBarra = new IntersectionObserver(es => barra.classList.toggle('visible', !es[0].isIntersecting), { threshold: 0 });
+  ojoBarra.observe($('.compra')); limpiar.push(() => ojoBarra.disconnect());
   $('#comprar').onclick = () => { agregar(p.id, color.id, cant); location.hash = '#/carrito'; };
   $('#ir-resenas').onclick = e => { e.preventDefault(); $('#resenas').scrollIntoView({ behavior: 'smooth' }); };
 
