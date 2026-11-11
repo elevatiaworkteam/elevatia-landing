@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>GLACIO — Termos y vasos térmicos en colores del Caribe</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="GLACIO: vasos, termos y tazas de acero inoxidable con doble pared al vacío. Nueva colección Caribe en seis colores.">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css?v=1794431229">
+</head>
+<body>
+  <header class="cab" id="cab">
+    <a class="logo" href="#/" aria-label="GLACIO, ir al inicio">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 28 9v14l-12 7L4 23V9z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M16 9v14M10 12.5l12 7M22 12.5l-12 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <span>GLACIO</span>
+    </a>
+    <nav class="menu" id="menu" aria-label="Navegación principal">
+      <a href="#/" data-ruta="inicio">Inicio</a>
+      <a href="#/productos" data-ruta="productos">Productos</a>
+      <a href="#/ofertas" data-ruta="ofertas">Ofertas</a>
+      <a href="#/contacto" data-ruta="contacto">Contacto</a>
+      <a href="#/faq" data-ruta="faq">Preguntas</a>
+    </nav>
+    <div class="cab-acc">
+      <a class="ico" href="#/cuenta" aria-label="Mi cuenta" title="Mi cuenta">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.600 8 7"/></svg>
+        <i class="punto" id="punto-cuenta" hidden></i>
+      </a>
+      <a class="ico" href="#/carrito" aria-label="Carrito de compras" title="Carrito">
+        <svg viewBox="0 0 24 24"><path d="M3 4h2.500l2.200 11h10.600L20.500 7.500H7"/><circle cx="9.500" cy="19.500" r="1.500"/><circle cx="17" cy="19.500" r="1.500"/></svg>
+        <b class="cuenta-carrito" id="cuenta-carrito" hidden>0</b>
+      </a>
+      <button class="ico hamb" id="hamb" aria-label="Abrir menú" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="vista" tabindex="-1"></main>
+
+  <footer class="pie">
+    <div class="pie-top">
+      <div class="pie-marca">
+        <span class="pie-logo">GLACIO</span>
+        <p>Frío que dura. Colores que no existían.</p>
+        <div class="redes" id="redes"></div>
+      </div>
+      <div>
+        <h4>Tienda</h4>
+        <a href="#/productos">Todos los productos</a>
+        <a href="#/ofertas">Ofertas y promociones</a>
+        <a href="#/cuenta">Mi cuenta</a>
+        <a href="#/carrito">Carrito</a>
+      </div>
+      <div>
+        <h4>Información</h4>
+        <a href="#/info/sobre-nosotros">Sobre nosotros</a>
+        <a href="#/info/privacidad">Políticas de privacidad</a>
+        <a href="#/info/terminos">Términos y condiciones</a>
+        <a href="#/faq">Preguntas frecuentes</a>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <p id="pie-contacto"></p>
+        <a href="#/contacto">Escríbenos →</a>
+      </div>
+      <form class="boletin" id="boletin">
+        <h4>Suscríbete al boletín</h4>
+        <p>Colores nuevos y ofertas antes que nadie.</p>
+        <div class="boletin-campo">
+          <input type="email" required placeholder="tu@correo.com" aria-label="Correo electrónico">
+          <button class="btn oscuro" type="submit">Suscribirme</button>
+        </div>
+      </form>
+    </div>
+    <div class="pie-bajo">
+      <span>© 2026 GLACIO · Proyecto académico de comercio electrónico — UNICARIBE</span>
+      <span>Sitio de demostración: no se procesan pagos reales.</span>
+    </div>
+  </footer>
+
+  <div class="avisos" id="avisos" aria-live="polite"></div>
+  <script type="module" src="js/app.js?v=1794431229"></script>
+</body>
+</html>
