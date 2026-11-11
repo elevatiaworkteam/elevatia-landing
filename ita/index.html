@@ -103,6 +103,14 @@ textarea.in{min-height:96px;resize:vertical}
 .err{display:none;margin-top:4px;background:#FFF0EB;color:#B5361A;border-radius:12px;padding:10px 14px;font-size:14px}
 .err.show{display:block}
 .thanks{display:none;text-align:center;padding:10px 4px 6px}
+/* reservas cerradas: quitar la clase "closed" de #rsvp para volver a abrir */
+.cerrado{display:none;text-align:center;padding:10px 4px 6px}
+.card.closed .f,.card.closed .sub,.card.closed .thanks{display:none}
+.card.closed .cerrado{display:block}
+.cerrado .face{width:150px;margin:0 auto 10px}
+.cerrado h3{font-size:32px;font-weight:700;color:var(--navy-2);letter-spacing:-.02em;line-height:1.08}
+.cerrado p{margin-top:12px;font-weight:300;font-size:17px;line-height:1.45;color:var(--navy)}
+.cerrado .ghost{display:inline-flex;margin-top:22px}
 .card.done .f,.card.done .sub{display:none}
 .card.done .thanks{display:block}
 .thanks .face{width:150px;margin:0 auto 10px}
@@ -227,7 +235,7 @@ img.deco{height:auto}
       <h1 class="rise d2"><span>Grand</span><span>Opening</span></h1>
       <p class="confirma rise d3">
         <svg class="marks" viewBox="0 0 70 70" aria-hidden="true"><g stroke="#F2552C" stroke-width="9" stroke-linecap="round"><path d="M8 34L30 24"/><path d="M28 56L40 38"/><path d="M58 64L60 44"/></g></svg>
-        Confirma tu asistencia
+        ¡Te esperamos!
       </p>
       <p class="lead rise d3">Celebremos juntos un nuevo espacio<br>para cada forma de crecer.</p>
       <ul class="info rise d4">
@@ -237,7 +245,7 @@ img.deco{height:auto}
       </ul>
     </section>
 
-    <section class="card rise d5" id="rsvp" aria-labelledby="rsvp-t">
+    <section class="card rise d5 closed" id="rsvp" aria-labelledby="rsvp-t">
       <h2 id="rsvp-t"><svg class="marks" viewBox="0 0 58 58" aria-hidden="true"><g stroke-width="11" stroke-linecap="round"><path d="M34 8L46 30" stroke="#F7A3BB"/><path d="M8 34L32 44" stroke="#F7A3BB"/></g></svg>RSVP</h2>
       <p class="sub">Completa el formulario para confirmar tu asistencia.</p>
 
@@ -259,6 +267,13 @@ img.deco{height:auto}
         <button class="btn" id="btn" type="submit"><span class="lbl">Confirmar asistencia</span><span class="spin"></span>
           <svg class="spark" viewBox="0 0 30 30" aria-hidden="true"><g stroke="#fff" stroke-width="3.6" stroke-linecap="round"><path d="M6 6L9 13"/><path d="M14 16L22 14"/><path d="M12 24L21 26"/></g></svg></button>
       </form>
+
+      <div class="cerrado">
+        <img class="face" src="img/monstruo-azul.webp" alt="" aria-hidden="true">
+        <h3>Las confirmaciones están cerradas</h3>
+        <p>¡Gracias a todos los que confirmaron su asistencia! Nos vemos el 11 de noviembre a las 7:00 p. m. en el Holiday Inn, Salón Los Tenores.</p>
+        <a class="ghost" href="https://www.google.com/maps/search/?api=1&query=Holiday+Inn+Santo+Domingo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Cómo llegar</a>
+      </div>
 
       <div class="thanks" id="thanks" aria-live="polite">
         <img class="face" src="img/monstruo-azul.webp" alt="" aria-hidden="true">
