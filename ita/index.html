@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ITA · Formulario de interés</title>
-<meta name="description" content="Llena este formulario si estás interesado en los servicios o centros de ITA. Tratamos cada caso de forma personalizada y cuidamos la confidencialidad de tus datos.">
+<meta name="description" content="Llena este formulario si estás interesado en los servicios o el centro de ITA. Tratamos cada caso de forma personalizada y cuidamos la confidencialidad de tus datos.">
 <meta property="og:title" content="ITA · Formulario de interés">
 <meta property="og:description" content="Cuéntanos sobre tu niño y te contactamos. Tus datos son confidenciales.">
 <meta property="og:type" content="website">
@@ -241,6 +241,9 @@ h1{font-size:clamp(50px,7.200vw,94px);line-height:.9}
   .info.notas .txt{font-size:15px}
   .chip{padding:10px 14px;font-size:14px}
 }
+.card h2{padding-left:0}
+.card .sub{margin-left:0}
+@media (min-width:981px){.hero-in{padding-bottom:190px}}
 </style>
 </head>
 <body id="inicio">
@@ -262,7 +265,6 @@ h1{font-size:clamp(50px,7.200vw,94px);line-height:.9}
   <img class="deco bob d-hide-sm" src="img/garabato.webp" style="left:-34px;top:150px;width:210px" alt="" aria-hidden="true">
   <svg class="deco d-top-right" style="right:-30px;top:-20px;width:520px" viewBox="0 0 520 300" aria-hidden="true"><path d="M0 0H520V300C470 290 440 250 420 210C395 160 340 140 280 125C200 105 160 110 110 85C60 60 20 40 0 0Z" fill="#14A9E9"/><path d="M455 165C440 120 430 70 462 40C492 12 520 40 506 70C490 104 445 96 432 60" fill="none" stroke="#4E9A3A" stroke-width="16" stroke-linecap="round"/></svg>
   <img class="deco bob2 d-hide-sm" src="img/flor.webp" style="right:96px;top:36px;width:150px" alt="" aria-hidden="true">
-  <svg class="deco d-hide-sm" style="right:300px;top:96px;width:70px" viewBox="0 0 70 70" aria-hidden="true"><g stroke="#4CC1F3" stroke-width="10" stroke-linecap="round"><path d="M14 30L28 58"/><path d="M42 12L50 44"/></g></svg>
   
   <img class="deco bob2 d-hide-sm" src="img/corazon.webp" style="right:-14px;bottom:160px;width:130px;z-index:5;rotate:16deg" alt="" aria-hidden="true">
 
@@ -275,10 +277,9 @@ h1{font-size:clamp(50px,7.200vw,94px);line-height:.9}
       </div>
       <h1 class="rise d2"><span>Queremos</span><span>conocerte</span></h1>
       <p class="confirma rise d3">
-        <svg class="marks" viewBox="0 0 70 70" aria-hidden="true"><g stroke="#F2552C" stroke-width="9" stroke-linecap="round"><path d="M8 34L30 24"/><path d="M28 56L40 38"/><path d="M58 64L60 44"/></g></svg>
         Llena este formulario
       </p>
-      <p class="lead rise d3">si estás interesado en nuestros<br>servicios o centros.</p>
+      <p class="lead rise d3">si estás interesado en nuestros<br>servicios o centro.</p>
       <ul class="info notas rise d4">
         <li><span class="ic"><svg viewBox="0 0 40 40" fill="none" stroke="#F4B40F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4l13 5v9c0 9-5.5 15-13 18-7.500-3-13-9-13-18V9z"/><path d="M14 20l4.500 4.500 8-9"/></svg></span><span class="txt"><b>Tu información está protegida.</b> Para nosotros es importante la confidencialidad y la protección de tus datos.</span></li>
         <li><span class="ic"><svg viewBox="0 0 40 40" fill="none" stroke="#F4B40F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 34C9 26 5 20 5 14a7.500 7.500 0 0 1 15-2 7.500 7.500 0 0 1 15 2c0 6-4 12-15 20z"/></svg></span><span class="txt"><b>Cada caso es único.</b> Tratamos cada caso de forma personalizada; por eso es importante para nosotros tener esta información de la persona que se está inscribiendo.</span></li>
@@ -286,7 +287,7 @@ h1{font-size:clamp(50px,7.200vw,94px);line-height:.9}
     </section>
 
     <section class="card rise d5" id="formulario" aria-labelledby="form-t">
-      <h2 id="form-t"><svg class="marks" viewBox="0 0 58 58" aria-hidden="true"><g stroke-width="11" stroke-linecap="round"><path d="M34 8L46 30" stroke="#F7A3BB"/><path d="M8 34L32 44" stroke="#F7A3BB"/></g></svg>Formulario</h2>
+      <h2 id="form-t">Formulario</h2>
       <p class="sub">Son 12 preguntas y casi todas se responden con un toque.</p>
 
       <form class="f" id="form" novalidate>
@@ -308,8 +309,7 @@ h1{font-size:clamp(50px,7.200vw,94px);line-height:.9}
           <div class="grp" id="g-empezar"><span class="lab">¿Cuándo quieres empezar?</span>
             <div class="chips"><label class="chip"><input type="radio" name="empezar" value="Este mes">Este mes</label><label class="chip"><input type="radio" name="empezar" value="En 1 a 3 meses">En 1 a 3 meses</label><label class="chip"><input type="radio" name="empezar" value="Solo me estoy informando">Solo me estoy informando</label></div></div>
           <p class="err" id="err1" role="alert"></p>
-          <button class="btn" id="sig" type="button"><span class="lbl">Continuar</span>
-            <svg class="spark" viewBox="0 0 30 30" aria-hidden="true"><g stroke="#fff" stroke-width="3.6" stroke-linecap="round"><path d="M6 6L9 13"/><path d="M14 16L22 14"/><path d="M12 24L21 26"/></g></svg></button>
+          <button class="btn" id="sig" type="button"><span class="lbl">Continuar</span></button>
         </div>
 
         <div class="paso" id="paso2" hidden>
@@ -326,8 +326,7 @@ h1{font-size:clamp(50px,7.200vw,94px);line-height:.9}
           <p class="err" id="err2" role="alert"></p>
           <div class="fila-btn">
             <button class="ghost atras" id="atras" type="button">Atrás</button>
-            <button class="btn" id="btn" type="submit"><span class="lbl">Enviar</span><span class="spin"></span>
-              <svg class="spark" viewBox="0 0 30 30" aria-hidden="true"><g stroke="#fff" stroke-width="3.6" stroke-linecap="round"><path d="M6 6L9 13"/><path d="M14 16L22 14"/><path d="M12 24L21 26"/></g></svg></button>
+            <button class="btn" id="btn" type="submit"><span class="lbl">Enviar</span><span class="spin"></span></button>
           </div>
         </div>
       </form>
@@ -349,9 +348,7 @@ h1{font-size:clamp(50px,7.200vw,94px);line-height:.9}
 
 <footer class="foot">
   <p class="pill">
-    <svg class="l" viewBox="0 0 46 46" aria-hidden="true"><g stroke="#14A9E9" stroke-width="7" stroke-linecap="round"><path d="M6 12L26 18"/><path d="M6 36L26 28"/></g></svg>
     Nos encantará acompañarte<br>en este camino.
-    <svg class="r" viewBox="0 0 46 46" aria-hidden="true"><g stroke="#14A9E9" stroke-width="7" stroke-linecap="round"><path d="M6 12L26 18"/><path d="M6 36L26 28"/></g></svg>
   </p>
   
   <p class="credit">Hecho con cariño por <a href="https://www.elevatia.do" target="_blank" rel="noopener">ElevatIA</a></p>
