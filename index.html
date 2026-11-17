@@ -857,6 +857,7 @@ html{scroll-behavior:smooth;scroll-padding-top:90px}
 
   function salesUserMsg(text){
     const m = document.getElementById('salesMessages');
+    if (!m) return;
     const d = document.createElement('div');
     d.className = 'flex justify-end animate-fadeIn';
     d.innerHTML = '<div class="bg-gradient-to-r from-slate-100 to-white text-background-dark px-3.5 py-2.5 rounded-2xl rounded-tr-sm max-w-[80%] text-[13px] shadow-lg font-medium">'+text+'</div>';
@@ -866,6 +867,7 @@ html{scroll-behavior:smooth;scroll-padding-top:90px}
 
   function salesTyping(){
     const m = document.getElementById('salesMessages');
+    if (!m) return;
     const d = document.createElement('div');
     d.id = 'salesTyping';
     d.className = 'flex gap-2 items-start';
@@ -881,6 +883,7 @@ html{scroll-behavior:smooth;scroll-padding-top:90px}
 
   function salesShowOptions(opts){
     const a = document.getElementById('salesActions');
+    if (!a) return;
     a.innerHTML = '';
     opts.forEach(o => {
       const b = document.createElement('button');
