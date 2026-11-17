@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ITA Open House · Confirma tu asistencia</title>
-<meta name="description" content="Ven a conocer nuestro espacio y nuestros programas. Martes 1 de diciembre, de 1:00 a 6:00 p. m. Confirma tu asistencia.">
+<meta name="description" content="Ven a conocer nuestro espacio y nuestros programas. Martes 1 de diciembre, de 1:00 a 6:00 p. m., en Calle El Cayao #13, Serrallés. Confirma tu asistencia.">
 <meta property="og:title" content="ITA Open House · Confirma tu asistencia">
-<meta property="og:description" content="Martes 1 de diciembre · 1:00 a 6:00 p. m. · Ven a conocer nuestro espacio y nuestros programas.">
+<meta property="og:description" content="Martes 1 de diciembre · 1:00 a 6:00 p. m. · Calle El Cayao #13, Serrallés">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://www.elevatia.do/ita/open-house/og.jpg">
 <meta name="theme-color" content="#FDF8EC">
@@ -85,6 +85,35 @@ textarea.in{min-height:96px;resize:vertical}
 .radios .full{grid-column:1/-1}
 .radios.bad .radio{border-color:var(--red)}
 @media (min-width:981px){.hero-in{padding-bottom:190px}}
+/* ---------- ubicación ---------- */
+.lugar{position:relative;padding:76px 28px 34px}
+.lugar-in{position:relative;max-width:980px;margin:0 auto}
+.lugar h2{font-weight:700;font-size:48px;letter-spacing:-.02em;line-height:1;color:var(--navy-2);text-align:center}
+.lugar .dir{margin:14px 0 0;text-align:center;font-size:21px;font-weight:300;line-height:1.3;color:var(--navy-2)}
+.mapa-w{position:relative;margin-top:96px}
+.mapa-w .asoma{position:absolute;z-index:0;right:7%;bottom:calc(100% - 2px);width:150px;height:auto}
+.mapa-w .cora{position:absolute;z-index:2;left:-46px;top:-44px;width:104px;height:auto;rotate:-14deg}
+.mapa{position:relative;z-index:1;background:var(--card);border-radius:40px;padding:14px;box-shadow:0 30px 60px -30px rgba(36,86,172,.28),0 2px 0 rgba(36,86,172,.04)}
+.mapa iframe{display:block;width:100%;height:440px;border:0;border-radius:28px;background:var(--sky-soft)}
+.mapa-pie{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 14px 8px 18px}
+.mapa-pie .donde{display:flex;align-items:center;gap:14px;font-size:18px;font-weight:300;line-height:1.25;color:var(--navy-2)}
+.mapa-pie .donde b{display:block;font-weight:600}
+.mapa-pie .ic{width:56px;height:56px}.mapa-pie .ic svg{width:30px;height:30px}
+.ir{flex:none;display:inline-flex;align-items:center;gap:10px;border-radius:999px;background:#1F63BC;color:#fff;text-decoration:none;font-size:17px;font-weight:500;padding:15px 26px;box-shadow:0 12px 24px -12px rgba(31,99,188,.7);transition:transform .15s,background .2s}
+.ir:hover{background:#1A57A8;transform:translateY(-1px)}
+.ir svg{width:20px;height:20px}
+@media (max-width:640px){
+  .lugar{padding:54px 16px 20px}
+  .lugar h2{font-size:40px}
+  .lugar .dir{font-size:18px}
+  .mapa-w{margin-top:122px}
+  .mapa-w .asoma{width:108px;right:9%}
+  .mapa-w .cora{display:none}
+  .mapa{border-radius:30px;padding:10px}
+  .mapa iframe{height:340px;border-radius:22px}
+  .mapa-pie{flex-direction:column;align-items:stretch;padding:16px 8px 8px}
+  .ir{justify-content:center}
+}
 .acomp-list{display:grid;gap:10px}
 .acomp-list:empty{display:none}
 .acomp{display:grid;grid-template-columns:1fr auto;gap:8px}
@@ -203,6 +232,7 @@ img.deco{height:auto}
       <a href="#inicio" class="hide-sm">Inicio</a>
       <a href="#evento">Evento</a>
       <a href="#rsvp" class="on">RSVP</a>
+      <a href="#ubicacion">Ubicación</a>
     </nav>
   </div>
 </header>
@@ -233,6 +263,7 @@ img.deco{height:auto}
       <ul class="info rise d4">
         <li><span class="ic"><svg viewBox="0 0 40 40" fill="none" stroke="#F4B40F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="30" height="27" rx="4"/><path d="M5 15h30M12 4v7M28 4v7"/><g fill="#F4B40F" stroke="none"><rect x="10" y="19" width="5" height="4" rx="1"/><rect x="17.5" y="19" width="5" height="4" rx="1"/><rect x="25" y="19" width="5" height="4" rx="1"/><rect x="10" y="26" width="5" height="4" rx="1"/><rect x="17.5" y="26" width="5" height="4" rx="1"/><rect x="25" y="26" width="5" height="4" rx="1"/></g></svg></span><span class="txt big"><b>1</b><span>de<br>diciembre</span></span></li>
         <li><span class="ic"><svg viewBox="0 0 40 40" fill="none" stroke="#F4B40F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="21" r="14"/><path d="M14 20l5 5 8-9"/></svg></span><span class="txt">1:00 p. m. a<br>6:00 p. m.</span></li>
+        <li><span class="ic"><svg viewBox="0 0 40 40" fill="none" stroke="#F4B40F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 36s11-11.5 11-20a11 11 0 0 0-22 0c0 8.5 11 20 11 20z"/><circle cx="20" cy="16" r="4.5"/></svg></span><span class="txt">Calle El Cayao #13,<br>Serrallés</span></li>
       </ul>
     </section>
 
@@ -282,6 +313,24 @@ img.deco{height:auto}
   <svg class="wave wave-m" viewBox="0 0 1440 130" preserveAspectRatio="none" aria-hidden="true"><path d="M0 50C360 46 1080 54 1440 48V130H0Z" fill="#14A9E9"/></svg>
 </main>
 
+<section class="lugar" id="ubicacion" aria-labelledby="lugar-t">
+  <div class="lugar-in">
+    <h2 id="lugar-t">¿Dónde es?</h2>
+    <p class="dir">Te esperamos el martes 1 de diciembre,<br>de 1:00 a 6:00 p. m.</p>
+    <div class="mapa-w">
+      <img class="asoma" src="../img/monstruo-amarillo.webp" alt="" aria-hidden="true">
+      <img class="cora bob" src="../img/corazon.webp" alt="" aria-hidden="true">
+      <div class="mapa">
+        <iframe title="Mapa: Calle El Cayao #13, Serrallés" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen src="https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1sCalle+El+Cayao+13,+Serrall%C3%A9s,+Santo+Domingo,+Rep%C3%BAblica+Dominicana!6i17!3m1!1ses!5m1!1ses"></iframe>
+        <div class="mapa-pie">
+          <p class="donde"><span class="ic"><svg viewBox="0 0 40 40" fill="none" stroke="#F4B40F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 36s11-11.5 11-20a11 11 0 0 0-22 0c0 8.5 11 20 11 20z"/><circle cx="20" cy="16" r="4.5"/></svg></span><span><b>Calle El Cayao #13</b>Serrallés</span></p>
+          <a class="ir" href="https://www.google.com/maps/dir/?api=1&destination=Calle+El+Cayao+13,+Serrall%C3%A9s,+Santo+Domingo,+Rep%C3%BAblica+Dominicana" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8-8 18-2-8z"/></svg>Cómo llegar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer class="foot" id="contacto">
   <p class="pill">
     Nos encantará recibirte<br>en nuestro Open House.
@@ -301,7 +350,7 @@ img.deco{height:auto}
 <script>
 // Envío de confirmaciones → n8n (workflow "ITA - Open House RSVP") → Google Sheets + aviso por correo
 const RSVP_WEBHOOK = 'https://n8n.elevatia.do/webhook/ita-open-house';
-const EVENTO = { titulo: "ita's Open House", inicio: '20261201T130000', fin: '20261201T180000', tz: 'America/Santo_Domingo', detalle: 'Ven a conocer nuestro espacio y nuestros programas.' };
+const EVENTO = { titulo: "ita's Open House", lugar: 'Calle El Cayao #13, Serrallés, Santo Domingo', inicio: '20261201T130000', fin: '20261201T180000', tz: 'America/Santo_Domingo', detalle: 'Ven a conocer nuestro espacio y nuestros programas.' };
 
 const form = document.getElementById('form');
 const card = document.getElementById('rsvp');
@@ -384,7 +433,7 @@ function gracias(d) {
   const conQuien = ac.length ? ` Te acompaña${ac.length > 1 ? 'n' : ''}: ${ac.join(', ')}.` : '';
   document.getElementById('t-h').textContent = va ? `¡Nos vemos pronto, ${nombre}!` : `Gracias por avisarnos, ${nombre}`;
   document.getElementById('t-p').textContent = va
-    ? 'Tu asistencia a nuestro Open House quedó confirmada para el martes 1 de diciembre, de 1:00 a 6:00 p. m.' + conQuien
+    ? 'Tu asistencia a nuestro Open House quedó confirmada para el martes 1 de diciembre, de 1:00 a 6:00 p. m., en Calle El Cayao #13, Serrallés.' + conQuien
     : 'Te vamos a extrañar. Si cambias de opinión, puedes volver a confirmar cuando quieras.';
   document.getElementById('t-acts').style.display = va ? '' : 'none';
   card.classList.add('done');
@@ -402,6 +451,7 @@ document.getElementById('again').onclick = () => {
 document.getElementById('gcal').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
   + '&text=' + encodeURIComponent(EVENTO.titulo)
   + '&dates=' + EVENTO.inicio + '/' + EVENTO.fin + '&ctz=' + EVENTO.tz
+  + '&location=' + encodeURIComponent(EVENTO.lugar)
   + '&details=' + encodeURIComponent(EVENTO.detalle);
 
 document.getElementById('ics').onclick = () => {
@@ -409,7 +459,7 @@ document.getElementById('ics').onclick = () => {
     'UID:ita-open-house-20261201@elevatia.do', 'DTSTAMP:20261117T000000Z',
     // 1:00–6:00 p. m. en RD (UTC-4) = 17:00–22:00 UTC
     'DTSTART:20261201T170000Z', 'DTEND:20261201T220000Z',
-    "SUMMARY:ita's Open House",
+    "SUMMARY:ita's Open House", 'LOCATION:Calle El Cayao #13\\, Serrallés\\, Santo Domingo',
     'DESCRIPTION:' + EVENTO.detalle, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
@@ -423,7 +473,7 @@ const io = new IntersectionObserver(es => es.forEach(en => {
   if (!en.isIntersecting) return;
   links.forEach(l => l.classList.toggle('on', l.getAttribute('href') === '#' + en.target.id));
 }), { rootMargin: '-45% 0px -45% 0px' });
-['evento', 'rsvp'].forEach(id => io.observe(document.getElementById(id)));
+['evento', 'rsvp', 'ubicacion'].forEach(id => io.observe(document.getElementById(id)));
 </script>
 </body>
 </html>
