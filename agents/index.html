@@ -89,8 +89,9 @@ figure{margin:0}
 .chip{flex:none;border:1px solid var(--line);background:transparent;color:var(--ink);padding:8px 14px;border-radius:999px;font:500 13.5px var(--body);cursor:pointer}
 .chip:hover{background:var(--paper2)}
 .send{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line)}
-input,textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:12px 18px;width:100%;min-width:0}
+input,textarea,select{font:inherit;font-size:16px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:12px 18px;width:100%;min-width:0}
 textarea{border-radius:18px;resize:vertical;min-height:110px}
+select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink2) 50%),linear-gradient(135deg,var(--ink2) 50%,transparent 50%);background-position:calc(100% - 22px) 55%,calc(100% - 16px) 55%;background-size:6px 6px;background-repeat:no-repeat;padding-right:40px}
 .go{flex:none;width:48px;height:48px;border-radius:50%;border:0;background:var(--blue);color:#fff;font-size:20px;cursor:pointer}
 .foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:0 18px 14px;font-size:12.5px;color:var(--ink2)}
 .foot button{background:none;border:0;color:inherit;font:inherit;cursor:pointer;text-decoration:underline;padding:0}
@@ -131,7 +132,16 @@ form.lead p{margin:0;color:var(--ink2);font-size:15px}
 .three .mono{color:var(--blue)}
 .three h3{margin:14px 0 8px;font:400 clamp(30px,3.4vw,46px)/1 var(--display);text-transform:uppercase}
 .three p{margin:0;color:var(--ink2)}
-.cta{position:relative;color:#fff;isolation:isolate;padding:clamp(80px,13vw,190px) var(--gut);display:flex;flex-direction:column;gap:26px;align-items:flex-start}
+.cta{position:relative;color:#fff;isolation:isolate;padding:clamp(64px,10vw,150px) var(--gut);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,480px);gap:clamp(28px,5vw,72px);align-items:center}
+.cta-t{display:flex;flex-direction:column;gap:26px;align-items:flex-start}
+.cta .card{border-color:transparent}
+.cta .wa{color:#fff;font-size:15px;opacity:.9}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.fmsg{font-size:14.5px;margin:0}.fmsg.err{color:#a3261a}
+.thanks{padding:34px 22px;display:flex;flex-direction:column;gap:10px}
+.thanks h3{margin:0;font:400 clamp(32px,3.4vw,44px)/1 var(--display);text-transform:uppercase}
+.thanks p{margin:0;color:var(--ink2)}
 .cta>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
 .cta::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(10,10,6,.78),rgba(10,10,6,.25))}
 .cta h2{max-width:10ch}
@@ -139,10 +149,10 @@ form.lead p{margin:0;color:var(--ink2);font-size:15px}
 footer{background:var(--navy);color:#a4abcc;padding:34px var(--gut) 44px;font-size:13.5px}
 footer p{margin:0;max-width:90ch}
 [hidden]{display:none!important}
-@media (max-width:1040px){.grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.photo{grid-column:1/-1;min-height:300px}}
+@media (max-width:1040px){.cta{grid-template-columns:minmax(0,1fr)}.cta .card{max-width:560px}.grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.photo{grid-column:1/-1;min-height:300px}}
 @media (max-width:720px){
   .navlinks a:not(.pill){display:none}
-  .hero-b,.head,.grid,.three{grid-template-columns:minmax(0,1fr)}
+  .hero-b,.head,.grid,.three,.cta{grid-template-columns:minmax(0,1fr)}
   .photo{min-height:260px}.msgs{height:330px}
   .pill{padding:12px 20px}
 }
@@ -275,19 +285,45 @@ footer p{margin:0;max-width:90ch}
 
 <section class="cta" id="book">
   <img src="img/coast.jpg" alt="Miami coastline at golden hour" loading="lazy"/>
-  <span class="mono">Free · 20 minutes · no commitment</span>
-  <h2>Want this for your <em class="gt">business?</em></h2>
-  <p>We look at how your leads arrive today and where an agent would take work off your team.</p>
-  <a class="pill solid" id="bookBtn" href="#" target="_blank" rel="noopener" data-cta="book">Book a free diagnostic →</a>
+  <div class="cta-t">
+    <span class="mono">Free · 20 minutes · no commitment</span>
+    <h2>Want this for your <em class="gt">business?</em></h2>
+    <p>We look at how your leads arrive today and where an agent would take work off your team.</p>
+    <a class="wa" id="bookBtn" href="#" target="_blank" rel="noopener" data-cta="book">Prefer WhatsApp? Message us →</a>
+  </div>
+  <div class="card" id="contactCard">
+    <div class="card-h"><b>Tell us about your business</b><span class="mono">We reply by email</span></div>
+    <form class="lead" id="contactForm" novalidate>
+      <div class="two">
+        <label for="cName">Your name<input id="cName" name="name" maxlength="80" autocomplete="name" required/></label>
+        <label for="cCompany">Company<input id="cCompany" name="company" maxlength="120" autocomplete="organization"/></label>
+      </div>
+      <div class="two">
+        <label for="cEmail">Work email<input id="cEmail" name="email" type="email" maxlength="120" autocomplete="email" required/></label>
+        <label for="cPhone">Phone or WhatsApp<input id="cPhone" name="phone" type="tel" maxlength="40" autocomplete="tel"/></label>
+      </div>
+      <label for="cInterest">What are you interested in?
+        <select id="cInterest" name="interest">
+          <option>Real Estate AI</option><option>Appointment AI</option><option>Sales Workflow</option><option>Something else</option>
+        </select></label>
+      <label for="cMsg">How do your leads arrive today?<textarea id="cMsg" name="message" maxlength="1000"></textarea></label>
+      <input class="hp" type="text" name="website" id="cWeb" tabindex="-1" autocomplete="off" aria-hidden="true"/>
+      <p class="fmsg" id="cErr" role="alert" hidden></p>
+      <div class="row"><button class="pill solid" type="submit" id="cSubmit">Send →</button></div>
+      <p class="fmsg">We only use these details to answer your request.</p>
+    </form>
+    <div class="thanks" id="cThanks" hidden><span class="mono">Sent</span><h3>Thank you.</h3><p>Your details reached our team. We will write back to the email you gave us.</p></div>
+  </div>
 </section>
 
-<footer><p>Palm Key Realty, Lumina Aesthetics and Northbay Agency are fictional companies created for these demos. No prices are loaded and no visit or appointment is real. Your messages are processed by an AI model to write the answers, so please do not share personal or sensitive information. Made by ElevatIA · <a href="https://www.elevatia.do/privacidad/">Privacy</a></p></footer>
+<footer><p>Palm Key Realty, Lumina Aesthetics and Northbay Agency are fictional companies created for these demos. No prices are loaded and no visit or appointment is real. Your demo messages are processed by an AI model to write the answers, so please do not share personal or sensitive information in the chats. Made by ElevatIA · <a href="https://www.elevatia.do/privacidad/">Privacy</a></p></footer>
 
 <script>
 (function(){
   // ================= CONFIGURACIÓN =================
   const AGENTS_WEBHOOK = 'https://n8n.elevatia.do/webhook/demo-agents';
   const EVENTS_WEBHOOK = 'https://n8n.elevatia.do/webhook/demo-eventos';
+  const CONTACT_WEBHOOK = 'https://n8n.elevatia.do/webhook/agents-contact';   // llega a msanchez@ y mbarreat@elevatia.do
   const CAL_URL  = '';                 // Enlace de agenda (Cal.com / Calendly). Vacío = WhatsApp
   const WHATSAPP = '18098606379';
   const AI_LIMIT = 20;                 // Llamadas a la IA por visitante y día
@@ -403,6 +439,25 @@ footer p{margin:0;max-width:90ch}
       await wait(750); setPipe('reply', r.reply || 'Thanks for reaching out. The Northbay Team.', true);
     } catch(e){ setPipe('lead','The demo is busy right now. Please try again in a moment.',false); track('chat_error','sales'); }
     busy = false; $('fSubmit').disabled = false; $('fSubmit').textContent = 'Send the form';
+  });
+
+  // ---------- formulario de contacto ----------
+  let sending = false;
+  $('contactForm').addEventListener('submit', async ev => {
+    ev.preventDefault(); if (sending) return;
+    const err = $('cErr'), fail = m => { err.textContent = m; err.className = 'fmsg err'; err.hidden = false; };
+    const data = { name: $('cName').value.trim(), company: $('cCompany').value.trim(), email: $('cEmail').value.trim(), phone: $('cPhone').value.trim(),
+      interest: $('cInterest').value, message: $('cMsg').value.trim(), website: $('cWeb').value,
+      source: 'agents' + (UTM.utm_source ? ' · ' + UTM.utm_source + (UTM.utm_campaign ? ' / ' + UTM.utm_campaign : '') : '') };
+    if (!data.name){ fail('Please add your name.'); $('cName').focus(); return; }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)){ fail('Please add a valid email so we can reply.'); $('cEmail').focus(); return; }
+    err.hidden = true; sending = true; $('cSubmit').disabled = true; $('cSubmit').textContent = 'Sending…';
+    try {
+      const r = await fetch(CONTACT_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) });
+      if (!r.ok) throw new Error('http ' + r.status);
+      $('contactForm').hidden = true; $('cThanks').hidden = false; track('formulario_enviado', data.interest);
+    } catch(e){ fail('We could not send it. Please try again, or message us on WhatsApp.'); track('formulario_error', ''); }
+    sending = false; $('cSubmit').disabled = false; $('cSubmit').textContent = 'Send →';
   });
 
   // ---------- CTA y arranque ----------
