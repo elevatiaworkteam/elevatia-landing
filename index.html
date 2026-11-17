@@ -35,13 +35,80 @@
     }
 </script>
 <style>
-/* ===== Clases que usan los demos y el chat (se conservan) ===== */
-.glass-card{background:rgba(10,10,15,.92);border:1px solid rgba(255,255,255,.08)}
-.glow-border-magenta{border:1px solid rgba(238,43,238,.3);box-shadow:0 0 15px rgba(238,43,238,.1)}
-.glow-button{box-shadow:0 0 25px rgba(238,43,238,.35);transition:all .4s cubic-bezier(.175,.885,.32,1.275)}
-.glow-button:hover{box-shadow:0 0 40px rgba(238,43,238,.6);transform:translateY(-3px) scale(1.02)}
-#demoModal,#avatariaPanel{color:#fff}
-#avatariaPanel{background:#0B0E26!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+/* ===== Demos y chat: capa de tema que pasa sus colores oscuros a papel y arcilla ===== */
+#demoModal,#avatariaPanel{color:#0E1440}
+.glass-card{background:#FFFDF8}
+.glow-button{box-shadow:4px 4px 0 #D917FC}
+.e-demo-caja{background:#FFFDF8;color:#0E1440;border:2px solid #0E1440;border-radius:26px;box-shadow:8px 8px 0 #D917FC}
+.e-demo-cab{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 18px;border-bottom:2px solid #0E1440;background:#FFFDF8}
+.e-demo-tit{font-weight:800;font-size:19px;letter-spacing:-.03em;line-height:1.2}
+.e-demo-pie{padding:14px 18px;border-top:2px solid #0E1440;background:#FFFDF8}
+#demoIconWrap{background:#0E1440!important;background-image:none!important}
+#demoIcon{color:#fff!important}
+@media (max-width:639px){.e-demo-caja{border-radius:0;border:0;box-shadow:none}}
+#avatariaPanel{background:#FFFDF8!important;border:2px solid #0E1440!important;box-shadow:7px 7px 0 #D917FC!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+#avatariaBtn{background:#0E1440!important;background-image:none!important;box-shadow:5px 5px 0 #D917FC!important;border:2px solid #0E1440}
+#avatariaBtn .border-background-dark{border-color:#F4E7D3}
+/* texto */
+:is(#demoModal,#avatariaPanel) :is(.text-white,.text-slate-100,.text-slate-200,.text-background-dark),:is(#demoModal,#avatariaPanel) .hover\:text-white:hover{color:#0E1440}
+:is(#demoModal,#avatariaPanel) :is(.text-slate-300,.text-slate-400){color:rgba(14,20,64,.72)}
+:is(#demoModal,#avatariaPanel) :is(.text-slate-500,.text-slate-600,.text-white\/40){color:rgba(14,20,64,.56)}
+:is(#demoModal,#avatariaPanel) :is(.text-emerald-300,.text-emerald-400,.text-emerald-500){color:#0B8A4F}
+:is(#demoModal,#avatariaPanel) :is(.text-accent-blue,.text-accent-blue\/60){color:#2C3CA7}
+:is(#demoModal,#avatariaPanel) :is(.text-primary,.text-primary\/80){color:#A70FC6}
+:is(#demoModal,#avatariaPanel) .text-amber-400{color:#A8650A}
+:is(#demoModal,#avatariaPanel) .text-red-400{color:#C5303A}
+:is(#demoModal,#avatariaPanel) .text-violet-400{color:#6D3AE0}
+:is(#demoModal,#avatariaPanel) ::placeholder{color:rgba(14,20,64,.45)}
+/* fondos */
+:is(#demoModal,#avatariaPanel) :is(.bg-slate-950,.bg-background-dark,.bg-background-dark\/50){background-color:#FFFDF8}
+:is(#demoModal,#avatariaPanel) :is(.bg-slate-900,.bg-slate-900\/80){background-color:#fff}
+:is(#demoModal,#avatariaPanel) .bg-slate-800{background-color:#D8ECFB}
+:is(#demoModal,#avatariaPanel) .bg-black{background-color:#0E1440}
+:is(#demoModal,#avatariaPanel) .bg-white\/5{background-color:#fff;box-shadow:0 0 0 1.5px rgba(14,20,64,.13)}
+:is(#demoModal,#avatariaPanel) :is(.bg-white\/60,.bg-slate-400){background-color:rgba(14,20,64,.45)}
+:is(#demoModal,#avatariaPanel) :is(.bg-emerald-500\/5,.bg-emerald-500\/10){background-color:#E3F6EC}
+:is(#demoModal,#avatariaPanel) .bg-emerald-500\/20{background-color:#C9EEDA}
+:is(#demoModal,#avatariaPanel) .bg-red-500\/10{background-color:#FDE7E8}
+:is(#demoModal,#avatariaPanel) .bg-amber-500\/10{background-color:#FFF0CC}
+:is(#demoModal,#avatariaPanel) .bg-violet-500\/10{background-color:#ECE5FF}
+:is(#demoModal,#avatariaPanel) .bg-slate-500\/10{background-color:#ECEDF2}
+:is(#demoModal,#avatariaPanel) :is(.bg-accent-blue\/10,.bg-accent-blue\/15){background-color:#D8ECFB}
+:is(#demoModal,#avatariaPanel) .bg-primary\/5{background-color:#F6DDFB}
+:is(#demoModal,#avatariaPanel) .bg-amber-500\/5{background-color:#FFF3D6}
+:is(#demoModal,#avatariaPanel) .bg-slate-500\/5{background-color:rgba(14,20,64,.05)}
+:is(#demoModal,#avatariaPanel) .bg-slate-500\/20{background-color:rgba(14,20,64,.1)}
+:is(#demoModal,#avatariaPanel) .bg-primary{background-color:#0E1440}
+:is(#demoModal,#avatariaPanel) .bg-accent-blue{background-color:#2C3CA7}
+:is(#demoModal,#avatariaPanel) :is(.hover\:bg-white\/5,.hover\:bg-white\/10,.hover\:bg-white\/15):hover{background-color:#F6F1E6}
+:is(#demoModal,#avatariaPanel) .hover\:bg-primary\/20:hover{background-color:#F6DDFB}
+:is(#demoModal,#avatariaPanel) :is(.hover\:border-primary\/40,.hover\:border-white\/40):hover{border-color:#0E1440}
+/* bordes */
+:is(#demoModal,#avatariaPanel) :is(.border-white\/10,.border-white\/15,.border-white\/20,.border-slate-500\/20,.border-slate-300){border-color:rgba(14,20,64,.16)}
+:is(#demoModal,#avatariaPanel) :is(.border-slate-700,.border-slate-800){border-color:#0E1440}
+:is(#demoModal,#avatariaPanel) :is(.border-emerald-500\/20,.border-emerald-500\/30){border-color:rgba(22,179,100,.5)}
+:is(#demoModal,#avatariaPanel) :is(.border-primary\/20,.border-primary\/30){border-color:rgba(217,23,252,.45)}
+:is(#demoModal,#avatariaPanel) .border-amber-500\/20{border-color:#E7C777}
+/* degradados: se apagan y se pinta un color plano según su inicio */
+:is(#demoModal,#avatariaPanel) [class*="bg-gradient-to-"]{background-image:none}
+:is(#demoModal,#avatariaPanel) .from-slate-950{background-color:#F4E7D3}
+:is(#demoModal,#avatariaPanel) .from-slate-900{background-color:#FFFDF8}
+:is(#demoModal,#avatariaPanel) :is(.from-slate-200,.from-white\/10){background-color:#fff}
+:is(#demoModal,#avatariaPanel) .from-slate-100{background-color:#D8ECFB}
+:is(#demoModal,#avatariaPanel) .from-white{background-color:#F6DDFB}
+:is(#demoModal,#avatariaPanel) .from-primary\/10{background-color:#F6DDFB}
+:is(#demoModal,#avatariaPanel) .from-emerald-500\/10{background-color:#E3F6EC}
+:is(#demoModal,#avatariaPanel) .from-slate-500\/10{background-color:rgba(14,20,64,.06)}
+:is(#demoModal,#avatariaPanel) .from-primary{background-color:#0E1440}
+:is(#demoModal,#avatariaPanel) .from-accent-blue{background-color:#2C3CA7}
+:is(#demoModal,#avatariaPanel) .from-emerald-500{background-color:#16B364}
+:is(#demoModal,#avatariaPanel) .from-red-500{background-color:#E5484D}
+:is(#demoModal,#avatariaPanel) .from-amber-500{background-color:#E39A12}
+:is(#demoModal,#avatariaPanel) .from-violet-500{background-color:#7C4DFF}
+:is(#demoModal,#avatariaPanel) .from-slate-500{background-color:#5B6480}
+/* texto blanco solo sobre fondos de color */
+:is(#demoModal,#avatariaPanel) :is(.bg-primary,.from-primary,.from-accent-blue,.bg-accent-blue,.bg-red-500,.from-emerald-500,.from-red-500,.from-amber-500,.from-violet-500,.from-slate-500):is(.text-white),
+:is(#demoModal,#avatariaPanel) :is(.bg-primary,.from-primary,.from-accent-blue,.bg-accent-blue,.bg-red-500,.from-emerald-500,.from-red-500,.from-amber-500,.from-violet-500,.from-slate-500) :is(.text-white,.material-symbols-outlined){color:#fff}
 
 /* ===== Papel y arcilla ===== */
 :root{--tinta:#0E1440;--azul:#08A0F7;--deep:#2C3CA7;--morado:#D917FC;--papel:#FFFDF8;--crema:#F4E7D3;--cielo:#D8ECFB;--lila:#F6DDFB}
@@ -265,8 +332,6 @@ html{scroll-behavior:smooth;scroll-padding-top:90px}
 .e-ok h4{font-weight:800;font-size:30px;letter-spacing:-.035em;margin-bottom:8px}
 .e-ok p{font-size:15.5px;font-weight:500;opacity:.8;margin-bottom:24px;line-height:1.5}
 
-/* Botón del chat con el estilo nuevo */
-#avatariaBtn{background:var(--tinta)!important;box-shadow:5px 5px 0 var(--morado)!important;border:2px solid var(--tinta)}
 
 /* ===== Tabletas y celulares ===== */
 @media (max-width:1100px){
@@ -675,28 +740,23 @@ html{scroll-behavior:smooth;scroll-padding-top:90px}
 })();
 </script>
 <!-- Demo Modal (WhatsApp / Voice / Email) -->
-<div id="demoModal" class="hidden fixed inset-0 z-[100] bg-black/90 items-center justify-center p-0 sm:p-4" onclick="if(event.target===this)closeDemo()">
-<div class="glass-card rounded-none sm:rounded-3xl glow-border-magenta w-full sm:max-w-2xl h-full sm:h-auto sm:max-h-[90vh] overflow-hidden flex flex-col">
-<div class="p-3 sm:p-5 border-b border-white/10 flex items-center justify-between bg-gradient-to-r from-primary/10 to-accent-blue/10 shrink-0">
-<div class="flex items-center gap-2 sm:gap-3 min-w-0">
-<div id="demoIconWrap" class="size-10 sm:size-12 rounded-2xl flex items-center justify-center shrink-0">
-<span id="demoIcon" class="material-symbols-outlined text-white text-xl sm:text-2xl">smart_toy</span>
+<div id="demoModal" class="e-modal hidden fixed inset-0 z-[100] items-center justify-center p-0 sm:p-4" onclick="if(event.target===this)closeDemo()">
+<div class="e-demo-caja w-full sm:max-w-2xl h-full sm:h-auto sm:max-h-[90vh] overflow-hidden flex flex-col">
+<div class="e-demo-cab shrink-0">
+<div class="flex items-center gap-3 min-w-0">
+<div id="demoIconWrap" class="size-12 rounded-2xl flex items-center justify-center shrink-0">
+<span id="demoIcon" class="material-symbols-outlined text-white text-2xl">smart_toy</span>
 </div>
 <div class="min-w-0">
-<h3 id="demoTitle" class="font-black text-sm sm:text-lg uppercase tracking-tight truncate">Demo</h3>
-<div class="flex items-center gap-2">
-<span class="size-1.5 rounded-full bg-emerald-500"></span>
-<span class="text-[9px] sm:text-[10px] text-emerald-500 uppercase tracking-widest font-bold">Simulación en vivo</span>
+<h3 id="demoTitle" class="e-demo-tit truncate">Demo</h3>
+<span class="e-vivo">Simulación en vivo</span>
 </div>
 </div>
-</div>
-<button onclick="closeDemo()" aria-label="Cerrar" class="size-9 sm:size-10 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors shrink-0">
-<span class="material-symbols-outlined text-slate-400">close</span>
-</button>
+<button onclick="closeDemo()" aria-label="Cerrar" class="e-cerrar" style="position:static;flex:none">✕</button>
 </div>
 <div id="demoBody" class="flex-1 overflow-y-auto"></div>
-<div class="p-3 sm:p-5 border-t border-white/10 bg-background-dark/50 shrink-0">
-<a id="demoCta" href="https://wa.me/18098606379?text=Hola%2C%20quiero%20un%20bot%20como%20el%20de%20la%20demo%20de%20ElevatIA" target="_blank" rel="noopener" class="block w-full py-3 sm:py-4 bg-primary text-white text-center font-black rounded-xl sm:rounded-2xl text-[11px] sm:text-xs glow-button uppercase tracking-[0.15em] sm:tracking-[0.2em]">¿Te gustó? Quiero uno así</a>
+<div class="e-demo-pie shrink-0">
+<a id="demoCta" href="https://wa.me/18098606379?text=Hola%2C%20quiero%20un%20bot%20como%20el%20de%20la%20demo%20de%20ElevatIA" target="_blank" rel="noopener" class="e-pill" style="width:100%">¿Te gustó? Quiero uno así →</a>
 </div>
 </div>
 </div>
@@ -718,18 +778,18 @@ html{scroll-behavior:smooth;scroll-padding-top:90px}
     demoState = {};
     icon.className = 'material-symbols-outlined text-white text-2xl';
     if (type === 'sales') {
-      title.textContent = 'Bot de Ventas — Demo';
+      title.textContent = 'Bot de ventas — Demo';
       icon.textContent = 'trending_up';
       icon.className = 'material-symbols-outlined text-background-dark text-2xl';
       iconWrap.className = 'size-12 rounded-2xl flex items-center justify-center bg-white';
       initSales(body);
     } else if (type === 'voice') {
-      title.textContent = 'Asistente Voz IA — Demo';
+      title.textContent = 'Asistente de voz IA — Demo';
       icon.textContent = 'call';
       iconWrap.className = 'size-12 rounded-2xl flex items-center justify-center bg-gradient-to-br from-accent-blue to-blue-700';
       initVoice(body);
     } else if (type === 'email') {
-      title.textContent = 'Email Inteligente — Demo';
+      title.textContent = 'Email inteligente — Demo';
       icon.textContent = 'mark_email_read';
       iconWrap.className = 'size-12 rounded-2xl flex items-center justify-center bg-gradient-to-br from-primary to-pink-700';
       initEmail(body);
@@ -1197,7 +1257,7 @@ html{scroll-behavior:smooth;scroll-padding-top:90px}
               <span class="material-symbols-outlined text-primary text-base">auto_awesome</span>
               <p class="text-[10px] uppercase tracking-widest text-primary font-bold">Respuesta sugerida por IA</p>
             </div>
-            <div class="text-sm text-slate-300 bg-gradient-to-br from-primary/10 to-pink-500/10 border border-primary/30 rounded-xl p-4 whitespace-pre-line leading-relaxed">${e.reply}</div>
+            <div class="text-sm text-slate-300 bg-gradient-to-br from-primary/10 to-pink-500/10 border border-primary/30 rounded-xl p-4 whitespace-pre-line leading-relaxed">${(e.reply || '').replace(/\\n/g, '\n')}</div>
             <div class="grid grid-cols-2 gap-2 mt-3">
               <button onclick="emailBack()" class="py-3 border border-white/10 hover:bg-white/5 font-black rounded-xl text-xs uppercase tracking-widest transition-all">Editar</button>
               <button onclick="emailSent()" class="py-3 bg-primary text-white font-black rounded-xl text-xs glow-button uppercase tracking-widest">✓ Enviar</button>
