@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ITA Open House · Confirma tu asistencia</title>
-<meta name="description" content="Ven a conocer nuestro espacio y nuestros programas. Martes 1 de diciembre. Confirma tu asistencia.">
+<meta name="description" content="Ven a conocer nuestro espacio y nuestros programas. Martes 1 de diciembre, de 1:00 a 6:00 p. m. Confirma tu asistencia.">
 <meta property="og:title" content="ITA Open House · Confirma tu asistencia">
-<meta property="og:description" content="Martes 1 de diciembre · Ven a conocer nuestro espacio y nuestros programas.">
+<meta property="og:description" content="Martes 1 de diciembre · 1:00 a 6:00 p. m. · Ven a conocer nuestro espacio y nuestros programas.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://www.elevatia.do/ita/open-house/og.jpg">
 <meta name="theme-color" content="#FDF8EC">
@@ -232,6 +232,7 @@ img.deco{height:auto}
       <p class="lead rise d3">Ven a conocer nuestro espacio<br>y nuestros programas.</p>
       <ul class="info rise d4">
         <li><span class="ic"><svg viewBox="0 0 40 40" fill="none" stroke="#F4B40F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="30" height="27" rx="4"/><path d="M5 15h30M12 4v7M28 4v7"/><g fill="#F4B40F" stroke="none"><rect x="10" y="19" width="5" height="4" rx="1"/><rect x="17.5" y="19" width="5" height="4" rx="1"/><rect x="25" y="19" width="5" height="4" rx="1"/><rect x="10" y="26" width="5" height="4" rx="1"/><rect x="17.5" y="26" width="5" height="4" rx="1"/><rect x="25" y="26" width="5" height="4" rx="1"/></g></svg></span><span class="txt big"><b>1</b><span>de<br>diciembre</span></span></li>
+        <li><span class="ic"><svg viewBox="0 0 40 40" fill="none" stroke="#F4B40F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="21" r="14"/><path d="M14 20l5 5 8-9"/></svg></span><span class="txt">1:00 p. m. a<br>6:00 p. m.</span></li>
       </ul>
     </section>
 
@@ -265,6 +266,10 @@ img.deco{height:auto}
         <img class="face" src="../img/monstruo-azul.webp" alt="" aria-hidden="true">
         <h3 id="t-h">¡Gracias!</h3>
         <p id="t-p"></p>
+        <div class="acts" id="t-acts">
+          <a class="ghost" id="gcal" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Agregar a Google Calendar</a>
+          <button class="ghost" id="ics" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Descargar evento (iPhone / Outlook)</button>
+        </div>
         <button class="again" id="again" type="button">Registrar a otra persona</button>
       </div>
     </section>
@@ -296,6 +301,7 @@ img.deco{height:auto}
 <script>
 // Envío de confirmaciones → n8n (workflow "ITA - Open House RSVP") → Google Sheets + aviso por correo
 const RSVP_WEBHOOK = 'https://n8n.elevatia.do/webhook/ita-open-house';
+const EVENTO = { titulo: "ita's Open House", inicio: '20261201T130000', fin: '20261201T180000', tz: 'America/Santo_Domingo', detalle: 'Ven a conocer nuestro espacio y nuestros programas.' };
 
 const form = document.getElementById('form');
 const card = document.getElementById('rsvp');
@@ -378,8 +384,9 @@ function gracias(d) {
   const conQuien = ac.length ? ` Te acompaña${ac.length > 1 ? 'n' : ''}: ${ac.join(', ')}.` : '';
   document.getElementById('t-h').textContent = va ? `¡Nos vemos pronto, ${nombre}!` : `Gracias por avisarnos, ${nombre}`;
   document.getElementById('t-p').textContent = va
-    ? 'Tu asistencia a nuestro Open House quedó confirmada para el martes 1 de diciembre.' + conQuien
+    ? 'Tu asistencia a nuestro Open House quedó confirmada para el martes 1 de diciembre, de 1:00 a 6:00 p. m.' + conQuien
     : 'Te vamos a extrañar. Si cambias de opinión, puedes volver a confirmar cuando quieras.';
+  document.getElementById('t-acts').style.display = va ? '' : 'none';
   card.classList.add('done');
   card.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
@@ -390,6 +397,24 @@ document.getElementById('again').onclick = () => {
   progBox.classList.remove('bad');
   card.classList.remove('done');
   document.getElementById('nombre').focus();
+};
+
+document.getElementById('gcal').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+  + '&text=' + encodeURIComponent(EVENTO.titulo)
+  + '&dates=' + EVENTO.inicio + '/' + EVENTO.fin + '&ctz=' + EVENTO.tz
+  + '&details=' + encodeURIComponent(EVENTO.detalle);
+
+document.getElementById('ics').onclick = () => {
+  const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//ita//Open House//ES', 'BEGIN:VEVENT',
+    'UID:ita-open-house-20261201@elevatia.do', 'DTSTAMP:20261117T000000Z',
+    // 1:00–6:00 p. m. en RD (UTC-4) = 17:00–22:00 UTC
+    'DTSTART:20261201T170000Z', 'DTEND:20261201T220000Z',
+    "SUMMARY:ita's Open House",
+    'DESCRIPTION:' + EVENTO.detalle, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+  a.download = 'ita-open-house.ics';
+  a.click();
 };
 
 // resalta en el menú la sección visible
