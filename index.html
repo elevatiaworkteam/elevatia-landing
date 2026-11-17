@@ -1,1117 +1,616 @@
 <!DOCTYPE html>
-<html class="dark" lang="es"><head>
+<html lang="es"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ElevatIA | Automatización e Inteligencia Artificial de Alto Impacto</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<title>ElevatIA | Agentes de IA y automatización para tu negocio</title>
+<meta name="description" content="Diseñamos agentes de IA para WhatsApp, voz y correo que atienden, venden y cobran por ti. Automatización a la medida en República Dominicana."/>
+<meta name="theme-color" content="#F4E7D3"/>
+<meta property="og:title" content="ElevatIA | Agentes de IA que atienden, venden y cobran por ti"/>
+<meta property="og:description" content="Asistentes de WhatsApp, voz y correo conectados a tus sistemas."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.elevatia.do/"/>
+<link rel="icon" type="image/png" href="./img/favicon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#ee2bee",
-                        "accent-blue": "#2b9eee",
-                        "background-dark": "#020202",
-                        "glass": "rgba(10, 10, 15, 0.6)",
-                    },
-                    fontFamily: {
-                        "display": ["Space Grotesk", "sans-serif"],
-                        "sans": ["Space Grotesk", "sans-serif"]
-                    }
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#ee2bee",
+                    "accent-blue": "#2b9eee",
+                    "background-dark": "#020202",
+                    "glass": "rgba(10, 10, 15, 0.6)",
                 },
+                fontFamily: {
+                    "display": ["Montserrat", "sans-serif"],
+                    "sans": ["Montserrat", "sans-serif"]
+                }
             },
-        }
-    </script>
-<style type="text/tailwindcss">
-        @layer base {
-            body {
-                @apply bg-background-dark text-white font-sans overflow-x-hidden;
-                background-image:
-                    linear-gradient(rgba(238, 43, 238, 0.04) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(43, 158, 238, 0.04) 1px, transparent 1px);
-                background-size: 60px 60px;
-                background-attachment: fixed;
-            }
-        }
-        .glass-card {
-            background: rgba(10, 10, 15, 0.7);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .glow-border-magenta {
-            border: 1px solid rgba(238, 43, 238, 0.3);
-            box-shadow: 0 0 15px rgba(238, 43, 238, 0.1);
-        }
-        .glow-border-blue {
-            border: 1px solid rgba(43, 158, 238, 0.3);
-            box-shadow: 0 0 15px rgba(43, 158, 238, 0.1);
-        }
-        .glow-border-white {
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
-        }
-        .glow-button {
-            box-shadow: 0 0 25px rgba(238, 43, 238, 0.35);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .glow-button:hover {
-            box-shadow: 0 0 40px rgba(238, 43, 238, 0.6);
-            transform: translateY(-3px) scale(1.02);
-        }
-        .text-gradient-hero {
-            background: linear-gradient(90deg, #ee2bee, #2b9eee);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .ambient-glow-pink {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(238, 43, 238, 0.15) 0%, transparent 70%);
-            filter: blur(80px);
-            z-index: -1;
-        }
-        .ambient-glow-blue {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(43, 158, 238, 0.15) 0%, transparent 70%);
-            filter: blur(80px);
-            z-index: -1;
-        }
-        .logo-gradient-text {
-            background: linear-gradient(90deg, #2b9eee 0%, #ee2bee 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
-</head>
-<body class="min-h-screen">
-<header class="fixed top-0 w-full z-50 border-b border-white/5 bg-background-dark/80 backdrop-blur-md">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
-<div class="flex items-center gap-2">
-<div class="flex items-center text-2xl sm:text-3xl font-bold tracking-tight">
-<span class="logo-gradient-text">ElevatIA</span>
-</div>
-</div>
-<nav class="hidden lg:flex items-center gap-10">
-<a class="text-xs font-bold hover:text-primary transition-colors uppercase tracking-[0.2em]" href="#quienes-somos">¿Quiénes Somos?</a>
-<a class="text-xs font-bold hover:text-primary transition-colors uppercase tracking-[0.2em]" href="#solucion">Solución</a>
-<a class="text-xs font-bold hover:text-primary transition-colors uppercase tracking-[0.2em]" href="#servicios">Servicios</a>
-<a class="text-xs font-bold hover:text-primary transition-colors uppercase tracking-[0.2em]" href="#planes">Planes</a>
-<a class="text-xs font-bold hover:text-primary transition-colors uppercase tracking-[0.2em]" href="#beneficios">Beneficios</a>
-</nav>
-<div class="flex items-center gap-3 sm:gap-6">
-<a class="hidden sm:block text-xs font-bold tracking-widest hover:text-primary transition-colors" href="#contacto">CONTACTO</a>
-<button onclick="openLead()" class="hidden sm:inline-block px-6 lg:px-8 py-2.5 bg-primary text-white text-xs font-bold rounded-full glow-button uppercase tracking-widest cursor-pointer">Empezar</button>
-<button onclick="mobileMenuToggle()" aria-label="Menú" class="lg:hidden size-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors">
-<span id="mobileMenuIcon" class="material-symbols-outlined text-white">menu</span>
-</button>
-</div>
-</div>
-</header>
-<div id="mobileMenu" class="hidden fixed inset-0 z-[55] bg-background-dark/95 backdrop-blur-xl lg:hidden pt-20">
-<nav class="flex flex-col items-center justify-center gap-2 p-6 h-full">
-<a onclick="mobileMenuToggle()" class="w-full max-w-sm px-6 py-4 text-center text-base font-black hover:bg-primary/10 border border-white/10 rounded-2xl transition-colors uppercase tracking-widest" href="#quienes-somos">¿Quiénes Somos?</a>
-<a onclick="mobileMenuToggle()" class="w-full max-w-sm px-6 py-4 text-center text-base font-black hover:bg-primary/10 border border-white/10 rounded-2xl transition-colors uppercase tracking-widest" href="#demos">Probar Bots</a>
-<a onclick="mobileMenuToggle()" class="w-full max-w-sm px-6 py-4 text-center text-base font-black hover:bg-primary/10 border border-white/10 rounded-2xl transition-colors uppercase tracking-widest" href="#solucion">Solución</a>
-<a onclick="mobileMenuToggle()" class="w-full max-w-sm px-6 py-4 text-center text-base font-black hover:bg-primary/10 border border-white/10 rounded-2xl transition-colors uppercase tracking-widest" href="#servicios">Servicios</a>
-<a onclick="mobileMenuToggle()" class="w-full max-w-sm px-6 py-4 text-center text-base font-black hover:bg-primary/10 border border-white/10 rounded-2xl transition-colors uppercase tracking-widest" href="#planes">Planes</a>
-<a onclick="mobileMenuToggle()" class="w-full max-w-sm px-6 py-4 text-center text-base font-black hover:bg-primary/10 border border-white/10 rounded-2xl transition-colors uppercase tracking-widest" href="#beneficios">Beneficios</a>
-<a onclick="mobileMenuToggle()" class="w-full max-w-sm px-6 py-4 text-center text-base font-black hover:bg-primary/10 border border-white/10 rounded-2xl transition-colors uppercase tracking-widest" href="#casos">Casos de Éxito</a>
-<a onclick="mobileMenuToggle()" class="w-full max-w-sm px-6 py-4 text-center text-base font-black hover:bg-primary/10 border border-white/10 rounded-2xl transition-colors uppercase tracking-widest" href="#contacto">Contacto</a>
-<button onclick="mobileMenuToggle();openLead();" class="mt-4 w-full max-w-sm px-6 py-4 text-center text-base font-black bg-primary text-white rounded-2xl glow-button uppercase tracking-widest cursor-pointer">Empezar ahora</button>
-</nav>
-</div>
-<script>
-window.mobileMenuToggle = function(){
-  const menu = document.getElementById('mobileMenu');
-  const icon = document.getElementById('mobileMenuIcon');
-  if (menu.classList.contains('hidden')) {
-    menu.classList.remove('hidden');
-    icon.textContent = 'close';
-    document.body.style.overflow = 'hidden';
-  } else {
-    menu.classList.add('hidden');
-    icon.textContent = 'menu';
-    document.body.style.overflow = '';
-  }
-};
+        },
+    }
 </script>
-<main>
-<section class="relative min-h-screen flex items-center px-6 pt-16 sm:pt-20 overflow-hidden">
-<div class="absolute inset-0 z-0">
-<div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('./hero-bg.jpg'); opacity: 0.75;"></div>
-<div class="absolute inset-0 bg-gradient-to-b from-transparent via-background-dark/10 to-background-dark"></div>
-<div class="absolute inset-0 bg-gradient-to-r from-background-dark/30 via-transparent to-background-dark/30"></div>
+<style>
+/* ===== Clases que usan los demos y el chat (se conservan) ===== */
+.glass-card{background:rgba(10,10,15,.92);border:1px solid rgba(255,255,255,.08)}
+.glow-border-magenta{border:1px solid rgba(238,43,238,.3);box-shadow:0 0 15px rgba(238,43,238,.1)}
+.glow-button{box-shadow:0 0 25px rgba(238,43,238,.35);transition:all .4s cubic-bezier(.175,.885,.32,1.275)}
+.glow-button:hover{box-shadow:0 0 40px rgba(238,43,238,.6);transform:translateY(-3px) scale(1.02)}
+#demoModal,#avatariaPanel{color:#fff}
+#avatariaPanel{background:#0B0E26!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+
+/* ===== Papel y arcilla ===== */
+:root{--tinta:#0E1440;--azul:#08A0F7;--deep:#2C3CA7;--morado:#D917FC;--papel:#FFFDF8;--crema:#F4E7D3;--cielo:#D8ECFB;--lila:#F6DDFB}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+.e-pg{font-family:Montserrat,system-ui,sans-serif;color:var(--tinta);background-color:var(--crema);overflow-x:hidden;
+  background-image:radial-gradient(rgba(14,20,64,.07) 1px,transparent 1.4px);background-size:22px 22px;-webkit-font-smoothing:antialiased}
+.e-w{max-width:1360px;margin:0 auto;padding-left:44px;padding-right:44px;position:relative}
+.e-mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.e-rot{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12.5px;letter-spacing:3.4px;text-transform:uppercase;font-weight:700;display:inline-flex;align-items:center;gap:12px;color:var(--deep)}
+.e-rot::before{content:"";width:38px;height:2px;background:currentColor}
+.e-em{background:linear-gradient(90deg,var(--azul),var(--deep) 45%,var(--morado));-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.04em}
+.e-az{color:var(--deep)}
+.e-h2{font-weight:800;font-size:clamp(34px,4.6vw,58px);letter-spacing:-.035em;line-height:1.02;margin:18px 0 0;max-width:780px}
+.e-lead{font-size:clamp(16px,1.35vw,19px);line-height:1.6;font-weight:500;opacity:.8;max-width:600px;margin-top:20px}
+.e-pill{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--tinta);color:#fff;font-weight:700;font-size:15px;line-height:1;
+  padding:16px 26px;border-radius:999px;box-shadow:4px 4px 0 var(--morado);transition:transform .15s,box-shadow .15s;cursor:pointer;white-space:nowrap}
+.e-pill:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--morado)}
+.e-pill:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--morado)}
+.e-pill.e-claro{background:var(--papel);color:var(--tinta);box-shadow:4px 4px 0 var(--tinta);border:2px solid var(--tinta);padding:14px 24px}
+.e-pill.e-claro:hover{box-shadow:6px 6px 0 var(--tinta)}
+.e-pill.e-blanco{background:#fff;color:var(--tinta);box-shadow:4px 4px 0 var(--morado)}
+.e-sec{padding-top:110px;padding-bottom:110px}
+.e-obj{filter:drop-shadow(0 20px 16px rgba(14,20,64,.22));user-select:none;pointer-events:none}
+@keyframes e-salto{0%,100%{translate:0 0}50%{translate:0 -12px}}
+.e-flota{animation:e-salto 3.4s steps(5) infinite}
+.e-rv{opacity:1}
+.e-js .e-rv{opacity:0;translate:0 26px;transition:opacity .7s ease,translate .7s ease}
+.e-js .e-rv.e-in{opacity:1;translate:0 0}
+
+/* NAV */
+.e-nav{position:sticky;top:0;z-index:40;padding:16px 0;transition:padding .2s}
+.e-nav-in{display:flex;align-items:center;justify-content:space-between;gap:20px;background:rgba(255,253,248,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:2px solid var(--tinta);border-radius:999px;padding:10px 12px 10px 26px;box-shadow:4px 4px 0 rgba(14,20,64,.14)}
+.e-logo{height:30px;width:auto;display:block}
+.e-links{display:flex;gap:30px;font-weight:600;font-size:15px}
+.e-links a{opacity:.75;transition:opacity .15s}.e-links a:hover{opacity:1}
+.e-nav .e-pill{padding:13px 22px;font-size:14px}
+.e-burger{display:none;width:46px;height:46px;border-radius:50%;background:var(--tinta);color:#fff;align-items:center;justify-content:center;font-size:20px}
+.e-menu{position:fixed;inset:0;z-index:60;background:var(--crema);display:none;flex-direction:column;align-items:center;justify-content:center;gap:26px;font-weight:800;font-size:34px;letter-spacing:-.03em}
+.e-menu.e-on{display:flex}
+.e-menu .e-x{position:absolute;top:22px;right:22px;width:50px;height:50px;border-radius:50%;background:var(--tinta);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center}
+
+/* HERO */
+.e-hero{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,1fr);gap:20px;align-items:center;padding-top:44px;padding-bottom:70px}
+.e-h1{font-weight:800;font-size:clamp(46px,6.5vw,94px);line-height:1;letter-spacing:-.036em;margin:26px 0 28px}
+.e-hero .e-lead{max-width:520px;margin:0 0 34px}
+.e-cta{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.e-escena{position:relative;height:640px}
+.e-escena img{position:absolute;height:auto}
+.e-o-cal{width:36%;right:0;top:0;rotate:10deg;animation-delay:-.6s}
+.e-o-tel{width:35%;left:2%;top:2%;rotate:-9deg;animation-delay:-1.4s}
+.e-o-robot{width:58%;right:9%;top:20%;rotate:4deg}
+.e-o-sobre{width:33%;left:0;bottom:15%;rotate:7deg;animation-delay:-2.1s}
+.e-o-rayo{width:19%;right:0;bottom:24%;rotate:-8deg;animation-delay:-2.8s}
+.e-peg{display:inline-block;background:var(--morado);color:#fff;font-weight:800;font-size:17px;padding:13px 22px;border-radius:14px;box-shadow:5px 5px 0 var(--tinta)}
+.e-escena .e-peg{position:absolute;left:40%;bottom:4%;rotate:-5deg}
+
+/* CINTA */
+.e-cinta{background:var(--tinta);color:var(--crema);padding:20px 0;overflow:hidden;rotate:-1.2deg;margin:0 -30px;box-shadow:0 14px 30px -14px rgba(14,20,64,.5)}
+.e-cinta-in{display:flex;gap:0;width:max-content;animation:e-corre 36s linear infinite}
+.e-cinta span{font-weight:800;font-size:26px;letter-spacing:-.02em;padding:0 26px;white-space:nowrap;display:inline-flex;align-items:center;gap:52px}
+.e-cinta span::after{content:"";width:12px;height:12px;border-radius:50%;background:var(--morado)}
+.e-cinta span:nth-child(odd)::after{background:var(--azul)}
+@keyframes e-corre{to{transform:translateX(-50%)}}
+
+/* HOJAS */
+.e-hojas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px;margin-top:58px}
+.e-hoja{background:var(--papel);border-radius:8px;padding:34px 30px 30px;position:relative;box-shadow:0 2px 0 rgba(14,20,64,.08),0 26px 34px -18px rgba(14,20,64,.35)}
+.e-hoja::before{content:"";position:absolute;top:-13px;left:50%;width:110px;height:28px;margin-left:-55px;background:rgba(8,160,247,.35);rotate:-2deg}
+.e-hoja.e-t2::before{background:rgba(217,23,252,.3);rotate:3deg}
+.e-r1{rotate:-1.6deg}.e-r2{rotate:1.1deg}.e-r3{rotate:-.8deg}
+.e-hoja .e-obj{width:170px;margin:-8px 0 8px -10px}
+.e-num{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;letter-spacing:3px;font-weight:700;color:var(--deep);display:block}
+.e-h3{font-weight:800;font-size:28px;letter-spacing:-.03em;line-height:1.08;margin:8px 0 10px}
+.e-p{font-size:16px;line-height:1.55;font-weight:500;opacity:.8}
+
+/* BANDA AYUDA */
+.e-banda{background:var(--deep);color:#fff;border-radius:40px;padding:64px 58px 58px;margin-top:96px;position:relative;
+  background-image:radial-gradient(rgba(255,255,255,.1) 1px,transparent 1.4px);background-size:22px 22px}
+.e-banda .e-rot{color:#BFE4FF}
+.e-areas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:44px 40px;margin:50px 0 46px}
+.e-area{display:grid;grid-template-columns:86px 1fr;gap:18px;align-items:start}
+.e-area .e-obj{width:86px;filter:drop-shadow(0 12px 10px rgba(0,0,40,.4))}
+.e-area h4{font-weight:800;font-size:20px;letter-spacing:-.02em;margin-bottom:6px}
+.e-area p{font-size:15px;line-height:1.5;font-weight:500;opacity:.82}
+
+/* PLANES */
+.e-planes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;margin-top:64px;align-items:start}
+.e-plan{background:var(--papel);border:2px solid var(--tinta);border-radius:28px;padding:30px 28px 28px;position:relative;box-shadow:7px 7px 0 var(--tinta);display:flex;flex-direction:column}
+.e-plan.e-pop{box-shadow:7px 7px 0 var(--morado)}
+.e-plan .e-obj{width:150px;margin:-64px 0 6px auto}
+.e-plan .e-peg{position:absolute;top:-20px;left:22px;font-size:13.5px;padding:9px 15px;border-radius:11px;rotate:-4deg;box-shadow:3px 3px 0 var(--tinta)}
+.e-precio{display:flex;align-items:baseline;gap:10px;margin:22px 0 2px;flex-wrap:wrap}
+.e-precio b{font-weight:800;font-size:52px;letter-spacing:-.05em;line-height:1}
+.e-precio small{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;opacity:.6}
+.e-mes{font-weight:700;font-size:16px}.e-mes i{font-style:normal;font-weight:500;opacity:.65}
+.e-nota{font-size:12.5px;font-weight:500;opacity:.6;margin-top:4px}
+.e-chips{display:flex;flex-wrap:wrap;gap:7px;margin:20px 0}
+.e-chips span{font-size:12px;font-weight:700;padding:6px 11px;border-radius:999px;background:var(--cielo)}
+.e-pop .e-chips span{background:var(--lila)}
+.e-plan details{border-top:2px dashed rgba(14,20,64,.18);padding-top:16px;margin-bottom:22px}
+.e-plan summary{cursor:pointer;font-weight:800;font-size:15px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.e-plan summary::-webkit-details-marker{display:none}
+.e-plan summary::after{content:"+";font-size:22px;line-height:1;width:30px;height:30px;border-radius:50%;background:var(--tinta);color:#fff;display:grid;place-items:center;font-weight:600}
+.e-plan details[open] summary::after{content:"–"}
+.e-pasos{margin-top:14px;display:grid;gap:9px;counter-reset:p}
+.e-pasos li{font-size:14.5px;line-height:1.45;font-weight:500;display:grid;grid-template-columns:26px 1fr;gap:8px;counter-increment:p}
+.e-pasos li::before{content:counter(p);font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:700;font-size:12px;color:var(--deep);padding-top:2px}
+.e-pasos b{font-weight:800}
+.e-plan .e-pill{margin-top:auto;width:100%}
+.e-medida{margin-top:54px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;background:var(--papel);border-radius:22px;padding:26px 30px;border:2px dashed rgba(14,20,64,.3)}
+.e-medida p{font-weight:700;font-size:19px;letter-spacing:-.02em}
+
+/* DEMOS */
+.e-demos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;margin-top:58px}
+.e-demo{border-radius:32px;padding:32px 30px 30px;position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:440px;background:var(--cielo)}
+.e-demo.e-d2{background:var(--lila)}.e-demo.e-d3{background:var(--papel);border:2px solid var(--tinta)}
+.e-demo .e-obj{width:auto;height:112px;position:absolute;right:18px;top:16px;rotate:8deg}
+.e-vivo{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:2.4px;text-transform:uppercase;font-weight:700;display:inline-flex;align-items:center;gap:8px}
+.e-vivo::before{content:"";width:9px;height:9px;border-radius:50%;background:#16B364;box-shadow:0 0 0 4px rgba(22,179,100,.22)}
+.e-demo .e-h3{margin-top:110px;font-size:30px}
+.e-lista{display:grid;gap:9px;margin:18px 0 26px}
+.e-lista li{font-size:15px;font-weight:600;display:grid;grid-template-columns:24px 1fr;gap:9px;align-items:start}
+.e-lista li::before{content:"✓";width:22px;height:22px;border-radius:50%;background:var(--tinta);color:#fff;font-size:12px;display:grid;place-items:center;font-weight:800}
+.e-demo .e-pill{margin-top:auto;align-self:flex-start}
+
+/* PROCESO */
+.e-fases{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px;margin-top:70px;position:relative}
+.e-fases::before{content:"";position:absolute;left:4%;right:4%;top:58px;border-top:3px dashed rgba(14,20,64,.25)}
+.e-fase{position:relative;text-align:left}
+.e-fase .e-obj{height:112px;width:auto;max-width:130px;object-fit:contain;position:relative;z-index:1;margin-bottom:14px}
+.e-fase .e-h3{font-size:25px}
+.e-dur{display:inline-block;margin-top:14px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:1.6px;text-transform:uppercase;font-weight:700;padding:7px 12px;border-radius:9px;background:var(--papel);border:2px solid var(--tinta)}
+.e-total{margin-top:54px;display:inline-flex;align-items:center;gap:14px;flex-wrap:wrap}
+.e-total .e-peg{rotate:-2deg;font-size:20px}
+
+/* CASOS */
+.e-casos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;margin-top:60px}
+.e-caso{background:var(--papel);border-radius:10px;padding:34px 30px 28px;position:relative;box-shadow:0 2px 0 rgba(14,20,64,.08),0 26px 34px -18px rgba(14,20,64,.35);display:flex;flex-direction:column}
+.e-caso::before{content:"";position:absolute;top:-13px;left:28px;width:96px;height:26px;background:rgba(217,23,252,.3);rotate:-3deg}
+.e-caso.e-t2::before{background:rgba(8,160,247,.35);left:auto;right:30px;rotate:4deg}
+.e-comillas{font-weight:800;font-size:70px;line-height:.6;color:var(--deep);display:block;height:30px;margin-top:26px}
+.e-cita{font-size:16.5px;line-height:1.6;font-weight:500;margin:10px 0 22px}
+.e-cita b{font-weight:800}
+.e-quien{margin-top:auto;font-weight:800;font-size:18px;letter-spacing:-.02em}
+.e-quien span{display:block;font-weight:500;font-size:13.5px;opacity:.65;letter-spacing:0;margin-top:2px}
+.e-datos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:20px;padding-top:18px;border-top:2px dashed rgba(14,20,64,.18)}
+.e-datos b{display:block;font-weight:800;font-size:25px;letter-spacing:-.04em}
+.e-datos span{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;opacity:.6}
+
+/* PARA QUIÉN */
+.e-quienes{text-align:center;padding-top:30px}
+.e-quienes .e-h2{margin:18px auto 0;max-width:900px}
+.e-pegs{display:flex;flex-wrap:wrap;justify-content:center;gap:18px 20px;margin-top:46px}
+.e-pegs .e-peg{font-size:18px;padding:15px 24px}
+.e-pegs .e-peg:nth-child(1){rotate:-3deg;background:var(--deep)}
+.e-pegs .e-peg:nth-child(2){rotate:2deg}
+.e-pegs .e-peg:nth-child(3){rotate:-1.5deg;background:var(--azul);color:var(--tinta)}
+.e-pegs .e-peg:nth-child(4){rotate:3deg;background:var(--papel);color:var(--tinta);border:2px solid var(--tinta)}
+.e-pegs .e-peg:nth-child(5){rotate:-2.5deg;background:var(--tinta);box-shadow:5px 5px 0 var(--morado)}
+
+/* NOSOTROS */
+.e-nos{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:70px;align-items:center}
+.e-fotos{position:relative;padding:10px 0 130px 0}
+.e-foto{background:#fff;padding:14px 14px 58px;box-shadow:0 30px 44px -20px rgba(14,20,64,.5);position:relative}
+.e-foto img{display:block;width:100%;height:auto}
+.e-foto::before{content:"";position:absolute;top:-15px;left:50%;width:130px;height:32px;margin-left:-65px;background:rgba(8,160,247,.4);rotate:-3deg;z-index:2}
+.e-foto figcaption{position:absolute;left:0;right:0;bottom:16px;text-align:center;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700}
+.e-f1{rotate:-2.2deg;width:84%}
+.e-f2{position:absolute;right:0;bottom:0;width:33%;rotate:5deg;padding:9px 9px 9px}
+.e-f2::before{background:rgba(217,23,252,.35);width:90px;margin-left:-45px;rotate:4deg}
+.e-nombres{font-weight:800;font-size:clamp(26px,2.75vw,37px);letter-spacing:-.02em;line-height:1.08;margin-top:26px;text-transform:uppercase}
+.e-cargo{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12.5px;letter-spacing:3px;text-transform:uppercase;font-weight:700;color:var(--deep);margin-top:10px}
+.e-mv{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:34px}
+.e-mv div{background:var(--papel);border-radius:18px;padding:22px 22px 20px;border:2px solid var(--tinta)}
+.e-mv h4{font-weight:800;font-size:19px;letter-spacing:-.02em;margin-bottom:8px}
+.e-mv p{font-size:14.5px;line-height:1.55;font-weight:500;opacity:.8}
+.e-valores{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+.e-valores span{font-weight:700;font-size:14px;padding:9px 16px;border-radius:999px;border:2px solid var(--tinta);background:var(--papel)}
+.e-valores span:nth-child(odd){background:var(--cielo)}
+
+/* CONTACTO */
+.e-fin{background:var(--tinta);color:#fff;border-radius:44px;padding:84px 64px 74px;position:relative;overflow:hidden;
+  background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1.4px);background-size:22px 22px}
+.e-fin .e-rot{color:#9CD8FF}
+.e-fin .e-h2{font-size:clamp(38px,5.6vw,76px);max-width:760px}
+.e-fin .e-em{background:linear-gradient(90deg,#4FC0FF,#B58BFF 50%,#F06BFF);-webkit-background-clip:text;background-clip:text}
+.e-fin .e-lead{opacity:.8}
+.e-fin .e-obj.e-g{position:absolute;right:30px;bottom:-40px;width:340px;rotate:-6deg;filter:drop-shadow(0 20px 20px rgba(0,0,0,.45))}
+.e-vias{display:grid;grid-template-columns:repeat(2,minmax(0,300px));gap:16px;margin-top:40px;position:relative;z-index:1}
+.e-via{background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.22);border-radius:20px;padding:18px 20px;transition:background .15s,border-color .15s}
+.e-via:hover{background:rgba(255,255,255,.14);border-color:#fff}
+.e-via small{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:2.4px;text-transform:uppercase;font-weight:700;opacity:.65;display:block;margin-bottom:5px}
+.e-via b{font-weight:800;font-size:18px;letter-spacing:-.02em}
+.e-fin .e-cta{margin-top:30px;position:relative;z-index:1}
+
+/* PIE */
+.e-pie{padding-top:54px;padding-bottom:44px}
+.e-pie-in{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;flex-wrap:wrap}
+.e-pie p{font-size:14.5px;font-weight:500;opacity:.7;max-width:340px;line-height:1.55;margin-top:14px}
+.e-pie nav{display:flex;flex-wrap:wrap;gap:12px 26px;font-weight:600;font-size:14.5px;max-width:520px}
+.e-pie nav a{opacity:.75}.e-pie nav a:hover{opacity:1}
+.e-copy{margin-top:40px;padding-top:22px;border-top:2px dashed rgba(14,20,64,.2);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;opacity:.6}
+
+/* FORMULARIO (papel) */
+.e-modal{background:rgba(14,20,64,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.e-form-caja{background:var(--papel);color:var(--tinta);width:100%;max-width:560px;max-height:100vh;overflow-y:auto;border-radius:26px;border:2px solid var(--tinta);box-shadow:8px 8px 0 var(--morado);padding:30px 30px 26px;position:relative}
+.e-form-caja h3{font-weight:800;font-size:30px;letter-spacing:-.035em;line-height:1.05}
+.e-form-caja .e-sub{font-size:14px;font-weight:500;opacity:.7;margin:6px 0 22px}
+.e-cerrar{position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:50%;background:var(--tinta);color:#fff;font-size:18px;display:grid;place-items:center}
+.e-campo{display:block;margin-bottom:15px}
+.e-campo span{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;display:block;margin-bottom:7px}
+.e-campo i{font-style:normal;color:var(--morado)}
+.e-campo input,.e-campo textarea{width:100%;background:#fff;border:2px solid var(--tinta);border-radius:14px;padding:13px 15px;font-size:15px;font-weight:500;color:var(--tinta);font-family:inherit;resize:none}
+.e-campo input:focus,.e-campo textarea:focus{outline:none;border-color:var(--tinta);box-shadow:4px 4px 0 var(--azul);--tw-ring-color:transparent}
+.e-campo input::placeholder,.e-campo textarea::placeholder{color:rgba(14,20,64,.4)}
+.e-form-caja .e-pill{width:100%;padding:18px}
+.e-priv{font-size:12.5px;text-align:center;font-weight:500;opacity:.65;margin-top:14px;line-height:1.5}
+.e-ok{text-align:center;padding:30px 0 10px}
+.e-ok .e-check{width:84px;height:84px;border-radius:50%;background:#16B364;color:#fff;font-size:42px;font-weight:800;display:grid;place-items:center;margin:0 auto 20px;box-shadow:5px 5px 0 var(--tinta)}
+.e-ok h4{font-weight:800;font-size:30px;letter-spacing:-.035em;margin-bottom:8px}
+.e-ok p{font-size:15.5px;font-weight:500;opacity:.8;margin-bottom:24px;line-height:1.5}
+
+/* Botón del chat con el estilo nuevo */
+#avatariaBtn{background:var(--tinta)!important;box-shadow:5px 5px 0 var(--morado)!important;border:2px solid var(--tinta)}
+
+/* ===== Tabletas y celulares ===== */
+@media (max-width:1100px){
+  .e-links{gap:20px;font-size:14px}
+  .e-areas{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .e-planes,.e-demos,.e-casos{grid-template-columns:1fr;max-width:620px;margin-left:auto;margin-right:auto}
+  .e-planes{gap:84px}
+  .e-r1,.e-r2,.e-r3{rotate:0deg}
+  .e-fases{grid-template-columns:repeat(2,minmax(0,1fr));gap:44px 26px}.e-fases::before{display:none}
+  .e-nos{grid-template-columns:1fr;gap:50px}.e-fotos{max-width:640px}
+  .e-fin .e-obj.e-g{width:240px;opacity:.9}
+}
+@media (max-width:900px){
+  .e-links,.e-nav .e-pill{display:none}.e-burger{display:flex}
+  .e-nav-in{padding:8px 8px 8px 20px}
+  .e-hero{grid-template-columns:1fr;padding-top:26px;padding-bottom:40px;gap:0}
+  .e-escena{height:min(96vw,470px);max-width:470px;margin:30px auto 0;width:100%}
+  .e-hojas{grid-template-columns:1fr;max-width:520px;margin-left:auto;margin-right:auto;gap:44px}
+  .e-sec{padding-top:76px;padding-bottom:76px}
+  .e-banda{padding:46px 28px 40px;border-radius:30px;margin-top:70px}
+  .e-fin{padding:54px 28px 250px;border-radius:32px}
+  .e-fin .e-obj.e-g{right:50%;translate:50% 0;bottom:-30px;width:250px}
+  .e-vias{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .e-w{padding-left:20px;padding-right:20px}
+  .e-areas{grid-template-columns:1fr;gap:28px}
+  .e-area{grid-template-columns:66px 1fr}.e-area .e-obj{width:66px}
+  .e-cinta span{font-size:20px;padding:0 18px;gap:36px}
+  .e-fases{grid-template-columns:1fr}
+  .e-fase{display:grid;grid-template-columns:92px 1fr;gap:16px;align-items:start}.e-fase .e-obj{height:auto;width:92px;max-width:92px}
+  .e-mv{grid-template-columns:1fr}
+  .e-pill{font-size:14.5px;padding:15px 22px}
+  .e-cta .e-pill{flex:1 1 auto}
+  .e-pegs .e-peg{font-size:15.5px;padding:12px 18px}
+  .e-precio b{font-size:46px}
+  .e-form-caja{border-radius:0;border:0;box-shadow:none;min-height:100vh;padding:26px 20px}
+  .e-demo{min-height:0}
+  .e-medida{padding:22px}
+}
+@media (prefers-reduced-motion:reduce){
+  .e-flota,.e-cinta-in{animation:none}
+  .e-js .e-rv{opacity:1;translate:0 0;transition:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body class="e-pg">
+<script>document.documentElement.classList.add('e-js')</script>
+
+<!-- NAV -->
+<header class="e-nav">
+<div class="e-w"><div class="e-nav-in">
+  <a href="#inicio" aria-label="ElevatIA, inicio"><img class="e-logo" src="./img/logo.png" alt="ElevatIA" width="640" height="105"/></a>
+  <nav class="e-links" aria-label="Principal">
+    <a href="#servicios">Servicios</a><a href="#planes">Planes</a><a href="#demos">Demos</a><a href="#casos">Casos</a><a href="#nosotros">Nosotros</a><a href="#contacto">Contacto</a>
+  </nav>
+  <button class="e-pill" onclick="openLead()">Agenda una reunión →</button>
+  <button class="e-burger" aria-label="Abrir menú" onclick="document.getElementById('eMenu').classList.add('e-on')">☰</button>
+</div></div>
+</header>
+<div class="e-menu" id="eMenu" onclick="if(event.target.tagName==='A'||event.target.closest('.e-x'))this.classList.remove('e-on')">
+  <button class="e-x" aria-label="Cerrar menú">✕</button>
+  <a href="#servicios">Servicios</a><a href="#planes">Planes</a><a href="#demos">Demos</a><a href="#casos">Casos</a><a href="#nosotros">Nosotros</a><a href="#contacto">Contacto</a>
+  <button class="e-pill" onclick="document.getElementById('eMenu').classList.remove('e-on');openLead()">Agenda una reunión →</button>
 </div>
-<div class="ambient-glow-pink -top-20 -left-40"></div>
-<div class="ambient-glow-blue bottom-0 -right-40"></div>
-<div class="max-w-5xl mx-auto w-full text-center relative z-10">
-<div class="mb-6 sm:mb-8 inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-md">
-<span class="relative flex h-2 w-2">
-<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-</span>
-<span class="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">Vanguardia Tecnológica</span>
-</div>
-<h1 class="text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter mb-6 md:mb-10 leading-[0.9] uppercase" style="text-shadow: 0 4px 30px rgba(0,0,0,0.6);">
-                    Automatiza<br/>
-<span class="text-gradient-hero">Escala</span><br/>
-                    Evoluciona
-                </h1>
-<p class="text-base sm:text-lg md:text-xl text-slate-200 max-w-2xl mx-auto mb-8 md:mb-12 font-light leading-relaxed" style="text-shadow: 0 2px 20px rgba(0,0,0,0.8);">
-                    Impulsamos tu negocio al siguiente nivel mediante la integración estratégica de inteligencia artificial y procesos autónomos de alto rendimiento.
-                </p>
-<div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
-<button onclick="openLead()" class="inline-block px-6 sm:px-10 py-4 sm:py-5 bg-primary text-white font-black rounded-xl text-xs sm:text-sm glow-button uppercase tracking-[0.2em] text-center cursor-pointer">
-                        Agenda una reunión
-                    </button>
-<a class="inline-block px-6 sm:px-10 py-4 sm:py-5 border border-white/20 bg-white/5 backdrop-blur-md rounded-xl font-black text-xs sm:text-sm hover:bg-white/10 transition-all uppercase tracking-[0.2em] text-center" href="#demos">
-                        Saber más
-                    </a>
-</div>
-</div>
+
+<main id="inicio">
+<!-- INICIO -->
+<section class="e-w e-hero">
+  <div>
+    <span class="e-rot">Automatización e IA · Santo Domingo</span>
+    <h1 class="e-h1">Agentes de IA que atienden, venden y cobran <span class="e-em">por ti.</span></h1>
+    <p class="e-lead">Diseñamos asistentes de WhatsApp, voz y correo conectados a tus sistemas, para que tu equipo se enfoque en crecer.</p>
+    <div class="e-cta">
+      <button class="e-pill" onclick="openLead()">Agenda una reunión →</button>
+      <a class="e-pill e-claro" href="#demos">Prueba un demo</a>
+    </div>
+  </div>
+  <div class="e-escena" aria-hidden="true">
+    <img class="e-obj e-flota e-o-cal" src="./img/n_calendario.webp" alt="" width="440" height="409"/>
+    <img class="e-obj e-flota e-o-tel" src="./img/n_telefono.webp" alt="" width="440" height="440"/>
+    <img class="e-obj e-flota e-o-robot" src="./img/c2_robot.webp" alt="" width="440" height="609" fetchpriority="high"/>
+    <img class="e-obj e-flota e-o-sobre" src="./img/c2_correos.webp" alt="" width="425" height="440"/>
+    <img class="e-obj e-flota e-o-rayo" src="./img/n_rayo.webp" alt="" width="413" height="440"/>
+    <a class="e-peg" href="#demos" style="pointer-events:auto">Demos en vivo ↓</a>
+  </div>
 </section>
-<section class="py-20 md:py-32 px-6 relative" id="quienes-somos">
-<div class="ambient-glow-blue top-20 -left-40 opacity-20"></div>
-<div class="ambient-glow-pink bottom-20 -right-40 opacity-20"></div>
-<div class="max-w-7xl mx-auto relative">
-<div class="text-center mb-10 md:mb-14">
-<h2 class="text-3xl sm:text-4xl md:text-6xl font-black mb-6 md:mb-8 uppercase italic tracking-tighter">¿QUIÉNES SOMOS?</h2>
-<p class="text-slate-300 text-base md:text-lg lg:text-xl leading-relaxed max-w-4xl mx-auto font-light">
-                ElevatIA nace de la intersección entre la ingeniería de datos y la visión estratégica de negocio. Somos un equipo apasionado por construir el futuro del trabajo: diseñamos soluciones a medida que automatizan procesos, optimizan operaciones y multiplican resultados — sin que tu equipo tenga que aprender a programar. Trabajamos con empresas que entienden que la IA no es el futuro, es el presente.
-            </p>
-</div>
-<div class="max-w-5xl mx-auto mb-14 md:mb-20 relative">
-<div class="absolute -top-16 -left-24 size-72 bg-accent-blue/15 blur-3xl rounded-full pointer-events-none"></div>
-<div class="absolute -bottom-16 -right-24 size-72 bg-primary/15 blur-3xl rounded-full pointer-events-none"></div>
-<div class="relative rounded-2xl md:rounded-[2rem] overflow-hidden glow-border-blue group" style="background: #020202;">
-<div class="relative aspect-[4/5] sm:aspect-[3/2]">
-<img src="./team-1.jpg" class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]" alt="Maria Claudia y Melvin Sanchez - Fundadores de ElevatIA"/>
-<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/30 to-transparent pointer-events-none"></div>
-<div class="absolute top-5 left-5 w-14 h-14 border-t-2 border-l-2 border-primary/60 rounded-tl-2xl pointer-events-none"></div>
-<div class="absolute top-5 right-5 w-14 h-14 border-t-2 border-r-2 border-accent-blue/60 rounded-tr-2xl pointer-events-none"></div>
-<div class="absolute bottom-6 sm:bottom-10 left-6 right-6 z-10 text-center pointer-events-none">
-<p class="text-[10px] sm:text-xs uppercase tracking-[0.4em] text-primary font-bold mb-2 sm:mb-3">El equipo detrás de ElevatIA</p>
-<h4 class="font-black text-2xl sm:text-3xl md:text-5xl uppercase italic tracking-tighter text-white">Maria Claudia &amp; Melvin Sanchez</h4>
-<p class="text-xs sm:text-sm text-slate-300 uppercase tracking-[0.25em] mt-2 sm:mt-3">Fundadores &amp; Co-CEOs</p>
-<div class="w-24 h-0.5 bg-gradient-to-r from-primary to-accent-blue mx-auto rounded-full mt-4 sm:mt-5"></div>
-</div>
-</div>
-</div>
-</div>
-<div class="text-center mb-10 md:mb-14">
-<h3 class="text-primary font-bold uppercase tracking-[0.3em] text-xs mb-2">Lo que nos define</h3>
-<div class="w-20 h-0.5 bg-gradient-to-r from-primary to-accent-blue mx-auto rounded-full"></div>
-</div>
-<div class="grid md:grid-cols-3 gap-5 md:gap-8">
-<div class="p-6 md:p-8 glass-card rounded-2xl md:rounded-3xl glow-border-magenta hover:-translate-y-1 transition-all relative overflow-hidden" style="background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(10,10,15,0.7) 100%);">
-<div class="absolute -top-10 -right-10 size-32 bg-primary/10 blur-3xl rounded-full"></div>
-<div class="relative">
-<div class="size-12 md:size-14 bg-primary/15 rounded-2xl flex items-center justify-center text-primary mb-5 border border-primary/30">
-<span class="material-symbols-outlined text-2xl md:text-3xl">rocket_launch</span>
-</div>
-<h4 class="font-black text-lg md:text-xl mb-3 uppercase italic tracking-tight">Misión</h4>
-<p class="text-sm md:text-base text-slate-300 leading-relaxed font-light">
-                        Automatizar, optimizar y potenciar empresas mediante inteligencia artificial, creando sistemas que trabajen de forma más inteligente para que las personas puedan enfocarse en crecer.
-                    </p>
-</div>
-</div>
-<div class="p-6 md:p-8 glass-card rounded-2xl md:rounded-3xl glow-border-blue hover:-translate-y-1 transition-all relative overflow-hidden" style="background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(10,10,15,0.7) 100%);">
-<div class="absolute -top-10 -right-10 size-32 bg-accent-blue/10 blur-3xl rounded-full"></div>
-<div class="relative">
-<div class="size-12 md:size-14 bg-accent-blue/15 rounded-2xl flex items-center justify-center text-accent-blue mb-5 border border-accent-blue/30">
-<span class="material-symbols-outlined text-2xl md:text-3xl">visibility</span>
-</div>
-<h4 class="font-black text-lg md:text-xl mb-3 uppercase italic tracking-tight">Visión</h4>
-<p class="text-sm md:text-base text-slate-300 leading-relaxed font-light">
-                        Ser el aliado tecnológico que impulse la transformación digital de miles de empresas, convirtiendo la automatización y la inteligencia artificial en herramientas accesibles para cualquier negocio.
-                    </p>
-</div>
-</div>
-<div class="p-6 md:p-8 glass-card rounded-2xl md:rounded-3xl glow-border-white hover:-translate-y-1 transition-all relative overflow-hidden" style="background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(10,10,15,0.7) 100%);">
-<div class="absolute -top-10 -right-10 size-32 bg-white/10 blur-3xl rounded-full"></div>
-<div class="relative">
-<div class="size-12 md:size-14 bg-white/15 rounded-2xl flex items-center justify-center text-white mb-5 border border-white/30">
-<span class="material-symbols-outlined text-2xl md:text-3xl">stars</span>
-</div>
-<h4 class="font-black text-lg md:text-xl mb-3 uppercase italic tracking-tight">Valores</h4>
-<ul class="space-y-2 text-sm md:text-base text-slate-300 font-light">
-<li>Innovación</li>
-<li>Eficiencia</li>
-<li>Evolución</li>
-<li>Transparencia</li>
-<li>Excelencia</li>
-<li>Compromiso</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
+
+<!-- CINTA -->
+<div class="e-cinta" aria-hidden="true"><div class="e-cinta-in">
+  <span>WhatsApp</span><span>Instagram</span><span>Llamadas de voz</span><span>Gmail</span><span>Calendario</span><span>CRM</span><span>Hojas de cálculo</span><span>Página web</span>
+  <span>WhatsApp</span><span>Instagram</span><span>Llamadas de voz</span><span>Gmail</span><span>Calendario</span><span>CRM</span><span>Hojas de cálculo</span><span>Página web</span>
+</div></div>
+
+<!-- SERVICIOS -->
+<section class="e-w e-sec" id="servicios">
+  <span class="e-rot e-rv">Qué hacemos</span>
+  <h2 class="e-h2 e-rv">Tres formas de quitarte <span class="e-az">trabajo de encima.</span></h2>
+  <div class="e-hojas">
+    <article class="e-hoja e-r1 e-rv"><img class="e-obj" src="./img/n_telefono.webp" alt="" loading="lazy" width="440" height="440"/><span class="e-num">01</span><h3 class="e-h3">WhatsApp y redes</h3><p class="e-p">Un agente que responde, califica al cliente y agenda, a cualquier hora.</p></article>
+    <article class="e-hoja e-t2 e-r2 e-rv"><img class="e-obj" src="./img/n_megafono.webp" alt="" loading="lazy" width="436" height="440"/><span class="e-num">02</span><h3 class="e-h3">Voz</h3><p class="e-p">Llamadas de cobro, confirmación y recordatorio que suenan naturales.</p></article>
+    <article class="e-hoja e-r3 e-rv"><img class="e-obj" src="./img/c2_reportes.webp" alt="" loading="lazy" width="440" height="332"/><span class="e-num">03</span><h3 class="e-h3">Procesos</h3><p class="e-p">Correos, reportes y hojas de cálculo que se trabajan solos.</p></article>
+  </div>
+
+  <div class="e-banda e-rv">
+    <span class="e-rot">Soluciones de automatización</span>
+    <h2 class="e-h2">¿En qué podemos ayudarte?</h2>
+    <p class="e-lead">Estas son las áreas donde la inteligencia artificial transforma la operación de tu negocio. Implementamos cada solución a la medida de tu industria.</p>
+    <div class="e-areas">
+      <div class="e-area"><img class="e-obj" src="./img/n_luna.webp" alt="" loading="lazy" width="286" height="440"/><div><h4>Atención al cliente 24/7</h4><p>Bots inteligentes que responden por WhatsApp, web o redes sociales en segundos. Nunca pierdes un cliente por no contestar a tiempo.</p></div></div>
+      <div class="e-area"><img class="e-obj" src="./img/n_lupa.webp" alt="" loading="lazy" width="381" height="440"/><div><h4>Captación de leads</h4><p>Sistemas que califican prospectos automáticamente, los segmentan y los entregan listos a tu equipo de ventas.</p></div></div>
+      <div class="e-area"><img class="e-obj" src="./img/n_calendario.webp" alt="" loading="lazy" width="440" height="409"/><div><h4>Agendamiento automático</h4><p>El bot agenda reuniones directamente en tu calendario sin intervención humana, confirma y reagenda solo.</p></div></div>
+      <div class="e-area"><img class="e-obj" src="./img/c2_correos.webp" alt="" loading="lazy" width="425" height="440"/><div><h4>Email marketing con IA</h4><p>Campañas personalizadas que la IA redacta, segmenta y envía en el momento óptimo según el comportamiento de cada cliente.</p></div></div>
+      <div class="e-area"><img class="e-obj" src="./img/n_aprobar.webp" alt="" loading="lazy" width="259" height="440"/><div><h4>Cobros y facturación</h4><p>Recordatorios automáticos de pago, generación de facturas, conciliación bancaria y reportes financieros sin esfuerzo manual.</p></div></div>
+      <div class="e-area"><img class="e-obj" src="./img/c1_hoja.webp" alt="" loading="lazy" width="440" height="415"/><div><h4>Análisis predictivo</h4><p>Dashboards en tiempo real con predicciones de ventas, demanda y comportamiento del cliente, listas para actuar.</p></div></div>
+    </div>
+    <a class="e-pill e-blanco" href="https://wa.me/18098606379?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20automatizaci%C3%B3n%20con%20IA" target="_blank" rel="noopener">Habla con un experto →</a>
+  </div>
 </section>
-<section class="py-20 md:py-32 px-6 relative" id="ayudamos">
-<div class="ambient-glow-pink top-40 -right-40 opacity-30"></div>
-<div class="max-w-7xl mx-auto">
-<div class="text-center mb-12 md:mb-20">
-<h3 class="text-primary font-bold uppercase tracking-[0.3em] text-xs mb-6">Soluciones de Automatización</h3>
-<h2 class="text-3xl sm:text-4xl md:text-6xl font-black mb-8 uppercase italic tracking-tighter">¿EN QUÉ PODEMOS AYUDARTE?</h2>
-<p class="text-slate-400 max-w-3xl mx-auto text-xl font-light leading-relaxed">Estas son las áreas donde la inteligencia artificial transforma la operación de tu negocio. Implementamos cada solución a la medida de tu industria.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-<div class="p-6 sm:p-8 md:p-10 glass-card rounded-2xl md:rounded-3xl glow-border-magenta group hover:-translate-y-2 transition-all">
-<div class="size-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all">
-<span class="material-symbols-outlined text-3xl">forum</span>
-</div>
-<h4 class="text-xl font-black mb-4 uppercase italic tracking-tight">Atención al Cliente 24/7</h4>
-<p class="text-slate-400 text-sm leading-relaxed font-light">Bots inteligentes que responden por WhatsApp, web o redes sociales en segundos. Nunca pierdes un cliente por no contestar a tiempo.</p>
-</div>
-<div class="p-6 sm:p-8 md:p-10 glass-card rounded-2xl md:rounded-3xl glow-border-blue group hover:-translate-y-2 transition-all">
-<div class="size-14 bg-accent-blue/10 rounded-2xl flex items-center justify-center text-accent-blue mb-6 group-hover:bg-accent-blue group-hover:text-white transition-all">
-<span class="material-symbols-outlined text-3xl">person_search</span>
-</div>
-<h4 class="text-xl font-black mb-4 uppercase italic tracking-tight">Captación de Leads</h4>
-<p class="text-slate-400 text-sm leading-relaxed font-light">Sistemas que califican prospectos automáticamente, los segmentan y los entregan listos a tu equipo de ventas.</p>
-</div>
-<div class="p-6 sm:p-8 md:p-10 glass-card rounded-2xl md:rounded-3xl glow-border-magenta group hover:-translate-y-2 transition-all">
-<div class="size-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all">
-<span class="material-symbols-outlined text-3xl">event_available</span>
-</div>
-<h4 class="text-xl font-black mb-4 uppercase italic tracking-tight">Agendamiento Automático</h4>
-<p class="text-slate-400 text-sm leading-relaxed font-light">El bot agenda reuniones directamente en tu calendario sin intervención humana, confirma y reagenda solo.</p>
-</div>
-<div class="p-6 sm:p-8 md:p-10 glass-card rounded-2xl md:rounded-3xl glow-border-blue group hover:-translate-y-2 transition-all">
-<div class="size-14 bg-accent-blue/10 rounded-2xl flex items-center justify-center text-accent-blue mb-6 group-hover:bg-accent-blue group-hover:text-white transition-all">
-<span class="material-symbols-outlined text-3xl">mark_email_read</span>
-</div>
-<h4 class="text-xl font-black mb-4 uppercase italic tracking-tight">Email Marketing IA</h4>
-<p class="text-slate-400 text-sm leading-relaxed font-light">Campañas personalizadas que la IA redacta, segmenta y envía en el momento óptimo según el comportamiento de cada cliente.</p>
-</div>
-<div class="p-6 sm:p-8 md:p-10 glass-card rounded-2xl md:rounded-3xl glow-border-magenta group hover:-translate-y-2 transition-all">
-<div class="size-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all">
-<span class="material-symbols-outlined text-3xl">receipt_long</span>
-</div>
-<h4 class="text-xl font-black mb-4 uppercase italic tracking-tight">Cobros y Facturación</h4>
-<p class="text-slate-400 text-sm leading-relaxed font-light">Recordatorios automáticos de pago, generación de facturas, conciliación bancaria y reportes financieros sin esfuerzo manual.</p>
-</div>
-<div class="p-6 sm:p-8 md:p-10 glass-card rounded-2xl md:rounded-3xl glow-border-blue group hover:-translate-y-2 transition-all">
-<div class="size-14 bg-accent-blue/10 rounded-2xl flex items-center justify-center text-accent-blue mb-6 group-hover:bg-accent-blue group-hover:text-white transition-all">
-<span class="material-symbols-outlined text-3xl">insights</span>
-</div>
-<h4 class="text-xl font-black mb-4 uppercase italic tracking-tight">Análisis Predictivo</h4>
-<p class="text-slate-400 text-sm leading-relaxed font-light">Dashboards en tiempo real con predicciones de ventas, churn, demanda y comportamiento del cliente listas para actuar.</p>
-</div>
-</div>
-<div class="text-center mt-10 md:mt-16">
-<a href="https://wa.me/18492207283?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20automatizaci%C3%B3n%20con%20IA" target="_blank" rel="noopener" class="inline-block px-8 sm:px-12 py-4 sm:py-5 bg-primary text-white font-black rounded-xl text-xs sm:text-sm glow-button uppercase tracking-[0.2em]">
-                        Habla con un experto
-                    </a>
-</div>
-</div>
+
+<!-- PLANES -->
+<section class="e-w e-sec" id="planes" style="padding-top:20px">
+  <span class="e-rot e-rv">Soluciones listas para usar</span>
+  <h2 class="e-h2 e-rv">Bots prehechos, <span class="e-az">listos para trabajar.</span></h2>
+  <p class="e-lead e-rv">Tres bots preconfigurados. Pago único de implementación más mantenimiento mensual.</p>
+  <div class="e-planes">
+    <article class="e-plan e-pop e-rv">
+      <span class="e-peg">Más popular</span>
+      <img class="e-obj" src="./img/n_bolsa.webp" alt="" loading="lazy" width="371" height="440"/>
+      <h3 class="e-h3">Bot de ventas</h3>
+      <p class="e-p">Convierte conversaciones en ventas trabajando tus leads 24/7, sin que tu equipo esté pendiente del celular.</p>
+      <div class="e-precio"><b>US$495</b><small>Estructura</small></div>
+      <div class="e-mes">+ US$99 <i>/ mes mantenimiento</i></div>
+      <div class="e-chips"><span>WhatsApp</span><span>Web</span><span>Gmail</span><span>OpenAI</span><span>Calendario</span><span>CRM</span></div>
+      <details><summary>Cómo funciona</summary><ol class="e-pasos">
+        <li><span><b>Recibe leads</b> de WhatsApp, web o formularios</span></li>
+        <li><span><b>Identifica</b> al contacto y recupera su historial del CRM</span></li>
+        <li><span><b>Comprende</b> qué quiere (precio, dudas, comparación)</span></li>
+        <li><span><b>Asesora</b> mostrando catálogo y resolviendo objeciones</span></li>
+        <li><span><b>Califica</b> el lead como frío, tibio o caliente</span></li>
+        <li><span><b>Agenda cita</b> o envía cotización por Gmail</span></li>
+        <li><span><b>Da seguimiento</b> automático a las 24 h y 72 h</span></li>
+        <li><span><b>Notifica</b> al vendedor humano los leads calientes y guarda todo en el CRM</span></li>
+      </ol></details>
+      <button class="e-pill" onclick="openLead()">Quiero este bot →</button>
+    </article>
+    <article class="e-plan e-rv">
+      <img class="e-obj" src="./img/c2_mano.webp" alt="" loading="lazy" width="407" height="440"/>
+      <h3 class="e-h3">Asistente virtual personal</h3>
+      <p class="e-p">Tu asistente con IA que organiza tu día, tu correo y tus pendientes, como un secretario de confianza.</p>
+      <div class="e-precio"><small>Desde</small><b>US$500</b><small>Estructura</small></div>
+      <div class="e-mes">+ US$99 <i>/ mes mantenimiento</i></div>
+      <div class="e-chips"><span>WhatsApp</span><span>Gmail</span><span>OpenAI</span><span>Calendario</span></div>
+      <details><summary>Cómo funciona</summary><ol class="e-pasos">
+        <li><span><b>Le hablas por WhatsApp</b> como a una persona</span></li>
+        <li><span><b>La IA entiende</b> tu instrucción y decide qué hacer</span></li>
+        <li><span><b>Gestiona Gmail</b>: resume correos y redacta borradores</span></li>
+        <li><span><b>Agenda</b> citas, mueve reuniones y te recuerda tareas</span></li>
+        <li><span><b>Busca</b> e investiga cualquier consulta que tengas</span></li>
+        <li><span><b>Guarda</b> tus notas, ideas y pendientes</span></li>
+        <li><span><b>Te manda un resumen diario</b> cada mañana</span></li>
+        <li><span><b>100% privado</b>: aprende tu estilo y solo te responde a ti</span></li>
+      </ol></details>
+      <button class="e-pill" onclick="openLead()">Quiero este bot →</button>
+    </article>
+    <article class="e-plan e-rv">
+      <img class="e-obj" src="./img/n_cartera.webp" alt="" loading="lazy" width="430" height="440"/>
+      <h3 class="e-h3">Bot de cobranza</h3>
+      <p class="e-p">Tu cobrador automático que recupera cartera por WhatsApp y correo, con el tono justo para cada deudor.</p>
+      <div class="e-precio"><b>US$755</b><small>Estructura</small></div>
+      <div class="e-mes">+ US$175 <i>/ mes mantenimiento</i></div>
+      <div class="e-nota">+ envíos de WhatsApp a consumo según volumen</div>
+      <div class="e-chips"><span>WhatsApp Business</span><span>Gmail</span><span>OpenAI</span><span>CRM cartera</span></div>
+      <details><summary>Cómo funciona</summary><ol class="e-pasos">
+        <li><span><b>Lee tu cartera</b> de cuentas por cobrar cada día</span></li>
+        <li><span><b>Segmenta</b> deudores por días de mora (1-7, 8-30, +30)</span></li>
+        <li><span><b>Adapta el tono</b>: amable → firme → aviso de gestión</span></li>
+        <li><span><b>Envía mensajes</b> personalizados por WhatsApp y Gmail</span></li>
+        <li><span><b>Dialoga</b>: explica saldo, opciones y registra promesa de pago</span></li>
+        <li><span><b>Verifica pagos</b>: marca "pago por confirmar" y notifica para verificación humana</span></li>
+        <li><span><b>Escala a humano</b> los casos difíciles automáticamente</span></li>
+        <li><span><b>Reporta</b>: contactados, promesas, pagos confirmados</span></li>
+      </ol></details>
+      <button class="e-pill" onclick="openLead()">Quiero este bot →</button>
+    </article>
+  </div>
+  <div class="e-medida e-rv">
+    <p>¿Necesitas algo a la medida? También hacemos bots 100% personalizados.</p>
+    <button class="e-pill e-claro" onclick="openLead()">Cotizar bot personalizado</button>
+  </div>
 </section>
-<section class="py-20 md:py-32 px-6 relative" id="proceso">
-<div class="ambient-glow-pink top-0 -right-40 opacity-20"></div>
-<div class="ambient-glow-blue bottom-0 -left-40 opacity-20"></div>
-<div class="max-w-7xl mx-auto relative">
-<div class="text-center mb-14 md:mb-20">
-<h3 class="text-primary font-bold uppercase tracking-[0.3em] text-xs mb-4 md:mb-6">Nos adaptamos a ti</h3>
-<h2 class="text-3xl sm:text-4xl md:text-6xl font-black mb-6 md:mb-8 uppercase italic tracking-tighter">CÓMO TRABAJAMOS</h2>
-<div class="w-24 h-1 bg-gradient-to-r from-primary to-accent-blue mx-auto rounded-full mb-6 md:mb-8"></div>
-<p class="text-slate-400 max-w-3xl mx-auto text-base md:text-lg font-light leading-relaxed">Un proceso estructurado en 4 fases que garantiza resultados reales. Sin sorpresas, sin demoras, sin código que tu equipo no entienda.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8">
-<div class="relative group">
-<div class="glass-card glow-border-magenta p-6 md:p-8 rounded-2xl md:rounded-3xl h-full transition-all hover:-translate-y-2 relative" style="background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(40,40,55,0.7) 100%);">
-<div class="absolute -top-4 -right-4 size-12 rounded-2xl bg-gradient-to-br from-primary to-pink-600 flex items-center justify-center text-white font-black text-base shadow-lg">01</div>
-<div class="size-14 md:size-16 bg-primary/15 rounded-2xl flex items-center justify-center text-primary mb-5 border border-primary/30">
-<span class="material-symbols-outlined text-2xl md:text-3xl">search</span>
-</div>
-<h4 class="font-black text-lg md:text-xl mb-3 uppercase tracking-tight italic">Auditoría</h4>
-<p class="text-slate-400 text-sm leading-relaxed font-light">Identificamos cuellos de botella y oportunidades reales de automatización en tu negocio.</p>
-<div class="mt-5 pt-5 border-t border-white/10 flex items-center gap-2 text-xs text-slate-500">
-<span class="material-symbols-outlined text-base text-primary">schedule</span>
-<span>1-2 semanas</span>
-</div>
-</div>
-</div>
-<div class="relative group">
-<div class="glass-card glow-border-blue p-6 md:p-8 rounded-2xl md:rounded-3xl h-full transition-all hover:-translate-y-2 relative" style="background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(40,40,55,0.7) 100%);">
-<div class="absolute -top-4 -right-4 size-12 rounded-2xl bg-gradient-to-br from-accent-blue to-blue-700 flex items-center justify-center text-white font-black text-base shadow-lg">02</div>
-<div class="size-14 md:size-16 bg-accent-blue/15 rounded-2xl flex items-center justify-center text-accent-blue mb-5 border border-accent-blue/30">
-<span class="material-symbols-outlined text-2xl md:text-3xl">architecture</span>
-</div>
-<h4 class="font-black text-lg md:text-xl mb-3 uppercase tracking-tight italic">Diseño</h4>
-<p class="text-slate-400 text-sm leading-relaxed font-light">Creamos la arquitectura de IA a medida según tus objetivos y restricciones técnicas.</p>
-<div class="mt-5 pt-5 border-t border-white/10 flex items-center gap-2 text-xs text-slate-500">
-<span class="material-symbols-outlined text-base text-accent-blue">schedule</span>
-<span>1-2 semanas</span>
-</div>
-</div>
-</div>
-<div class="relative group">
-<div class="glass-card glow-border-magenta p-6 md:p-8 rounded-2xl md:rounded-3xl h-full transition-all hover:-translate-y-2 relative" style="background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(40,40,55,0.7) 100%);">
-<div class="absolute -top-4 -right-4 size-12 rounded-2xl bg-gradient-to-br from-primary to-pink-600 flex items-center justify-center text-white font-black text-base shadow-lg">03</div>
-<div class="size-14 md:size-16 bg-primary/15 rounded-2xl flex items-center justify-center text-primary mb-5 border border-primary/30">
-<span class="material-symbols-outlined text-2xl md:text-3xl">rocket_launch</span>
-</div>
-<h4 class="font-black text-lg md:text-xl mb-3 uppercase tracking-tight italic">Despliegue</h4>
-<p class="text-slate-400 text-sm leading-relaxed font-light">Integración ágil y segura en tus sistemas actuales con capacitación a tu equipo.</p>
-<div class="mt-5 pt-5 border-t border-white/10 flex items-center gap-2 text-xs text-slate-500">
-<span class="material-symbols-outlined text-base text-primary">schedule</span>
-<span>2-4 semanas</span>
-</div>
-</div>
-</div>
-<div class="relative group">
-<div class="glass-card glow-border-blue p-6 md:p-8 rounded-2xl md:rounded-3xl h-full transition-all hover:-translate-y-2 relative" style="background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(40,40,55,0.7) 100%);">
-<div class="absolute -top-4 -right-4 size-12 rounded-2xl bg-gradient-to-br from-accent-blue to-blue-700 flex items-center justify-center text-white font-black text-base shadow-lg">04</div>
-<div class="size-14 md:size-16 bg-accent-blue/15 rounded-2xl flex items-center justify-center text-accent-blue mb-5 border border-accent-blue/30">
-<span class="material-symbols-outlined text-2xl md:text-3xl">sync</span>
-</div>
-<h4 class="font-black text-lg md:text-xl mb-3 uppercase italic tracking-tight">Optimización</h4>
-<p class="text-slate-400 text-sm leading-relaxed font-light">Mejora continua basada en métricas y análisis de datos reales del sistema.</p>
-<div class="mt-5 pt-5 border-t border-white/10 flex items-center gap-2 text-xs text-slate-500">
-<span class="material-symbols-outlined text-base text-accent-blue">schedule</span>
-<span>Continuo</span>
-</div>
-</div>
-</div>
-</div>
-<div class="text-center mt-10 md:mt-14">
-<div class="inline-flex items-center gap-3 px-5 py-3 rounded-full border border-white/10 bg-white/5">
-<span class="material-symbols-outlined text-emerald-400">check_circle</span>
-<span class="text-sm text-slate-300 font-light">Tiempo total estimado: <strong class="text-white">4 - 8 semanas</strong></span>
-</div>
-</div>
-</div>
+
+<!-- DEMOS -->
+<section class="e-w e-sec" id="demos" style="padding-top:30px">
+  <span class="e-rot e-rv">Demos interactivos</span>
+  <h2 class="e-h2 e-rv">Prueba nuestros bots, <span class="e-em">aquí mismo.</span></h2>
+  <p class="e-lead e-rv">Conversa con nuestros bots simulados y descubre cómo funcionan, sin salir de la página.</p>
+  <div class="e-demos">
+    <article class="e-demo e-rv">
+      <img class="e-obj" src="./img/n_carrito.webp" alt="" loading="lazy" width="439" height="440"/>
+      <span class="e-vivo">Activo</span>
+      <h3 class="e-h3">Bot de ventas</h3>
+      <p class="e-p">Vendedor IA que califica leads, responde objeciones y cierra ventas 24/7. Se conecta con tu CRM.</p>
+      <ul class="e-lista"><li>Califica leads automáticamente</li><li>Responde objeciones con IA</li><li>Cierra ventas y agenda llamadas</li></ul>
+      <button class="e-pill" onclick="openDemo('sales')">Probar demo ▶</button>
+    </article>
+    <article class="e-demo e-d2 e-rv">
+      <img class="e-obj" src="./img/c1_prueba.webp" alt="" loading="lazy" width="427" height="440"/>
+      <span class="e-vivo">Activo</span>
+      <h3 class="e-h3">Asistente de voz IA</h3>
+      <p class="e-p">Agente telefónico con voz natural que atiende llamadas, califica leads y agenda citas.</p>
+      <ul class="e-lista"><li>Voz natural con IA generativa</li><li>Llamadas entrantes y salientes</li><li>Transcripción y reportes automáticos</li></ul>
+      <button class="e-pill" onclick="openDemo('voice')">Probar demo ▶</button>
+    </article>
+    <article class="e-demo e-d3 e-rv">
+      <img class="e-obj" src="./img/c2_correos.webp" alt="" loading="lazy" width="425" height="440"/>
+      <span class="e-vivo">Activo</span>
+      <h3 class="e-h3">Email inteligente</h3>
+      <p class="e-p">Lee, clasifica y responde correos automáticamente. Aprende el tono de tu empresa para responder como tú lo harías.</p>
+      <ul class="e-lista"><li>Clasificación automática de bandeja</li><li>Respuestas con tu estilo de marca</li><li>Seguimiento automático de hilos</li></ul>
+      <button class="e-pill" onclick="openDemo('email')">Probar demo ▶</button>
+    </article>
+  </div>
 </section>
-<section class="py-20 md:py-32 px-6 relative" id="planes">
-<div class="ambient-glow-pink top-0 -right-40 opacity-20"></div>
-<div class="ambient-glow-blue bottom-0 -left-40 opacity-20"></div>
-<div class="max-w-7xl mx-auto relative">
-<div class="text-center mb-12 md:mb-16">
-<h3 class="text-primary font-bold uppercase tracking-[0.3em] text-xs mb-4 md:mb-6">Soluciones Listas para Usar</h3>
-<h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-6 uppercase italic tracking-tighter">PLANES DE BOTS PREHECHOS</h2>
-<div class="w-24 h-1 bg-gradient-to-r from-primary to-accent-blue mx-auto rounded-full mb-6 md:mb-8"></div>
-<p class="text-slate-400 max-w-3xl mx-auto text-base md:text-lg font-light leading-relaxed">3 bots pre-configurados con resultados probados. Pago único de implementación + mantenimiento mensual. Listos para trabajar por ti en días.</p>
-</div>
-<div class="grid md:grid-cols-3 gap-6 md:gap-8">
-<!-- BOT 1: VENTAS -->
-<div class="glass-card glow-border-white p-6 md:p-8 rounded-2xl md:rounded-3xl relative hover:-translate-y-2 transition-all flex flex-col" style="background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(40,40,55,0.7) 100%);">
-<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg whitespace-nowrap z-10">⭐ Más Popular</div>
-<div class="size-14 md:size-16 rounded-2xl bg-white/15 border border-white/30 flex items-center justify-center text-white mb-4 mt-2">
-<span class="material-symbols-outlined text-2xl md:text-3xl">trending_up</span>
-</div>
-<h3 class="text-xl md:text-2xl font-black mb-2 uppercase italic tracking-tight">Bot de Ventas</h3>
-<p class="text-slate-300 text-sm leading-relaxed mb-5 font-light">Convierte conversaciones en ventas trabajando tus leads 24/7, sin que tu equipo esté pendiente del celular.</p>
-<div class="mb-5">
-<h4 class="text-[10px] uppercase tracking-[0.3em] text-white/60 font-bold mb-3">Cómo Funciona</h4>
-<ul class="space-y-2 text-xs text-slate-300">
-<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold shrink-0">1.</span><span><strong class="text-white">Recibe leads</strong> de WhatsApp, web o formularios</span></li>
-<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold shrink-0">2.</span><span><strong class="text-white">Identifica</strong> al contacto y recupera su historial del CRM</span></li>
-<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold shrink-0">3.</span><span><strong class="text-white">Comprende</strong> qué quiere (precio, dudas, comparación)</span></li>
-<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold shrink-0">4.</span><span><strong class="text-white">Asesora</strong> mostrando catálogo y resolviendo objeciones</span></li>
-<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold shrink-0">5.</span><span><strong class="text-white">Califica</strong> el lead como frío, tibio o caliente</span></li>
-<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold shrink-0">6.</span><span><strong class="text-white">Agenda cita</strong> o envía cotización por Gmail</span></li>
-<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold shrink-0">7.</span><span><strong class="text-white">Da seguimiento</strong> automático a las 24h y 72h</span></li>
-<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold shrink-0">8.</span><span><strong class="text-white">Notifica</strong> al vendedor humano los leads calientes y guarda todo en CRM</span></li>
-</ul>
-</div>
-<div class="mb-5">
-<h4 class="text-[10px] uppercase tracking-[0.3em] text-white/60 font-bold mb-3">Conecta Con</h4>
-<div class="flex flex-wrap gap-1.5">
-<span class="text-[10px] px-2 py-1 rounded-md bg-white/10 border border-white/20 text-slate-200">WhatsApp</span>
-<span class="text-[10px] px-2 py-1 rounded-md bg-white/10 border border-white/20 text-slate-200">Web</span>
-<span class="text-[10px] px-2 py-1 rounded-md bg-white/10 border border-white/20 text-slate-200">Gmail</span>
-<span class="text-[10px] px-2 py-1 rounded-md bg-white/10 border border-white/20 text-slate-200">OpenAI</span>
-<span class="text-[10px] px-2 py-1 rounded-md bg-white/10 border border-white/20 text-slate-200">Calendario</span>
-<span class="text-[10px] px-2 py-1 rounded-md bg-white/10 border border-white/20 text-slate-200">CRM</span>
-</div>
-</div>
-<div class="border-t border-white/15 pt-5 mb-5 mt-auto">
-<div class="flex items-baseline gap-2 mb-1">
-<span class="text-3xl font-black text-white italic">$495</span>
-<span class="text-[10px] text-slate-400 uppercase tracking-widest">Estructura</span>
-</div>
-<div class="flex items-baseline gap-2">
-<span class="text-lg font-black text-slate-300">+ $99</span>
-<span class="text-xs text-slate-500">/ mes mantenimiento</span>
-</div>
-</div>
-<button onclick="openLead()" class="w-full py-3 sm:py-4 bg-white text-background-dark font-black rounded-xl text-xs uppercase tracking-widest hover:bg-white/90 transition-all cursor-pointer">
-                        Quiero este bot
-                    </button>
-</div>
-<!-- BOT 2: ASISTENTE PERSONAL -->
-<div class="glass-card glow-border-blue p-6 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden hover:-translate-y-2 transition-all flex flex-col" style="background: linear-gradient(135deg, rgba(43,158,238,0.12) 0%, rgba(40,40,55,0.7) 100%);">
-<div class="size-14 md:size-16 rounded-2xl bg-accent-blue/20 border border-accent-blue/40 flex items-center justify-center text-accent-blue mb-4">
-<span class="material-symbols-outlined text-2xl md:text-3xl">assistant</span>
-</div>
-<h3 class="text-xl md:text-2xl font-black mb-2 uppercase italic tracking-tight">Asistente Virtual Personal</h3>
-<p class="text-slate-300 text-sm leading-relaxed mb-5 font-light">Tu asistente con IA que organiza tu día, tu correo y tus pendientes — como un secretario de confianza.</p>
-<div class="mb-5">
-<h4 class="text-[10px] uppercase tracking-[0.3em] text-accent-blue/70 font-bold mb-3">Cómo Funciona</h4>
-<ul class="space-y-2 text-xs text-slate-300">
-<li class="flex items-start gap-2"><span class="text-accent-blue font-bold shrink-0">1.</span><span><strong class="text-white">Le hablas por WhatsApp</strong> como a una persona</span></li>
-<li class="flex items-start gap-2"><span class="text-accent-blue font-bold shrink-0">2.</span><span><strong class="text-white">La IA entiende</strong> tu instrucción y decide qué hacer</span></li>
-<li class="flex items-start gap-2"><span class="text-accent-blue font-bold shrink-0">3.</span><span><strong class="text-white">Gestiona Gmail</strong>: resume correos y redacta borradores</span></li>
-<li class="flex items-start gap-2"><span class="text-accent-blue font-bold shrink-0">4.</span><span><strong class="text-white">Agenda</strong> citas, mueve reuniones y te recuerda tareas</span></li>
-<li class="flex items-start gap-2"><span class="text-accent-blue font-bold shrink-0">5.</span><span><strong class="text-white">Busca</strong> e investiga cualquier consulta que tengas</span></li>
-<li class="flex items-start gap-2"><span class="text-accent-blue font-bold shrink-0">6.</span><span><strong class="text-white">Guarda</strong> tus notas, ideas y pendientes</span></li>
-<li class="flex items-start gap-2"><span class="text-accent-blue font-bold shrink-0">7.</span><span><strong class="text-white">Te manda briefing diario</strong> cada mañana</span></li>
-<li class="flex items-start gap-2"><span class="text-accent-blue font-bold shrink-0">8.</span><span><strong class="text-white">100% privado</strong>: aprende tu estilo y solo te responde a ti</span></li>
-</ul>
-</div>
-<div class="mb-5">
-<h4 class="text-[10px] uppercase tracking-[0.3em] text-accent-blue/70 font-bold mb-3">Conecta Con</h4>
-<div class="flex flex-wrap gap-1.5">
-<span class="text-[10px] px-2 py-1 rounded-md bg-accent-blue/10 border border-accent-blue/30 text-accent-blue">WhatsApp</span>
-<span class="text-[10px] px-2 py-1 rounded-md bg-accent-blue/10 border border-accent-blue/30 text-accent-blue">Gmail</span>
-<span class="text-[10px] px-2 py-1 rounded-md bg-accent-blue/10 border border-accent-blue/30 text-accent-blue">OpenAI</span>
-<span class="text-[10px] px-2 py-1 rounded-md bg-accent-blue/10 border border-accent-blue/30 text-accent-blue">Calendario</span>
-</div>
-</div>
-<div class="border-t border-accent-blue/20 pt-5 mb-5 mt-auto">
-<div class="flex items-baseline gap-2 mb-1">
-<span class="text-[10px] text-slate-400 uppercase tracking-widest">Desde</span>
-<span class="text-3xl font-black text-white italic">$500</span>
-<span class="text-[10px] text-slate-400 uppercase tracking-widest">Estructura</span>
-</div>
-<div class="flex items-baseline gap-2">
-<span class="text-lg font-black text-slate-300">+ $99</span>
-<span class="text-xs text-slate-500">/ mes mantenimiento</span>
-</div>
-</div>
-<button onclick="openLead()" class="w-full py-3 sm:py-4 bg-accent-blue text-white font-black rounded-xl text-xs uppercase tracking-widest hover:opacity-90 transition-all cursor-pointer" style="box-shadow: 0 0 20px rgba(43,158,238,0.3);">
-                        Quiero este bot
-                    </button>
-</div>
-<!-- BOT 3: COBRANZA -->
-<div class="glass-card p-6 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden hover:-translate-y-2 transition-all flex flex-col" style="background: linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(40,40,55,0.7) 100%); border: 1px solid rgba(139,92,246,0.3); box-shadow: 0 0 20px rgba(139,92,246,0.1);">
-<div class="size-14 md:size-16 rounded-2xl bg-violet-500/20 border border-violet-500/40 flex items-center justify-center text-violet-300 mb-4">
-<span class="material-symbols-outlined text-2xl md:text-3xl">payments</span>
-</div>
-<h3 class="text-xl md:text-2xl font-black mb-2 uppercase italic tracking-tight">Bot de Cobranza</h3>
-<p class="text-slate-300 text-sm leading-relaxed mb-5 font-light">Tu cobrador automático que recupera cartera por WhatsApp y correo, con el tono justo para cada deudor.</p>
-<div class="mb-5">
-<h4 class="text-[10px] uppercase tracking-[0.3em] text-violet-300/70 font-bold mb-3">Cómo Funciona</h4>
-<ul class="space-y-2 text-xs text-slate-300">
-<li class="flex items-start gap-2"><span class="text-violet-300 font-bold shrink-0">1.</span><span><strong class="text-white">Lee tu cartera</strong> de cuentas por cobrar cada día</span></li>
-<li class="flex items-start gap-2"><span class="text-violet-300 font-bold shrink-0">2.</span><span><strong class="text-white">Segmenta</strong> deudores por días de mora (1-7, 8-30, +30)</span></li>
-<li class="flex items-start gap-2"><span class="text-violet-300 font-bold shrink-0">3.</span><span><strong class="text-white">Adapta el tono</strong>: amable → firme → aviso de gestión</span></li>
-<li class="flex items-start gap-2"><span class="text-violet-300 font-bold shrink-0">4.</span><span><strong class="text-white">Envía mensajes</strong> personalizados por WhatsApp y Gmail</span></li>
-<li class="flex items-start gap-2"><span class="text-violet-300 font-bold shrink-0">5.</span><span><strong class="text-white">Dialoga</strong>: explica saldo, opciones y registra promesa de pago</span></li>
-<li class="flex items-start gap-2"><span class="text-violet-300 font-bold shrink-0">6.</span><span><strong class="text-white">Verifica pagos</strong>: marca "pago por confirmar" y notifica para verificación humana</span></li>
-<li class="flex items-start gap-2"><span class="text-violet-300 font-bold shrink-0">7.</span><span><strong class="text-white">Escala a humano</strong> los casos difíciles automáticamente</span></li>
-<li class="flex items-start gap-2"><span class="text-violet-300 font-bold shrink-0">8.</span><span><strong class="text-white">Reporta</strong>: contactados, promesas, pagos confirmados</span></li>
-</ul>
-</div>
-<div class="mb-5">
-<h4 class="text-[10px] uppercase tracking-[0.3em] text-violet-300/70 font-bold mb-3">Conecta Con</h4>
-<div class="flex flex-wrap gap-1.5">
-<span class="text-[10px] px-2 py-1 rounded-md bg-violet-500/10 border border-violet-500/30 text-violet-100">WhatsApp Business</span>
-<span class="text-[10px] px-2 py-1 rounded-md bg-violet-500/10 border border-violet-500/30 text-violet-100">Gmail</span>
-<span class="text-[10px] px-2 py-1 rounded-md bg-violet-500/10 border border-violet-500/30 text-violet-100">OpenAI</span>
-<span class="text-[10px] px-2 py-1 rounded-md bg-violet-500/10 border border-violet-500/30 text-violet-100">CRM Cartera</span>
-</div>
-</div>
-<div class="border-t border-violet-500/20 pt-5 mb-5 mt-auto">
-<div class="flex items-baseline gap-2 mb-1">
-<span class="text-3xl font-black text-white italic">$755</span>
-<span class="text-[10px] text-slate-400 uppercase tracking-widest">Estructura</span>
-</div>
-<div class="flex items-baseline gap-2 mb-1">
-<span class="text-lg font-black text-slate-300">+ $175</span>
-<span class="text-xs text-slate-500">/ mes mantenimiento</span>
-</div>
-<p class="text-[10px] text-violet-300/70 mt-2">+ envíos de WhatsApp a consumo según volumen</p>
-</div>
-<button onclick="openLead()" class="w-full py-3 sm:py-4 bg-gradient-to-r from-violet-600 to-purple-700 text-white font-black rounded-xl text-xs uppercase tracking-widest hover:opacity-90 transition-all cursor-pointer" style="box-shadow: 0 0 20px rgba(139,92,246,0.3);">
-                        Quiero este bot
-                    </button>
-</div>
-</div>
-<div class="text-center mt-10 md:mt-12">
-<p class="text-sm text-slate-400 mb-4">¿Necesitas algo a la medida? También hacemos bots 100% personalizados.</p>
-<button onclick="openLead()" class="inline-block px-8 sm:px-12 py-4 sm:py-5 border border-white/15 hover:bg-white/5 text-white font-black rounded-xl text-xs sm:text-sm uppercase tracking-[0.2em] cursor-pointer transition-all">
-            Cotizar Bot Personalizado
-        </button>
-</div>
-</div>
+
+<!-- PROCESO -->
+<section class="e-w e-sec" id="proceso" style="padding-top:30px">
+  <span class="e-rot e-rv">Nos adaptamos a ti</span>
+  <h2 class="e-h2 e-rv">Cómo trabajamos: <span class="e-az">4 fases, sin sorpresas.</span></h2>
+  <p class="e-lead e-rv">Un proceso estructurado, sin demoras y sin código que tu equipo no entienda.</p>
+  <div class="e-fases">
+    <div class="e-fase e-rv"><img class="e-obj" src="./img/c1_form.webp" alt="" loading="lazy" width="313" height="440"/><div><span class="e-num">01</span><h3 class="e-h3">Auditoría</h3><p class="e-p">Identificamos cuellos de botella y oportunidades reales de automatización en tu negocio.</p><span class="e-dur">1-2 semanas</span></div></div>
+    <div class="e-fase e-rv"><img class="e-obj" src="./img/c1_conectar.webp" alt="" loading="lazy" width="440" height="282"/><div><span class="e-num">02</span><h3 class="e-h3">Diseño</h3><p class="e-p">Creamos la arquitectura de IA a medida según tus objetivos y restricciones técnicas.</p><span class="e-dur">1-2 semanas</span></div></div>
+    <div class="e-fase e-rv"><img class="e-obj" src="./img/n_rayo.webp" alt="" loading="lazy" width="413" height="440"/><div><span class="e-num">03</span><h3 class="e-h3">Despliegue</h3><p class="e-p">Integración ágil y segura en tus sistemas actuales, con capacitación a tu equipo.</p><span class="e-dur">2-4 semanas</span></div></div>
+    <div class="e-fase e-rv"><img class="e-obj" src="./img/c2_reportes.webp" alt="" loading="lazy" width="440" height="332"/><div><span class="e-num">04</span><h3 class="e-h3">Optimización</h3><p class="e-p">Mejora continua basada en métricas y análisis de datos reales del sistema.</p><span class="e-dur">Continuo</span></div></div>
+  </div>
+  <div class="e-total e-rv"><span class="e-rot">Tiempo total estimado</span><span class="e-peg">4 a 8 semanas</span></div>
 </section>
-<section class="py-20 md:py-32 px-6 relative" id="demos">
-<div class="ambient-glow-blue top-20 -left-40 opacity-30"></div>
-<div class="max-w-7xl mx-auto">
-<div class="text-center mb-12 md:mb-20">
-<h3 class="text-accent-blue font-bold uppercase tracking-[0.3em] text-xs mb-4 md:mb-6">Demos Interactivos</h3>
-<h2 class="text-4xl sm:text-5xl md:text-6xl font-black mb-6 md:mb-8 uppercase italic tracking-tighter">PRUEBA NUESTROS BOTS</h2>
-<p class="text-slate-400 max-w-3xl mx-auto text-base sm:text-lg md:text-xl font-light leading-relaxed">Conversa con nuestros bots simulados aquí mismo y descubre cómo funcionan. Sin salir de la página.</p>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-10">
-<div class="glass-card p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] glow-border-white group hover:-translate-y-2 transition-all relative overflow-hidden" style="background: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, rgba(40,40,55,0.75) 100%);">
-<div class="absolute -top-20 -right-20 size-64 bg-white/10 rounded-full blur-3xl"></div>
-<div class="relative">
-<div class="flex items-center gap-3 mb-6">
-<div class="size-14 bg-white/10 rounded-2xl flex items-center justify-center text-white border border-white/20">
-<span class="material-symbols-outlined text-3xl">trending_up</span>
-</div>
-<span class="text-[10px] font-bold uppercase tracking-[0.3em] text-emerald-500 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">Activo</span>
-</div>
-<h3 class="text-xl md:text-2xl font-black mb-3 md:mb-4 uppercase italic tracking-tight">Bot de Ventas</h3>
-<p class="text-slate-400 mb-6 md:mb-8 leading-relaxed font-light text-sm">Vendedor IA que califica leads, responde objeciones y cierra ventas 24/7. Conecta con tu CRM y nunca deja un cliente sin atender.</p>
-<div class="space-y-3 mb-6 md:mb-8">
-<div class="flex items-center gap-3 text-xs text-slate-500">
-<span class="material-symbols-outlined text-white text-base">check_circle</span>
-<span>Califica leads automáticamente</span>
-</div>
-<div class="flex items-center gap-3 text-xs text-slate-500">
-<span class="material-symbols-outlined text-white text-base">check_circle</span>
-<span>Responde objeciones con IA</span>
-</div>
-<div class="flex items-center gap-3 text-xs text-slate-500">
-<span class="material-symbols-outlined text-white text-base">check_circle</span>
-<span>Cierra ventas y agenda llamadas</span>
-</div>
-</div>
-<button onclick="openDemo('sales')" class="block w-full py-4 bg-white text-background-dark text-center font-black rounded-2xl text-xs uppercase tracking-[0.2em] cursor-pointer hover:bg-white/90 transition-all" style="box-shadow: 0 0 25px rgba(255, 255, 255, 0.25);">
-                            Probar demo
-                        </button>
-</div>
-</div>
-<div class="glass-card p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] glow-border-blue group hover:-translate-y-2 transition-all relative overflow-hidden" style="background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(40,40,55,0.75) 100%);">
-<div class="absolute -top-20 -right-20 size-64 bg-white/10 rounded-full blur-3xl"></div>
-<div class="relative">
-<div class="flex items-center gap-3 mb-6">
-<div class="size-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-500">
-<span class="material-symbols-outlined text-3xl">call</span>
-</div>
-<span class="text-[10px] font-bold uppercase tracking-[0.3em] text-emerald-500 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">Activo</span>
-</div>
-<h3 class="text-xl md:text-2xl font-black mb-3 md:mb-4 uppercase italic tracking-tight">Asistente de Voz IA</h3>
-<p class="text-slate-400 mb-6 md:mb-8 leading-relaxed font-light text-sm">Agente telefónico con voz natural que atiende llamadas, califica leads y agenda citas. Indistinguible de una persona real.</p>
-<div class="space-y-3 mb-6 md:mb-8">
-<div class="flex items-center gap-3 text-xs text-slate-500">
-<span class="material-symbols-outlined text-accent-blue text-base">check_circle</span>
-<span>Voz natural con IA generativa</span>
-</div>
-<div class="flex items-center gap-3 text-xs text-slate-500">
-<span class="material-symbols-outlined text-accent-blue text-base">check_circle</span>
-<span>Llamadas entrantes y salientes</span>
-</div>
-<div class="flex items-center gap-3 text-xs text-slate-500">
-<span class="material-symbols-outlined text-accent-blue text-base">check_circle</span>
-<span>Transcripción y reportes automáticos</span>
-</div>
-</div>
-<button onclick="openDemo('voice')" class="block w-full py-4 bg-accent-blue text-white text-center font-black rounded-2xl text-xs uppercase tracking-[0.2em] hover:bg-accent-blue/90 transition-all cursor-pointer">
-                            Probar demo
-                        </button>
-</div>
-</div>
-<div class="glass-card p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] glow-border-magenta group hover:-translate-y-2 transition-all relative overflow-hidden" style="background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(40,40,55,0.75) 100%);">
-<div class="absolute -top-20 -right-20 size-64 bg-white/10 rounded-full blur-3xl"></div>
-<div class="relative">
-<div class="flex items-center gap-3 mb-6">
-<div class="size-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-500">
-<span class="material-symbols-outlined text-3xl">smart_toy</span>
-</div>
-<span class="text-[10px] font-bold uppercase tracking-[0.3em] text-emerald-500 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">Activo</span>
-</div>
-<h3 class="text-xl md:text-2xl font-black mb-3 md:mb-4 uppercase italic tracking-tight">Email Inteligente</h3>
-<p class="text-slate-400 mb-6 md:mb-8 leading-relaxed font-light text-sm">Sistema que lee, clasifica y responde correos automáticamente. Aprende del tono de tu empresa para responder como tú lo harías.</p>
-<div class="space-y-3 mb-6 md:mb-8">
-<div class="flex items-center gap-3 text-xs text-slate-500">
-<span class="material-symbols-outlined text-primary text-base">check_circle</span>
-<span>Clasificación automática de bandeja</span>
-</div>
-<div class="flex items-center gap-3 text-xs text-slate-500">
-<span class="material-symbols-outlined text-primary text-base">check_circle</span>
-<span>Respuestas con tu estilo de marca</span>
-</div>
-<div class="flex items-center gap-3 text-xs text-slate-500">
-<span class="material-symbols-outlined text-primary text-base">check_circle</span>
-<span>Seguimiento automático de hilos</span>
-</div>
-</div>
-<button onclick="openDemo('email')" class="block w-full py-4 bg-primary text-white text-center font-black rounded-2xl text-xs glow-button uppercase tracking-[0.2em] cursor-pointer">
-                            Probar demo
-                        </button>
-</div>
-</div>
-</div>
-</div>
+
+<!-- CASOS -->
+<section class="e-w e-sec" id="casos" style="padding-top:30px">
+  <span class="e-rot e-rv">Clientes reales</span>
+  <h2 class="e-h2 e-rv">Casos de <span class="e-em">éxito.</span></h2>
+  <p class="e-lead e-rv">Empresas que ya confían en ElevatIA para automatizar sus operaciones.</p>
+  <div class="e-casos">
+    <article class="e-caso e-rv">
+      <span class="e-num">Distribución</span><span class="e-comillas" aria-hidden="true">“</span>
+      <p class="e-cita">Antes recibíamos más de 200 consultas diarias por WhatsApp y se nos escapaban ventas. Con <b>Lucy</b>, el bot que ElevatIA nos implementó, ahora respondemos en segundos las 24 horas. Las ventas subieron 35% en 3 meses.</p>
+      <div class="e-quien">Maderas Ibéricas<span>Director Comercial</span></div>
+      <div class="e-datos"><div><b>+35%</b><span>ventas</span></div><div><b>-70%</b><span>tiempo resp.</span></div><div><b>24/7</b><span>operación</span></div></div>
+    </article>
+    <article class="e-caso e-t2 e-rv">
+      <span class="e-num">Marketing</span><span class="e-comillas" aria-hidden="true">“</span>
+      <p class="e-cita">Manejábamos leads de 12 clientes simultáneos y se nos perdían en el seguimiento. <b>Nova</b>, el asistente IA de ElevatIA, ahora segmenta, asigna y hace seguimiento automático. Triplicamos la conversión.</p>
+      <div class="e-quien">Triple M Agencia<span>CEO &amp; Fundador</span></div>
+      <div class="e-datos"><div><b>3x</b><span>conversión</span></div><div><b>90%</b><span>auto seguimiento</span></div><div><b>12+</b><span>clientes</span></div></div>
+    </article>
+    <article class="e-caso e-rv">
+      <span class="e-num">Construcción</span><span class="e-comillas" aria-hidden="true">“</span>
+      <p class="e-cita">Nuestros clientes nos llamaban constantemente pidiendo actualizaciones de obra. ElevatIA nos creó un sistema que envía reportes diarios automáticos con fotos y avance. Las llamadas de soporte bajaron a la mitad.</p>
+      <div class="e-quien">Alpaca Constructora<span>Gerente de Operaciones</span></div>
+      <div class="e-datos"><div><b>-50%</b><span>llamadas</span></div><div><b>100%</b><span>visibilidad</span></div><div><b>+95%</b><span>satisfacción</span></div></div>
+    </article>
+  </div>
+  <div style="margin-top:50px" class="e-rv"><a class="e-pill" href="https://wa.me/18098606379?text=Hola%2C%20quiero%20ser%20el%20pr%C3%B3ximo%20caso%20de%20%C3%A9xito%20de%20ElevatIA" target="_blank" rel="noopener">Quiero ser el próximo →</a></div>
 </section>
-<section class="py-20 md:py-32 px-6" id="solucion">
-<div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-6 md:gap-10">
-<div class="p-6 sm:p-10 md:p-16 glass-card rounded-2xl md:rounded-[3rem] glow-border-magenta relative overflow-hidden group">
-<div class="absolute top-0 right-0 p-8 opacity-10">
-<span class="material-symbols-outlined text-8xl">warning</span>
-</div>
-<h2 class="text-2xl sm:text-3xl md:text-4xl font-black mb-6 md:mb-10 flex items-center gap-3 md:gap-4 italic uppercase">
-<span class="material-symbols-outlined text-primary">error_outline</span>
-                    EL PROBLEMA
-                </h2>
-<ul class="space-y-8">
-<li class="flex gap-6 group/item">
-<span class="text-primary font-black text-2xl italic">01.</span>
-<p class="text-slate-400 text-sm sm:text-base md:text-lg leading-snug">Procesos manuales obsoletos que consumen el 70% del tiempo operativo del equipo.</p>
-</li>
-<li class="flex gap-6 group/item">
-<span class="text-primary font-black text-2xl italic">02.</span>
-<p class="text-slate-400 text-sm sm:text-base md:text-lg leading-snug">Falta de visibilidad sobre los datos críticos, dificultando la toma de decisiones.</p>
-</li>
-<li class="flex gap-6 group/item">
-<span class="text-primary font-black text-2xl italic">03.</span>
-<p class="text-slate-400 text-sm sm:text-base md:text-lg leading-snug">Incapacidad para escalar ante una competencia que ya está integrando IA.</p>
-</li>
-</ul>
-</div>
-<div class="p-6 sm:p-10 md:p-16 glass-card rounded-2xl md:rounded-[3rem] glow-border-blue relative overflow-hidden group">
-<div class="absolute top-0 right-0 p-8 opacity-10">
-<span class="material-symbols-outlined text-8xl">verified</span>
-</div>
-<h2 class="text-2xl sm:text-3xl md:text-4xl font-black mb-6 md:mb-10 flex items-center gap-3 md:gap-4 italic uppercase">
-<span class="material-symbols-outlined text-accent-blue">task_alt</span>
-                    LA SOLUCIÓN
-                </h2>
-<ul class="space-y-8">
-<li class="flex gap-6">
-<span class="text-accent-blue font-black text-2xl italic">01.</span>
-<p class="text-slate-400 text-sm sm:text-base md:text-lg leading-snug">Implementación de agentes de IA personalizados que trabajan 24/7 sin errores.</p>
-</li>
-<li class="flex gap-6">
-<span class="text-accent-blue font-black text-2xl italic">02.</span>
-<p class="text-slate-400 text-sm sm:text-base md:text-lg leading-snug">Paneles de control inteligentes con predicción y análisis en tiempo real.</p>
-</li>
-<li class="flex gap-6">
-<span class="text-accent-blue font-black text-2xl italic">03.</span>
-<p class="text-slate-400 text-sm sm:text-base md:text-lg leading-snug">Estructura de costos optimizada y capacidad de crecimiento exponencial.</p>
-</li>
-</ul>
-</div>
-</div>
+
+<!-- PARA QUIÉN -->
+<section class="e-w e-quienes">
+  <span class="e-rot e-rv">Para cualquier negocio</span>
+  <h2 class="e-h2 e-rv">No importa si tu equipo es de 1 o de 500 personas. <span class="e-az">Crecemos contigo.</span></h2>
+  <div class="e-pegs e-rv">
+    <span class="e-peg">Emprendedores y freelancers</span><span class="e-peg">Tiendas y pequeños negocios</span><span class="e-peg">PYMES en crecimiento</span><span class="e-peg">Empresas medianas y grandes</span><span class="e-peg">Iglesias, ONG y equipos</span>
+  </div>
 </section>
-<section class="py-20 md:py-32 px-6" id="servicios">
-<div class="max-w-7xl mx-auto">
-<div class="mb-12 md:mb-24">
-<h2 class="text-3xl sm:text-4xl md:text-6xl font-black mb-6 md:mb-8 italic uppercase tracking-tighter">NUESTROS SERVICIOS</h2>
-<p class="text-slate-400 text-base sm:text-lg md:text-xl font-light">Soluciones personalizadas de alto impacto para la era de la inteligencia artificial.</p>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-10">
-<div class="glass-card p-6 sm:p-8 md:p-12 rounded-2xl md:rounded-[3rem] glow-border-magenta group hover:-translate-y-2 transition-transform">
-<div class="size-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6 md:mb-10">
-<span class="material-symbols-outlined text-3xl">smart_toy</span>
-</div>
-<h3 class="text-2xl font-black mb-6 uppercase italic tracking-tight">IA Generativa</h3>
-<p class="text-slate-400 mb-6 md:mb-10 leading-relaxed font-light">Implementamos modelos de lenguaje personalizados para atención al cliente, ventas y creación estratégica de contenido.</p>
-<div class="aspect-video rounded-2xl overflow-hidden border border-white/5">
-<div class="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700" style="background-image: url('https://images.unsplash.com/photo-1677442136019-21780ecad995?w=900&auto=format&fit=crop&q=80')"></div>
-</div>
-</div>
-<div class="glass-card p-6 sm:p-8 md:p-12 rounded-2xl md:rounded-[3rem] glow-border-blue group hover:-translate-y-2 transition-transform">
-<div class="size-16 bg-accent-blue/10 rounded-2xl flex items-center justify-center text-accent-blue mb-6 md:mb-10">
-<span class="material-symbols-outlined text-3xl">settings_suggest</span>
-</div>
-<h3 class="text-2xl font-black mb-6 uppercase italic tracking-tight">Automatización RPA</h3>
-<p class="text-slate-400 mb-6 md:mb-10 leading-relaxed font-light">Robots de software que ejecutan tareas repetitivas en tus herramientas actuales con precisión quirúrgica y sin errores.</p>
-<div class="aspect-video rounded-2xl overflow-hidden border border-white/5">
-<div class="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700" style="background-image: url('https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=900&auto=format&fit=crop&q=80')"></div>
-</div>
-</div>
-<div class="glass-card p-6 sm:p-8 md:p-12 rounded-2xl md:rounded-[3rem] glow-border-magenta group hover:-translate-y-2 transition-transform">
-<div class="size-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6 md:mb-10">
-<span class="material-symbols-outlined text-3xl">analytics</span>
-</div>
-<h3 class="text-2xl font-black mb-6 uppercase italic tracking-tight">Análisis Predictivo</h3>
-<p class="text-slate-400 mb-6 md:mb-10 leading-relaxed font-light">Anticipa tendencias y comportamientos del mercado utilizando algoritmos avanzados de machine learning y big data.</p>
-<div class="aspect-video rounded-2xl overflow-hidden border border-white/5">
-<div class="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&auto=format&fit=crop&q=80')"></div>
-</div>
-</div>
-</div>
-</div>
+
+<!-- NOSOTROS -->
+<section class="e-w e-sec" id="nosotros">
+  <div class="e-nos">
+    <div class="e-fotos e-rv">
+      <figure class="e-foto e-f1"><img src="./img/equipo.jpg" alt="Maria Claudia y Melvin Sánchez, fundadores de ElevatIA" loading="lazy" width="1200" height="800"/><figcaption>El equipo detrás de ElevatIA</figcaption></figure>
+      <figure class="e-foto e-f2"><img src="./img/equipo2.jpg" alt="Maria Claudia y Melvin Sánchez" loading="lazy" width="760" height="1140"/></figure>
+    </div>
+    <div>
+      <span class="e-rot e-rv">¿Quiénes somos?</span>
+      <h2 class="e-nombres e-rv">Maria Claudia <span class="e-em">&amp;</span> Melvin Sánchez</h2>
+      <div class="e-cargo e-rv">Fundadores &amp; Co-CEOs</div>
+      <p class="e-lead e-rv">ElevatIA nace de la intersección entre la ingeniería de datos y la visión estratégica de negocio. Somos un equipo apasionado por construir el futuro del trabajo: diseñamos soluciones a medida que automatizan procesos, optimizan operaciones y multiplican resultados, sin que tu equipo tenga que aprender a programar.</p>
+      <div class="e-mv e-rv">
+        <div><h4>Misión</h4><p>Automatizar, optimizar y potenciar empresas mediante inteligencia artificial, creando sistemas que trabajen de forma más inteligente para que las personas puedan enfocarse en crecer.</p></div>
+        <div><h4>Visión</h4><p>Ser el aliado tecnológico que impulse la transformación digital de miles de empresas, convirtiendo la automatización y la IA en herramientas accesibles para cualquier negocio.</p></div>
+      </div>
+      <div class="e-valores e-rv"><span>Innovación</span><span>Eficiencia</span><span>Evolución</span><span>Transparencia</span><span>Excelencia</span><span>Compromiso</span></div>
+    </div>
+  </div>
 </section>
-<section class="py-20 md:py-32 px-6 relative">
-<div class="ambient-glow-pink top-0 -left-40 opacity-20"></div>
-<div class="max-w-7xl mx-auto relative">
-<div class="text-center mb-12 md:mb-16">
-<h3 class="text-primary font-bold uppercase tracking-[0.3em] text-xs mb-4 md:mb-6">Nuestra Diferencia</h3>
-<h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-6 uppercase italic tracking-tighter">¿POR QUÉ ELEGIR ELEVATIA?</h2>
-<div class="w-24 h-1 bg-gradient-to-r from-primary to-accent-blue mx-auto rounded-full"></div>
-</div>
-<div class="grid md:grid-cols-3 gap-5 md:gap-8">
-<div class="glass-card glow-border-magenta p-6 md:p-8 rounded-2xl md:rounded-3xl hover:-translate-y-2 transition-all relative overflow-hidden" style="background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(40,40,55,0.7) 100%);">
-<div class="size-14 md:size-16 rounded-2xl bg-primary/15 border border-primary/30 text-primary font-black text-xl md:text-2xl flex items-center justify-center mb-5">01</div>
-<h4 class="font-black text-lg md:text-xl mb-3 uppercase italic tracking-tight">Expertise Técnica Real</h4>
-<p class="text-slate-400 text-sm md:text-base leading-relaxed font-light">No solo vendemos software; construimos soluciones de ingeniería robustas y personalizadas para cada desafío.</p>
-</div>
-<div class="glass-card glow-border-blue p-6 md:p-8 rounded-2xl md:rounded-3xl hover:-translate-y-2 transition-all relative overflow-hidden" style="background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(40,40,55,0.7) 100%);">
-<div class="size-14 md:size-16 rounded-2xl bg-accent-blue/15 border border-accent-blue/30 text-accent-blue font-black text-xl md:text-2xl flex items-center justify-center mb-5">02</div>
-<h4 class="font-black text-lg md:text-xl mb-3 uppercase italic tracking-tight">Enfoque Total en ROI</h4>
-<p class="text-slate-400 text-sm md:text-base leading-relaxed font-light">Nuestras implementaciones están diseñadas estratégicamente para pagarse solas en menos de 6 meses.</p>
-</div>
-<div class="glass-card glow-border-magenta p-6 md:p-8 rounded-2xl md:rounded-3xl hover:-translate-y-2 transition-all relative overflow-hidden" style="background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(40,40,55,0.7) 100%);">
-<div class="size-14 md:size-16 rounded-2xl bg-primary/15 border border-primary/30 text-primary font-black text-xl md:text-2xl flex items-center justify-center mb-5">03</div>
-<h4 class="font-black text-lg md:text-xl mb-3 uppercase italic tracking-tight">Soporte y Adopción</h4>
-<p class="text-slate-400 text-sm md:text-base leading-relaxed font-light">Acompañamos a tu equipo durante todo el proceso para asegurar una adopción cultural exitosa de la IA.</p>
-</div>
-</div>
-</div>
-</section>
-<section class="py-20 md:py-32 px-6 relative">
-<div class="ambient-glow-blue bottom-0 -right-40 opacity-20"></div>
-<div class="max-w-7xl mx-auto relative">
-<div class="text-center mb-12 md:mb-16">
-<h3 class="text-accent-blue font-bold uppercase tracking-[0.3em] text-xs mb-4 md:mb-6">Para Cualquier Negocio</h3>
-<h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-6 uppercase italic tracking-tighter">¿PARA QUIÉN ES ELEVATIA?</h2>
-<div class="w-24 h-1 bg-gradient-to-r from-primary to-accent-blue mx-auto rounded-full mb-6 md:mb-8"></div>
-<p class="text-slate-400 max-w-3xl mx-auto text-base md:text-lg font-light leading-relaxed">Desde emprendedores hasta enterprise — la inteligencia artificial es para todos. Adaptamos cada solución al tamaño y presupuesto real de tu negocio.</p>
-</div>
-<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-5 mb-10 md:mb-12">
-<div class="glass-card glow-border-blue p-5 md:p-6 rounded-2xl text-center hover:-translate-y-1 transition-all relative overflow-hidden" style="background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(40,40,55,0.7) 100%);">
-<div class="size-12 md:size-14 mx-auto rounded-2xl bg-accent-blue/15 border border-accent-blue/30 flex items-center justify-center text-accent-blue mb-3 md:mb-4">
-<span class="material-symbols-outlined text-2xl md:text-3xl">person</span>
-</div>
-<p class="font-bold tracking-tight text-xs sm:text-sm md:text-base">Emprendedores y Freelancers</p>
-</div>
-<div class="glass-card glow-border-magenta p-5 md:p-6 rounded-2xl text-center hover:-translate-y-1 transition-all relative overflow-hidden" style="background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(40,40,55,0.7) 100%);">
-<div class="size-12 md:size-14 mx-auto rounded-2xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary mb-3 md:mb-4">
-<span class="material-symbols-outlined text-2xl md:text-3xl">storefront</span>
-</div>
-<p class="font-bold tracking-tight text-xs sm:text-sm md:text-base">Tiendas y Pequeños Negocios</p>
-</div>
-<div class="glass-card glow-border-blue p-5 md:p-6 rounded-2xl text-center hover:-translate-y-1 transition-all relative overflow-hidden" style="background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(40,40,55,0.7) 100%);">
-<div class="size-12 md:size-14 mx-auto rounded-2xl bg-accent-blue/15 border border-accent-blue/30 flex items-center justify-center text-accent-blue mb-3 md:mb-4">
-<span class="material-symbols-outlined text-2xl md:text-3xl">trending_up</span>
-</div>
-<p class="font-bold tracking-tight text-xs sm:text-sm md:text-base">PYMES en Crecimiento</p>
-</div>
-<div class="glass-card glow-border-magenta p-5 md:p-6 rounded-2xl text-center hover:-translate-y-1 transition-all relative overflow-hidden" style="background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(40,40,55,0.7) 100%);">
-<div class="size-12 md:size-14 mx-auto rounded-2xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary mb-3 md:mb-4">
-<span class="material-symbols-outlined text-2xl md:text-3xl">corporate_fare</span>
-</div>
-<p class="font-bold tracking-tight text-xs sm:text-sm md:text-base">Empresas Medianas y Grandes</p>
-</div>
-<div class="glass-card glow-border-blue p-5 md:p-6 rounded-2xl text-center hover:-translate-y-1 transition-all relative overflow-hidden col-span-2 md:col-span-1" style="background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(40,40,55,0.7) 100%);">
-<div class="size-12 md:size-14 mx-auto rounded-2xl bg-accent-blue/15 border border-accent-blue/30 flex items-center justify-center text-accent-blue mb-3 md:mb-4">
-<span class="material-symbols-outlined text-2xl md:text-3xl">groups</span>
-</div>
-<p class="font-bold tracking-tight text-xs sm:text-sm md:text-base">Iglesias, ONGs y Equipos</p>
-</div>
-</div>
-<div class="max-w-3xl mx-auto p-5 md:p-6 rounded-2xl bg-gradient-to-r from-primary/10 via-white/5 to-accent-blue/10 border border-white/20 flex items-center gap-4">
-<span class="material-symbols-outlined text-primary text-2xl md:text-3xl shrink-0">tips_and_updates</span>
-<p class="text-sm md:text-base text-slate-200 leading-relaxed font-light"><strong>No importa si tu equipo es de 1 o de 500 personas.</strong> Diseñamos soluciones que crecen contigo.</p>
-</div>
-</div>
-</section>
-<section class="py-20 md:py-32 px-6" id="beneficios">
-<div class="max-w-7xl mx-auto">
-<div class="text-center mb-12 md:mb-24">
-<h2 class="text-3xl sm:text-4xl md:text-5xl font-black uppercase italic mb-6 md:mb-8 tracking-tighter">BENEFICIOS TANGIBLES</h2>
-<p class="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg md:text-xl font-light">Resultados reales medidos en nuestros clientes tras la integración de sistemas inteligentes.</p>
-</div>
-<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
-<div class="p-6 sm:p-8 md:p-12 glass-card rounded-2xl md:rounded-[3rem] glow-border-magenta text-center group hover:-translate-y-2 transition-all">
-<div class="text-3xl sm:text-4xl md:text-6xl font-black text-primary mb-2 md:mb-4 italic group-hover:scale-110 transition-transform">+45%</div>
-<div class="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.4em] font-bold text-slate-500 leading-tight">Eficiencia Operativa</div>
-</div>
-<div class="p-6 sm:p-8 md:p-12 glass-card rounded-2xl md:rounded-[3rem] glow-border-blue text-center group hover:-translate-y-2 transition-all">
-<div class="text-3xl sm:text-4xl md:text-6xl font-black text-accent-blue mb-2 md:mb-4 italic group-hover:scale-110 transition-transform">-60%</div>
-<div class="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.4em] font-bold text-slate-500 leading-tight">Costos de Gestión</div>
-</div>
-<div class="p-6 sm:p-8 md:p-12 glass-card rounded-2xl md:rounded-[3rem] glow-border-magenta text-center group hover:-translate-y-2 transition-all">
-<div class="text-3xl sm:text-4xl md:text-6xl font-black text-primary mb-2 md:mb-4 italic group-hover:scale-110 transition-transform">24/7</div>
-<div class="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.4em] font-bold text-slate-500 leading-tight">Disponibilidad Total</div>
-</div>
-<div class="p-6 sm:p-8 md:p-12 glass-card rounded-2xl md:rounded-[3rem] glow-border-blue text-center group hover:-translate-y-2 transition-all">
-<div class="text-3xl sm:text-4xl md:text-6xl font-black text-accent-blue mb-2 md:mb-4 italic group-hover:scale-110 transition-transform">100%</div>
-<div class="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.4em] font-bold text-slate-500 leading-tight">Escalabilidad</div>
-</div>
-</div>
-</div>
-</section>
-<section class="py-20 md:py-32 px-6 relative" id="casos">
-<div class="ambient-glow-pink top-40 -right-40 opacity-30"></div>
-<div class="ambient-glow-blue bottom-40 -left-40 opacity-30"></div>
-<div class="max-w-7xl mx-auto">
-<div class="text-center mb-12 md:mb-20">
-<h3 class="text-primary font-bold uppercase tracking-[0.3em] text-xs mb-6">Clientes Reales</h3>
-<h2 class="text-3xl sm:text-4xl md:text-6xl font-black mb-8 uppercase italic tracking-tighter">CASOS DE ÉXITO</h2>
-<p class="text-slate-400 max-w-3xl mx-auto text-xl font-light leading-relaxed">Empresas que ya confían en ElevatIA para automatizar sus operaciones y multiplicar sus resultados.</p>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-<div class="glass-card p-6 sm:p-8 md:p-10 rounded-2xl md:rounded-[3rem] glow-border-magenta relative overflow-hidden group hover:-translate-y-2 transition-all">
-<div class="absolute top-0 right-0 p-8 opacity-5">
-<span class="material-symbols-outlined text-9xl">format_quote</span>
-</div>
-<div class="relative">
-<div class="flex items-center justify-between mb-8">
-<div class="size-16 bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl flex items-center justify-center text-white border border-amber-500/30">
-<span class="material-symbols-outlined text-3xl">forest</span>
-</div>
-<span class="text-[10px] font-bold uppercase tracking-[0.2em] text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/20">Distribución</span>
-</div>
-<div class="flex gap-1 mb-6 text-amber-400">
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1">star</span>
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1">star</span>
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1">star</span>
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1">star</span>
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1">star</span>
-</div>
-<p class="text-slate-300 text-base leading-relaxed mb-8 font-light italic">"Antes recibíamos más de 200 consultas diarias por WhatsApp y se nos escapaban ventas. Con <strong class="text-white">Lucy</strong>, el bot que ElevatIA nos implementó, ahora respondemos en segundos las 24 horas. Las ventas subieron 35% en 3 meses."</p>
-<div class="border-t border-white/10 pt-6 mb-6">
-<p class="font-black text-lg uppercase tracking-tight">Maderas Ibéricas</p>
-<p class="text-xs text-slate-500 mt-1 uppercase tracking-widest">Director Comercial</p>
-</div>
-<div class="grid grid-cols-3 gap-3">
-<div class="text-center p-3 bg-white/5 rounded-xl">
-<div class="text-2xl font-black text-primary italic">+35%</div>
-<div class="text-[9px] uppercase tracking-widest text-slate-500 mt-1">Ventas</div>
-</div>
-<div class="text-center p-3 bg-white/5 rounded-xl">
-<div class="text-2xl font-black text-primary italic">-70%</div>
-<div class="text-[9px] uppercase tracking-widest text-slate-500 mt-1">Tiempo resp.</div>
-</div>
-<div class="text-center p-3 bg-white/5 rounded-xl">
-<div class="text-2xl font-black text-primary italic">24/7</div>
-<div class="text-[9px] uppercase tracking-widest text-slate-500 mt-1">Operación</div>
-</div>
-</div>
-</div>
-</div>
-<div class="glass-card p-6 sm:p-8 md:p-10 rounded-2xl md:rounded-[3rem] glow-border-blue relative overflow-hidden group hover:-translate-y-2 transition-all">
-<div class="absolute top-0 right-0 p-8 opacity-5">
-<span class="material-symbols-outlined text-9xl">format_quote</span>
-</div>
-<div class="relative">
-<div class="flex items-center justify-between mb-8">
-<div class="size-16 bg-gradient-to-br from-purple-600 to-purple-900 rounded-2xl flex items-center justify-center text-white border border-purple-500/30">
-<span class="material-symbols-outlined text-3xl">campaign</span>
-</div>
-<span class="text-[10px] font-bold uppercase tracking-[0.2em] text-accent-blue px-3 py-1 rounded-full bg-accent-blue/10 border border-accent-blue/20">Marketing</span>
-</div>
-<div class="flex gap-1 mb-6 text-amber-400">
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1">star</span>
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1">star</span>
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1">star</span>
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1">star</span>
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1">star</span>
-</div>
-<p class="text-slate-300 text-base leading-relaxed mb-8 font-light italic">"Manejábamos leads de 12 clientes simultáneos y se nos perdían en el seguimiento. <strong class="text-white">Nova</strong>, el asistente IA de ElevatIA, ahora segmenta, asigna y hace follow-up automático. Triplicamos la conversión."</p>
-<div class="border-t border-white/10 pt-6 mb-6">
-<p class="font-black text-lg uppercase tracking-tight">Triple M Agencia</p>
-<p class="text-xs text-slate-500 mt-1 uppercase tracking-widest">CEO &amp; Fundador</p>
-</div>
-<div class="grid grid-cols-3 gap-3">
-<div class="text-center p-3 bg-white/5 rounded-xl">
-<div class="text-2xl font-black text-accent-blue italic">3x</div>
-<div class="text-[9px] uppercase tracking-widest text-slate-500 mt-1">Conversión</div>
-</div>
-<div class="text-center p-3 bg-white/5 rounded-xl">
-<div class="text-2xl font-black text-accent-blue italic">90%</div>
-<div class="text-[9px] uppercase tracking-widest text-slate-500 mt-1">Auto follow-up</div>
-</div>
-<div class="text-center p-3 bg-white/5 rounded-xl">
-<div class="text-2xl font-black text-accent-blue italic">12+</div>
-<div class="text-[9px] uppercase tracking-widest text-slate-500 mt-1">Clientes</div>
-</div>
-</div>
-</div>
-</div>
-<div class="glass-card p-6 sm:p-8 md:p-10 rounded-2xl md:rounded-[3rem] glow-border-magenta relative overflow-hidden group hover:-translate-y-2 transition-all">
-<div class="absolute top-0 right-0 p-8 opacity-5">
-<span class="material-symbols-outlined text-9xl">format_quote</span>
-</div>
-<div class="relative">
-<div class="flex items-center justify-between mb-8">
-<div class="size-16 bg-gradient-to-br from-orange-600 to-red-900 rounded-2xl flex items-center justify-center text-white border border-orange-500/30">
-<span class="material-symbols-outlined text-3xl">engineering</span>
-</div>
-<span class="text-[10px] font-bold uppercase tracking-[0.2em] text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/20">Construcción</span>
-</div>
-<div class="flex gap-1 mb-6 text-amber-400">
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1">star</span>
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1">star</span>
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1">star</span>
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1">star</span>
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1">star</span>
-</div>
-<p class="text-slate-300 text-base leading-relaxed mb-8 font-light italic">"Nuestros clientes nos llamaban constantemente pidiendo actualizaciones de obra. ElevatIA nos creó un sistema que envía reportes diarios automáticos con fotos y avance. Las llamadas de soporte bajaron a la mitad."</p>
-<div class="border-t border-white/10 pt-6 mb-6">
-<p class="font-black text-lg uppercase tracking-tight">Alpaca Constructora</p>
-<p class="text-xs text-slate-500 mt-1 uppercase tracking-widest">Gerente de Operaciones</p>
-</div>
-<div class="grid grid-cols-3 gap-3">
-<div class="text-center p-3 bg-white/5 rounded-xl">
-<div class="text-2xl font-black text-primary italic">-50%</div>
-<div class="text-[9px] uppercase tracking-widest text-slate-500 mt-1">Llamadas</div>
-</div>
-<div class="text-center p-3 bg-white/5 rounded-xl">
-<div class="text-2xl font-black text-primary italic">100%</div>
-<div class="text-[9px] uppercase tracking-widest text-slate-500 mt-1">Visibilidad</div>
-</div>
-<div class="text-center p-3 bg-white/5 rounded-xl">
-<div class="text-2xl font-black text-primary italic">+95%</div>
-<div class="text-[9px] uppercase tracking-widest text-slate-500 mt-1">Satisfacción</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="text-center mt-10 md:mt-16">
-<a href="https://wa.me/18492207283?text=Hola%2C%20quiero%20ser%20el%20pr%C3%B3ximo%20caso%20de%20%C3%A9xito%20de%20ElevatIA" target="_blank" rel="noopener" class="inline-block px-8 sm:px-12 py-4 sm:py-5 bg-primary text-white font-black rounded-xl text-xs sm:text-sm glow-button uppercase tracking-[0.2em]">
-                    Quiero ser el próximo
-                </a>
-</div>
-</div>
-</section>
-<section class="py-20 md:py-40 px-6">
-<div class="max-w-6xl mx-auto rounded-[2rem] md:rounded-[4rem] overflow-hidden relative glass-card p-8 sm:p-16 md:p-32 text-center border-primary/20">
-<div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent-blue/10 -z-10"></div>
-<div class="ambient-glow-pink -top-20 -left-20 opacity-20"></div>
-<div class="ambient-glow-blue -bottom-20 -right-20 opacity-20"></div>
-<h2 class="text-3xl sm:text-5xl md:text-7xl font-black mb-8 md:mb-12 leading-[1] uppercase italic tracking-tighter">¿LISTO PARA DAR EL SALTO HACIA LA INTELIGENCIA ARTIFICIAL?</h2>
-<p class="text-slate-300 text-base sm:text-xl md:text-2xl mb-10 md:mb-16 max-w-3xl mx-auto font-light leading-relaxed">Agenda una reunión con nuestro equipo de expertos y descubre el potencial oculto en tus datos.</p>
-<div class="flex justify-center items-center"><button onclick="openLead()" class="inline-block px-8 sm:px-14 py-4 sm:py-6 bg-primary text-white font-black rounded-2xl text-sm sm:text-lg glow-button uppercase tracking-[0.2em] cursor-pointer">Agenda tu sesión</button></div>
-</div>
+
+<!-- CONTACTO -->
+<section class="e-w" id="contacto" style="padding-bottom:30px">
+  <div class="e-fin e-rv">
+    <span class="e-rot">Estamos para ayudarte</span>
+    <h2 class="e-h2">¿Listo para dar el salto hacia la <span class="e-em">inteligencia artificial?</span></h2>
+    <p class="e-lead">Agenda una reunión con nuestro equipo. Respondemos en menos de 24 horas hábiles.</p>
+    <div class="e-vias">
+      <a class="e-via" href="https://wa.me/18098606379?text=Hola%2C%20quiero%20m%C3%A1s%20info%20de%20ElevatIA" target="_blank" rel="noopener"><small>WhatsApp</small><b>+1 (809) 860-6379</b></a>
+      <a class="e-via" href="mailto:info@elevatia.do"><small>Correo</small><b>info@elevatia.do</b></a>
+    </div>
+    <div class="e-cta"><button class="e-pill e-blanco" onclick="openLead()">Agenda tu sesión →</button></div>
+    <img class="e-obj e-g e-flota" src="./img/c2_robot.webp" alt="" loading="lazy" width="440" height="609"/>
+  </div>
 </section>
 </main>
-<section class="py-20 md:py-32 px-6 relative" id="contacto">
-<div class="ambient-glow-pink top-0 -left-40 opacity-20"></div>
-<div class="ambient-glow-blue bottom-0 -right-40 opacity-20"></div>
-<div class="max-w-7xl mx-auto relative">
-<div class="text-center mb-12 md:mb-16">
-<h3 class="text-primary font-bold uppercase tracking-[0.3em] text-xs mb-4 md:mb-6">Estamos para ayudarte</h3>
-<h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-6 uppercase italic tracking-tighter">CONTÁCTANOS</h2>
-<div class="w-24 h-1 bg-gradient-to-r from-primary to-accent-blue mx-auto rounded-full mb-6 md:mb-8"></div>
-<p class="text-slate-400 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed">Habla con nuestro equipo. Respondemos en menos de 24 horas hábiles.</p>
-</div>
-<div class="grid md:grid-cols-2 gap-5 md:gap-8 max-w-4xl mx-auto">
-<a href="mailto:info@elevatia.do" class="glass-card glow-border-magenta p-6 md:p-8 rounded-2xl md:rounded-3xl hover:-translate-y-2 transition-all relative overflow-hidden text-center block" style="background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(40,40,55,0.7) 100%);">
-<div class="size-14 md:size-16 mx-auto rounded-2xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary mb-4 md:mb-5">
-<span class="material-symbols-outlined text-2xl md:text-3xl">mail</span>
-</div>
-<h4 class="font-black text-base md:text-lg mb-2 uppercase italic tracking-tight">Email</h4>
-<p class="text-slate-200 text-sm md:text-base font-medium break-all">info@elevatia.do</p>
-<p class="text-xs text-slate-500 mt-2">Click para escribirnos</p>
-</a>
-<a href="https://wa.me/18098606379?text=Hola%2C%20quiero%20m%C3%A1s%20info%20de%20ElevatIA" target="_blank" rel="noopener" class="glass-card glow-border-white p-6 md:p-8 rounded-2xl md:rounded-3xl hover:-translate-y-2 transition-all relative overflow-hidden text-center block" style="background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(40,40,55,0.7) 100%);">
-<div class="size-14 md:size-16 mx-auto rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4 md:mb-5">
-<span class="material-symbols-outlined text-2xl md:text-3xl">chat</span>
-</div>
-<h4 class="font-black text-base md:text-lg mb-2 uppercase italic tracking-tight">WhatsApp</h4>
-<p class="text-slate-200 text-sm md:text-base font-medium">+1 (809) 860 6379</p>
-<p class="text-xs text-emerald-400 mt-2">Respuesta inmediata 💚</p>
-</a>
-</div>
-<div class="text-center mt-10 md:mt-12">
-<button onclick="openLead()" class="inline-block px-8 sm:px-12 py-4 sm:py-5 bg-primary text-white font-black rounded-xl text-xs sm:text-sm glow-button uppercase tracking-[0.2em] cursor-pointer">
-            Prefiero llenar formulario
-        </button>
-</div>
-</div>
-</section>
-<footer class="py-12 md:py-24 px-6 border-t border-white/5 bg-background-dark">
-<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 mb-12 md:mb-24">
-<div class="md:col-span-6">
-<div class="text-2xl sm:text-3xl font-bold tracking-tight mb-6 md:mb-10">
-<span class="logo-gradient-text">ElevatIA</span>
-</div>
-<p class="text-slate-400 max-w-md mb-8 md:mb-12 text-base md:text-lg font-light leading-relaxed">
-                ElevatIA — Automatización e inteligencia artificial aplicada a negocios que quieren crecer mejor. Lideramos la transición hacia un futuro donde el potencial humano es amplificado por sistemas autónomos.
-            </p>
-<div class="flex gap-4 md:gap-6">
-<a class="size-12 md:size-14 rounded-full border border-white/10 flex items-center justify-center hover:glow-border-magenta hover:text-primary transition-all group" href="https://wa.me/18492207283?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20ElevatIA" target="_blank" rel="noopener" aria-label="WhatsApp">
-<span class="material-symbols-outlined text-xl md:text-2xl group-hover:scale-110 transition-transform">chat</span>
-</a>
-<a class="size-12 md:size-14 rounded-full border border-white/10 flex items-center justify-center hover:glow-border-blue hover:text-accent-blue transition-all group" href="mailto:info@elevatia.do" aria-label="Email">
-<span class="material-symbols-outlined text-xl md:text-2xl group-hover:scale-110 transition-transform">mail</span>
-</a>
-</div>
-</div>
-<div class="md:col-span-3">
-<h4 class="font-black mb-6 md:mb-10 uppercase text-xs tracking-[0.4em] text-white">Servicios</h4>
-<ul class="space-y-5 text-slate-500 text-sm font-medium">
-<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#servicios"><span class="w-2 h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span> Consultoría IA</a></li>
-<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#servicios"><span class="w-2 h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span> Agentes Autónomos</a></li>
-<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#servicios"><span class="w-2 h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span> Machine Learning</a></li>
-<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#servicios"><span class="w-2 h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span> Integraciones API</a></li>
-</ul>
-</div>
-<div class="md:col-span-3">
-<h4 class="font-black mb-6 md:mb-10 uppercase text-xs tracking-[0.4em] text-white">Empresa</h4>
-<ul class="space-y-5 text-slate-500 text-sm font-medium">
-<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#quienes-somos"><span class="w-2 h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span> Nosotros</a></li>
-<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#casos"><span class="w-2 h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span> Casos de Éxito</a></li>
-<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#contacto"><span class="w-2 h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span> Contacto</a></li>
-<li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="/privacidad/"><span class="w-2 h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span> Política de Privacidad</a></li>
-</ul>
-</div>
-</div>
-<div class="max-w-7xl mx-auto pt-8 md:pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-10">
-<p class="text-slate-600 text-[9px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.4em] uppercase font-bold text-center md:text-left">© 2026 ElevatIA Neural Systems. Todos los derechos reservados.</p>
-<div class="flex items-center gap-4 px-6 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5">
-<span class="relative flex h-2 w-2">
-<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
-<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-</span>
-<span class="text-[10px] font-mono uppercase tracking-[0.3em] text-emerald-500 font-bold">Estado del sistema: Operativo</span>
-</div>
-</div>
+
+<!-- PIE -->
+<footer class="e-w e-pie">
+  <div class="e-pie-in">
+    <div><img class="e-logo" src="./img/logo.png" alt="ElevatIA" width="640" height="105"/><p>Automatización e inteligencia artificial aplicada a negocios que quieren crecer mejor.</p></div>
+    <nav aria-label="Pie de página"><a href="#servicios">Servicios</a><a href="#planes">Planes</a><a href="#demos">Demos</a><a href="#proceso">Cómo trabajamos</a><a href="#casos">Casos</a><a href="#nosotros">Nosotros</a><a href="#contacto">Contacto</a><a href="/privacidad/">Política de privacidad</a></nav>
+  </div>
+  <div class="e-copy">© 2026 ElevatIA SRL · Santo Domingo, República Dominicana</div>
 </footer>
-<!-- Lead Capture Modal -->
-<div id="leadModal" class="hidden fixed inset-0 z-[100] bg-black/90 items-center justify-center p-0 sm:p-4" onclick="if(event.target===this)closeLead()">
-<div class="glass-card rounded-none sm:rounded-3xl glow-border-magenta w-full sm:max-w-xl h-full sm:h-auto sm:max-h-[95vh] overflow-y-auto flex flex-col" style="background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(20,20,30,0.95) 100%);">
-<div class="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-gradient-to-r from-primary/15 to-accent-blue/15 sticky top-0 shrink-0 z-10">
-<div class="min-w-0">
-<h3 class="font-black text-base sm:text-lg uppercase tracking-tight">Agenda tu Sesión</h3>
-<p class="text-[10px] sm:text-xs text-slate-400 mt-1">Cuéntanos sobre tu proyecto · Respuesta en 24h</p>
-</div>
-<button onclick="closeLead()" aria-label="Cerrar" class="size-9 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors shrink-0">
-<span class="material-symbols-outlined text-slate-400">close</span>
-</button>
-</div>
-<form id="leadForm" onsubmit="submitLead(event)" class="p-5 sm:p-6 space-y-4">
-<div>
-<label class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-400 font-bold block mb-2">Nombre Completo <span class="text-primary">*</span></label>
-<input type="text" name="nombre" required placeholder="Tu nombre" class="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-primary/60 focus:bg-white/10 transition-all">
-</div>
-<div>
-<label class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-400 font-bold block mb-2">Correo Electrónico <span class="text-primary">*</span></label>
-<input type="email" name="correo" required placeholder="tu@correo.com" class="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-primary/60 focus:bg-white/10 transition-all">
-</div>
-<div>
-<label class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-400 font-bold block mb-2">Teléfono / WhatsApp <span class="text-primary">*</span></label>
-<input type="tel" name="telefono" required placeholder="+1 809 000 0000" class="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-primary/60 focus:bg-white/10 transition-all">
-</div>
-<div>
-<label class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-400 font-bold block mb-2">Empresa o Negocio</label>
-<input type="text" name="empresa" placeholder="Nombre de tu empresa (opcional)" class="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-primary/60 focus:bg-white/10 transition-all">
-</div>
-<div>
-<label class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-400 font-bold block mb-2">Describe el Bot/Solución que necesitas <span class="text-primary">*</span></label>
-<textarea name="descripcion" required rows="4" placeholder="Ej: Quiero un bot para WhatsApp que tome pedidos de mi restaurante y los envíe a mi sistema de cocina..." class="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-primary/60 focus:bg-white/10 transition-all resize-none"></textarea>
-</div>
-<button type="submit" id="leadSubmitBtn" class="w-full py-4 bg-primary text-white font-black rounded-xl text-xs sm:text-sm glow-button uppercase tracking-[0.2em] hover:opacity-95 transition-all">
-                    Enviar Solicitud
-                </button>
-<p class="text-[10px] text-center text-slate-500 leading-relaxed">
-                    🔒 Tu información es privada. Te contactamos en <strong class="text-white">menos de 24 horas hábiles</strong>.
-                </p>
-</form>
+
+<!-- Formulario de contacto -->
+<div id="leadModal" class="e-modal hidden fixed inset-0 z-[100] items-center justify-center p-0 sm:p-4" onclick="if(event.target===this)closeLead()">
+<div class="e-form-caja">
+  <button class="e-cerrar" onclick="closeLead()" aria-label="Cerrar">✕</button>
+  <h3>Agenda tu sesión</h3>
+  <p class="e-sub">Cuéntanos sobre tu proyecto · Respuesta en 24 h</p>
+  <form id="leadForm" onsubmit="submitLead(event)">
+    <label class="e-campo"><span>Nombre completo <i>*</i></span><input type="text" name="nombre" required placeholder="Tu nombre"/></label>
+    <label class="e-campo"><span>Correo electrónico <i>*</i></span><input type="email" name="correo" required placeholder="tu@correo.com"/></label>
+    <label class="e-campo"><span>Teléfono / WhatsApp <i>*</i></span><input type="tel" name="telefono" required placeholder="+1 809 000 0000"/></label>
+    <label class="e-campo"><span>Empresa o negocio</span><input type="text" name="empresa" placeholder="Nombre de tu empresa (opcional)"/></label>
+    <label class="e-campo"><span>Describe el bot o solución que necesitas <i>*</i></span><textarea name="descripcion" required rows="4" placeholder="Ej: Quiero un bot para WhatsApp que tome pedidos de mi restaurante y los envíe a mi sistema de cocina..."></textarea></label>
+    <button type="submit" id="leadSubmitBtn" class="e-pill">Enviar solicitud →</button>
+    <p class="e-priv">🔒 Tu información es privada. Te contactamos en <b>menos de 24 horas hábiles</b>. <a href="/privacidad/" style="text-decoration:underline">Política de privacidad</a></p>
+  </form>
 </div>
 </div>
 <script>
 (function(){
-  // ===== LEAD WEBHOOK CONFIG =====
-  // ⚠️ Pega aquí la URL del webhook de n8n para leads
   const LEAD_WEBHOOK = 'https://n8n.elevatia.do/webhook/leads-elevatia';
-  // ===============================
-  const WA = '18492207283';
+  const WA = '18098606379';
 
   window.openLead = function(){
     const m = document.getElementById('leadModal');
@@ -1147,17 +646,14 @@ window.mobileMenuToggle = function(){
 
     let success = false;
     try {
-      if (LEAD_WEBHOOK && !LEAD_WEBHOOK.includes('PEGAR_URL')) {
-        const r = await fetch(LEAD_WEBHOOK, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-        if (r.ok) success = true;
-      }
+      const r = await fetch(LEAD_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (r.ok) success = true;
     } catch(err) { /* silent */ }
 
-    // Always also open WhatsApp as backup so user knows it went through
     const msg = 'Hola, quiero agendar una sesión con ElevatIA:%0A%0A*Nombre:* '+encodeURIComponent(data.nombre)+'%0A*Correo:* '+encodeURIComponent(data.correo)+'%0A*Teléfono:* '+encodeURIComponent(data.telefono)+'%0A*Empresa:* '+encodeURIComponent(data.empresa)+'%0A%0A*Lo que necesito:*%0A'+encodeURIComponent(data.descripcion);
     if (!success) {
       window.open('https://wa.me/'+WA+'?text='+msg, '_blank');
@@ -1168,14 +664,11 @@ window.mobileMenuToggle = function(){
   function showLeadSuccess(webhookOK){
     const f = document.getElementById('leadForm');
     f.innerHTML = `
-      <div class="text-center py-8 sm:py-12">
-        <div class="size-20 mx-auto mb-5 rounded-full bg-emerald-500/20 border-2 border-emerald-500/40 flex items-center justify-center">
-          <span class="material-symbols-outlined text-5xl text-emerald-400">check_circle</span>
-        </div>
-        <h4 class="font-black text-2xl mb-3 uppercase italic">¡Solicitud Enviada!</h4>
-        <p class="text-slate-300 mb-2">Recibimos tu información</p>
-        <p class="text-sm text-slate-400 mb-6">${webhookOK ? 'Te contactamos en <strong class="text-white">menos de 24 horas</strong>' : 'Abrimos WhatsApp para confirmar tu solicitud directamente con el equipo'}</p>
-        <button onclick="closeLead()" class="px-8 py-3 bg-white/10 text-white rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-white/15 transition-all">Cerrar</button>
+      <div class="e-ok">
+        <div class="e-check">✓</div>
+        <h4>¡Solicitud enviada!</h4>
+        <p>${webhookOK ? 'Recibimos tu información. Te contactamos en <b>menos de 24 horas hábiles</b>.' : 'Abrimos WhatsApp para confirmar tu solicitud directamente con el equipo.'}</p>
+        <button onclick="closeLead()" class="e-pill e-claro" style="width:auto">Cerrar</button>
       </div>
     `;
   }
@@ -1203,14 +696,14 @@ window.mobileMenuToggle = function(){
 </div>
 <div id="demoBody" class="flex-1 overflow-y-auto"></div>
 <div class="p-3 sm:p-5 border-t border-white/10 bg-background-dark/50 shrink-0">
-<a id="demoCta" href="https://wa.me/18492207283?text=Hola%2C%20quiero%20un%20bot%20como%20el%20de%20la%20demo%20de%20ElevatIA" target="_blank" rel="noopener" class="block w-full py-3 sm:py-4 bg-primary text-white text-center font-black rounded-xl sm:rounded-2xl text-[11px] sm:text-xs glow-button uppercase tracking-[0.15em] sm:tracking-[0.2em]">¿Te gustó? Quiero uno así</a>
+<a id="demoCta" href="https://wa.me/18098606379?text=Hola%2C%20quiero%20un%20bot%20como%20el%20de%20la%20demo%20de%20ElevatIA" target="_blank" rel="noopener" class="block w-full py-3 sm:py-4 bg-primary text-white text-center font-black rounded-xl sm:rounded-2xl text-[11px] sm:text-xs glow-button uppercase tracking-[0.15em] sm:tracking-[0.2em]">¿Te gustó? Quiero uno así</a>
 </div>
 </div>
 </div>
 <script>
 (function(){
   let demoState = {};
-  const WA_NUM = '18492207283';
+  const WA_NUM = '18098606379';
 
   window.openDemo = function(type){
     const modal = document.getElementById('demoModal');
@@ -1820,7 +1313,7 @@ html { scroll-behavior: smooth; }
 </div>
 <script>
 (function(){
-  const WA = '18492207283';
+  const WA = '18098606379';
   // ===== AVATARIA AI CONFIG =====
   // ⚠️ Pega aquí la URL del webhook de n8n cuando lo tengas listo
   const AVATARIA_WEBHOOK = 'https://n8n.elevatia.do/webhook/avataria-chat';
@@ -2281,6 +1774,17 @@ html { scroll-behavior: smooth; }
       }, 300);
     }, 900);
   }
+})();
+</script>
+
+<script>
+(function(){
+  const els = document.querySelectorAll('.e-rv');
+  if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('e-in')); return; }
+  const io = new IntersectionObserver((entradas) => {
+    entradas.forEach(en => { if (en.isIntersecting) { en.target.classList.add('e-in'); io.unobserve(en.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  els.forEach(e => io.observe(e));
 })();
 </script>
 </body></html>
