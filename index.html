@@ -775,6 +775,7 @@ html{scroll-behavior:smooth;scroll-padding-top:90px}
     modal.classList.add('flex');
     body.innerHTML = '';
     if (demoState.voiceTimer) clearInterval(demoState.voiceTimer);
+    if (demoState.voiceAudio) demoState.voiceAudio.pause();
     demoState = {};
     icon.className = 'material-symbols-outlined text-white text-2xl';
     if (type === 'sales') {
@@ -801,6 +802,7 @@ html{scroll-behavior:smooth;scroll-padding-top:90px}
     modal.classList.add('hidden');
     modal.classList.remove('flex');
     if (demoState.voiceTimer) clearInterval(demoState.voiceTimer);
+    if (demoState.voiceAudio) demoState.voiceAudio.pause();
   };
 
   // ============ SALES DEMO (Sales Bot for any business) ============
@@ -1039,7 +1041,7 @@ html{scroll-behavior:smooth;scroll-padding-top:90px}
               <button class="size-12 sm:size-14 rounded-full bg-red-500 flex items-center justify-center text-white shadow-lg" onclick="closeDemo()">
                 <span class="material-symbols-outlined text-lg sm:text-2xl">call_end</span>
               </button>
-              <button class="size-10 sm:size-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-400">
+              <button onclick="voiceMute(this)" aria-label="Silenciar o activar el sonido" class="size-10 sm:size-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-400">
                 <span class="material-symbols-outlined text-lg sm:text-2xl">volume_up</span>
               </button>
             </div>
@@ -1058,31 +1060,47 @@ html{scroll-behavior:smooth;scroll-padding-top:90px}
   }
 
   function voiceRunDemo(){
-    let seconds = 0;
-    const timer = setInterval(() => {
-      seconds++;
-      const t = document.getElementById('voiceTimer');
-      if (!t) { clearInterval(timer); return; }
-      t.textContent = '00:' + String(seconds).padStart(2,'0');
-    }, 1000);
-    demoState.voiceTimer = timer;
+    // La llamada se reproduce desde un solo audio; la transcripción y el reloj siguen su tiempo.
+    const lineas = [
+      { t: 2.40,  who: 'bot',  words: 14, text: 'Buenas tardes, soy AvatarIA, asistente virtual de DistriGas Express. ¿En qué puedo ayudarle?' },
+      { t: 9.14,  who: 'user', words: 8,  text: 'Hola, quiero ordenar gas para mi casa.' },
+      { t: 11.99, who: 'bot',  words: 11, text: 'Perfecto. ¿Me confirma su dirección registrada: Calle Duarte número 45?' },
+      { t: 17.75, who: 'user', words: 8,  text: 'Sí, esa misma. Quiero un cilindro grande.' },
+      { t: 21.20, who: 'bot',  words: 19, text: 'Excelente. Cilindro de 100 libras por 2,800 pesos. Entrega hoy entre 3 y 5 de la tarde. ¿Lo confirmamos?' },
+      { t: 30.03, who: 'user', words: 4,  text: 'Sí, confirmamos. Gracias.' },
+      { t: 32.57, who: 'bot',  words: 18, text: 'Listo. Su pedido número 2847 está confirmado. Le envío un SMS de confirmación. ¡Que tenga buen día!' }
+    ];
+    const CONECTA = 1.95, FIN = 41.9;
     demoState.voiceWords = 0;
 
-    const script = [
-      { delay: 1500, action: () => {
+    // Si el navegador bloquea el sonido o el archivo no carga, la demo corre igual con un reloj.
+    const audio = new Audio('./audio/demo-voz.mp3');
+    demoState.voiceAudio = audio;
+    let modo = 'espera', base = 0;
+    audio.play().then(() => { modo = 'audio'; }).catch(() => { modo = 'reloj'; base = performance.now(); });
+    const ahora = () => modo === 'audio' ? (audio.ended ? FIN + 1 : audio.currentTime)
+                     : modo === 'reloj' ? (performance.now() - base) / 1000 : 0;
+
+    let paso = -1, conectada = false;
+    const timer = setInterval(() => {
+      const reloj = document.getElementById('voiceTimer');
+      if (!reloj) { clearInterval(timer); audio.pause(); return; }
+      reloj.dataset.modo = modo;
+      const t = ahora();
+      const seconds = Math.max(0, Math.floor(Math.min(t, FIN) - CONECTA));
+      if (!conectada && t >= CONECTA) {
+        conectada = true;
         const s = document.getElementById('voiceStatusText');
         const status = document.getElementById('voiceStatus');
         if (s) s.textContent = 'Llamada en curso';
         if (status) status.className = 'text-[10px] uppercase tracking-[0.3em] text-emerald-400 font-bold mb-2 flex items-center justify-center gap-2';
-      }},
-      { delay: 2300, action: () => voiceLine('bot', 'Buenas tardes, soy AvatarIA, asistente virtual de DistriGas Express. ¿En qué puedo ayudarle?', 14) },
-      { delay: 5000, action: () => voiceLine('user', 'Hola, quiero ordenar gas para mi casa.', 8) },
-      { delay: 7400, action: () => voiceLine('bot', 'Perfecto. ¿Me confirma su dirección registrada: Calle Duarte número 45?', 11) },
-      { delay: 10300, action: () => voiceLine('user', 'Sí, esa misma. Quiero un cilindro grande.', 8) },
-      { delay: 12700, action: () => voiceLine('bot', 'Excelente. Cilindro de 100 libras por 2,800 pesos. Entrega hoy entre 3 y 5 de la tarde. ¿Lo confirmamos?', 19) },
-      { delay: 16000, action: () => voiceLine('user', 'Sí, confirmamos. Gracias.', 4) },
-      { delay: 18000, action: () => voiceLine('bot', 'Listo. Su pedido número 2847 está confirmado. Le envío SMS de confirmación. ¡Que tenga buen día!', 18) },
-      { delay: 21500, action: () => {
+      }
+      if (conectada) reloj.textContent = String(Math.floor(seconds / 60)).padStart(2, '0') + ':' + String(seconds % 60).padStart(2, '0');
+      while (paso + 1 < lineas.length && t >= lineas[paso + 1].t) {
+        paso++;
+        voiceLine(lineas[paso].who, lineas[paso].text, lineas[paso].words);
+      }
+      if (t >= FIN) {
         clearInterval(timer);
         const s = document.getElementById('voiceStatusText');
         const status = document.getElementById('voiceStatus');
@@ -1095,10 +1113,17 @@ html{scroll-behavior:smooth;scroll-padding-top:90px}
         voiceShowSummary(seconds);
         document.getElementById('demoCta').textContent = 'Quiero un asistente de voz IA así';
         document.getElementById('demoCta').href = 'https://wa.me/'+WA_NUM+'?text='+encodeURIComponent('Hola, quiero un asistente de voz IA para mi negocio como el de la demo');
-      }}
-    ];
-    script.forEach(s => setTimeout(s.action, s.delay));
+      }
+    }, 200);
+    demoState.voiceTimer = timer;
   }
+
+  window.voiceMute = function(boton){
+    const a = demoState.voiceAudio;
+    if (!a) return;
+    a.muted = !a.muted;
+    boton.querySelector('span').textContent = a.muted ? 'volume_off' : 'volume_up';
+  };
 
   function voiceLine(who, text, words){
     const t = document.getElementById('voiceTranscript');
@@ -1109,7 +1134,7 @@ html{scroll-behavior:smooth;scroll-padding-top:90px}
     if (who === 'bot') {
       d.innerHTML = '<div class="flex gap-2 items-start"><span class="text-[9px] uppercase tracking-widest text-accent-blue font-bold shrink-0 pt-0.5 bg-accent-blue/10 px-1.5 py-0.5 rounded">IA</span><p class="text-[12px] text-slate-200 italic leading-relaxed">"'+text+'"</p></div>';
     } else {
-      d.innerHTML = '<div class="flex gap-2 items-start"><span class="text-[9px] uppercase tracking-widest text-emerald-400 font-bold shrink-0 pt-0.5 bg-emerald-500/10 px-1.5 py-0.5 rounded">YOU</span><p class="text-[12px] text-slate-300 italic leading-relaxed">"'+text+'"</p></div>';
+      d.innerHTML = '<div class="flex gap-2 items-start"><span class="text-[9px] uppercase tracking-widest text-emerald-400 font-bold shrink-0 pt-0.5 bg-emerald-500/10 px-1.5 py-0.5 rounded">Cliente</span><p class="text-[12px] text-slate-300 italic leading-relaxed">"'+text+'"</p></div>';
     }
     t.appendChild(d);
     scrollDown(t);
